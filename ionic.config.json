@@ -1,0 +1,7 @@
+{
+  "name": "MultimediaCompetition",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
