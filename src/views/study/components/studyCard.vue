@@ -68,7 +68,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"ç»„_263\" data-name=\"ç»
 </script>
 
 <template>
-  <ion-card>
+  <ion-card class="main">
     <!--        <ion-card-header>-->
     <!--          <ion-card-title>Card Title</ion-card-title>-->
     <!--          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>-->
@@ -130,9 +130,12 @@ ion-card.inner {
   position: relative;
   width: 90%;
   display: inline-block;
-  margin: 0;
   height: 80px;
 }
+ion-card {
+  margin: 0;
+}
+
 ion-card.inner ion-card-content {
   height: 100%;
 }
@@ -148,6 +151,13 @@ ion-text {
 
 ion-icon.right {
   vertical-align: bottom;
+}
+
+.card-content-ios {
+  -webkit-padding-start: 0;
+  padding-inline-start: 0;
+  -webkit-padding-end: 0;
+  padding-inline-end: 0;
 }
 
 ion-icon.bottom {

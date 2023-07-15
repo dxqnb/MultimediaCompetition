@@ -4,11 +4,11 @@
       <ion-toolbar>
         <ion-text slot="start" style="margin-left: 10px">
           <h3 style="margin-bottom: 5px">学习</h3>
-          <div style="border: 3px solid #000000;border-radius: 10px;width:12px;margin: 0 auto"></div>
+          <div style="border: 3px solid var(--color);border-radius: 10px;width:12px;margin: 0 auto"></div>
         </ion-text>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content :fullscreen="true" class="ion-padding">
       <swiper
           :effect="'cards'"
           :grabCursor="true"
@@ -20,9 +20,9 @@
           @swiper="onSwiper"
       >
         <swiper-slide>
-          <img src="https://www.0030.store/sw1.png" alt="">
+          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">
         </swiper-slide>
-        <swiper-slide><img src="https://www.0030.store/sw1.png" alt=""></swiper-slide>
+        <swiper-slide><img src="https://www.0030.store/swiperAd/ad2.png" alt=""></swiper-slide>
         <swiper-slide>
           <ion-img src="https://www.0030.store/sw1.png"></ion-img>
         </swiper-slide>
@@ -35,12 +35,26 @@
       </swiper>
       <study-card></study-card>
 
+      <study-area></study-area>
+      <robot></robot>
+
     </ion-content>
+
   </ion-page>
 </template>
-<style>
+<style scoped>
+ion-toolbar {
+  --opacity: 0.1;
+}
+
+ion-content::part(background) {
+  background: url("https://www.0030.store/background.png") top right no-repeat, linear-gradient(to bottom, #5D7BE5, #ffffff, #ffffff);
+  background-size: 140%;
+  filter: blur(1.5px);
+}
+
 .swiper {
-  width: 80%;
+  width: 90%;
   height: 120px;
   overflow: visible;
   margin: 30px auto;
@@ -57,7 +71,7 @@
 }
 
 img {
-  height: 100%;
+  width: 100%;
   object-fit: cover !important;
 }
 
@@ -121,7 +135,9 @@ import {EffectCards} from 'swiper/modules';
 import 'swiper/css/effect-cards';
 import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
 import 'swiper/css';
-import StudyCard from "@/components/studyCard.vue";
+import StudyCard from "@/views/study/components/studyCard.vue";
+import StudyArea from "@/views/study/components/studyArea.vue";
+import Robot from "@/components/robot.vue";
 
 const modules = ref([EffectCards]);
 
