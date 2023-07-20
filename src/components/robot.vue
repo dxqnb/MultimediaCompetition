@@ -8,17 +8,9 @@ import {
   IonIcon,
   IonTitle,
   IonToolbar,
-  IonImg
+  IonImg, createGesture
 } from '@ionic/vue';
-import {
-  chevronDownCircle,
-  chevronForwardCircle,
-  chevronUpCircle,
-  colorPalette,
-  document,
-  globe,
-} from 'ionicons/icons';
-import {ref} from "vue";
+import {ref,onMounted} from "vue";
 
 const a = ref(false);
 
@@ -57,20 +49,58 @@ const robot = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/s
     "  </g>\n" +
     "</svg>\n");
 const rightPx = ref("-80px");
+const rightPxNum = ref(80);
 const trigger = ref("robot");
 
 function openRobot() {
+  console.log("openRobot");
   if (a.value) {
     rightPx.value = "-40px";
+    rightPxNum.value = -40;
+
   } else {
     rightPx.value = "-80px";
+    rightPxNum.value = -80;
   }
 }
 
+
+
+const animations = ref();
+
+let xpx = ref("28px");
+let ypx = ref(28);
+
+onMounted(() => {
+  // const animation = createAnimation()
+  //     .addElement(animations.value.$el)
+  //     .duration(1000)
+  //     .fromTo('top', '0', `${x}px`)
+  //     .fromTo('left', '0', `${y}px`);
+  const gesture = createGesture({
+    el: animations.value.$el,
+    threshold: 0,
+    onStart: () => {
+      // animation.progressStart();
+      console.log('Gesture started');
+      ypx.value=Number(xpx.value.substring(0,xpx.value.length-2));
+      rightPxNum.value=Number(rightPx.value.substring(0,rightPx.value.length-2));
+    },
+    onMove: (ev) => {
+      xpx.value = ypx.value-ev.deltaY+"px";
+      rightPx.value = rightPxNum.value-ev.deltaX+"px";
+
+    },
+    onEnd: () => {
+      console.log('Gesture ended');
+    }
+  });
+  gesture.enable();
+});
 </script>
 
 <template>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" :edge="true">
+  <ion-fab ref="animations" slot="fixed" vertical="bottom" horizontal="end" :edge="true">
     <ion-fab-button class="robotButton" id="robot" style="height: 150px;width: 150px;" @click="()=>{a=!a;openRobot()}"
                     :activated="a" :close-icon="robot">
       <ion-icon :src="closeRobot"></ion-icon>
@@ -89,13 +119,19 @@ function openRobot() {
 </template>
 
 <style scoped>
-ion-popover {
+/*ion-popover {
   --background: #4382ff;
   --backdrop-opacity: 0.6;
   --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
   --color: white;
+}*/
+.ion-color-primary{
+  --ion-color-base: #4382ff !important;
 }
-
+.fab-list-side-top {
+  bottom: 45%;
+  left: -15%;
+}
 
 /*ion-popover::part(backdrop) {
   background-color: rgb(6, 14, 106);
@@ -132,6 +168,7 @@ ion-icon {
 
 ion-fab {
   right: v-bind(rightPx);
-  transition: right 0.5s;
+  /*transition: right 0.5s;*/
+  bottom: v-bind(xpx);
 }
 </style>

@@ -26,6 +26,10 @@ import {Capacitor} from '@capacitor/core';
 
 /* Theme variables */
 import './theme/variables.css';
+
+import 'xgplayer/dist/index.min.css';
+
+
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
     .use(IonicVue)

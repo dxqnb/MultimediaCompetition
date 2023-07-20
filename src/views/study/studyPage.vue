@@ -1,14 +1,25 @@
 <template>
   <ion-page class="page">
-    <ion-header class="ion-no-border" :translucent="true">
-      <ion-toolbar>
-        <ion-text slot="start" style="margin-left: 10px">
-          <h3 style="margin-bottom: 5px">学习</h3>
-          <div style="border: 3px solid var(--color);border-radius: 10px;width:12px;margin: 0 auto"></div>
+    <ion-header collapse="fade" class="ion-no-border">
+      <ion-toolbar color="primary" class="head">
+        <!--        <ion-title color="light">-->
+        <!--          <h3 style="margin-bottom: 5px;">学习</h3>-->
+        <!--        </ion-title>-->
+        <ion-text size="large" color="light" slot="start" style="margin-left: 20px;margin-top: 10px;margin-bottom: 0px">
+          <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>
+          <div style="border: 3px solid var(--ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>
         </ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
+<!--      <ion-header class="ion-no-border" collapse="condense">-->
+<!--        <ion-toolbar class="seHead">-->
+<!--          <ion-text size="large" color="light" slot="start" style="margin-left: 10px">-->
+<!--            <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>-->
+<!--            <div style="border: 3px solid var(&#45;&#45;ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>-->
+<!--          </ion-text>-->
+<!--        </ion-toolbar>-->
+<!--      </ion-header>-->
       <swiper
           :effect="'cards'"
           :grabCursor="true"
@@ -43,8 +54,12 @@
   </ion-page>
 </template>
 <style scoped>
-ion-toolbar {
-  --opacity: 0.1;
+ion-toolbar.head {
+}
+
+ion-toolbar.seHead {
+  --opacity: 0;
+  padding-top: 0 !important;
 }
 
 ion-content::part(background) {
@@ -127,7 +142,16 @@ import {
   IonButton,
   IonSearchbar,
   IonItem,
-  IonList, IonCard, IonCardHeader, IonText, IonFooter, IonCardContent, IonCardSubtitle, IonCardTitle, IonImg
+  IonList,
+  IonCard,
+  IonCardHeader,
+  IonText,
+  IonFooter,
+  IonCardContent,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonImg,
+  GestureDetail, createAnimation, createGesture
 } from '@ionic/vue';
 import {defineComponent, onMounted, onUnmounted, ref} from "vue";
 import io from 'socket.io-client';
@@ -138,6 +162,7 @@ import 'swiper/css';
 import StudyCard from "@/views/study/components/studyCard.vue";
 import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
+
 
 const modules = ref([EffectCards]);
 

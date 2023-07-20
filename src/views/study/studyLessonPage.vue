@@ -1,37 +1,60 @@
 <script setup lang="ts">
 
 import {
-  IonText,
-  IonLabel,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButtons,
+  IonBackButton,
+  IonIcon,
   IonSegment,
   IonSegmentButton,
+  IonLabel,
   IonContent,
   IonList,
   IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonAvatar,
-  IonItem
+  IonRefresher,
+  IonRefresherContent,
+  IonItemGroup,
+  IonButton,
 } from "@ionic/vue";
+import {searchOutline} from 'ionicons/icons';
 import {reactive} from "vue";
-import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
+import LessonItem from "@/views/study/components/lessonItem.vue";
 
 const items = reactive([]);
+
+function handleRefresh(event: CustomEvent) {
+  setTimeout(() => {
+    // Any calls to load data go here
+    event.target.complete();
+  }, 1000);
+};
 
 for (let i = 1; i < 20; i++) {
   items.push("Item " + i);
 }
-
 </script>
 
 <template>
-  <div>
-    <ion-text @click="$router.push('/study/lessons')" style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
-      <h4 style="color: #474747;font-weight: bolder;">学习专区</h4>
-      <div
-          style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
-    </ion-text>
-    <div class="area">
-      <ion-segment mode="ios" value="first">
+  <IonPage>
+    <IonHeader class="ion-no-border ion-padding">
+      <IonToolbar>
+        <ion-buttons slot="start">
+          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+        </ion-buttons>
+        <IonTitle>学习专区</IonTitle>
+        <ion-buttons slot="end">
+          <ion-button>
+            <ion-icon :icon="searchOutline"/>
+
+          </ion-button>
+        </ion-buttons>
+      </IonToolbar>
+    </IonHeader>
+    <ion-content :scroll-y="false" :fullscreen="true" class="ion-padding">
+      <ion-segment value="first" mode="ios">
         <ion-segment-button value="first">
           <ion-label><h3 style="font-weight: 900">专业课程</h3></ion-label>
         </ion-segment-button>
@@ -45,9 +68,14 @@ for (let i = 1; i < 20; i++) {
           <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
-      <ion-content style="height: 80vh;">
+      <ion-content style="height: 85vh;">
         <ion-list>
-          <study-area-item v-for="(item, index) in items" :item="item" :index="index"></study-area-item>
+          <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-item-group class="ion-content-scroll-host">
+            <lesson-item v-for="(item, index) in items" :item="item" :index="index"></lesson-item>
+          </ion-item-group>
         </ion-list>
         <ion-infinite-scroll>
           <div class="infinite-scroll-content">
@@ -106,111 +134,32 @@ for (let i = 1; i < 20; i++) {
           </div>
         </ion-infinite-scroll>
       </ion-content>
-    </div>
-  </div>
+    </ion-content>
+  </IonPage>
 </template>
 
 <style scoped>
-.area {
-  width: 95%;
-  margin: 0 auto;
-}
-
 ion-segment {
   --background: var(--ion-background-color);
-  height: 46px;
 }
 
-/* Material Design styles */
-ion-segment-button.md::part(native) {
+/*ion-list{
+  --ion-item-background: #ffffff;
+}*/
+
+ion-segment-button::part(native) {
   color: #474747;
 }
 
-.segment-button-checked.md::part(native) {
-  color: #08a391;
+.segment-button-checked::part(native) {
+  color: #ffffff;
 }
 
-ion-segment-button.md::part(indicator-background) {
-  height: 4px;
+ion-segment-button {
+  --indicator-color: #5b78ec;
+  --border-radius: 20px;
+  --color-checked: #fff;
+
 }
 
-/* iOS styles */
-/*ion-segment-button.ios:nth-child(1)::part(native) {
-
-  color: #08a391;
-}*/
-ion-segment-button:nth-child(1) {
-  --background: #999999;
-  border-radius: 0 20px 0 0;
-  z-index: 4;
-}
-
-ion-segment-button.ios:nth-child(2) {
-  --background: #8997ef;
-  border-radius: 0 20px 0 0;
-  position: relative;
-  z-index: 3;
-}
-
-ion-segment-button.ios::before {
-  position: absolute;
-  margin: 0;
-  left: -20px;
-  top: 0;
-  z-index: -9999;
-  border-left: 20px solid var(--background);
-  content: "";
-  transition: opacity 50ms ease-in-out 50ms;
-  height: 42px;
-  will-change: opacity;
-}
-
-/*ion-segment-button.ios::part(indicator-background)::before {
-  position: absolute;
-  margin: 0;
-  left: -20px;
-  top: 0;
-  z-index: -9999;
-  border-left: 20px solid var(--background);
-  content: "";
-  transition: opacity 50ms ease-in-out 50ms;
-  height: 42px;
-  will-change: opacity;
-  opacity: 1 !important;
-}*/
-
-ion-segment-button.ios:nth-child(3) {
-  --background: #d6f5ff;
-  border-radius: 0 20px 0 0;
-  z-index: 2;
-}
-
-ion-segment-button.ios:nth-child(4) {
-  --background: #fff8d6;
-  border-radius: 0 20px 0 0;
-  z-index: 1;
-}
-
-.segment-button-checked.ios::part(native) {
-  color: #8997ef !important;
-}
-
-ion-segment-button.ios::part(indicator-background) {
-  border-radius: 0 20px 0 0;
-}
-
-.segment-button-after-checked::before {
-  opacity: 1 !important;
-}
-
-svg {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-  }
-
-  .infinite-scroll-content {
-    text-align: center;
-    padding: 20px 0;
-  }
 </style>
