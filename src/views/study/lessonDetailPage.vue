@@ -242,7 +242,7 @@ function onScroll(event) {
                   <ion-list>
                     <ion-item>
                       <ion-avatar slot="start">
-                        <img src="http://localhost:8100/favicon.png" alt="">
+                        <img src="https://localhost:8100/favicon.png" alt="">
                       </ion-avatar>
                       <ion-label>
                         <h2>王思睿</h2>
@@ -251,7 +251,7 @@ function onScroll(event) {
                     </ion-item>
                     <ion-item>
                       <ion-avatar slot="start">
-                        <img src="http://localhost:8100/favicon.png">
+                        <img src="https://localhost:8100/favicon.png">
                       </ion-avatar>
                       <ion-label>
                         <h2>王思睿</h2>
@@ -260,7 +260,7 @@ function onScroll(event) {
                     </ion-item>
                     <ion-item>
                       <ion-avatar slot="start">
-                        <img src="http://localhost:8100/favicon.png">
+                        <img src="https://localhost:8100/favicon.png">
                       </ion-avatar>
                       <ion-label>
                         <h2>王思睿</h2>
@@ -269,7 +269,7 @@ function onScroll(event) {
                     </ion-item>
                     <ion-item>
                       <ion-avatar slot="start">
-                        <img src="http://localhost:8100/favicon.png">
+                        <img src="https://localhost:8100/favicon.png">
                       </ion-avatar>
                       <ion-label>
                         <h2>王思睿</h2>
@@ -278,7 +278,7 @@ function onScroll(event) {
                     </ion-item>
                     <ion-item>
                       <ion-avatar slot="start">
-                        <img src="http://localhost:8100/favicon.png">
+                        <img src="https://localhost:8100/favicon.png">
                       </ion-avatar>
                       <ion-label>
                         <h2>王思睿</h2>
