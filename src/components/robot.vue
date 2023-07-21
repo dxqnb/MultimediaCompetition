@@ -10,7 +10,7 @@ import {
   IonToolbar,
   IonImg, createGesture
 } from '@ionic/vue';
-import {ref,onMounted} from "vue";
+import {ref, onMounted} from "vue";
 
 const a = ref(false);
 
@@ -53,7 +53,6 @@ const rightPxNum = ref(80);
 const trigger = ref("robot");
 
 function openRobot() {
-  console.log("openRobot");
   if (a.value) {
     rightPx.value = "-40px";
     rightPxNum.value = -40;
@@ -65,8 +64,8 @@ function openRobot() {
 }
 
 
-
 const animations = ref();
+const transition = ref("all 0.5s");
 
 let xpx = ref("28px");
 let ypx = ref(28);
@@ -81,18 +80,25 @@ onMounted(() => {
     el: animations.value.$el,
     threshold: 0,
     onStart: () => {
-      // animation.progressStart();
-      console.log('Gesture started');
-      ypx.value=Number(xpx.value.substring(0,xpx.value.length-2));
-      rightPxNum.value=Number(rightPx.value.substring(0,rightPx.value.length-2));
+      ypx.value = Number(xpx.value.substring(0, xpx.value.length - 2));
+      rightPxNum.value = Number(rightPx.value.substring(0, rightPx.value.length - 2));
+      transition.value = "";
     },
     onMove: (ev) => {
-      xpx.value = ypx.value-ev.deltaY+"px";
-      rightPx.value = rightPxNum.value-ev.deltaX+"px";
+      xpx.value = ypx.value - ev.deltaY + "px";
+      rightPx.value = rightPxNum.value - ev.deltaX + "px";
 
     },
     onEnd: () => {
-      console.log('Gesture ended');
+      transition.value = "all 0.5s";
+      if (a.value) {
+        rightPx.value = "-40px";
+        rightPxNum.value = -40;
+
+      } else {
+        rightPx.value = "-80px";
+        rightPxNum.value = -80;
+      }
     }
   });
   gesture.enable();
@@ -125,9 +131,10 @@ onMounted(() => {
   --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
   --color: white;
 }*/
-.ion-color-primary{
+.ion-color-primary {
   --ion-color-base: #4382ff !important;
 }
+
 .fab-list-side-top {
   bottom: 45%;
   left: -15%;
@@ -157,7 +164,8 @@ ion-fab-button.text {
   width: 80px;
   --border-radius: 5px;
 }
-ion-fab-list{
+
+ion-fab-list {
   right: 120px;
 }
 
@@ -168,7 +176,7 @@ ion-icon {
 
 ion-fab {
   right: v-bind(rightPx);
-  /*transition: right 0.5s;*/
+  transition: v-bind(transition);
   bottom: v-bind(xpx);
 }
 </style>

@@ -16,7 +16,7 @@ const props = defineProps(['item', 'index']);
       <p style="font-size: 6px;padding-bottom: 10px">王思睿</p>
       <p style="font-size: 6px">2018</p>
     </ion-label>
-    <ion-button slot="end">加入课程</ion-button>
+    <ion-button slot="end" @click="$router.push('/study/lesson/1')"><ion-text color="light">加入课程</ion-text></ion-button>
   </ion-item>
     <ion-item-options>
         <ion-item-option>Favorite</ion-item-option>
