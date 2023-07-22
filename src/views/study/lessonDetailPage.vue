@@ -44,7 +44,7 @@ onIonViewDidEnter(() => {
 
 })
 
-function onScroll(event) {
+function onScroll(event: any) {
   // const scrollElement = event.target.$el;
   // const scrollTop = scrollElement.scrollTop;
   // console.log(event.target.detail.scrollTop)
