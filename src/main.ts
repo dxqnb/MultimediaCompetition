@@ -28,8 +28,9 @@ import {Capacitor} from '@capacitor/core';
 import './theme/variables.css';
 
 import 'xgplayer/dist/index.min.css';
+import { inject } from '@vercel/analytics';
 
-
+inject();
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
     .use(IonicVue)

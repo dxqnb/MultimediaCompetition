@@ -29,6 +29,7 @@
     "@ionic/vue": "7.2.0",
     "@ionic/vue-router": "7.2.0",
     "@jridgewell/sourcemap-codec": "^1.4.15",
+    "@vercel/analytics": "^1.0.1",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "axios": "^1.4.0",
     "cordova-plugin-compat": "1.2.0",
