@@ -8,7 +8,7 @@ import {
   IonIcon,
   IonTitle,
   IonToolbar,
-  IonImg, createGesture
+  IonImg, createGesture, GestureDetail
 } from '@ionic/vue';
 import {ref, onMounted} from "vue";
 
@@ -77,6 +77,22 @@ onMounted(() => {
   //     .fromTo('top', '0', `${x}px`)
   //     .fromTo('left', '0', `${y}px`);
   const gesture = createGesture({
+    blurOnStart: false,
+    canStart(detail: GestureDetail): boolean | void {
+      return undefined;
+    },
+    direction: undefined,
+    disableScroll: false,
+    gestureName: "",
+    gesturePriority: 0,
+    maxAngle: 0,
+    notCaptured(detail: GestureDetail): boolean | void {
+      return undefined;
+    },
+    onWillStart(_: GestureDetail): Promise<void> {
+      return Promise.resolve(undefined);
+    },
+    passive: false,
     el: animations.value.$el,
     threshold: 0,
     onStart: () => {

@@ -15,7 +15,7 @@ import {
 import {reactive} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
 
-const items = reactive([]);
+const items = reactive([""]);
 
 for (let i = 1; i < 20; i++) {
   items.push("Item " + i);

@@ -12,14 +12,14 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
-<!--      <ion-header class="ion-no-border" collapse="condense">-->
-<!--        <ion-toolbar class="seHead">-->
-<!--          <ion-text size="large" color="light" slot="start" style="margin-left: 10px">-->
-<!--            <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>-->
-<!--            <div style="border: 3px solid var(&#45;&#45;ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>-->
-<!--          </ion-text>-->
-<!--        </ion-toolbar>-->
-<!--      </ion-header>-->
+      <!--      <ion-header class="ion-no-border" collapse="condense">-->
+      <!--        <ion-toolbar class="seHead">-->
+      <!--          <ion-text size="large" color="light" slot="start" style="margin-left: 10px">-->
+      <!--            <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>-->
+      <!--            <div style="border: 3px solid var(&#45;&#45;ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>-->
+      <!--          </ion-text>-->
+      <!--        </ion-toolbar>-->
+      <!--      </ion-header>-->
       <swiper
           :effect="'cards'"
           :grabCursor="true"
@@ -168,7 +168,7 @@ const modules = ref([EffectCards]);
 
 // onMounted(() => {
 const sw = ref();
-const onSwiper = (swiper) => {
+const onSwiper = (swiper: any) => {
   sw.value = swiper;
 
   setTimeout(function () {

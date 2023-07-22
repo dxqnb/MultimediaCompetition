@@ -23,9 +23,9 @@ import {searchOutline} from 'ionicons/icons';
 import {reactive} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
 
-const items = reactive([]);
+const items = reactive([""]);
 
-function handleRefresh(event: CustomEvent) {
+function handleRefresh(event: any) {
   setTimeout(() => {
     // Any calls to load data go here
     event.target.complete();
