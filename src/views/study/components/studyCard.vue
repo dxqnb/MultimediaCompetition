@@ -79,19 +79,19 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
         <ion-row>
           <ion-col>
             <ion-icon aria-hidden="true" :icon="firstIcon" size="large"/>
-            <ion-label style="display: block;font-size: 10px;margin-top: 5px">通知公告</ion-label>
+            <ion-label style="display: block;font-size: 12px;margin-top: 5px">通知公告</ion-label>
           </ion-col>
           <ion-col>
             <ion-icon aria-hidden="true" :icon="secondIcon" size="large"/>
-            <ion-label style="display: block;font-size: 10px;margin-top: 5px">我的课表</ion-label>
+            <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的课表</ion-label>
           </ion-col>
           <ion-col>
             <ion-icon aria-hidden="true" :icon="thirdIcon" size="large"/>
-            <ion-label style="display: block;font-size: 10px;margin-top: 5px">我的学习</ion-label>
+            <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的学习</ion-label>
           </ion-col>
           <ion-col>
             <ion-icon aria-hidden="true" :icon="fourthIcon" size="large"/>
-            <ion-label style="display: block;font-size: 10px;margin-top: 5px">队友动态</ion-label>
+            <ion-label style="display: block;font-size: 12px;margin-top: 5px">队友动态</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -99,7 +99,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
         <ion-col>
           <ion-card class="inner" color="secondary">
             <ion-card-content>
-              <ion-text>技术前言
+              <ion-text style="font-size: 16px">技术前言
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
               </ion-text>
               <ion-icon class="bottom" aria-hidden="true" :icon="searchIcon" size="large"/>
@@ -109,7 +109,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
         <ion-col>
           <ion-card class="inner" color="tertiary">
             <ion-card-content>
-              <ion-text>今日要闻
+              <ion-text style="font-size: 16px">今日要闻
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
               </ion-text>
               <ion-icon class="bottom" aria-hidden="true" :icon="bookIcon" size="large"/>

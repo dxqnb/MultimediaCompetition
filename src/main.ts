@@ -1,4 +1,5 @@
 import {createApp} from 'vue'
+
 // @ts-ignore
 import App from './App.vue'
 import router from './router';
@@ -30,11 +31,22 @@ import './theme/variables.css';
 import 'xgplayer/dist/index.min.css';
 import { inject } from '@vercel/analytics';
 
+// Vuetify
+// import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+  components,
+  directives,
+})
 inject();
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
     .use(IonicVue)
-    .use(router);
+    .use(router)
+    .use(vuetify);
 app.config.globalProperties.$httpUrl = 'http://localhost:3000';
 router.isReady().then(() => {
     app.mount('#app');

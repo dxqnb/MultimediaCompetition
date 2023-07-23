@@ -16,8 +16,8 @@ const props = defineProps(['item', 'index']);
       </ion-img>
       <ion-label>
         <h3>移动应用开发</h3>
-        <p style="font-size: 6px;padding-bottom: 10px">王思睿</p>
-        <p style="font-size: 6px">2018</p>
+        <p style="font-size: 10px;padding: 5px 0 5px 0">王思睿</p>
+        <p style="font-size: 10px">2018</p>
       </ion-label>
       <ion-button slot="end" @click="$router.push('/study/lesson/1')">
         <ion-text color="light">加入课程</ion-text>

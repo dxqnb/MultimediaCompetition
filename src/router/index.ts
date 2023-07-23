@@ -53,6 +53,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'lesson/:id',
                 component: () => import('@/views/study/lessonDetailPage.vue')
             },
+            {
+                path: 'section/:id',
+                component: () => import('@/views/study/lessonSectionPage.vue')
+            },
         ]
     }
 ]
