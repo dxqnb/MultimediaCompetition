@@ -1,5 +1,10 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
+body::-webkit-scrollbar {
+    display: none;
+  }
+
+
 
 /** Ionic CSS Variables **/
 :root {

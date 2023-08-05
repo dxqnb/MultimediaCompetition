@@ -77,7 +77,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col @click="$router.push('/study/notice/')">
             <ion-icon aria-hidden="true" :icon="firstIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">通知公告</ion-label>
           </ion-col>
@@ -97,7 +97,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
       </ion-grid>
       <ion-grid style="flex-wrap: nowrap;display: flex">
         <ion-col>
-          <ion-card class="inner" color="secondary">
+          <ion-card class="inner" style="background: linear-gradient(to left,#C9E6FF, #3B8FFF);" @click="$router.push('/study/technology')">
             <ion-card-content>
               <ion-text style="font-size: 16px">技术前言
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
@@ -107,7 +107,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
           </ion-card>
         </ion-col>
         <ion-col>
-          <ion-card class="inner" color="tertiary">
+          <ion-card class="inner" style="background: linear-gradient(to left,#DAE3FF, #5D7BE5);"  @click="$router.push('/study/news')">
             <ion-card-content>
               <ion-text style="font-size: 16px">今日要闻
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>

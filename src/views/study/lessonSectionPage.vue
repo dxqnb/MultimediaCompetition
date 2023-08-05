@@ -61,12 +61,15 @@ function change(event: any) {
       </ion-toolbar>
     </ion-header>
     <ion-header class="">
-      <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 65%;padding-bottom: 10px">
+      <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="padding-bottom: 10px">
         <ion-segment-button value="lesson">
           <ion-label><h3 style="font-weight: 900">共享笔记</h3></ion-label>
         </ion-segment-button>
         <ion-segment-button value="comment">
           <ion-label><h3 style="font-weight: 900">我的笔记</h3></ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="test" @click="$router.push('/study/test/')">
+          <ion-label><h3 style="font-weight: 900">随堂练习</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-header>

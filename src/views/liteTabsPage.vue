@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet,IonFab,IonFabButton,IonFabList} from '@ionic/vue';
-import {schoolOutline, square, triangle, schoolSharp, backspace, chevronUpCircle, home} from 'ionicons/icons';
+import {backspace, chevronUpCircle, home} from 'ionicons/icons';
 </script>
 <style scoped>
 ion-tab-bar {

@@ -38,6 +38,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'tab3',
                 component: () => import('@/views/Tab3Page.vue')
+            },
+            {
+                path: 'team',
+                component: () => import('@/views/team/teamPage.vue')
             }
         ]
     },
@@ -57,8 +61,70 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'section/:id',
                 component: () => import('@/views/study/lessonSectionPage.vue')
             },
+            {
+                path: 'technology',
+                component: () => import('@/views/study/technologyPage.vue')
+            },
+            {
+                path: 'video',
+                component: () => import('@/views/study/videoPage.vue')
+            },
+            {
+                path: 'myLesson',
+                component: () => import('@/views/study/myLessonPage.vue')
+            },
+            {
+                path: 'news',
+                component: () => import('@/views/study/newsPage.vue')
+            },
+            {
+                path: 'news/:id',
+                component: () => import('@/views/study/newsDetailPage.vue')
+            },
+            {
+                path: 'notice',
+                component: () => import('@/views/study/noticePage.vue')
+            },
+            {
+                path: 'test',
+                component: () => import('@/views/study/lessonTestPage.vue')
+            },
         ]
-    }
+    },
+    {
+        path: '/team/',
+        component: liteTabsPage,
+        children: [
+            {
+                path: 'lessons',
+                component: () => import('@/views/study/studyLessonPage.vue')
+            },
+            {
+                path: 'lesson/:id',
+                component: () => import('@/views/study/lessonDetailPage.vue')
+            },
+            {
+                path: 'section/:id',
+                component: () => import('@/views/study/lessonSectionPage.vue')
+            },
+            {
+                path: 'technology',
+                component: () => import('@/views/study/technologyPage.vue')
+            },
+            {
+                path: 'video',
+                component: () => import('@/views/study/videoPage.vue')
+            },
+            {
+                path: 'myLesson',
+                component: () => import('@/views/study/myLessonPage.vue')
+            },
+            {
+                path: 'news',
+                component: () => import('@/views/study/newsPage.vue')
+            },
+        ]
+    },
 ]
 
 const router = createRouter({

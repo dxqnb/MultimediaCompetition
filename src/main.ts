@@ -3,6 +3,7 @@ import {createApp} from 'vue'
 // @ts-ignore
 import App from './App.vue'
 import router from './router';
+import service from "@/utils/request";
 
 import {IonicVue} from '@ionic/vue';
 
@@ -42,6 +43,7 @@ const vuetify = createVuetify({
   directives,
 })
 inject();
+import * as monaco from 'monaco-editor';
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
     .use(IonicVue)

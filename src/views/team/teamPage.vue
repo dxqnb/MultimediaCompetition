@@ -6,20 +6,13 @@
         <!--          <h3 style="margin-bottom: 5px;">学习</h3>-->
         <!--        </ion-title>-->
         <ion-text size="large" color="light" slot="start" style="margin-left: 20px;margin-top: 10px;margin-bottom: 0px">
-          <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>
+          <h2 style="margin-bottom: 5px;margin-top: 0">学友</h2>
           <div style="border: 3px solid var(--ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>
         </ion-text>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
-      <!--      <ion-header class="ion-no-border" collapse="condense">-->
-      <!--        <ion-toolbar class="seHead">-->
-      <!--          <ion-text size="large" color="light" slot="start" style="margin-left: 10px">-->
-      <!--            <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>-->
-      <!--            <div style="border: 3px solid var(&#45;&#45;ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>-->
-      <!--          </ion-text>-->
-      <!--        </ion-toolbar>-->
-      <!--      </ion-header>-->
+      <ion-searchbar style="padding:0"></ion-searchbar>
       <swiper
           :effect="'cards'"
           :grabCursor="true"
