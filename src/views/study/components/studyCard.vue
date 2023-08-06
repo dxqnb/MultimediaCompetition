@@ -85,7 +85,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
             <ion-icon aria-hidden="true" :icon="secondIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的课表</ion-label>
           </ion-col>
-          <ion-col>
+          <ion-col @click="$router.push('/study/analyze/')">
             <ion-icon aria-hidden="true" :icon="thirdIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的学习</ion-label>
           </ion-col>
@@ -97,9 +97,12 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
       </ion-grid>
       <ion-grid style="flex-wrap: nowrap;display: flex">
         <ion-col>
-          <ion-card class="inner" style="background: linear-gradient(to left,#C9E6FF, #3B8FFF);" @click="$router.push('/study/technology')">
+          <ion-card class="inner" style="background: linear-gradient(to bottom right,rgba(59,143,255,0.43), rgba(153,198,255,0.43), rgba(201,230,255,0.43));"
+                    @click="$router.push('/study/technology')">
             <ion-card-content>
-              <ion-text style="font-size: 16px">技术前言
+<!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
+              <ion-text style="font-size: 16px;color: #6D99FF">
+                技术前言
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
               </ion-text>
               <ion-icon class="bottom" aria-hidden="true" :icon="searchIcon" size="large"/>
@@ -107,9 +110,10 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
           </ion-card>
         </ion-col>
         <ion-col>
-          <ion-card class="inner" style="background: linear-gradient(to left,#DAE3FF, #5D7BE5);"  @click="$router.push('/study/news')">
+          <ion-card class="inner" style="background: linear-gradient(to bottom right,rgba(93,123,229,0.6), rgba(166,170,246,0.6), rgba(218,227,255,0.6))"
+                    @click="$router.push('/study/news')">
             <ion-card-content>
-              <ion-text style="font-size: 16px">今日要闻
+              <ion-text style="font-size: 16px;color: #726DFF">今日要闻
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
               </ion-text>
               <ion-icon class="bottom" aria-hidden="true" :icon="bookIcon" size="large"/>
@@ -132,6 +136,7 @@ ion-card.inner {
   display: inline-block;
   height: 80px;
 }
+
 ion-card {
   margin: 0;
 }

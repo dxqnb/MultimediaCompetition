@@ -14,7 +14,7 @@ import {
   IonItemGroup, IonItemDivider, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
   IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter
 } from "@ionic/vue";
-import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
+import {ellipsisHorizontal, checkmarkOutline, star, starOutline} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
 import * as url from "url";
@@ -55,7 +55,7 @@ function change(event: any) {
         </ion-buttons>
         <ion-buttons style="position: absolute;top: 20px;right: 20px">
           <ion-button>
-            <ion-icon color="light" :icon="ellipsisHorizontalOutline"/>
+            <ion-icon color="light" :icon="ellipsisHorizontal"/>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>

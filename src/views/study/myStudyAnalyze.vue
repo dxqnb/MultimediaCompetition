@@ -53,14 +53,7 @@ for (let i = 1; i < 20; i++) {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <div style="width: 100%;" slot="fixed">
-        <ion-item lines="full">
-          <ion-label style="font-size: 14px;text-align: center;position: absolute;top: 0;width: 100%;left: 0">
-            开启推送通知，重要消息不错过
-          </ion-label>
-          <ion-button class="topButton" slot="end" size="small" color="primary">去开启</ion-button>
-        </ion-item>
-      </div>
+
       <div style="margin-top: 40px">
         <ion-card style="margin: 10px ">
           <ion-card-content>

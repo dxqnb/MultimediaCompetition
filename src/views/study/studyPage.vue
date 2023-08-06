@@ -1,7 +1,7 @@
 <template>
   <ion-page class="page">
     <ion-header collapse="fade" class="ion-no-border">
-      <ion-toolbar color="primary" class="head">
+      <ion-toolbar color="primary">
         <!--        <ion-title color="light">-->
         <!--          <h3 style="margin-bottom: 5px;">学习</h3>-->
         <!--        </ion-title>-->
@@ -54,8 +54,6 @@
   </ion-page>
 </template>
 <style scoped>
-ion-toolbar.head {
-}
 
 ion-toolbar.seHead {
   --opacity: 0;
