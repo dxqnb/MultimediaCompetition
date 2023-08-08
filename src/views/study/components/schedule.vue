@@ -91,14 +91,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { formatDate, getCurDay } from '@/utils/MyTools'
 
 export default {
   name: 'WSchedule',
   props: {
     planList: {
-      type: Array,
+      type: Array<any>,
       default: []
     },
     //卡片状态
@@ -132,13 +132,19 @@ export default {
     }
   },
   data () {
+
     return {
       weeks: [
         '时段', '一', '二', '三', '四', '五', '六', '日',
       ],
       todayDate: '',
-      months: [],
-      curDate: '',
+      months: [{
+        date: '',
+        showDate: '',
+        timestamp: new Date().getTime(),
+        isCurDate: false,
+      }],
+      curDate: new Date(),
       nowDate: new Date(),
     }
   },
@@ -160,14 +166,14 @@ export default {
   },
   methods: {
     //展开与缩放操作
-    handleExpand (row) {
+    handleExpand (row:any) {
       row.isExpend = !row.isExpend
     },
     /**
      * 获取 时间
      * @param time
      */
-    getWeek (time) {
+    getWeek (time:any) {
       this.curDate = new Date(time)
       //当前是周几
       const whichDay = time.getDay()
@@ -183,11 +189,12 @@ export default {
         const { year, month, day } = formatDate(i === 0 ? time : this.addDate(time, 1))
         this.months.push({
           date: `${year}-${month}-${day}`,
-          showDate: Number(day),
-          timestamp: new Date(`${year}-${month}-${day}`).getTime()
+          showDate: Number(day)+'',
+          timestamp: new Date(`${year}-${month}-${day}`).getTime(),
+          isCurDate: getCurDay(`${year}-${month}-${day}`),
         })
       }
-      this.months.sort((a, b) => a.timestamp - b.timestamp)
+      this.months.sort((a:any, b:any) => a.timestamp - b.timestamp)
       delete this.months[0]
       this.todayDate = `${this.months[1].date} ~ ${this.months[this.months.length - 1].date}`
     },
@@ -197,7 +204,7 @@ export default {
      * @param n
      * @returns {*}
      */
-    addDate (date, n) {
+    addDate (date:Date, n:number) {
       date.setDate(date.getDate() + n)
       return date
     },
@@ -243,8 +250,13 @@ export default {
      * 显示当天日期状态
      * @param date
      */
-    dealDate (date) {
-      this.months = ['']
+    dealDate (date:any) {
+      this.months = [{
+        date: '',
+        showDate: '',
+        timestamp: new Date().getTime(),
+        isCurDate: false,
+      }]
       this.getWeek(date)
       const curDate = getCurDay()
       this.months.forEach(item => {
@@ -255,7 +267,7 @@ export default {
      * 点击卡片子内容查看详情
      * @param row
      */
-    handleDetail (row) {
+    handleDetail (row:any) {
       this.$emit('handleDetail', row)
     },
     /**
@@ -263,7 +275,7 @@ export default {
      * @param month
      * @param period
      */
-    handleCardDetail (month, period) {
+    handleCardDetail (month:any, period:any) {
       this.$emit('handleCardDetail', { ...month, ...period })
     }
   }
