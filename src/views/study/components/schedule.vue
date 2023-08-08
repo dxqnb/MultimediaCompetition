@@ -92,7 +92,6 @@
 </template>
 
 <script lang="ts">
-import { formatDate, getCurDay } from '@/utils/MyTools'
 
 export default {
   name: 'WSchedule',
@@ -165,6 +164,26 @@ export default {
     this.getCurWeek()
   },
   methods: {
+    formatDate(date:any) {
+    var year = date.getFullYear();
+    var months = date.getMonth() + 1;
+    var month = (months < 10 ? '0' + months : months).toString();
+    var day = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()).toString();
+    return {
+        year: year.toString(),
+        month,
+        day
+    }
+},
+    getCurDay() {
+    var datetime = new Date();
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+    var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+    return `${year}-${month}-${date}`
+},
+
+
     //展开与缩放操作
     handleExpand (row:any) {
       row.isExpend = !row.isExpend
@@ -186,12 +205,12 @@ export default {
       const weekDay = time.getDay() - num
       time = this.addDate(time, weekDay * -1)
       for (let i = 0; i < 7; i++) {
-        const { year, month, day } = formatDate(i === 0 ? time : this.addDate(time, 1))
+        const { year, month, day } = this.formatDate(i === 0 ? time : this.addDate(time, 1))
         this.months.push({
           date: `${year}-${month}-${day}`,
           showDate: Number(day)+'',
           timestamp: new Date(`${year}-${month}-${day}`).getTime(),
-          isCurDate: getCurDay(`${year}-${month}-${day}`),
+          isCurDate: this.getCurDay() === `${year}-${month}-${day}`,
         })
       }
       this.months.sort((a:any, b:any) => a.timestamp - b.timestamp)
@@ -213,7 +232,7 @@ export default {
      */
     getLastWeek () {
       const date = this.addDate(this.curDate, -7),
-          { year, month, day } = formatDate(date),
+          { year, month, day } = this.formatDate(date),
           dateObj = {
             date: `${year}-${month}-${day}`,
             timestamp: new Date(`${year}-${month}-${day}`).getTime()
@@ -225,7 +244,7 @@ export default {
      * 本周
      */
     getCurWeek () {
-      const { year, month, day } = formatDate(new Date()),
+      const { year, month, day } = this.formatDate(new Date()),
           dateObj = {
             date: `${year}-${month}-${day}`,
             timestamp: new Date(`${year}-${month}-${day}`).getTime()
@@ -238,7 +257,7 @@ export default {
      */
     getNextWeek () {
       const date = this.addDate(this.curDate, 7),
-          { year, month, day } = formatDate(date),
+          { year, month, day } = this.formatDate(date),
           dateObj = {
             date: `${year}-${month}-${day}`,
             timestamp: new Date(`${year}-${month}-${day}`).getTime()
@@ -258,7 +277,7 @@ export default {
         isCurDate: false,
       }]
       this.getWeek(date)
-      const curDate = getCurDay()
+      const curDate = this.getCurDay()
       this.months.forEach(item => {
         item.isCurDate = item.date === curDate
       })

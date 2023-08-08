@@ -15,7 +15,7 @@ import {onBeforeUnmount, onMounted, ref} from "vue";
 const editorContainer = ref();
 onMounted(() => {
   const MonacoEnvironment = {
-      getWorkerUrl: function (moduleId, label) {
+      getWorkerUrl: function (moduleId:any, label:any) {
         return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
           self.MonacoEnvironment = {
             baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor@4.2.1/min/'
@@ -32,7 +32,6 @@ onMounted(() => {
     ].join('\n'),
     language: 'javascript',
     theme: 'vs',
-    useWorker: false,
   });
   // self.MonacoEnvironment = {
   //   getWorkerUrl: function (moduleId, label) {
