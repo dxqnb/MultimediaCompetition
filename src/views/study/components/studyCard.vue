@@ -81,7 +81,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
             <ion-icon aria-hidden="true" :icon="firstIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">通知公告</ion-label>
           </ion-col>
-          <ion-col>
+          <ion-col @click="$router.push('/study/schedule/')">
             <ion-icon aria-hidden="true" :icon="secondIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的课表</ion-label>
           </ion-col>
