@@ -1,8 +1,10 @@
 <script setup lang="ts">
 
-import {IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonIcon, IonLabel, IonText} from "@ionic/vue";
+import {IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonIcon, IonLabel, IonText, useIonRouter} from "@ionic/vue";
 import {chevronForwardOutline} from "ionicons/icons";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
+// import { customAnimation } from '@/animations/customAnimation';
 
 const firstIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"30\" height=\"30.025\" viewBox=\"0 0 30 30.025\">\n" +
     "  <defs>\n" +
@@ -65,6 +67,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
     "  <path id=\"路径_38\" data-name=\"路径 38\" d=\"M65.3,157.708a1.333,1.333,0,0,1,1.326,1.2l.006.136v26.973a1.332,1.332,0,0,1-1.2,1.326l-.136.006H50.466l-.149.241-.133.2a3.13,3.13,0,0,1-2.264,1.57l-.2.009H40.248a3.026,3.026,0,0,1-2.468-1.579l-.133-.2-.149-.241H22.665a1.332,1.332,0,0,1-1.326-1.2l-.006-.136V159.04a1.332,1.332,0,0,1,2.658-.136l.006.136V184.68H38.305a1.333,1.333,0,0,1,1.161.678l.064.128a4.647,4.647,0,0,0,.437.774,2.436,2.436,0,0,0,.3.362l.078.07,7.278.005s0,0,0-.005l.014-.013a2.142,2.142,0,0,0,.364-.421,4.724,4.724,0,0,0,.437-.773,1.337,1.337,0,0,1,1.081-.8l.144-.007h14.3V159.04a1.333,1.333,0,0,1,1.2-1.326Z\" transform=\"translate(-21.333 -152.592)\" fill=\"url(#linear-gradient)\"/>\n" +
     "</svg>\n");
 
+const router = useIonRouter();
 </script>
 
 <template>
@@ -77,7 +80,8 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col @click="$router.push('/study/notice/')">
+          <!--          <ion-col @click="$router.push('/study/notice/')">-->
+          <ion-col @click="()=>{router.push('/study/notice/')}">
             <ion-icon aria-hidden="true" :icon="firstIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">通知公告</ion-label>
           </ion-col>
@@ -97,10 +101,11 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
       </ion-grid>
       <ion-grid style="flex-wrap: nowrap;display: flex">
         <ion-col>
-          <ion-card class="inner" style="background: linear-gradient(to bottom right,rgba(59,143,255,0.43), rgba(153,198,255,0.43), rgba(201,230,255,0.43));"
+          <ion-card class="inner"
+                    style="background: linear-gradient(to bottom right,rgba(59,143,255,0.43), rgba(153,198,255,0.43), rgba(201,230,255,0.43));"
                     @click="$router.push('/study/technology')">
             <ion-card-content>
-<!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
+              <!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
               <ion-text style="font-size: 16px;color: #6D99FF">
                 技术前言
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
@@ -110,7 +115,8 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg id=\"组_263\" data-name=\"�
           </ion-card>
         </ion-col>
         <ion-col>
-          <ion-card class="inner" style="background: linear-gradient(to bottom right,rgba(93,123,229,0.6), rgba(166,170,246,0.6), rgba(218,227,255,0.6))"
+          <ion-card class="inner"
+                    style="background: linear-gradient(to bottom right,rgba(93,123,229,0.6), rgba(166,170,246,0.6), rgba(218,227,255,0.6))"
                     @click="$router.push('/study/news')">
             <ion-card-content>
               <ion-text style="font-size: 16px;color: #726DFF">今日要闻

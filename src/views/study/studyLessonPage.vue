@@ -18,6 +18,7 @@ import {
   IonRefresherContent,
   IonItemGroup,
   IonButton,
+  IonInfiniteScrollContent
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive} from "vue";

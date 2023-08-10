@@ -8,4 +8,7 @@
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 </script>
 <style>
+.picker .picker-opt {
+  font-size: 16px;
+}
 </style>

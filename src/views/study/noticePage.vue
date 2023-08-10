@@ -21,7 +21,6 @@ import {
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 
-const items = reactive([""]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
@@ -30,9 +29,6 @@ function handleRefresh(event: any) {
   }, 1000);
 };
 
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
-}
 
 
 </script>

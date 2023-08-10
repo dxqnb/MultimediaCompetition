@@ -37,7 +37,7 @@
         <swiper-slide>Slide 8</swiper-slide>
         <swiper-slide>Slide 9</swiper-slide>
       </swiper>
-      <study-card></study-card>
+      <team-home-first-button></team-home-first-button>
 
       <study-area></study-area>
       <robot></robot>
@@ -67,7 +67,7 @@ ion-content::part(background) {
   width: 90%;
   height: 120px;
   overflow: visible;
-  margin: 30px auto;
+  margin: 0 auto 1em auto;
 }
 
 .swiper-slide {
@@ -157,6 +157,7 @@ import 'swiper/css';
 import StudyCard from "@/views/study/components/studyCard.vue";
 import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
+import TeamHomeFirstButton from "@/views/team/components/teamHomeFirstButton.vue";
 
 
 const modules = ref([EffectCards]);

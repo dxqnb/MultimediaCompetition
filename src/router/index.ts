@@ -108,8 +108,8 @@ const routes: Array<RouteRecordRaw> = [
         component: liteTabsPage,
         children: [
             {
-                path: 'lessons',
-                component: () => import('@/views/study/studyLessonPage.vue')
+                path: 'createTeam',
+                component: () => import('@/views/team/createTeamPage.vue')
             },
             {
                 path: 'lesson/:id',

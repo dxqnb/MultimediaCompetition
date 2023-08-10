@@ -151,7 +151,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonImg,
-  GestureDetail, createAnimation, createGesture
+  GestureDetail, createAnimation, createGesture,useIonRouter
 } from '@ionic/vue';
 import {defineComponent, onMounted, onUnmounted, ref} from "vue";
 import io from 'socket.io-client';
