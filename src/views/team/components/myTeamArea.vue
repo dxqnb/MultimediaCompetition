@@ -8,6 +8,8 @@ import {
   IonRadioGroup,
   IonRadio,
   IonAvatar,
+  IonRange,
+  IonButton
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
@@ -39,97 +41,40 @@ const radio = ref('true')
         </ion-segment-button>
       </ion-segment>
       <div
-          style="background-color: #FFFFFF;border-radius: 10px;position: absolute;top: 48px;left: 0;width: 100%;">
-        <div style="margin-top: 1.5em">
-          <div style="width: 90%;margin: 5px auto;white-space: nowrap;position: relative" v-for="i in 3">
-            <ion-avatar
-                style="display:inline-block;vertical-align: top;margin-top: 1em;width: 2em;height: 2em;margin-right: 6px">
-              <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;width: 2em;height: 2em;"
-                   alt="">
-            </ion-avatar>
-            <div style="width: 100px;display: inline-block;margin: 0;">
-              <ion-text style="white-space: nowrap;display: flex;">
-                <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ `2019不挂科` }}</p>
-                <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `12:25` }}</p>
-              </ion-text>
-              <ion-range disabled style="padding: 0" :value="50"></ion-range>
-            </div>
-            <div style="display: inline-block;vertical-align: top;margin-top: 1em;margin-left: 1em;white-space: nowrap">
-              <ion-radio-group :value="radio" style="vertical-align: middle;margin-right: 0.4em">
-                <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>
-              </ion-radio-group>
-              <ion-text>
-                <p style="display: inline-block;font-size: 12px">35/30单词</p>
-              </ion-text>
-            </div>
-            <div
-                style="display: inline-block;vertical-align: top;position: absolute;top: 2em;right: 20px;font-size: 12px;color: #64DD3E">
-              {{ `已完成` }}
-            </div>
+          style="background-color: #FFFFFF;border-radius:0 0 10px 10px;padding-top: 1em;">
+        <div style="width: 90%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in 3">
+          <ion-avatar
+              style="display:inline-block;vertical-align: top;margin-top: 1em;width: 2em;height: 2em;margin-right: 6px">
+            <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;width: 2em;height: 2em;"
+                 alt="">
+          </ion-avatar>
+          <div style="width: 100px;display: inline-block;margin: 0;">
+            <ion-text style="white-space: nowrap;display: flex;">
+              <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ `2019不挂科` }}</p>
+              <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `12:25` }}</p>
+            </ion-text>
+            <ion-range disabled style="padding: 0" :value="50"></ion-range>
+          </div>
+          <div style="display: inline-block;vertical-align: top;margin-top: 1em;margin-left: 1em;white-space: nowrap">
+            <ion-radio-group :value="radio" style="vertical-align: middle;margin-right: 0.4em">
+              <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>
+            </ion-radio-group>
+            <ion-text>
+              <p style="display: inline-block;font-size: 12px">35/30单词</p>
+            </ion-text>
+          </div>
+          <div
+              style="display: inline-block;vertical-align: top;position: absolute;top: 2em;right: 20px;font-size: 12px;color: #64DD3E">
+            {{ `已完成` }}
           </div>
         </div>
+        <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;">
+          <ion-button mode="md"
+                      style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;">
+            更多
+          </ion-button>
+        </div>
       </div>
-      <!--      <ion-content style="height: 80vh;">-->
-      <!--        <ion-list>-->
-      <!--          <study-area-item v-for="(item, index) in items" :item="item" :index="index"></study-area-item>-->
-      <!--        </ion-list>-->
-      <!--        <ion-infinite-scroll>-->
-      <!--          <div class="infinite-scroll-content">-->
-      <!--            <svg-->
-      <!--                version="1.1"-->
-      <!--                xmlns="http://www.w3.org/2000/svg"-->
-      <!--                xmlns:xlink="http://www.w3.org/1999/xlink"-->
-      <!--                x="0px"-->
-      <!--                y="0px"-->
-      <!--                viewBox="0 0 100 100"-->
-      <!--                enable-background="new 0 0 100 100"-->
-      <!--                xml:space="preserve"-->
-      <!--            >-->
-      <!--          <circle fill="none" stroke="#1b6dff" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="48"/>-->
-      <!--              <line-->
-      <!--                  fill="none"-->
-      <!--                  stroke-linecap="round"-->
-      <!--                  stroke="#1b6dff"-->
-      <!--                  stroke-width="4"-->
-      <!--                  stroke-miterlimit="10"-->
-      <!--                  x1="50"-->
-      <!--                  y1="50"-->
-      <!--                  x2="85"-->
-      <!--                  y2="50.5"-->
-      <!--              >-->
-      <!--            <animateTransform-->
-      <!--                attributeName="transform"-->
-      <!--                dur="2s"-->
-      <!--                type="rotate"-->
-      <!--                from="0 50 50"-->
-      <!--                to="360 50 50"-->
-      <!--                repeatCount="indefinite"-->
-      <!--            />-->
-      <!--          </line>-->
-      <!--              <line-->
-      <!--                  fill="none"-->
-      <!--                  stroke-linecap="round"-->
-      <!--                  stroke="#1b6dff"-->
-      <!--                  stroke-width="4"-->
-      <!--                  stroke-miterlimit="10"-->
-      <!--                  x1="50"-->
-      <!--                  y1="50"-->
-      <!--                  x2="49.5"-->
-      <!--                  y2="74"-->
-      <!--              >-->
-      <!--            <animateTransform-->
-      <!--                attributeName="transform"-->
-      <!--                dur="15s"-->
-      <!--                type="rotate"-->
-      <!--                from="0 50 50"-->
-      <!--                to="360 50 50"-->
-      <!--                repeatCount="indefinite"-->
-      <!--            />-->
-      <!--          </line>-->
-      <!--        </svg>-->
-      <!--          </div>-->
-      <!--        </ion-infinite-scroll>-->
-      <!--      </ion-content>-->
     </div>
   </div>
 </template>

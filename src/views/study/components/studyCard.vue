@@ -141,6 +141,7 @@ ion-card.inner {
   width: 90%;
   display: inline-block;
   height: 80px;
+  border-radius: 13px;
 }
 
 ion-card {

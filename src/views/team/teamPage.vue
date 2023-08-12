@@ -38,8 +38,9 @@
         <swiper-slide>Slide 9</swiper-slide>
       </swiper>
       <team-home-first-button></team-home-first-button>
-
+      <notice-area></notice-area>
       <my-team-area></my-team-area>
+      <latest-area></latest-area>
       <robot></robot>
 
     </ion-content>
@@ -159,6 +160,8 @@ import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
 import TeamHomeFirstButton from "@/views/team/components/teamHomeFirstButton.vue";
 import MyTeamArea from "@/views/team/components/myTeamArea.vue";
+import LatestArea from "@/views/team/components/latestArea.vue";
+import NoticeArea from "@/views/team/components/noticeArea.vue";
 
 
 const modules = ref([EffectCards]);

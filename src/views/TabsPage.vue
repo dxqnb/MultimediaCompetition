@@ -46,7 +46,6 @@ import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterO
 import {schoolOutline, square, triangle, schoolSharp} from 'ionicons/icons';
 import {onMounted, ref} from "vue";
 
-console.log(schoolOutline)
 const home = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class=\'ionicon\' viewBox="0 0 25.4 25.4">\n' +
     '  <g id="组_311" data-name="组 311" transform="translate(-35.2 -735.3)">\n' +
     '    <path id="Vector" d="M12.29.788A4.853,4.853,0,0,0,6.8.918L1.79,4.828A5.153,5.153,0,0,0,0,8.468v6.9A4.631,4.631,0,0,0,4.62,20H15.4a4.622,4.622,0,0,0,4.62-4.62V8.6a5.1,5.1,0,0,0-1.97-3.78Zm-2.28,15.96A.755.755,0,0,1,9.26,16V13a.75.75,0,0,1,1.5,0v3A.755.755,0,0,1,10.01,16.748Z" transform="translate(37.89 738.002)" fill="none" stroke-width="1.4" style="isolation: isolate"/>\n' +
@@ -123,7 +122,6 @@ const height = ref('z-index: 9999;position:absolute;bottom: 60px;left: 50%;width
 const bar = ref();
 onMounted(() => {
   setTimeout(() => {
-    console.log(bar.value.$el.style.margin)
     let temp = bar.value.$el.offsetHeight
     height.value = 'z-index: 9999;position:absolute;bottom: calc('+bar.value.$el.offsetHeight+'px + '+bar.value.$el.style.margin+');left: 50%;width: 15vw;height: 15vw'
   }, 200)
