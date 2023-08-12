@@ -55,6 +55,7 @@
 </template>
 <style scoped>
 
+
 ion-toolbar.seHead {
   --opacity: 0;
   padding-top: 0 !important;

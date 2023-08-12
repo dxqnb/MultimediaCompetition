@@ -25,7 +25,8 @@ for (let i = 1; i < 20; i++) {
 
 <template>
   <div>
-    <ion-text @click="$router.push('/study/lessons')" style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
+    <ion-text @click="$router.push('/study/lessons')"
+              style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
       <h4 style="color: #474747;font-weight: bolder;">学习专区</h4>
       <div
           style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
@@ -134,11 +135,10 @@ ion-segment-button.md::part(indicator-background) {
   height: 4px;
 }
 
-/* iOS styles */
-/*ion-segment-button.ios:nth-child(1)::part(native) {
+ion-segment-button {
+  margin-bottom: 0;
+}
 
-  color: #08a391;
-}*/
 ion-segment-button:nth-child(1) {
   --background: #999999;
   border-radius: 0 20px 0 0;
@@ -203,14 +203,15 @@ ion-segment-button.ios::part(indicator-background) {
   opacity: 1 !important;
 }
 
-svg {
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-  }
 
-  .infinite-scroll-content {
-    text-align: center;
-    padding: 20px 0;
-  }
+svg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.infinite-scroll-content {
+  text-align: center;
+  padding: 20px 0;
+}
 </style>

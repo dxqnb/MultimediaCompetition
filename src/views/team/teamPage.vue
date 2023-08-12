@@ -39,7 +39,7 @@
       </swiper>
       <team-home-first-button></team-home-first-button>
 
-      <study-area></study-area>
+      <my-team-area></my-team-area>
       <robot></robot>
 
     </ion-content>
@@ -59,7 +59,7 @@ ion-content::part(background) {
   /*background: url("https://www.0030.store/background.png") top right no-repeat, linear-gradient(to bottom, #5D7BE5, #ffffff, #ffffff);
   background-size: 140%;
   filter: blur(1.5px);*/
-  background: url("https://www.0030.store/5%20%E2%80%93%201.jpg") top right no-repeat fixed;
+  background: url("https://www.0030.store/background2.jpg") top right no-repeat fixed;
   background-size: 100%;
 }
 
@@ -158,6 +158,7 @@ import StudyCard from "@/views/study/components/studyCard.vue";
 import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
 import TeamHomeFirstButton from "@/views/team/components/teamHomeFirstButton.vue";
+import MyTeamArea from "@/views/team/components/myTeamArea.vue";
 
 
 const modules = ref([EffectCards]);
