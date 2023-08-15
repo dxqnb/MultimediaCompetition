@@ -22,14 +22,6 @@ import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 
 
-function handleRefresh(event: any) {
-  setTimeout(() => {
-    // Any calls to load data go here
-    event.target.complete();
-  }, 1000);
-};
-
-
 
 </script>
 
@@ -63,7 +55,7 @@ function handleRefresh(event: any) {
             <ion-list>
               <ion-item lines="none">
                 <ion-thumbnail style="position: relative" slot="start">
-                  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
+                  <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
                   <ion-badge style="position: absolute;top: -10%;right: -20%;" color="danger">2</ion-badge>
                 </ion-thumbnail>
                 <ion-label>

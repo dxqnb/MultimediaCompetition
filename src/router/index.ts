@@ -86,6 +86,11 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/noticePage.vue')
             },
             {
+                path: 'noticeDetail/:id',
+                props: true,
+                component: () => import('@/views/study/noticeDetailPage.vue')
+            },
+            {
                 path: 'test',
                 component: () => import('@/views/study/lessonTestPage.vue')
             },
@@ -134,6 +139,11 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'news',
                 component: () => import('@/views/study/newsPage.vue')
+            },
+            {
+                path: 'teamDetail/:id',
+                props: true,
+                component: () => import('@/views/team/teamDetailPage.vue')
             },
         ]
     },

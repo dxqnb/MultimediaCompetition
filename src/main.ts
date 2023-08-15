@@ -37,6 +37,7 @@ import { inject } from '@vercel/analytics';
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import 'github-markdown-css';
 
 const vuetify = createVuetify({
   components,

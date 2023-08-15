@@ -19,7 +19,7 @@
     <!--        </ion-tab-button>-->
     <!--      </ion-tab-bar>-->
     <!--    </ion-tabs>-->
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" v-if="$route.path.indexOf('study/noticeDetail')==-1">
       <ion-fab-button>
         <ion-icon :icon="chevronUpCircle"></ion-icon>
       </ion-fab-button>
@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet,IonFab,IonFabButton,IonFabList} from '@ionic/vue';
+import { IonIcon, IonPage, IonRouterOutlet,IonFab,IonFabButton,IonFabList} from '@ionic/vue';
 import {backspace, chevronUpCircle, home} from 'ionicons/icons';
 </script>
 <style scoped>
