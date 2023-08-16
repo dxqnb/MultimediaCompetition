@@ -96,7 +96,7 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: 'analyze',
-                component: () => import('@/views/study/myStudyAnalyze.vue')
+                component: () => import('@/views/study/myStudyAnalyzePage.vue')
             },
             {
                 path: 'schedule',
@@ -105,6 +105,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'testReport',
                 component: () => import('@/views/study/testReportPage.vue')
+            },
+            {
+                path: 'progress',
+                component: () => import('@/views/study/studyProgressPage.vue')
             },
         ]
     },

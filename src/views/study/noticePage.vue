@@ -50,7 +50,7 @@ import {reactive, ref} from "vue";
         </ion-item>
       </div>
       <div style="margin-top: 40px">
-        <ion-card style="margin: 10px ">
+        <ion-card style="margin: 10px " @click="$router.push('/study/noticeDetail/系统消息')">
           <ion-card-content>
             <ion-list>
               <ion-item lines="none">
@@ -68,7 +68,7 @@ import {reactive, ref} from "vue";
 
           </ion-card-content>
         </ion-card>
-        <ion-card style="margin: 10px ">
+        <ion-card style="margin: 10px " @click="$router.push('/study/noticeDetail/系统消息')">
           <ion-card-content>
             <ion-list>
               <ion-item lines="none">

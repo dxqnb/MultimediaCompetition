@@ -21,13 +21,14 @@
       <!--        </ion-toolbar>-->
       <!--      </ion-header>-->
       <swiper
-          :effect="'cards'"
+          effect="cards"
           :grabCursor="true"
           :modules="modules"
-          :autoplay="{ delay: 1000, disableOnInteraction: false, }"
+          :autoplay="{ delay: 3000, disableOnInteraction: false, }"
           :initialSlide="1"
           :loop="true"
           :space-between="50"
+          :pagination="true" :scrollbar="true" :zoom="true"
           @swiper="onSwiper"
       >
         <swiper-slide>
@@ -138,46 +139,32 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
-  IonButton,
-  IonSearchbar,
-  IonItem,
-  IonList,
-  IonCard,
-  IonCardHeader,
   IonText,
-  IonFooter,
-  IonCardContent,
-  IonCardSubtitle,
-  IonCardTitle,
   IonImg,
-  GestureDetail, createAnimation, createGesture,useIonRouter
+  IonicSlides,
 } from '@ionic/vue';
 import {defineComponent, onMounted, onUnmounted, ref} from "vue";
 import io from 'socket.io-client';
-import {EffectCards} from 'swiper/modules';
+import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swiper/modules';
 import 'swiper/css/effect-cards';
 import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
+
 import 'swiper/css';
 import StudyCard from "@/views/study/components/studyCard.vue";
 import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
 
 
-const modules = ref([EffectCards]);
+const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
 
 // onMounted(() => {
 const sw = ref();
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
-
-  setTimeout(function () {
+setTimeout(function () {
     swiper.slidePrev()
   }, 100);
-  setInterval(function () {
-    swiper.slideNext();
-  }, 5000);
 };
 // })
 // sw.value.autoplay = {

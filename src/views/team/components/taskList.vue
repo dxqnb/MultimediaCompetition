@@ -23,9 +23,11 @@ import {
         <div style="display: flex;">
           <div style="width: 50%;">
             <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">截止日期&nbsp;2023-10-11</ion-text>
           </div>
           <div style="width: 50%;">
             <ion-text style="display: block;font-size: 14px;font-weight: 400;color: #343434;text-align: right;width: 100%;">2023-08-01</ion-text>
+            <ion-text style="display: block;font-size: 18px;font-weight: 400;color: #5C82FF;text-align: right;width: 100%;margin-top: 10px">进行中</ion-text>
           </div>
         </div>
       </ion-card-content>

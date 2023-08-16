@@ -23,6 +23,14 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 import {defineCustomElements} from '@ionic/pwa-elements/loader';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/keyboard';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/zoom';
+import '@ionic/vue/css/ionic-swiper.css';
+
 import {Capacitor} from '@capacitor/core';
 
 
@@ -30,24 +38,35 @@ import {Capacitor} from '@capacitor/core';
 import './theme/variables.css';
 
 import 'xgplayer/dist/index.min.css';
-import { inject } from '@vercel/analytics';
+import {inject} from '@vercel/analytics';
 
 // Vuetify
 // import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
+import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import 'github-markdown-css';
 
 const vuetify = createVuetify({
-  components,
-  directives,
+    components,
+    directives,
 })
 inject();
 import * as monaco from 'monaco-editor';
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
-    .use(IonicVue)
+    .use(IonicVue, {
+        platform: {
+            /** The default `desktop` function returns false for devices with a touchscreen.
+             * This is not always wanted, so this function tests the User Agent instead.
+             **/
+            desktop: (win: any) => {
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(win.navigator.userAgent);
+                return !isMobile;
+            },
+        },
+        mode: 'ios',
+    })
     .use(router)
     .use(vuetify);
 app.config.globalProperties.$httpUrl = 'http://localhost:3000';

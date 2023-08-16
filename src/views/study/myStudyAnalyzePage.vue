@@ -76,7 +76,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
             <ion-grid>
               <ion-row>
-                <ion-col size="5">
+                <ion-col size="5" @click="$router.push('/study/progress')">
                   <div>
                     <ion-icon :icon="bluePoint" style="padding-right: 5px"></ion-icon>
                     <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C">学习进度</ion-text>
