@@ -19,7 +19,7 @@
     <!--        </ion-tab-button>-->
     <!--      </ion-tab-bar>-->
     <!--    </ion-tabs>-->
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" v-if="$route.path.indexOf('study/noticeDetail')==-1">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" v-if="$route.path.indexOf('study/noticeDetail')==-1&&$route.path.indexOf('team/teamDetail')==-1">
       <ion-fab-button>
         <ion-icon :icon="chevronUpCircle"></ion-icon>
       </ion-fab-button>

@@ -149,6 +149,11 @@ const routes: Array<RouteRecordRaw> = [
                 props: true,
                 component: () => import('@/views/team/teamDetailPage.vue')
             },
+            {
+                path: 'submitTask/:id',
+                props: true,
+                component: () => import('@/views/team/submitTaskPage.vue')
+            },
         ]
     },
 ]

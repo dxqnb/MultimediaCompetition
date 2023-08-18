@@ -239,3 +239,10 @@ body::-webkit-scrollbar {
         --ion-card-background: #1e1e1e;
     }
 }
+ion-segment::-webkit-scrollbar {
+  display: none;
+}
+
+ion-content::-webkit-scrollbar {
+  display: none;
+}

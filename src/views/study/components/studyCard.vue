@@ -6,6 +6,7 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 // import { customAnimation } from '@/animations/customAnimation';
 
+
 const firstIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"30\" height=\"30.025\" viewBox=\"0 0 30 30.025\">\n" +
     "  <defs>\n" +
     "    <linearGradient id=\"linear-gradient\" x1=\"0.5\" x2=\"0.5\" y2=\"1\" gradientUnits=\"objectBoundingBox\">\n" +
@@ -85,11 +86,11 @@ const router = useIonRouter();
             <ion-icon aria-hidden="true" :icon="firstIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">通知公告</ion-label>
           </ion-col>
-          <ion-col @click="$router.push('/study/schedule/')">
+          <ion-col @click="router.push('/study/schedule/')">
             <ion-icon aria-hidden="true" :icon="secondIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的课表</ion-label>
           </ion-col>
-          <ion-col @click="$router.push('/study/analyze/')">
+          <ion-col @click="router.push('/study/analyze/')">
             <ion-icon aria-hidden="true" :icon="thirdIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的学习</ion-label>
           </ion-col>

@@ -11,33 +11,96 @@ import {
   IonRange,
   IonText
 } from "@ionic/vue";
+import {ref} from "vue";
+
+const unfinished = ref(false)
+const finished = ref(false)
+
+function click(num: number) {
+  if (num === 1) {
+    unfinished.value = true
+    finished.value = false
+  } else {
+    unfinished.value = false
+    finished.value = true
+  }
+
+}
 </script>
 
 <template>
   <div>
+    <ion-button :class="unfinished?'clicked':'notClicked' " @click="click(1)"
+                style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;" mode="md">
+      待完成
+    </ion-button>
+    <ion-button mode="md" :class="finished?'clicked':'notClicked' " @click="click(2)"
+                style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;">
+      已完成
+    </ion-button>
     <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">任务列表</ion-text>
-    <ion-text style="color:#5C82FF;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">待完成</ion-text>
-    <ion-card
-        style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none">
-      <ion-card-content>
-        <div style="display: flex;">
-          <div style="width: 50%;">
-            <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词</ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">截止日期&nbsp;2023-10-11</ion-text>
+    <div v-if="!finished">
+      <ion-text style="color:#5C82FF;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">待完成</ion-text>
+      <ion-card @click="$router.push('/team/submitTask/1')"
+                style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none">
+        <ion-card-content>
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词
+              </ion-text>
+              <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">截止日期&nbsp;2023-10-11</ion-text>
+            </div>
+            <div style="width: 50%;">
+              <ion-text
+                  style="display: block;font-size: 14px;font-weight: 400;color: #343434;text-align: right;width: 100%;">
+                2023-08-01
+              </ion-text>
+              <ion-text
+                  style="display: block;font-size: 18px;font-weight: 400;color: #5C82FF;text-align: right;width: 100%;margin-top: 10px">
+                进行中
+              </ion-text>
+            </div>
           </div>
-          <div style="width: 50%;">
-            <ion-text style="display: block;font-size: 14px;font-weight: 400;color: #343434;text-align: right;width: 100%;">2023-08-01</ion-text>
-            <ion-text style="display: block;font-size: 18px;font-weight: 400;color: #5C82FF;text-align: right;width: 100%;margin-top: 10px">进行中</ion-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div v-if="!unfinished">
+      <ion-text style="color:#747474;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">已完成</ion-text>
+      <ion-card
+          style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none">
+        <ion-card-content>
+          <div style="display: flex;">
+            <div style="width: 50%;">
+              <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词
+              </ion-text>
+              <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">截止日期&nbsp;2023-10-11</ion-text>
+            </div>
+            <div style="width: 50%;">
+              <ion-text
+                  style="display: block;font-size: 14px;font-weight: 400;color: #343434;text-align: right;width: 100%;">
+                2023-08-01
+              </ion-text>
+              <ion-text
+                  style="display: block;font-size: 18px;font-weight: 400;color: #66CC0B;text-align: right;width: 100%;margin-top: 10px">
+                已完成
+              </ion-text>
+            </div>
           </div>
-        </div>
-      </ion-card-content>
-    </ion-card>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.button-disabled {
-  opacity: 1;
+.clicked {
+  --background: #5C82FF;
+  --color: #FFFFFF;
+}
+
+.notClicked {
+  --background: #FAFAFA;
+  --color: #BFBFBF;
 }
 
 ion-item {
