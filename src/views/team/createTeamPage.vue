@@ -27,12 +27,12 @@ import {chevronForwardOutline} from 'ionicons/icons';
 const vocabulary = ref('请选择');
 const days = ref('请选择');
 
-function handleRefresh(event: any) {
-  setTimeout(() => {
-    // Any calls to load data go here
-    event.target.complete();
-  }, 1000);
-}
+// function handleRefresh(event: any) {
+//   setTimeout(() => {
+//     // Any calls to load data go here
+//     event.target.complete();
+//   }, 1000);
+// }
 
 const pickerColumns = [
   {

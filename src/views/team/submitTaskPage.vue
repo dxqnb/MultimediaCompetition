@@ -76,7 +76,7 @@ const link = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
       <div>
         <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">提交任务
         </ion-text>
-        <ion-card @click="$router.push('/team/submitTask/1')"
+        <ion-card
                   style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none">
           <ion-card-content>
             <div style="border-bottom: solid 1px #E1E1E1;padding-bottom: 1.5em;margin-bottom: 1em">
