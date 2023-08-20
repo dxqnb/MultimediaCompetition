@@ -316,7 +316,7 @@ async function openPicker() {
                     style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;--background: transparent;">
           取消
         </ion-button>
-        <ion-button @click="selectData=[]"
+        <ion-button
                     style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;--background: transparent;">
           保存
         </ion-button>
