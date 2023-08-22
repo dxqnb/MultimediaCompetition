@@ -12,14 +12,27 @@ import {
   IonAvatar,
   IonItem
 } from "@ionic/vue";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
+import {getKcDetailList} from "@/api/study";
 
-const items = reactive([""]);
-
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
+interface item {
+  id: Number,
+  kcdictid:Number,
+  img: String,
+  title: String,
+  introduction: String,
+  link: String,
+  createby: String,
+  createtime: String,
 }
+const items = reactive<item[]>([]);
+
+getKcDetailList('1').then(res => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    items.push(res.data.data[i])
+  }
+})
 
 </script>
 
@@ -46,7 +59,7 @@ for (let i = 1; i < 20; i++) {
           <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
-      <ion-content style="height: 80vh;">
+      <ion-content style="height:70vh">
         <ion-list>
           <study-area-item v-for="(item, index) in items" :item="item" :index="index"></study-area-item>
         </ion-list>
@@ -145,14 +158,14 @@ ion-segment-button:nth-child(1) {
   z-index: 4;
 }
 
-ion-segment-button.ios:nth-child(2) {
+ion-segment-button:nth-child(2) {
   --background: #8997ef;
   border-radius: 0 20px 0 0;
   position: relative;
   z-index: 3;
 }
 
-ion-segment-button.ios::before {
+ion-segment-button::before {
   position: absolute;
   margin: 0;
   left: -20px;

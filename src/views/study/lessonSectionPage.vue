@@ -81,14 +81,14 @@ function change(event: any) {
 
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                  <img src="https://www.0030.store//favicon.png" alt="">
+                  <img src="https://www.0030.store/favicon.png" alt="">
                 </ion-avatar>
                 <div style="padding-left: 50px">
                   <ion-text><h2>爱学习的小鱼</h2></ion-text>
                   <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
                   <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
                     真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                  <ion-img src="https://www.0030.store//test.jpg"
+                  <ion-img src="https://www.0030.store/test.jpg"
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>
@@ -97,14 +97,14 @@ function change(event: any) {
 
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                  <img src="https://www.0030.store//favicon.png" alt="">
+                  <img src="https://www.0030.store/favicon.png" alt="">
                 </ion-avatar>
                 <div style="padding-left: 50px">
                   <ion-text><h2>爱学习的小鱼</h2></ion-text>
                   <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
                   <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
                     真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                  <ion-img src="https://www.0030.store//test.jpg"
+                  <ion-img src="https://www.0030.store/test.jpg"
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>
@@ -113,14 +113,14 @@ function change(event: any) {
 
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                  <img src="https://www.0030.store//favicon.png" alt="">
+                  <img src="https://www.0030.store/favicon.png" alt="">
                 </ion-avatar>
                 <div style="padding-left: 50px">
                   <ion-text><h2>爱学习的小鱼</h2></ion-text>
                   <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
                   <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
                     真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                  <ion-img src="https://www.0030.store//test.jpg"
+                  <ion-img src="https://www.0030.store/test.jpg"
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>
@@ -129,14 +129,14 @@ function change(event: any) {
 
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                  <img src="https://www.0030.store//favicon.png" alt="">
+                  <img src="https://www.0030.store/favicon.png" alt="">
                 </ion-avatar>
                 <div style="padding-left: 50px">
                   <ion-text><h2>爱学习的小鱼</h2></ion-text>
                   <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
                   <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
                     真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                  <ion-img src="https://www.0030.store//test.jpg"
+                  <ion-img src="https://www.0030.store/test.jpg"
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>
@@ -145,14 +145,14 @@ function change(event: any) {
 
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                  <img src="https://www.0030.store//favicon.png" alt="">
+                  <img src="https://www.0030.store/favicon.png" alt="">
                 </ion-avatar>
                 <div style="padding-left: 50px">
                   <ion-text><h2>爱学习的小鱼</h2></ion-text>
                   <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
                   <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
                     真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                  <ion-img src="https://www.0030.store//test.jpg"
+                  <ion-img src="https://www.0030.store/test.jpg"
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>

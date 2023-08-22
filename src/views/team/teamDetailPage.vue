@@ -37,6 +37,7 @@ import TeamTalk from "@/views/team/components/teamTalk.vue";
 import * as marked from "marked";
 import dayjs from "dayjs";
 import ReleaseTask from "@/views/team/components/releaseTask.vue";
+import TeamInfo from "@/views/team/components/teamInfo.vue";
 
 const text = marked.parse('### Marked in the browser\n\nRendered by **marked**.');
 const blank = ref('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'/></svg>');
@@ -86,16 +87,19 @@ const team = ref({
 
 })
 const segment = ref('info')
-const contentClass = ref('ion-padding')
+const contentClass = ref('ion-padding info')
 
 function change(event: any) {
   segment.value = event.detail.value;
   if (segment.value === 'talk') {
-    contentClass.value += ' talk';
-  } else {
-    contentClass.value = 'ion-padding';
-
+    contentClass.value = 'ion-padding talk';
+    return;
   }
+  if (segment.value === 'info') {
+    contentClass.value = 'ion-padding info';
+    return;
+  }
+  contentClass.value = 'ion-padding';
 }
 
 </script>
@@ -138,7 +142,7 @@ function change(event: any) {
       </div>
       <div style="padding-top: 36px;height: 100%;">
         <div v-if="segment=='info'">
-          info
+          <team-info></team-info>
         </div>
         <div v-else-if="segment=='taskProcess'">
           <task-process></task-process>
@@ -159,9 +163,13 @@ function change(event: any) {
                 </ion-text>
               </div>
               <div class="text">
-                <ion-avatar >
-                  <ion-text style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">{{item.username}}</ion-text>
-                  <img style="width: 48px;height: 48px;" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" alt=""/>
+                <ion-avatar>
+                  <ion-text
+                      style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
+                    {{ item.username }}
+                  </ion-text>
+                  <img style="width: 48px;height: 48px;" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                       alt=""/>
                 </ion-avatar>
                 <div v-html="item.text"
                      style="display: inline-block;width: 75%;border-radius: 0 20px 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-left: 1.5em;margin-top: 1em;position: relative;overflow: visible;"
@@ -182,8 +190,12 @@ function change(event: any) {
                      class="my">
                 </div>
                 <ion-avatar>
-                  <ion-text style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">{{item.username}}</ion-text>
-                  <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;" alt=""/>
+                  <ion-text
+                      style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
+                    {{ item.username }}
+                  </ion-text>
+                  <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;"
+                       alt=""/>
                 </ion-avatar>
 
               </div>
@@ -200,8 +212,11 @@ function change(event: any) {
                        enterkeyhint="send" style="width: 80%;margin-top: 15px;display: inline-block" :spellcheck="true"
                        @submit="sentEvent"
                        @keydown="(event:KeyboardEvent)=>{if(event.key=='Enter') {sentEvent()}}"></ion-searchbar>
-        <ion-button style="width: 19%;display: inline-block;min-width: 0;min-height: 0;margin-top: 15px;margin-right: 0;margin-left: 0;vertical-align: top;--padding-bottom: 10px;--padding-top: 10px;--background: #5B78EC;--color: white" @click="sentEvent">
-          <ion-icon slot="start" style="vertical-align: top;" :icon="sent"></ion-icon>发送
+        <ion-button
+            style="width: 19%;display: inline-block;min-width: 0;min-height: 0;margin-top: 15px;margin-right: 0;margin-left: 0;vertical-align: top;--padding-bottom: 10px;--padding-top: 10px;--background: #5B78EC;--color: white"
+            @click="sentEvent">
+          <ion-icon slot="start" style="vertical-align: top;" :icon="sent"></ion-icon>
+          发送
         </ion-button>
 
       </ion-toolbar>
@@ -216,6 +231,9 @@ ion-content::part(background) {
 
 ion-content.talk::part(background) {
   background: linear-gradient(to bottom, rgba(0, 213, 255, 0.02), rgba(68, 0, 255, 0.02));
+}
+ion-content.info::part(background) {
+  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.11), rgba(68, 0, 255, 0.11));
 }
 
 ion-toolbar {

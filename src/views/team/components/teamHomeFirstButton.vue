@@ -38,7 +38,7 @@ const router = useIonRouter();
       <ion-col>
         <ion-card class="inner"
                   style="background: url('https://www.0030.store/button1.png');background-size: cover"
-                  @click="$router.push('/study/technology')">
+                  @click="$router.push('/team/groupTeam')">
           <ion-card-content>
             <!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
             <ion-text style="font-size: 16px;font-weight: 900; color: #E09008">
@@ -72,7 +72,7 @@ const router = useIonRouter();
       <ion-col>
         <ion-card class="inner"
                   style=""
-                  @click="$router.push('/study/news')">
+                  @click="$router.push('/team/ranking')">
           <ion-card-content>
             <ion-text style="font-size: 16px;font-weight: 900;color: #EAA720">排行榜
               <p style="font-size: 12px;color: #EAA720">

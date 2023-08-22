@@ -34,36 +34,29 @@ onMounted(() => {
     divHeight.value = window.innerHeight - fixed.value.getBoundingClientRect().bottom - 16 + "px";
     console.log(divHeight.value)
   }, 100);
-  const vsp = new Player({
-    el: vs.value,
-    url: 'https://www.0030.store/5013.MP4',
-    height: '20vh',
-    width: '85vw',
-  })
-
 })
 
-function onScroll(event: any) {
-  // const scrollElement = event.target.$el;
-  // const scrollTop = scrollElement.scrollTop;
-  // console.log(event.target.detail.scrollTop)
-  if (event.target.detail.scrollTop > 150) {
-    scrollEvents.value = false;
-    content.value.$el.scrollToBottom(500);
-    setTimeout(function () {
-      scrollEvents.value = true;
-    }, 550)
-    scroll.value = true;
-  } else {
-    scrollEvents.value = false;
-    content.value.$el.scrollToTop(500);
-    // setTimeout(function () {
-    scrollEvents.value = true;
-    // }, 550)
-    scroll.value = false;
-  }
-  // console.log(event);
-}
+// function onScroll(event: any) {
+//   // const scrollElement = event.target.$el;
+//   // const scrollTop = scrollElement.scrollTop;
+//   // console.log(event.target.detail.scrollTop)
+//   if (event.target.detail.scrollTop > 150) {
+//     scrollEvents.value = false;
+//     content.value.$el.scrollToBottom(500);
+//     setTimeout(function () {
+//       scrollEvents.value = true;
+//     }, 550)
+//     scroll.value = true;
+//   } else {
+//     scrollEvents.value = false;
+//     content.value.$el.scrollToTop(500);
+//     // setTimeout(function () {
+//     scrollEvents.value = true;
+//     // }, 550)
+//     scroll.value = false;
+//   }
+//   // console.log(event);
+// }
 function change(event: any) {
   segmentValue.value = event.detail.value;
 }
@@ -83,16 +76,14 @@ function change(event: any) {
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="main" style="z-index: -2;" :scroll-events="scrollEvents" @ionScrollEnd="onScroll" ref="content"
+    <ion-content class="main" style="z-index: -2;" :scroll-y="false" :scroll-events="scrollEvents" ref="content"
                  :fullscreen="true">
       <div slot="fixed" style="width: 90vw;left: 5vw;right: 5vw;z-index: -1;">
         <div ref="fixed" style="margin: 30px 30px">
           <ion-text color="light"><h2>java编程基础</h2></ion-text>
           <ion-chip color="light">王思睿</ion-chip>
         </div>
-        <div ref="vs" style="border-radius: 10px;margin: 0 auto"></div>
       </div>
-      <div style="height: 350px;width: 1px;pointer-events: none;"></div>
       <ion-card :style="`z-index: 1000;margin: 0;height:`+divHeight">
         <ion-card-content>
           <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 50%;padding-bottom: 10px">
@@ -103,7 +94,7 @@ function change(event: any) {
               <ion-label><h3 style="font-weight: 900">评价</h3></ion-label>
             </ion-segment-button>
           </ion-segment>
-          <ion-content :scroll-y="scroll" :style="`height:`+ divHeight">
+          <ion-content :scroll-y="true" :style="`height:`+ divHeight">
             <ion-list v-if="segmentValue=='lesson'" style="margin-top: 14px;margin-bottom: 120px">
               <ion-item-group>
                 <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">

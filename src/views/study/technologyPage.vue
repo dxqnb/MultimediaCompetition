@@ -25,22 +25,66 @@ import {
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
-import LessonItem from "@/views/study/components/lessonItem.vue";
 import TecItem from "@/views/study/components/tecItem.vue";
+import {getVideoJs} from "@/api/study";
+import {el} from "vuetify/locale";
 
-const items = reactive([""]);
+interface item {
+  id: Number,
+  likecount: Number,
+  img: String,
+  title: String,
+  avatar: String,
+  link: String,
+  createBy: String,
+  createtime: String,
+  lll: String,
+}
+
+const itemsLeft = reactive<item[]>([]);
+const itemsRight = reactive<item[]>([]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
     // Any calls to load data go here
     event.target.complete();
   }, 1000);
-};
-
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
 }
-
+getVideoJs(1,10).then(res => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    if (i % 2 == 0) {
+      itemsLeft.push(res.data.data[i])
+    }else{
+      itemsRight.push(res.data.data[i])
+    }
+  }
+  console.log(itemsLeft)
+})
+for (let i = 1; i < 10; i++) {
+  itemsLeft.push({
+    id: i,
+    likecount: 0,
+    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+    title: "title"+i,
+    avatar: 'https://www.0030.store/favicon.png',
+    link: "String",
+    createBy: 'admin',
+    createtime: "String",
+    lll: "String",
+  });
+  itemsRight.push({
+    id: i,
+    likecount: 0,
+    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+    title: "title"+i,
+    avatar: 'https://www.0030.store/favicon.png',
+    link: "String",
+    createBy: 'admin',
+    createtime: "String",
+    lll: "String",
+  });
+}
+console.log(itemsLeft)
 
 
 </script>
@@ -79,18 +123,12 @@ for (let i = 1; i < 20; i++) {
         <ion-grid>
           <ion-row class="ion-align-items-start">
             <ion-col>
-                <tec-item @click="$router.push('/study/video')"></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item>
+              <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount" :img-url="item.img" :title="item.title" :item="item"
+                        :index="index"/>
             </ion-col>
             <ion-col>
-                <tec-item></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item><tec-item></tec-item>
-                <tec-item></tec-item>
+              <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount" :img-url="item.img" :title="item.title" :item="item"
+                        :index="index"/>
             </ion-col>
           </ion-row>
         </ion-grid>

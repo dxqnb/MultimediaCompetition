@@ -12,9 +12,9 @@ export function getUid() {
 
 /**
  * 计算时间差
- * @param beginTime：2022-01-13
- * @param endTime：2022-01-13
  * @returns {{hours: number, seconds: number, minutes: number, day: number}}
+ * @param beginTime
+ * @param endTime
  */
 export function dealTime(beginTime, endTime) {
     var dateBegin = new Date(beginTime);

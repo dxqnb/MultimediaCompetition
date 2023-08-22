@@ -66,7 +66,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/technologyPage.vue')
             },
             {
-                path: 'video',
+                path: 'video/:id',
+                props: true,
                 component: () => import('@/views/study/videoPage.vue')
             },
             {
@@ -153,6 +154,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'submitTask/:id',
                 props: true,
                 component: () => import('@/views/team/submitTaskPage.vue')
+            },
+            {
+                path: 'groupTeam',
+                component: () => import('@/views/team/groupTeamPage.vue')
+            },
+            {
+                path: 'ranking',
+                component: () => import('@/views/team/rankingPage.vue')
             },
         ]
     },

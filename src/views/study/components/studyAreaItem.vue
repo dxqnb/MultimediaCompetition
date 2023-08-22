@@ -6,13 +6,13 @@ const props = defineProps(['item', 'index']);
 </script>
 
 <template>
-  <ion-item lines="none" href="#">
+  <ion-item lines="none" :href="item.link">
     <ion-avatar slot="start" style="height: 50px;width: 50px;">
-      <img src="https://www.0030.store/%E7%A7%BB%E5%8A%A8%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91.png" alt="avatar"/>
+      <img :src="item.img" alt="avatar"/>
     </ion-avatar>
     <ion-label>
-      <h3>移动应用开发</h3>
-      <p style="font-size: 10px">王思睿</p>
+      <h3>{{ item.title }}</h3>
+      <p style="font-size: 10px">{{ item.createby }}</p>
     </ion-label>
   </ion-item>
 </template>

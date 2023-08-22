@@ -154,11 +154,11 @@ import 'swiper/css';
 import StudyCard from "@/views/study/components/studyCard.vue";
 import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
-import {getKcDetailList} from "@/api/study";
+import {getBanner} from "@/api/main";
 
-getKcDetailList('1').then(res => {
-  console.log(res)
-  console.log(res.data)
+
+getBanner().then(res => {
+  console.log(res.data.data)
 })
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);

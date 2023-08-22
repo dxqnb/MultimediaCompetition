@@ -12,7 +12,9 @@ import {
   IonButton, IonTitle,
 } from "@ionic/vue";
 import {ellipsisHorizontalOutline, searchOutline, thumbsUpOutline} from "ionicons/icons";
+import {useRoute} from "vue-router";
 
+const id = useRoute().params.id;
 const head = ref();
 const vs = ref();
 const content = ref();
