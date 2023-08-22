@@ -197,11 +197,10 @@ function change(event: any) {
                   <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;"
                        alt=""/>
                 </ion-avatar>
-
               </div>
             </div>
           </div>
-
+          <div style="height: 110px;"></div>
         </div>
       </div>
     </ion-content>
@@ -232,6 +231,7 @@ ion-content::part(background) {
 ion-content.talk::part(background) {
   background: linear-gradient(to bottom, rgba(0, 213, 255, 0.02), rgba(68, 0, 255, 0.02));
 }
+
 ion-content.info::part(background) {
   background: linear-gradient(to bottom, rgba(0, 213, 255, 0.11), rgba(68, 0, 255, 0.11));
 }
