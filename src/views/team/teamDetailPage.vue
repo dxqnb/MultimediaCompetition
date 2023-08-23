@@ -49,22 +49,23 @@ const content = ref()
 const remoteMassage = ref([
       {
         time: '7-19 16:59',
-        text: marked.parse('你好，我是小明，很高兴认识你'),
-        username: '队员1',
-      }
-    ]
-)
-const myMassage = ref([
+        text: marked.parse('### Marked in the browser\n\nRendered by **marked**.'),
+        isMyself: true,
+        username: '队长',
+      },
       {
         time: '7-19 16:59',
-        text: marked.parse('### Marked in the browser\n\nRendered by **marked**.'),
-        username: '队长',
+        text: marked.parse('你好，我是小明，很高兴认识你'),
+        isMyself: false,
+        username: '队员1',
       },
       {
         time: '7-19 16:59',
         text: marked.parse('你好，我也很高兴认识你'),
+        isMyself: true,
         username: '队长',
       },
+
     ]
 )
 
@@ -72,10 +73,11 @@ function sentEvent() {
   if (sentBar.value === '') {
     return
   }
-  // console.log(myMassage.value[myMassage.value.length - 1].time.substring(0, 2))
-  myMassage.value.push({
-    time: !myMassage.value[myMassage.value.length - 1].time.includes(' ') ? myMassage.value[myMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || myMassage.value[myMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
+  // console.log(remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2))
+  remoteMassage.value.push({
+    time: !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
     text: marked.parse(sentBar.value),
+    isMyself: true,
     username: '队长',
   })
   sentBar.value = ''
@@ -155,48 +157,50 @@ function change(event: any) {
         </div>
         <div v-else>
           <div style="margin-top: 40px">
-            <div v-for="(item , i) in remoteMassage" :key="i" style="margin-top: 1em">
-              <div class="time">
-                <ion-text
-                    style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
-                  {{ item.time }}
-                </ion-text>
-              </div>
-              <div class="text">
-                <ion-avatar>
+            <div v-for="(item , i) in remoteMassage" :key="i">
+              <div style="margin-top: 1em" v-if="!item.isMyself">
+                <div class="time">
                   <ion-text
-                      style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
-                    {{ item.username }}
+                      style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
+                    {{ item.time }}
                   </ion-text>
-                  <img style="width: 48px;height: 48px;" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-                       alt=""/>
-                </ion-avatar>
-                <div v-html="item.text"
-                     style="display: inline-block;width: 75%;border-radius: 0 20px 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-left: 1.5em;margin-top: 1em;position: relative;overflow: visible;"
-                     class="other">
+                </div>
+                <div class="text">
+                  <ion-avatar>
+                    <ion-text
+                        style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
+                      {{ item.username }}
+                    </ion-text>
+                    <img style="width: 48px;height: 48px;" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                         alt=""/>
+                  </ion-avatar>
+                  <div v-html="item.text"
+                       style="display: inline-block;width: 75%;border-radius: 0 20px 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-left: 1.5em;margin-top: 1em;position: relative;overflow: visible;"
+                       class="other">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div v-for="(item,i) in myMassage" :key="i" style="margin-top: 1em">
-              <div class="time">
-                <ion-text
-                    style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
-                  {{ item.time }}
-                </ion-text>
-              </div>
-              <div class="text">
-                <div v-html="item.text"
-                     style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
-                     class="my">
-                </div>
-                <ion-avatar>
+              <div v-if="item.isMyself" style="margin-top: 1em">
+                <div class="time">
                   <ion-text
-                      style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
-                    {{ item.username }}
+                      style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
+                    {{ item.time }}
                   </ion-text>
-                  <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;"
-                       alt=""/>
-                </ion-avatar>
+                </div>
+                <div class="text">
+                  <div v-html="item.text"
+                       style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
+                       class="my">
+                  </div>
+                  <ion-avatar>
+                    <ion-text
+                        style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
+                      {{ item.username }}
+                    </ion-text>
+                    <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;"
+                         alt=""/>
+                  </ion-avatar>
+                </div>
               </div>
             </div>
           </div>
