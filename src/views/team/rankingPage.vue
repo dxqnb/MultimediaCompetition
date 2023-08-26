@@ -11,15 +11,15 @@ import {
   IonCardContent,
   IonCard,
   IonChip,
-  IonItemGroup, IonItemDivider, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
+  IonRange, IonAccordion,IonAccordionGroup, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
   IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter, IonThumbnail, IonTitle
 } from "@ionic/vue";
-import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
+import {ellipsisHorizontalOutline, chevronForwardOutline, star, starOutline} from "ionicons/icons";
 import {onMounted, ref} from "vue";
 
 const content = ref();
 const toggle = ref();
-const toggleValue = ref(false);
+const toggleValue = ref(true);
 const scrollEvents = ref(true);
 const segmentValue = ref('daily');
 const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81">\n' +
@@ -190,6 +190,7 @@ const champion = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000
     '    </g>\n' +
     '  </g>\n' +
     '</svg>\n')
+
 onMounted(() => {
   setTimeout(() => {
     let toggleIcon = toggle.value.$el.shadowRoot.querySelectorAll('ion-icon')
@@ -210,6 +211,7 @@ onMounted(() => {
   }, 100)
 
 })
+
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
@@ -298,6 +300,7 @@ function change(event: any) {
         </ion-card-content>
       </ion-card>
       <ion-content class="team" :scroll-y="true" style="height: 95%" v-if="toggleValue">
+
         <div>
           <div
               style="display: inline-block;margin-left: 20px;width: 6px;height: 23px;background-color: #5DA2FF;vertical-align: bottom;border-radius: 3px"></div>
@@ -305,13 +308,63 @@ function change(event: any) {
               style="font-weight: 900;color:#474747;display: inline-block;width: 80%;vertical-align: bottom;margin-left: 6px">
             今日参与度
           </ion-text>
-
+          <ion-card
+              class="teamCard">
+            <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">参与度统计数据</ion-card-title>
+            <ion-card-content>
+              <div
+                  style="width: 100%;border-radius: 6px;background-color: white;padding: 10px;position: relative;margin: 0 0 10px 0"
+                  v-for="i in 2">
+                <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block"><img
+                    src="https://www.0030.store/test.jpg"
+                    alt=""/></ion-thumbnail>
+                <div style="display: inline-block;vertical-align: top;width: 70%;margin-left: 10px">
+                  <ion-text style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline">
+                    【备战英语】我们不简单队
+                  </ion-text>
+                  <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
+                             style="padding: 0"></ion-range>
+                </div>
+                <ion-icon style="position: absolute;top: 16px;right: 16px;" :icon="chevronForwardOutline"></ion-icon>
+              </div>
+            </ion-card-content>
+          </ion-card>
         </div>
-        <ion-card
-            class="teamCard">
-          <ion-card-title>参与度统计数据</ion-card-title>
-          <ion-card-content>123</ion-card-content>
-        </ion-card>
+        <div>
+          <div
+              style="display: inline-block;margin-left: 20px;width: 6px;height: 23px;background-color: #5DA2FF;vertical-align: bottom;border-radius: 3px"></div>
+          <ion-text
+              style="font-weight: 900;color:#474747;display: inline-block;width: 80%;vertical-align: bottom;margin-left: 6px">
+            活跃度
+          </ion-text>
+          <ion-card
+              class="teamCard">
+            <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">活跃度统计数据</ion-card-title>
+            <ion-card-content>
+              <ion-accordion-group :multiple="true">
+                <ion-accordion v-for="i in 2" :value="i+''" style="background-color: #fff">
+                  <div
+                  style="width: 100%;border-radius: 6px;background-color: white;padding: 10px;position: relative;margin: 0 0 10px 0" slot="header">
+                <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block"><img
+                    src="https://www.0030.store/test.jpg"
+                    alt=""/></ion-thumbnail>
+                <div style="display: inline-block;vertical-align: top;width: 70%;margin-left: 10px">
+                  <ion-text style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline">
+                    【备战英语】我们不简单队
+                  </ion-text>
+                  <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
+                             style="padding: 0"></ion-range>
+                </div>
+                <ion-icon style="position: absolute;top: 16px;right: 16px;transition: all 500ms;" @click="(event)=>{if(event.srcElement.style.transform=='rotate(90deg)'){ event.srcElement.style.transform='';console.log(event.srcElement.style.transform)}if(event.srcElement.style.transform=='') {event.srcElement.style.transform='rotate(90deg)';console.log(event.srcElement.style.transform)}}" :icon="chevronForwardOutline"></ion-icon>
+              </div>
+                  <div class="ion-padding" slot="content">First Content</div>
+                </ion-accordion>
+
+              </ion-accordion-group>
+
+            </ion-card-content>
+          </ion-card>
+        </div>
       </ion-content>
     </ion-content>
   </ion-page>
@@ -335,7 +388,8 @@ ion-content.team::part(background) {
 .teamCard {
   --background: url('@/img/card.png') no-repeat;
   background-size: cover;
-  box-shadow: none
+  box-shadow: none;
+  margin: 16px;
 }
 
 ion-toolbar {
@@ -366,5 +420,42 @@ ion-toggle::part(track) {
 
   /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
+}
+
+.range-disabled {
+  opacity: 1 !important;
+}
+
+ion-range {
+  --bar-background: #F1F1F1;
+  --bar-background-active: #56AAFF;
+  --bar-height: 15px;
+  --height: 30px;
+  --bar-border-radius: 8px;
+  --knob-size: 0px;
+  overflow: hidden;
+}
+
+ion-range::part(tick) {
+  background: #a2d2ff;
+}
+
+
+ion-range::part(pin) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #fff;
+  transform: scale(1.01);
+  top: -13px;
+  left: -38px;
+  min-width: 28px;
+  height: 28px;
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+ion-range::part(pin)::before {
+  content: none;
 }
 </style>

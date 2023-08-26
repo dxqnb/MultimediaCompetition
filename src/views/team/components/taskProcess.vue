@@ -30,5 +30,7 @@ import TaskProcessItem from "@/views/team/components/taskProcessItem.vue";
 </template>
 
 <style scoped>
-
+.button-disabled{
+  opacity: 1;
+}
 </style>

@@ -25,9 +25,10 @@ import * as marked from "marked";
 import dayjs from "dayjs";
 
 const text = marked.parse('### Marked in the browser\n\nRendered by **marked**.');
-const blank = ref('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'/></svg>');
-const sent = ref('data:image/svg+xml;utf8,<svg id="组_858" data-name="组 858" xmlns="http://www.w3.org/2000/svg" width="18.812" height="14.882" viewBox="0 0 18.812 14.882">\n' +
-    '  <path id="path" d="M17.722.023.66,3.961a.823.823,0,0,0-.621.592.823.823,0,0,0,.184.838L2.974,8.537l-1.19,4.375a.8.8,0,0,0,.348.956.8.8,0,0,0,1.017-.019l8.313-6.125A.774.774,0,0,0,11.645,6.5a.774.774,0,0,0-1.225-.184l-6.3,4.624.652-2.384a.826.826,0,0,0-.188-.809l-2.1-2.406,13.948-3.22-4.581,10.57L10.1,11.521a.769.769,0,0,0-1.253.213.769.769,0,0,0,.282,1.24l2.625,1.75a.83.83,0,0,0,.481.153.977.977,0,0,0,.249-.035.836.836,0,0,0,.551-.494L18.724,1.222A.816.816,0,0,0,18.6.317.815.815,0,0,0,17.722.023Z" transform="translate(0.006 0.005)" fill="#5b78ec" style="isolation: isolate"/>\n' +
+const blank = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="9.274" height="6.601" viewBox="0 0 9.274 6.601">\n' +
+    '  <g id="Icon" transform="translate(-2.902 -4.902)" style="isolation: isolate">\n' +
+    '    <path id="Icon-2" data-name="Icon" d="M7.577,0l-5,5.152L0,2.425" transform="translate(3.75 5.75)" fill="none" stroke="#7ea9ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="isolation: isolate"/>\n' +
+    '  </g>\n' +
     '</svg>\n');
 const sentBar = ref('')
 const content = ref()
@@ -79,59 +80,35 @@ function sentEvent() {
         </ion-buttons>
       </IonToolbar>
     </IonHeader>
-    <ion-content :fullscreen="true" ref="content" class="ion-padding">
-      <div style="width: 100%;" slot="fixed">
-        <ion-item lines="full">
-          <ion-label style="font-size: 14px;text-align: center;position: absolute;top: 0;width: 100%;left: 0">
-            开启推送通知，重要消息不错过
-          </ion-label>
-          <ion-button class="topButton" slot="end" size="small" color="primary">去开启</ion-button>
+    <ion-content :fullscreen="true" ref="content">
+      <div class="ion-padding">
+        <ion-text style="width: 100%;text-align: center;color: #2A2A2A;font-size: 20px;font-weight: 900;display: block">关于宿舍区整体网络升级改造的公告</ion-text>
+        <ion-item lines="none" style="--background: #f1f1f1;padding:10px 0;border-bottom: 1px solid rgba(112,112,112,0.2);margin-bottom: 10px">
+          <ion-avatar style="margin: 10px;"><img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"></ion-avatar>
+          <div>
+            <ion-text style="display: block;color: #2A2A2A;font-size: 14px">刘晓晓</ion-text>
+            <ion-text style="color: #A8A8A8;font-size: 12px">09月19日&nbsp;&nbsp;18:19&nbsp;发布</ion-text>
+          </div>
         </ion-item>
-      </div>
-      <div style="margin-top: 40px">
-        <div v-for="(item , i) in remoteMassage" :key="i" style="margin-top: 1em">
-          <div class="time">
-            <ion-text
-                style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
-              {{ item.time }}
-            </ion-text>
-          </div>
-          <div class="text">
-            <ion-avatar><img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/></ion-avatar>
-            <div v-html="item.text"
-                 style="display: inline-block;width: 80%;border-radius: 20px;background:#FFFFFF;padding-left: 1.5em;margin-left: 1em">
-            </div>
-          </div>
-        </div>
-        <div v-for="(item,i) in myMassage" :key="i" style="margin-top: 1em">
-          <div class="time">
-            <ion-text
-                style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
-              {{ item.time }}
-            </ion-text>
-          </div>
-          <div class="text">
-            <div v-html="item.text"
-                 style="display: inline-block;width: 80%;border-radius: 20px;background:#FFFFFF;padding-left: 1.5em;margin-right: 1em">
-            </div>
-            <ion-avatar><img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/></ion-avatar>
+        <div style="margin: 20px">
+          各位同学：
 
-          </div>
+我校现有生活区的网络系统建于2014年7月，网络设备与线缆逐渐老化，故障率增高等问题日益严重，而且宿舍区WIFI无线系统基本瘫痪。近年来，学校与运营商协调，对网络系统进行修补与调整，调整期间，运营商邀请部分学生参与了网络测试体验。
+学校与中国移动、中国电信等运营商进行多轮沟通后，将于今年暑期对学校所有宿舍楼的网络进行一次全面的升级改造，铺设光纤进入学生宿舍，有线、WIFI无线设备均安装房间内，提升网络效能。
+为了顺利地开展网络系统的改造升级工作，现做出以下几点重要的提示：
+1、带离贵重物品。2023年7月、8月间，宿舍网络改造工程施工过程中，需要进入每一间宿舍，在假期离校前，请务必将贵重物品（如现金、银行卡、笔记本电脑、运动装备、限量版的衣物鞋等）带离，床上用品、书籍及其它物品打包妥善存放并上锁。
+2、新改造的宿舍网将支持更高速的网络，提供更多样网络服务产品，包括：不同运营商的多种带宽速率与多种同时接入终端数量（有线或WIFI无线）等多样的组合套餐产品，基础网络套餐保持价格不变，其他网络产品价格不高于在甬高校的平均水平。
+3、宿舍网使用过程中有任何问题可拨打信息呼叫中心电话86328890（电信、移动短号681890）进行咨询、解决。
+最后，感谢您对宿舍网升级改造工作的理解与支持。
+浙江纺织服装职业技术学院
+                                                                                                                                                                                                               2023年6月12日
         </div>
+      </div>
+      <div style="width: 100%;background-color: #FFFFFF;padding: 20px;">
+        <ion-button style="width: 100%;--background: #ECF4FF;font-size: 12px;--color: #7EA9FF;" disabled>已读 334,901&nbsp;<ion-icon :icon="blank" style="width: 12px;"></ion-icon></ion-button>
+        <div style="width: 100%;text-align: center;font-size: 10px;color: #C2C2C2;margin: 15px 0;">已经到底啦~</div>
       </div>
     </ion-content>
-    <ion-footer style="background-color: #f7f7f7">
-      <ion-toolbar>
-        <ion-searchbar v-model="sentBar" :animated="true" inputmode="text" placeholder="请输入..." type="text"
-                       :search-icon="blank"
-                       enterkeyhint="send" style="width: 90%;margin-top: 15px;display: inline-block" :spellcheck="true"
-                       @submit="sentEvent"
-                       @keydown="(event:KeyboardEvent)=>{if(event.key=='Enter') {sentEvent()}}"></ion-searchbar>
-        <ion-icon style="width: 10%;display: inline-block;vertical-align: top;margin-top: 1.6em" :icon="sent"
-                  @click="sentEvent">发送
-        </ion-icon>
-      </ion-toolbar>
-    </ion-footer>
   </IonPage>
 </template>
 
@@ -152,10 +129,6 @@ ion-content::part(background) {
   background: #f1f1f1;
 }
 
-.item-lines-full {
-  --border-width: 0.55px 0px 0px 0px;
-}
-
 ion-thumbnail {
   --border-radius: 4px;
 }
@@ -164,16 +137,7 @@ ion-item {
   --padding-start: 0px;
 }
 
-.card-content-ios {
-  padding: 10px 20px;
-}
-
-ion-button.topButton {
-  --ion-color-base: #E3E7FF !important;
-  --ion-color-contrast: #4257DF !important;
-}
-
-.searchbar-search-icon {
-  display: none;
+.button-disabled{
+  opacity: 1;
 }
 </style>

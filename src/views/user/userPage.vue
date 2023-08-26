@@ -1,35 +1,22 @@
 <template>
-  <ion-page>
-    <ion-header collapse="fade" class="ion-no-border">
-      <ion-toolbar color="primary">
-        <!--        <ion-title color="light">-->
-        <!--          <h3 style="margin-bottom: 5px;">学习</h3>-->
-        <!--        </ion-title>-->
-        <ion-text size="large" color="light" slot="start" style="margin-left: 20px;margin-top: 10px;margin-bottom: 0px">
-          <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>
-          <div style="border: 3px solid var(--ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>
-        </ion-text>
-      </ion-toolbar>
-    </ion-header>
+  <ion-page class="page">
     <ion-content :fullscreen="true" class="ion-padding">
-      <!--      <ion-header class="ion-no-border" collapse="condense">-->
-      <!--        <ion-toolbar class="seHead">-->
-      <!--          <ion-text size="large" color="light" slot="start" style="margin-left: 10px">-->
-      <!--            <h2 style="margin-bottom: 5px;margin-top: 0">学习</h2>-->
-      <!--            <div style="border: 3px solid var(&#45;&#45;ion-color-base);border-radius: 10px;width:12px;margin: 0 auto"></div>-->
-      <!--          </ion-text>-->
-      <!--        </ion-toolbar>-->
-      <!--      </ion-header>-->
+      <ion-item lines="none" style="--background: none">
+        <div slot="end" style="color: #FFFFFF">
+          <ion-icon :icon="settingsOutline" style="margin-right: 10px;width: 20px;height: 20px;"></ion-icon>
+          <ion-icon :icon="notificationsOutline" style="width: 20px;height: 20px;"></ion-icon>
+        </div>
+      </ion-item>
       <swiper
-          effect="cards"
+          :effect="'cards'"
           :grabCursor="true"
           :modules="modules"
           :autoplay="{ delay: 3000, disableOnInteraction: false, }"
           :initialSlide="1"
           :loop="true"
           :space-between="50"
-          :pagination="true" :scrollbar="true" :zoom="true"
           @swiper="onSwiper"
+          :pagination="true" :scrollbar="true" :zoom="true"
       >
         <swiper-slide>
           <img src="https://www.0030.store/swiperAd/ad1.png" alt="">
@@ -45,9 +32,7 @@
         <swiper-slide>Slide 8</swiper-slide>
         <swiper-slide>Slide 9</swiper-slide>
       </swiper>
-      <study-card></study-card>
 
-      <study-area></study-area>
       <robot></robot>
 
     </ion-content>
@@ -55,7 +40,6 @@
   </ion-page>
 </template>
 <style scoped>
-
 
 ion-toolbar.seHead {
   --opacity: 0;
@@ -66,7 +50,7 @@ ion-content::part(background) {
   /*background: url("https://www.0030.store/background.png") top right no-repeat, linear-gradient(to bottom, #5D7BE5, #ffffff, #ffffff);
   background-size: 140%;
   filter: blur(1.5px);*/
-  background: url("https://www.0030.store/5%20%E2%80%93%201.jpg") top right no-repeat fixed;
+  background: url("https://www.0030.store/background2.jpg") top right no-repeat fixed;
   background-size: 100%;
 }
 
@@ -74,7 +58,7 @@ ion-content::part(background) {
   width: 90%;
   height: 120px;
   overflow: visible;
-  margin: 30px auto;
+  margin: 0 auto 1em auto;
 }
 
 .swiper-slide {
@@ -140,6 +124,7 @@ import {
   IonHeader,
   IonToolbar,
   IonContent,
+  IonIcon,
   IonText,
   IonImg,
   IonicSlides,
@@ -149,17 +134,10 @@ import io from 'socket.io-client';
 import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swiper/modules';
 import 'swiper/css/effect-cards';
 import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
-
 import 'swiper/css';
-import StudyCard from "@/views/study/components/studyCard.vue";
-import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
-import {getBanner} from "@/api/main";
+import {notificationsOutline, settingsOutline} from "ionicons/icons";
 
-
-getBanner().then(res => {
-  console.log(res.data.data)
-})
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
 
@@ -167,20 +145,9 @@ const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoo
 const sw = ref();
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
-setTimeout(function () {
+
+  setTimeout(function () {
     swiper.slidePrev()
   }, 100);
 };
-// })
-// sw.value.autoplay = {
-//   paused: false, pause(): void {
-//   }, resume(): void {
-//   }, start(): boolean {
-//     return false;
-//   }, stop(): boolean {
-//     return false;
-//   },
-//   timeLeft: 1000,
-//   running: true
-// }
 </script>

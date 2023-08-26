@@ -42,6 +42,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'team',
                 component: () => import('@/views/team/teamPage.vue')
+            },
+            {
+                path: 'user',
+                component: () => import('@/views/user/userPage.vue')
             }
         ]
     },
@@ -162,6 +166,20 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'ranking',
                 component: () => import('@/views/team/rankingPage.vue')
+            },
+            {
+                path: 'shake',
+                component: () => import('@/views/team/shakePage.vue')
+            },
+        ]
+    },
+    {
+        path: '/user/',
+        component: liteTabsPage,
+        children: [
+            {
+                path: 'setting',
+                component: () => import('@/views/settingPage.vue')
             },
         ]
     },

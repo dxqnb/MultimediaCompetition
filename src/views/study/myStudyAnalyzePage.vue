@@ -70,7 +70,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
         <div
             style="width: 90%;border-radius: 4px;background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));margin: 0 auto;height: 40px;">
           <ion-icon style="line-height: 40px;padding: 0 10px" :icon="star"></ion-icon>
-          <ion-text style="line-height: 40px;font-weight: 600" color="light">java高级编程</ion-text>
+          <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">java高级编程</ion-text>
         </div>
         <ion-card style="margin-top: 5px">
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
@@ -79,7 +79,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                 <ion-col size="5" @click="$router.push('/study/progress')">
                   <div>
                     <ion-icon :icon="bluePoint" style="padding-right: 5px"></ion-icon>
-                    <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C">学习进度</ion-text>
+                    <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C;font-size: 14px">学习进度</ion-text>
                   </div>
                   <div style="margin-left: 21px">
                     <ion-text style="font-size: 40px;font-weight: 600">
@@ -94,10 +94,10 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                 <ion-col size="7">
                   <div>
                     <ion-icon :icon="redPoint" style="padding-right: 5px"></ion-icon>
-                    <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C">最新通知</ion-text>
+                    <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C;font-size: 14px">最新通知</ion-text>
                   </div>
                   <div style="margin-left: 21px">
-                    <ion-text style="font-size: 14px;font-weight: 600;color: #9F9F9F">
+                    <ion-text style="font-size: 12px;color: #9F9F9F">
                       16:59
                     </ion-text>
                   </div>

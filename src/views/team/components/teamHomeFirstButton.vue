@@ -57,7 +57,7 @@ const router = useIonRouter();
       <ion-col>
         <ion-card class="inner"
                   style="background: url('https://www.0030.store/button2.png') ;background-size: cover"
-                  @click="$router.push('/study/news')">
+                  @click="$router.push('/team/shake')">
           <ion-card-content>
             <ion-text style="font-size: 16px;font-weight: 900; color: #786BB0">
               摇一摇
