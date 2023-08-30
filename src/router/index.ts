@@ -179,7 +179,11 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 path: 'setting',
-                component: () => import('@/views/settingPage.vue')
+                component: () => import('@/views/user/settingPage.vue')
+            },
+            {
+                path: 'dormitory',
+                component: () => import('@/views/user/dormitoryPage.vue')
             },
         ]
     },
