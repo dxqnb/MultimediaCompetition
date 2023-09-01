@@ -11,7 +11,7 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <div>
-        <ion-avatar slot="start" style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
+        <ion-avatar @click="$router.push('/login')" slot="start" style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
             src="https://www.0030.store/favicon.png" alt=""></ion-avatar>
         <div style="display: inline-block;margin-top: 30px;vertical-align: top">
           <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">学生1006</ion-text>

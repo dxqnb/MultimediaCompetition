@@ -175,12 +175,12 @@ function parseClientData(clientData: any) {
       </div>
       <img style="width: 172px;height: 208px;margin: 20% auto 10% auto;display: block" src="@/img/小U-02.png" alt=""/>
       <ion-button @click="login()"
-                  style="--color: #fff;font-size: 13px;width: 100%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
+                  style="--color: #fff;font-size: 13px;width: 90%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
         <ion-icon :icon="phonePortraitOutline"></ion-icon>
         用户名登录
       </ion-button>
       <ion-button @click="register()"
-                  style="--color: #fff;font-size: 13px;width: 100%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
+                  style="--color: #fff;font-size: 13px;width: 90%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
         注册
       </ion-button>
       <div style="margin: 10% auto;width: 226px;">
