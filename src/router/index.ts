@@ -10,12 +10,20 @@ const routes: Array<RouteRecordRaw> = [
 
     },
     {
-        path: '/login',
+        path: '/login/',
         component: liteTabsPage,
         children: [
             {
                 path: '',
-                component: () => import('@/views/user/LoginPage.vue'),
+                component: () => import('@/views/user/LoginMainPage.vue'),
+            },
+            {
+                path: 'second',
+                component: () => import('@/views/user/loginSecondPage.vue'),
+            },
+            {
+                path: 'register',
+                component: () => import('@/views/user/registerPage.vue'),
             },
         ]
     },

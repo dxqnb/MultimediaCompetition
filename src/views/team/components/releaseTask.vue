@@ -337,14 +337,9 @@ async function openPicker() {
                 </ion-input>
               </ion-item>
               <ion-item lines="none">
-                <!--              <ion-datetime presentation="date" :value="selectData">-->
-                <!--                <span slot="title">发布日期</span>-->
-                <!--              </ion-datetime>-->
-                <ion-datetime-button datetime="datetime">
-                  <div style="width: 0;height: 0;" slot="time-target"></div>
-                </ion-datetime-button>
+                <ion-input label="发布日期" label-placement="start" type="date"></ion-input>
               </ion-item>
-                <ion-datetime id="datetime"></ion-datetime>
+<!--                <ion-datetime id="datetime"></ion-datetime>-->
 
               <ion-item lines="none">
                 <ion-select label="组队天数" placeholder="7"
