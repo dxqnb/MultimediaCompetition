@@ -12,7 +12,10 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-searchbar style="padding:0"></ion-searchbar>
+<!--      <ion-searchbar style="padding:0"></ion-searchbar>-->
+      <ion-searchbar class="search" :mode="'md'"
+                     style="--box-shadow: none;--border-radius: 10px;font-size: 12px !important;"
+                     placeholder="新生入学攻略"></ion-searchbar>
       <swiper
           :effect="'cards'"
           :grabCursor="true"
@@ -49,8 +52,6 @@
   </ion-page>
 </template>
 <style scoped>
-ion-toolbar.head {
-}
 
 ion-toolbar.seHead {
   --opacity: 0;
@@ -177,3 +178,8 @@ const onSwiper = (swiper: any) => {
 //   running: true
 // }
 </script>
+<style>
+.search input {
+  font-size: 12px !important;
+}
+</style>

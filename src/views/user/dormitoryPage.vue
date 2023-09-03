@@ -16,21 +16,90 @@ import {
   IonCard,
   IonCardContent,
   IonBadge,
-  IonButton, IonSegment, IonSegmentButton, IonAvatar, IonRange, IonText, IonRadio, IonRadioGroup,
+  IonButton,
+  IonSegment,
+  IonSegmentButton,
+  IonAvatar,
+  IonRange,
+  IonText,
+  IonRadio,
+  IonRadioGroup,
+  IonRow,
+  IonCol,
+  IonGrid,
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
+import TecItem from "@/views/study/components/tecItem.vue";
+import {getVideoJs} from "@/api/study";
 
 const codeIcon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="59.392" height="59.437" viewBox="0 0 59.392 59.437">\n' +
     '  <path id="路径_226" data-name="路径 226" d="M45.867,45.376H72.119v5.413H45.867Zm32.928,0h15.2v5.413H78.8Zm20.77,0h5.523V50.9H99.565ZM45.867,66.33H72.119v5.417H45.867ZM45.7,45.376h5.413V71.628H45.7V45.376Zm21.011,0h5.413V71.628H66.707Zm-11.86,9.9h7.369v7.369H54.846ZM78.8,50.789h5.27v5.555H78.8Zm15.194,0h5.779V61.011H93.99Zm5.576,5.555h5.523v9.672H99.565Zm-15.3,4.145h9.729V67.45H84.265Zm5.445,5.523h9.9v5.612h-9.9V66.012Zm-10.882.175h5.437v5.437H78.828ZM45.7,77.053h5.413V89.317H45.7V77.053Zm5.425,11.111h5.857v5.861H51.121ZM45.7,93.792h5.425v11.021H45.7V93.792ZM56.648,77.053H73.313v6.733H56.648ZM60.7,83.187h6.953v6.4H60.7Zm5.657,4.977h6.953V99.3H66.36Zm-5.4,5.629h6.692v11.021H60.964V93.792Zm-5.572,4.043h6.5v6.978h-6.5ZM82.855,77.053H95.29V88.163H82.855V77.053Zm15.41,0h6.823v6.823H98.265ZM77.5,82.608h6.823V94.982H77.5Zm10.927,4H95.29v7.124H88.426ZM77.5,97.835h6.823v6.978H77.5ZM93.912,99.3h11.176v5.515H93.912ZM99.5,93.731h5.588v6.733H99.5Z" transform="translate(-45.696 -45.376)" fill="#3f3f3f"/>\n' +
     '</svg>')
+const itemsLeft = reactive<item[]>([]);
+const itemsRight = reactive<item[]>([]);
 
+interface item {
+  id: Number,
+  likecount: Number,
+  img: String,
+  title: String,
+  avatar: String,
+  link: String,
+  createBy: String,
+  createtime: String,
+  lll: String,
+}
+
+function handleRefresh(event: any) {
+  setTimeout(() => {
+    // Any calls to load data go here
+    event.target.complete();
+  }, 1000);
+}
+
+getVideoJs(1, 10).then(res => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    if (i % 2 == 0) {
+      itemsLeft.push(res.data.data[i])
+    } else {
+      itemsRight.push(res.data.data[i])
+    }
+  }
+  console.log(itemsLeft)
+})
+for (let i = 1; i < 10; i++) {
+  itemsLeft.push({
+    id: i,
+    likecount: 0,
+    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+    title: "title" + i,
+    avatar: 'https://www.0030.store/favicon.png',
+    link: "String",
+    createBy: 'admin',
+    createtime: "String",
+    lll: "String",
+  });
+  itemsRight.push({
+    id: i,
+    likecount: 0,
+    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+    title: "title" + i,
+    avatar: 'https://www.0030.store/favicon.png',
+    link: "String",
+    createBy: 'admin',
+    createtime: "String",
+    lll: "String",
+  });
+}
+console.log(itemsLeft)
 </script>
 
 <template>
   <IonPage>
-    <IonHeader style="background:none" class="ion-no-border ion-padding">
-      <IonToolbar style="--background: none;--color: white">
+    <IonHeader collapse="fade" style="background: linear-gradient(to bottom, #4472FB, rgb(94, 137, 252))"
+               class="ion-no-border ion-padding">
+      <IonToolbar style="--color: white;--background: none" class="">
         <ion-buttons slot="start">
           <ion-back-button style="color: #FFFFFF" text="" default-href="/tabs/user"></ion-back-button>
         </ion-buttons>
@@ -196,8 +265,36 @@ const codeIcon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000
       <div>
         <ion-text
             style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
-          <h4 style="color: #474747;font-weight: bolder;">学习专区</h4>
+          <h4 style="color: #474747;font-weight: bolder;">今日要闻</h4>
         </ion-text>
+        <ion-segment value="first" mode="ios">
+          <ion-segment-button value="first">
+            <ion-label><h3 style="font-weight: 900">推荐</h3></ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="second">
+            <ion-label><h3 style="font-weight: 900">专栏</h3></ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="third">
+            <ion-label><h3 style="font-weight: 900">技术</h3></ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="fourth">
+            <ion-label><h3 style="font-weight: 900">兴趣</h3></ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <ion-grid>
+          <ion-row class="ion-align-items-start">
+            <ion-col>
+              <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount"
+                        :img-url="item.img" :title="item.title" :item="item"
+                        :index="index"/>
+            </ion-col>
+            <ion-col>
+              <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount"
+                        :img-url="item.img" :title="item.title" :item="item"
+                        :index="index"/>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
     </ion-content>
   </IonPage>
@@ -208,8 +305,38 @@ ion-content::part(background) {
   background: linear-gradient(to bottom, #4472FB, #7D9DFC, #B3C6FC, #EBF1FD, #F5F8FE, #FFFFFF);
 }
 
-ion-toolbar {
-  --background: none;
+ion-segment {
+  --background: var(--ion-background-color);
+}
+
+/*ion-list{
+  --ion-item-background: #ffffff;
+}*/
+
+ion-segment-button::part(native) {
+  color: #474747;
+}
+
+.segment-button-checked::part(native) {
+  color: #ffffff;
+}
+
+ion-segment-button {
+  --indicator-color: #5b78ec;
+  --border-radius: 20px;
+  --color-checked: #fff;
+}
+
+ion-segment-button::before {
+  opacity: 0;
+}
+
+.item {
+  background-color: #ccc;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+  //height: calc(100px + 50 * +Math.random()*10);
 }
 
 </style>

@@ -193,6 +193,15 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'dormitory',
                 component: () => import('@/views/user/dormitoryPage.vue')
             },
+            {
+                path: 'grade',
+                component: () => import('@/views/user/gradePage.vue')
+            },
+            {
+                path: 'gradeDetail/:id',
+                props: true,
+                component: () => import('@/views/user/gradeDetailPage.vue')
+            },
         ]
     },
 ]
