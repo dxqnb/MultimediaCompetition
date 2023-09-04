@@ -68,11 +68,11 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
     <ion-content :fullscreen="true" class="ion-padding">
       <div v-for="i in 2">
         <div
-            style="width: 90%;border-radius: 4px;background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));margin: 0 auto;height: 40px;">
+            style="width: 100%;border-radius: 10px;background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));margin: 0 auto;height: 40px;">
           <ion-icon style="line-height: 40px;padding: 0 10px" :icon="star"></ion-icon>
           <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">java高级编程</ion-text>
         </div>
-        <ion-card style="margin-top: 5px">
+        <ion-card style="margin: 5px 0 20px 0">
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
             <ion-grid>
               <ion-row>
