@@ -38,7 +38,7 @@ import {Capacitor} from '@capacitor/core';
 import './theme/variables.css';
 
 import 'xgplayer/dist/index.min.css';
-import {inject} from '@vercel/analytics';
+// import {inject} from '@vercel/analytics';
 
 // Vuetify
 // import 'vuetify/styles'
@@ -46,12 +46,13 @@ import {createVuetify} from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import 'github-markdown-css';
+import 'default-passive-events'
 
 const vuetify = createVuetify({
     components,
     directives,
 })
-inject();
+// inject();
 import * as monaco from 'monaco-editor';
 // document.addEventListener('deviceready',function(){
 const app = createApp(App)
