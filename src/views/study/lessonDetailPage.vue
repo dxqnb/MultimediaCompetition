@@ -17,7 +17,6 @@ import {
 import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
-import * as url from "url";
 
 const vs = ref();
 const scroll = ref(false);

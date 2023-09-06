@@ -25,7 +25,6 @@ import {
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
-import LessonItem from "@/views/study/components/lessonItem.vue";
 import TecItem from "@/views/study/components/tecItem.vue";
 
 const items = reactive([""]);

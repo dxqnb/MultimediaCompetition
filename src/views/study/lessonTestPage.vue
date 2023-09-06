@@ -19,13 +19,12 @@ import {
   IonInfiniteScroll,
   IonRefresher,
   IonRefresherContent,
-  IonItemGroup,
+  IonFooter,
   IonButton,
   IonRadio, IonRadioGroup, IonText, IonImg
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
-import NewsItem from "@/views/study/components/newsItem.vue";
 
 const items = reactive([""]);
 

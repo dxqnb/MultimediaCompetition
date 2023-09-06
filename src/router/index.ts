@@ -28,6 +28,20 @@ const routes: Array<RouteRecordRaw> = [
         ]
     },
     {
+        path: '/smartU/',
+        component: liteTabsPage,
+        children: [
+            {
+                path: '',
+                component: () => import('@/views/AI/AIPage.vue'),
+            },
+            {
+                path: 'chatWithAI',
+                component: () => import('@/views/AI/chatWithAIPage.vue'),
+            },
+        ]
+    },
+    {
         path: '/tabs/',
         component: TabsPage,
         children: [
@@ -201,6 +215,18 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'gradeDetail/:id',
                 props: true,
                 component: () => import('@/views/user/gradeDetailPage.vue')
+            },
+            {
+                path: 'RAPInformation',
+                component: () => import('@/views/user/RAPInformationPage.vue')
+            },
+            {
+                path: 'kaoQin',
+                component: () => import('@/views/user/kaoQinPage.vue')
+            },
+            {
+                path: 'qingJia',
+                component: () => import('@/views/user/leaveInformation.vue')
             },
         ]
     },

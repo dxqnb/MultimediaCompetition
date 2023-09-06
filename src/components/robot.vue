@@ -8,7 +8,7 @@ import {
   IonIcon,
   IonTitle,
   IonToolbar,
-  IonImg, createGesture, GestureDetail
+  IonImg, createGesture, GestureDetail, useIonRouter
 } from '@ionic/vue';
 import {ref, onMounted} from "vue";
 
@@ -51,13 +51,14 @@ const robot = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/s
 const rightPx = ref("-80px");
 const rightPxNum = ref(80);
 const trigger = ref("robot");
-
+const router=useIonRouter();
 function openRobot() {
   if (a.value) {
     rightPx.value = "-40px";
     rightPxNum.value = -40;
 
   } else {
+    router.navigate('/smartU')
     rightPx.value = "-80px";
     rightPxNum.value = -80;
   }

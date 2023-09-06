@@ -9,7 +9,6 @@ import {
   IonText,
   IonImg,
   IonCardContent,
-  IonCard,
   IonChip,
   IonItemGroup, IonItemDivider, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
   IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter
@@ -17,7 +16,6 @@ import {
 import {ellipsisHorizontal, checkmarkOutline, star, starOutline} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
-import * as url from "url";
 
 const vs = ref();
 const scroll = ref(false);
@@ -48,7 +46,6 @@ function change(event: any) {
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <div ref="vs">
-
         </div>
         <ion-buttons style="position: absolute;top: 20px;left: 20px">
           <ion-back-button style="color: #f4f5f8" text="" default-href="/study/lesson/1"></ion-back-button>

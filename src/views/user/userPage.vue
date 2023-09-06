@@ -190,7 +190,7 @@
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34"><defs><linearGradient id="linear-gradient" x1="1" y1="0.901" x2="0.121" y2="0.127" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#a3a0ff"/><stop offset="1" stop-color="#48afff"/></linearGradient><linearGradient id="linear-gradient-2" x1="0.082" y1="0.074" x2="0.917" y2="0.928" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9e9ff"/></linearGradient></defs><g id="组_1102" data-name="组 1102" transform="translate(-1854.015 -13896.015)"><g id="组_1100" data-name="组 1100" transform="translate(1854 13896)"><g id="组_1093" data-name="组 1093" transform="translate(0 0)"><rect id="矩形_428" data-name="矩形 428" width="34" height="34" rx="6" transform="translate(0.015 0.015)" fill="url(#linear-gradient)"/></g><g id="组_1101" data-name="组 1101" transform="translate(6.962 6.962)" style="isolation: isolate"><rect id="streamlinehq-chat-two-bubbles-square-_flat-14-ico_Pg7AOOxU8e5ACNER" data-name="streamlinehq-chat-two-bubbles-square-flat-14-ico_Pg7AOOxU8e5ACNER" width="20.105" height="20.105" fill="none" style="isolation: isolate"/></g></g><path id="联合_12" data-name="联合 12" d="M2.124,17.342a2.12,2.12,0,0,1-1.6-.732H.405v-.145A2.108,2.108,0,0,1,0,15.218V2.124A2.127,2.127,0,0,1,2.124,0H17.419a2.127,2.127,0,0,1,2.124,2.124V15.218a2.115,2.115,0,0,1-.5,1.371v.02h-.017a2.12,2.12,0,0,1-1.6.732Zm8.27-7.768,1.286.776V1.329H8.4v8.982l1.237-.688c0-.005.015-.025.044-.042a.692.692,0,0,1,.577-.059l.008-.015ZM1.329,2.228V5.735l5.68.009V1.329H2.228A.9.9,0,0,0,1.329,2.228ZM13.067,5.735l5.147.009V2.228a.9.9,0,0,0-.9-.9H13.067Z" transform="translate(1861.292 13904.103)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient-2)"/></g></svg>'></ion-icon>
               <ion-text style="display: block;text-align: center;font-size: 13px">我的寝室</ion-text>
             </div>
-            <div style="margin: 22px 0">
+            <div style="margin: 22px 0" @click="$router.push('/user/grade')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
   <defs>
@@ -213,7 +213,7 @@
 '></ion-icon>
               <ion-text style="display: block;text-align: center;font-size: 13px">成绩查询</ion-text>
             </div>
-            <div style="margin: 22px 0">
+            <div style="margin: 22px 0" @click="$router.push('/user/RAPInformation')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
   <defs>
@@ -241,7 +241,7 @@
 '></ion-icon>
               <ion-text style="display: block;text-align: center;font-size: 13px">奖惩信息</ion-text>
             </div>
-            <div style="margin: 22px 0">
+            <div style="margin: 22px 0" @click="$router.push('/user/kaoQin')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
   <defs>
@@ -267,7 +267,7 @@
 '></ion-icon>
               <ion-text style="display: block;text-align: center;font-size: 13px">考勤</ion-text>
             </div>
-            <div style="margin: 22px 0">
+            <div style="margin: 22px 0" @click="$router.push('/user/qingJia')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
   <defs>
