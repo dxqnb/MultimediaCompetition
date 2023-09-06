@@ -4,22 +4,39 @@ import {
   IonButton,
   IonButtons,
   IonContent,
-  IonHeader, IonIcon,
+  IonHeader,
+  IonIcon,
   IonPage,
   IonText,
   IonToggle,
   IonCardContent,
   IonCard,
   IonChip,
-  IonRange, IonAccordion,IonAccordionGroup, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
-  IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter, IonThumbnail, IonTitle
+  IonRange,
+  IonAccordion,
+  IonAccordionGroup,
+  IonItem,
+  IonList,
+  IonNote,
+  IonAvatar,
+  IonCardTitle,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonToolbar,
+  IonSegmentButton,
+  IonLabel,
+  IonSegment,
+  onIonViewDidEnter,
+  onIonViewWillEnter,
+  IonThumbnail,
+  IonTitle
 } from "@ionic/vue";
 import {ellipsisHorizontalOutline, chevronForwardOutline, star, starOutline} from "ionicons/icons";
 import {onMounted, ref} from "vue";
 
 const content = ref();
 const toggle = ref();
-const toggleValue = ref(true);
+const toggleValue = ref(false);
 const scrollEvents = ref(true);
 const segmentValue = ref('daily');
 const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="81" height="81" viewBox="0 0 81 81">\n' +
@@ -312,21 +329,27 @@ function change(event: any) {
               class="teamCard">
             <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">参与度统计数据</ion-card-title>
             <ion-card-content>
-              <div
-                  style="width: 100%;border-radius: 6px;background-color: white;padding: 10px;position: relative;margin: 0 0 10px 0"
-                  v-for="i in 2">
-                <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block"><img
-                    src="https://www.0030.store/test.jpg"
-                    alt=""/></ion-thumbnail>
-                <div style="display: inline-block;vertical-align: top;width: 70%;margin-left: 10px">
-                  <ion-text style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline">
-                    【备战英语】我们不简单队
-                  </ion-text>
-                  <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
-                             style="padding: 0"></ion-range>
-                </div>
-                <ion-icon style="position: absolute;top: 16px;right: 16px;" :icon="chevronForwardOutline"></ion-icon>
-              </div>
+              <ion-accordion-group >
+                <ion-accordion v-for="i in 2" :value="i+''" style="border-radius: 6px;margin: 6px 0">
+                  <ion-item lines="none"
+                            style="width: 100%;--background: white;position: relative;" slot="header">
+                    <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block;margin-right: 0;"
+                                   slot="start"><img
+                        src="https://www.0030.store/test.jpg"
+                        alt=""/></ion-thumbnail>
+                    <div style="display: inline-block;vertical-align: top;width: 100%;margin-left: 10px">
+                      <ion-text
+                          style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline;margin-top: 10px;display: block;">
+                        【备战英语】我们不简单队
+                      </ion-text>
+                      <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
+                                 style="padding: 5px 0 12px 0;"></ion-range>
+                    </div>
+                    <!--                <ion-icon style="position: absolute;top: 16px;right: 16px;transition: all 500ms;" @click="(event)=>{if(event.srcElement.style.transform=='rotate(90deg)'){ event.srcElement.style.transform='';console.log(event.srcElement.style.transform)}if(event.srcElement.style.transform=='') {event.srcElement.style.transform='rotate(90deg)';console.log(event.srcElement.style.transform)}}" :icon="chevronForwardOutline"></ion-icon>-->
+                  </ion-item>
+                  <div class="ion-padding" slot="content">First Content</div>
+                </ion-accordion>
+              </ion-accordion-group>
             </ion-card-content>
           </ion-card>
         </div>
@@ -335,33 +358,71 @@ function change(event: any) {
               style="display: inline-block;margin-left: 20px;width: 6px;height: 23px;background-color: #5DA2FF;vertical-align: bottom;border-radius: 3px"></div>
           <ion-text
               style="font-weight: 900;color:#474747;display: inline-block;width: 80%;vertical-align: bottom;margin-left: 6px">
-            活跃度
+            今日活跃度
           </ion-text>
           <ion-card
               class="teamCard">
-            <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">活跃度统计数据</ion-card-title>
+            <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px;">活跃度统计数据
+            </ion-card-title>
             <ion-card-content>
-              <ion-accordion-group :multiple="true">
-                <ion-accordion v-for="i in 2" :value="i+''" style="background-color: #fff">
-                  <div
-                  style="width: 100%;border-radius: 6px;background-color: white;padding: 10px;position: relative;margin: 0 0 10px 0" slot="header">
-                <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block"><img
-                    src="https://www.0030.store/test.jpg"
-                    alt=""/></ion-thumbnail>
-                <div style="display: inline-block;vertical-align: top;width: 70%;margin-left: 10px">
-                  <ion-text style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline">
-                    【备战英语】我们不简单队
-                  </ion-text>
-                  <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
-                             style="padding: 0"></ion-range>
-                </div>
-                <ion-icon style="position: absolute;top: 16px;right: 16px;transition: all 500ms;" @click="(event)=>{if(event.srcElement.style.transform=='rotate(90deg)'){ event.srcElement.style.transform='';console.log(event.srcElement.style.transform)}if(event.srcElement.style.transform=='') {event.srcElement.style.transform='rotate(90deg)';console.log(event.srcElement.style.transform)}}" :icon="chevronForwardOutline"></ion-icon>
-              </div>
-                  <div class="ion-padding" slot="content">First Content</div>
+              <ion-accordion-group>
+                <ion-accordion v-for="i in 3" :value="i+''"
+                               style="border-radius: 6px;margin: 6px 0;background-color: #FFFFFF">
+                  <ion-item lines="none"
+                            style="width: 100%;--background: white;position: relative;" slot="header">
+                    <div style="border-radius: 8px;width: 48px;height: 48px;margin-right: 0;background-color: #F7F8F9"
+                         slot="start">
+                      <ion-text style="display:block;color: #B4B4B4;font-size: 12px;text-align: center;padding: 2px 0">
+                        活跃度
+                      </ion-text>
+                      <ion-text
+                          style="display:block;color: #FFA35C;font-size: 20px;text-align: center;font-weight: 900">60
+                      </ion-text>
+                    </div>
+                    <div style="display: inline-block;vertical-align: top;width: 100%;margin-left: 10px">
+                      <div
+                          style="font-size: 8px;color: #FFFFFF;vertical-align: baseline;margin-top: 10px;display: block;width: 30px;text-align: center;border-radius: 2px;padding: 3px 2px"
+                          :style="i==1?'background: linear-gradient(to bottom,#E59950,#FFC185);':i==2?'background: linear-gradient(to bottom,#A1AAC3,#D9E4FF);':'background: linear-gradient(to bottom,#CEA880,#FDDAB8);'">
+                        TOP.{{ i }}
+                      </div>
+                      <ion-text style="padding: 5px 0 12px 0;color:#353535;font-weight: 600;display: block;">
+                        爱学习的小鱼
+                      </ion-text>
+                    </div>
+                    <!--                <ion-icon style="position: absolute;top: 16px;right: 16px;transition: all 500ms;" @click="(event)=>{if(event.srcElement.style.transform=='rotate(90deg)'){ event.srcElement.style.transform='';console.log(event.srcElement.style.transform)}if(event.srcElement.style.transform=='') {event.srcElement.style.transform='rotate(90deg)';console.log(event.srcElement.style.transform)}}" :icon="chevronForwardOutline"></ion-icon>-->
+                  </ion-item>
+                  <div slot="content" class="ion-padding">
+                    <div
+                         style="background-color: #F7F8F9;width: 100%;display: flex;justify-content: space-around;border-radius: 10px">
+                      <div>
+                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                          学习次数
+                        </ion-text>
+                        <ion-text style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
+                          5
+                        </ion-text>
+                      </div>
+                      <div>
+                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                          观看时长
+                        </ion-text>
+                        <ion-text style="font-size: 20px;color: #484848;display: inline-block;text-align: center;font-weight: 900">
+                          2
+                        </ion-text>
+                        <ion-text style="font-size: 12px;color: #484848;text-align: center;">小时</ion-text>
+                      </div>
+                      <div>
+                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                          活跃度
+                        </ion-text>
+                        <ion-text style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
+                          60
+                        </ion-text>
+                      </div>
+                    </div>
+                  </div>
                 </ion-accordion>
-
               </ion-accordion-group>
-
             </ion-card-content>
           </ion-card>
         </div>
@@ -398,18 +459,14 @@ ion-toolbar {
 
 ion-toggle {
   padding: 12px;
-
   --track-background: #FFFFFF;
   --track-background-checked: #90BEE2;
-
   --handle-background: #90BEE2;
   --handle-background-checked: #FFFFFF;
-
   --handle-width: 14px;
   --handle-height: 14px;
   --handle-max-height: auto;
   --handle-spacing: 6px;
-
   --handle-border-radius: 100%;
   --handle-box-shadow: none;
 }

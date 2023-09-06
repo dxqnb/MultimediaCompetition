@@ -9,10 +9,12 @@ import {
   IonRadio,
   IonAvatar,
   IonRange,
-  IonButton
+  IonButton, IonTabButton, useIonRouter
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
+import animation from "@/animations/customAnimation";
+import router from "@/router";
 
 const items = reactive([""]);
 
@@ -20,7 +22,7 @@ for (let i = 1; i < 20; i++) {
   items.push("Item " + i);
 }
 const radio = ref('true')
-
+const ionRouter = useIonRouter();
 </script>
 
 <template>
@@ -69,10 +71,16 @@ const radio = ref('true')
           </div>
         </div>
         <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;">
-          <ion-button mode="md" @click="$router.push('/team/teamDetail/1')"
+          <ion-button mode="md"
+                      @click="ionRouter.navigate('/team/teamDetail/1','forward','push')"
                       style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;">
             更多
           </ion-button>
+<!--          <ion-button mode="md"-->
+<!--                      @click="router.push('/team/teamDetail/1')"-->
+<!--                      style="height: 22px;min-height: 22px;&#45;&#45;background: #E0E0E0;color: #989898;&#45;&#45;padding-top: 0.8em;&#45;&#45;padding-bottom: 0.8em;font-size: 0.8em;">-->
+<!--            更多-->
+<!--          </ion-button>-->
         </div>
       </div>
     </div>

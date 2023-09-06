@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="page">
+  <ion-page>
     <ion-header collapse="fade" class="ion-padding" style="padding-bottom:0">
       <ion-toolbar color="primary" class="head">
         <div slot="end" style="color: #FFFFFF">
@@ -11,7 +11,8 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <div>
-        <ion-avatar @click="$router.push('/login')" slot="start" style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
+        <ion-avatar @click="$router.push('/login')" slot="start"
+                    style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
             src="https://www.0030.store/favicon.png" alt=""></ion-avatar>
         <div style="display: inline-block;margin-top: 30px;vertical-align: top">
           <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">学生1006</ion-text>
@@ -42,7 +43,8 @@
               <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myStudy.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px">
-                <div style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold">
+                <div
+                    style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold">
                   我的学习
                 </div>
                 <div style="font-size: 11px;color: rgba(51,51,51,0.4);margin-left: 6px">
@@ -54,7 +56,8 @@
               <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myTeam.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px">
-                <div style="font-size: 15px;color: #333333;border-left: 2px solid #5EBAEE;padding-left: 3px;font-weight: bold">
+                <div
+                    style="font-size: 15px;color: #333333;border-left: 2px solid #5EBAEE;padding-left: 3px;font-weight: bold">
                   学友团
                 </div>
                 <div style="font-size: 11px;color: rgba(51,51,51,0.4);margin-left: 6px">
@@ -294,7 +297,6 @@
         </ion-card>
 
       </div>
-      <robot></robot>
 
     </ion-content>
 

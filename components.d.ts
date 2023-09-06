@@ -10,6 +10,7 @@ declare module 'vue' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ExploreContainer: typeof import('./src/components/ExploreContainer.vue')['default']
+    LiteTabs: typeof import('./src/components/liteTabs.vue')['default']
     Robot: typeof import('./src/components/robot.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

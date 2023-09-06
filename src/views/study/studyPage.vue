@@ -48,7 +48,6 @@
       <study-card></study-card>
 
       <study-area></study-area>
-      <robot></robot>
 
     </ion-content>
 

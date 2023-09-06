@@ -94,7 +94,7 @@ function change(event: any) {
       <div style="height: 350px;width: 1px;pointer-events: none;"></div>
       <ion-card :style="`z-index: 1000;margin: 0;height:`+divHeight">
         <ion-card-content>
-          <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 50%;padding-bottom: 10px">
+          <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 50%;padding-bottom: 10px;">
             <ion-segment-button value="lesson" >
               <ion-label><h3 style="font-weight: 900">课程</h3></ion-label>
             </ion-segment-button>

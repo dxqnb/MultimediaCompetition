@@ -45,7 +45,6 @@
       <notice-area></notice-area>
       <my-team-area></my-team-area>
       <latest-area></latest-area>
-      <robot></robot>
 
     </ion-content>
 
@@ -147,7 +146,6 @@ import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swip
 import 'swiper/css/effect-cards';
 import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
 import 'swiper/css';
-import Robot from "@/components/robot.vue";
 import TeamHomeFirstButton from "@/views/team/components/teamHomeFirstButton.vue";
 import MyTeamArea from "@/views/team/components/myTeamArea.vue";
 import LatestArea from "@/views/team/components/latestArea.vue";

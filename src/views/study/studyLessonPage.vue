@@ -21,7 +21,7 @@ import {
   IonInfiniteScrollContent
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
 
 const items = reactive([""]);
@@ -32,10 +32,14 @@ function handleRefresh(event: any) {
     event.target.complete();
   }, 1000);
 };
-
+const segmentValue=ref("1")
 for (let i = 1; i < 20; i++) {
   items.push("Item " + i);
 }
+function change(event: any) {
+  segmentValue.value = event.detail.value;
+}
+
 </script>
 
 <template>
@@ -55,17 +59,17 @@ for (let i = 1; i < 20; i++) {
       </IonToolbar>
     </IonHeader>
     <ion-content :scroll-y="false" :fullscreen="true" class="ion-padding">
-      <ion-segment value="first" mode="ios">
-        <ion-segment-button value="first">
+      <ion-segment :value="segmentValue" mode="ios" @change="change">
+        <ion-segment-button value="1">
           <ion-label><h3 style="font-weight: 900">专业课程</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="second">
+        <ion-segment-button value="2">
           <ion-label><h3 style="font-weight: 900">时事政治</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="third">
+        <ion-segment-button value="3">
           <ion-label><h3 style="font-weight: 900">专升本</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="fourth">
+        <ion-segment-button value="4">
           <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -75,7 +79,8 @@ for (let i = 1; i < 20; i++) {
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
           <ion-item-group class="ion-content-scroll-host">
-            <lesson-item v-for="(item, index) in items" :item="item" :index="index"></lesson-item>
+            <lesson-item v-if="segmentValue=='1'" v-for="(item, index) in items" :item="item" :index="index"></lesson-item>
+            <lesson-item v-if="segmentValue=='2'"></lesson-item>
           </ion-item-group>
         </ion-list>
         <ion-infinite-scroll>

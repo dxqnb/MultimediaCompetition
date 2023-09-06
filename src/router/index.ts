@@ -1,7 +1,6 @@
 import {createRouter, createWebHistory} from '@ionic/vue-router';
 import {RouteRecordRaw} from 'vue-router';
 import TabsPage from '@/views/TabsPage.vue'
-import liteTabsPage from "@/views/liteTabsPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -11,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/login/',
-        component: liteTabsPage,
+        component: TabsPage,
         children: [
             {
                 path: '',
@@ -29,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/smartU/',
-        component: liteTabsPage,
+        component: TabsPage,
         children: [
             {
                 path: '',
@@ -73,7 +72,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/study/',
-        component: liteTabsPage,
+        component: TabsPage,
         children: [
             {
                 path: 'lessons',
@@ -141,7 +140,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/team/',
-        component: liteTabsPage,
+        component: TabsPage,
         children: [
             {
                 path: 'createTeam',
@@ -197,7 +196,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: '/user/',
-        component: liteTabsPage,
+        component: TabsPage,
         children: [
             {
                 path: 'setting',

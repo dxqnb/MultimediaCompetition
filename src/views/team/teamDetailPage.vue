@@ -233,11 +233,11 @@ ion-content::part(background) {
 }
 
 ion-content.talk::part(background) {
-  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.02), rgba(68, 0, 255, 0.02));
+  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.02), rgba(68, 0, 255, 0.02)) #FFFFFF;
 }
 
 ion-content.info::part(background) {
-  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.11), rgba(68, 0, 255, 0.11));
+  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.11), rgba(68, 0, 255, 0.11)) #FFFFFF;
 }
 
 ion-toolbar {

@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
+      <ion-tab-bar v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'" style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
         <ion-tab-button tab="tab1" href="/tabs/tab1">
           <ion-icon class="notSelected" aria-hidden="true" :icon="home"/>
           <ion-icon class="selected" aria-hidden="true" :icon="homeSelect"/>
@@ -33,7 +33,7 @@
 
       </ion-tab-bar>
       <div
-          :style="height">
+          :style="height" v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'">
         <div
             style="width: 65px;height: 65px;border-radius: 100%;background-color: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));margin-left: -50%;margin-top: 50%;">
           <ion-icon :icon="main" style="width: 100%;height: 100%;"></ion-icon>
@@ -46,6 +46,7 @@
 <script setup lang="ts">
 import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet} from '@ionic/vue';
 import {onMounted, ref} from "vue";
+import LiteTabs from "@/components/liteTabs.vue";
 
 const home = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class=\'ionicon\' viewBox="0 0 25.4 25.4">\n' +
     '  <g id="组_311" data-name="组 311" transform="translate(-35.2 -735.3)">\n' +
