@@ -30,7 +30,7 @@ function handleRefresh(event: any) {
     // Any calls to load data go here
     event.target.complete();
   }, 1000);
-};
+}
 
 
 </script>

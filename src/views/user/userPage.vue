@@ -108,7 +108,7 @@
             <div ref="radar" style="width: 178px;height: 120px;margin-top: 16px"></div>
           </div>
         </div>
-        <div style="width: 100%;margin-top: 20px;position: relative;height: 190px;">
+        <div style="width: 100%;margin-top: 20px;position: relative;height: 190px;" @click="$router.push('/user/history')">
           <div
               style="width: 100%;border-radius: 8px;height: 63px;background: repeating-linear-gradient(to bottom,#5E8EFD,#4F7AF8)">
             <ion-item lines="none" style="--background: none">

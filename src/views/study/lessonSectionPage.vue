@@ -9,22 +9,23 @@ import {
   IonText,
   IonImg,
   IonCardContent,
-  IonChip,
-  IonItemGroup, IonItemDivider, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
-  IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter
+  IonModal,
+  IonTitle, IonInput, IonItem, IonList, IonNote, IonAvatar, IonTextarea, IonRadio, IonRadioGroup, IonCardSubtitle,
+  IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter, actionSheetController
 } from "@ionic/vue";
-import {ellipsisHorizontal, checkmarkOutline, star, starOutline} from "ionicons/icons";
+import {
+  ellipsisHorizontal,
+  checkmarkOutline,
+  star,
+  starOutline,
+  closeCircleOutline,
+  closeOutline, cameraOutline, imagesOutline
+} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
 
 const vs = ref();
-const scroll = ref(false);
-const content = ref();
-const scrollEvents = ref(true);
-const fixed = ref();
-const divHeight = ref("76vh");
-const colors = ['#000', 'purple', 'orange', 'indigo', 'red'];
-const rating = ref(4.5);
+const flag = ref(false);
 const segmentValue = ref('lesson');
 onMounted(() => {
   const vsp = new Player({
@@ -33,8 +34,43 @@ onMounted(() => {
     height: '30vh',
     width: '100%',
   })
-
 })
+const modal = ref()
+const page = ref()
+
+function dismiss() {
+  modal.value.$el.dismiss();
+}
+
+const presentingElement = ref('')
+onMounted(() => {
+  presentingElement.value = page.value.$el;
+})
+
+async function canDismiss() {
+  if (!flag.value) {
+    const actionSheet = await actionSheetController.create({
+      header: '还没保存确定要关闭吗?',
+      buttons: [
+        {
+          text: '是的',
+          role: 'confirm',
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+        },
+      ],
+    });
+    actionSheet.present();
+    const {role} = await actionSheet.onWillDismiss();
+    return role === 'confirm';
+  }
+  flag.value = false
+
+  return true
+}
+
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
@@ -42,9 +78,9 @@ function change(event: any) {
 </script>
 
 <template>
-  <ion-page class="page">
+  <ion-page ref="page">
     <ion-header class="ion-no-border">
-      <ion-toolbar>
+      <ion-toolbar class="main">
         <div ref="vs">
         </div>
         <ion-buttons style="position: absolute;top: 20px;left: 20px">
@@ -57,7 +93,7 @@ function change(event: any) {
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-header >
+    <ion-header>
       <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="padding-bottom: 10px;--background: white">
         <ion-segment-button value="lesson">
           <ion-label><h3 style="font-weight: 900">共享笔记</h3></ion-label>
@@ -157,6 +193,54 @@ function change(event: any) {
           </ion-list>
         </ion-card-content>
       </div>
+      <ion-button slot="fixed" id="open-modal" expand="block" style="bottom: 0;right: 0;">发表笔记</ion-button>
+      <ion-modal ref="modal" trigger="open-modal" :can-dismiss="canDismiss" :presenting-element="presentingElement">
+        <ion-header class="ion-no-border">
+          <ion-toolbar style="--background: #F7F8F9">
+            <ion-title>发表笔记</ion-title>
+            <ion-buttons slot="start">
+              <ion-button @click="dismiss()">
+                <ion-icon style="color: black" :icon="closeOutline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding vice">
+          <div style="border-radius: 10px;background: #FFFFFF">
+            <ion-item style="--background: white;border-radius: 10px;padding: 20px 20px 0 20px">
+              <ion-input type="text" placeholder="起个标题吧" :clear-input="true" style=""></ion-input>
+            </ion-item>
+            <ion-text style="padding-left: 20px;padding-top: 10px;--color:#858585;color: #858585;display: inline-block">
+              <ion-icon :icon="cameraOutline" style="width: 26px;height: 26px;vertical-align: bottom;"></ion-icon>
+              截图
+            </ion-text>&nbsp;
+            <ion-text style="padding-left: 10px;padding-top: 10px;--color:#858585;color: #858585">
+              <ion-icon :icon="imagesOutline" style="width: 26px;height: 26px;vertical-align: bottom;"></ion-icon>
+              上传图片
+            </ion-text>&nbsp;
+            <ion-textarea fill="solid" style="height: 400px;padding: 10px"
+                          value="感谢，学到了很多。学习是一种持续的过程，它为我们打开了知识的大门，让我们不断成长和进步。通过学习，我们可以获取新的技能和知识，拓宽我们的视野，并且提升自己的能力。"></ion-textarea>
+            <div style="text-align: right">
+              <ion-radio-group value="custom-checked">
+                <ion-radio value="custom" style="margin-right: 10px;font-size: 14px" mode="md"
+                           aria-label="Custom checkbox" label-placement="end">
+                  不分享
+                </ion-radio>
+                <ion-radio value="custom-checked" style="margin-right: 10px;font-size: 14px" mode="md"
+                           aria-label="Custom checkbox that is checked" label-placement="end">
+                  分享
+                </ion-radio>
+              </ion-radio-group>
+            </div>
+          </div>
+          <div style="width: 100%;margin-top: 30px;">
+            <ion-button @click="()=>{flag=true;dismiss()}"
+                        style="width: 90%;margin: auto;--color: white;--background: #5B78EC;--background-activated: #475eb9"
+                        :expand="'block'" fill="solid">发布
+            </ion-button>
+          </div>
+        </ion-content>
+      </ion-modal>
     </ion-content>
 
   </ion-page>
@@ -169,7 +253,44 @@ ion-content.main::part(background) {
   z-index: -2;
 }
 
-ion-toolbar {
+ion-content.vice::part(background) {
+  background: #F7F8F9
+}
+
+ion-toolbar.main {
   --background: #000;
 }
+
+ion-radio::part(container) {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid #ddd;
+}
+
+ion-radio::part(mark) {
+  background: none;
+  transition: none;
+  transform: none;
+  border-radius: 0;
+}
+
+ion-radio.radio-checked::part(container) {
+  background: #35C1FC;
+  border-color: transparent;
+}
+
+ion-radio.radio-checked::part(mark) {
+  width: 6px;
+  height: 10px;
+
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: #fff;
+
+  transform: rotate(45deg);
+}
+</style>
+<style lang="scss">
+
 </style>

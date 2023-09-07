@@ -31,7 +31,6 @@ import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import TaskProcess from "@/views/team/components/taskProcess.vue";
 import TaskList from "@/views/team/components/taskList.vue";
-import TeamTalk from "@/views/team/components/teamTalk.vue";
 
 
 import * as marked from "marked";

@@ -29,6 +29,14 @@ import {
   chevronDownOutline, phonePortraitOutline, settingsOutline, notificationsOutline
 } from "ionicons/icons";
 import {onMounted, ref} from "vue";
+import {login} from "@/api/user";
+const num=ref('2021080418');
+const pw=ref('');
+function doLogin(){
+  login({userName:num,password:pw}).then((res)=>{
+    console.log(res)
+  })
+}
 </script>
 
 <template>
@@ -62,7 +70,7 @@ import {onMounted, ref} from "vue";
           <form action="" method="get">
             <ion-label style="margin: 20px 0 10px 10px;display: block">用户名</ion-label>
             <ion-input fill="outline" inputmode="numeric" :autofocus="true" enterkeyhint="next" type="number"
-                       shape="round" placeholder="输入你的学号" mode="md" value="2021080418"
+                       shape="round" placeholder="输入你的学号" mode="md" v-model="num"
                        style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
               <!--              <div slot="label">Email-->
               <!--                <ion-text color="danger">(Required)</ion-text>-->
@@ -70,7 +78,7 @@ import {onMounted, ref} from "vue";
             </ion-input>
             <ion-label style="margin: 20px 0 10px 10px;display: block">密码</ion-label>
             <ion-input fill="outline" inputmode="text" :autofocus="false" enterkeyhint="send" type="password"
-                       shape="round" placeholder="输入你的密码" mode="md" value=""
+                       shape="round" placeholder="输入你的密码" mode="md" value="" v-model="pw"
                        style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
               <!--              <div slot="label">Email-->
               <!--                <ion-text color="danger">(Required)</ion-text>-->

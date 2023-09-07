@@ -227,6 +227,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'qingJia',
                 component: () => import('@/views/user/leaveInformation.vue')
             },
+            {
+                path: 'history',
+                component: () => import('@/views/user/historyPage.vue')
+            },
         ]
     },
 ]

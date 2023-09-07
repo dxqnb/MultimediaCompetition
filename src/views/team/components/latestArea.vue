@@ -8,10 +8,17 @@ import {
   IonRadioGroup,
   IonRadio,
   IonAvatar,
-  IonRange,
-  IonButton
+  IonImg,
+  IonButton, IonCardContent, IonCard
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
+import {Swiper, SwiperSlide,} from 'swiper/vue';
+import {Pagination, Navigation} from 'swiper/modules';
+import 'swiper/css';
+
+import 'swiper/less/navigation';
+
+const modules = ref([Pagination, Navigation]);
 
 const items = reactive([""]);
 
@@ -30,107 +37,50 @@ const radio = ref('true')
       <div
           style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>
+    <swiper
+        :slidesPerView="'auto'"
+        :spaceBetween="10"
+        :modules="modules"
+        class="mySwiper"
+    >
+      <swiper-slide v-for="i in 10">
+        <ion-avatar style="width: 38px;height: 38px;">
+          <img src="@/img/test.jpg">
+        </ion-avatar>
+        <div
+            style="width: 238px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 15px;padding-top: 10px"
+            class="ion-padding">
+          <div style="display: flex;justify-content: space-between;margin-bottom: 10px">
+            <ion-text style="font-weight: 600;font-size: 13px;display: block;margin-top: 8px">咩咩</ion-text>
+            <ion-button
+                style="font-weight: 600;font-size: 13px;--color: white;--background: #FFC830;--background-activated: #eab82c;--border-radius: 20px;--padding-top: 0;--padding-bottom: 0;height: 32px;min-height: 0;">
+              加入
+            </ion-button>
+          </div>
+          <ion-img style="border-radius: 10px;overflow:hidden;"
+                   src="https://www.0030.store/e1c1aba9b18e4902bf99672ca6fe6a25.jpg"></ion-img>
+        </div>
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <style scoped>
-ion-range {
-  --bar-background: rgba(80, 101, 255, 0.22);
-  --bar-background-active: #5065FF;
-  --bar-height: 8px;
-  --bar-border-radius: 8px;
-  --knob-size: 0px;
-}
 
-.radio-disabled {
-  opacity: 1;
-}
-
-ion-radio {
-  --border-radius: 100%;
-  --inner-border-radius: 100%;
-
-  --color: #5065FF;
-  --color-checked: #5065FF;
-}
-
-ion-radio.ios::part(container) {
-  width: 20px;
-  height: 20px;
-
-  border: 2px solid #5065FF;
-  border-radius: 100%;
-}
-
-.radio-checked.ios::part(container) {
-  border-color: #5065FF;
-}
-
-.area {
+.swiper {
   width: 100%;
-  margin: 0 auto;
-  position: relative;
+  height: 100%;
+  margin: 10px 0;
 }
 
-ion-segment {
-  --background: linear-gradient(to right, rgba(0, 213, 255, 0.04), rgba(68, 0, 255, 0.04));
-  height: 55px;
-  border-radius: 10px 10px 0 0;
+.swiper-slide {
+  text-align: left;
+  font-size: 18px;
+  width: 290px;
+  align-items: start;
 }
-
-/* Material Design styles */
-ion-segment-button.md::part(native) {
-  color: #474747;
-}
-
-.segment-button-checked.md::part(native) {
-  color: #08a391;
-}
-
-ion-segment-button.md::part(indicator-background) {
-  height: 4px;
-}
-
-/* iOS styles */
-/*ion-segment-button.ios:nth-child(1)::part(native) {
-
-  color: #08a391;
-}*/
-ion-segment-button {
-  --background: rgba(0, 0, 0, 0);
-  border-radius: 10px 10px 0 0;
-  margin-bottom: 0;
-}
-
-ion-segment-button.ios::before {
-  display: none;
-}
-
-
-.segment-button-checked.ios::part(native) {
-  color: #8997ef !important;
-}
-
-ion-segment-button.ios::part(indicator-background) {
-  border-radius: 10px 10px 0 0;
-}
-
-.segment-button-after-checked::before {
-  opacity: 1 !important;
-}
-
-svg {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-}
-
-.infinite-scroll-content {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.range-disabled {
-  opacity: 1 !important;
+.swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
 }
 </style>

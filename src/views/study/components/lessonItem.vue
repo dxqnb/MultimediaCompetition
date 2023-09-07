@@ -19,9 +19,15 @@ const props = defineProps(['item', 'index']);
         <p style="font-size: 10px;padding: 5px 0 5px 0">王思睿</p>
         <p style="font-size: 10px">2018</p>
       </ion-label>
-      <ion-button slot="end" @click="$router.push('/study/lesson/1')">
-        <ion-text color="light">加入课程</ion-text>
-      </ion-button>
+      <div slot="end" style="display: flex;flex-direction: column">
+        <ion-button v-if="!$route.path.includes('history')" style="--background: #FFAA1B;--background-activated: #d38d17" @click="$router.push('/study/lesson/1')">
+          <ion-text color="light">添加课程</ion-text>
+        </ion-button>
+        <ion-button @click="$router.push('/study/lesson/1')">
+          <ion-text color="light">进入课程</ion-text>
+        </ion-button>
+      </div>
+
     </ion-item>
     <ion-item-options>
       <ion-item-option>Favorite</ion-item-option>
