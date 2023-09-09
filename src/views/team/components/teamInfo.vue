@@ -17,19 +17,22 @@ import {ref} from "vue";
 import 'swiper/css';
 
 import 'swiper/less/navigation';
-
+import {data} from "browserslist";
+const Props=defineProps(['team'])
 const modules = ref([Pagination, Navigation]);
 </script>
 
 <template>
   <ion-card
       style="margin: 12px 0 ;--background: #ffffff;box-shadow: none">
-    <ion-img src="https://www.0030.store/e1c1aba9b18e4902bf99672ca6fe6a25.jpg">
+    <ion-img :src=team.bgimg>
 
     </ion-img>
     <ion-card-content style="padding: 10px;">
       <div>
-        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block">【备战英语】我们不简单队<br>（组队背单词）
+<!--        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block">【备战英语】我们不简单队<br>（组队背单词）-->
+<!--        </ion-text>-->
+        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block"> {{team.tname}}
         </ion-text>
       </div>
 
@@ -64,7 +67,7 @@ const modules = ref([Pagination, Navigation]);
         <ion-text style="font-weight: bolder;font-size: 20px;color: black;display: block;margin-bottom: 6px">简介
         </ion-text>
         <ion-text style="font-weight: bolder;font-size: 12px;color: #3B3B3B;display: block"><p>
-          我们是一支致力于英语学习的团队，专注于提供高效、个性化的英语学习服务。我们会根据学生的水平、学习目标和需求定制学习计划，并提供针对性的辅导和反馈。致力于帮助学生提升他们的英语水平。</p>
+          {{team.introduction}}</p>
         </ion-text>
       </div>
       <!--      <ion-content class="inner" style="width: 100%;height: 100px;" :scroll-x="true" :scroll-y="false">-->
@@ -120,7 +123,7 @@ const modules = ref([Pagination, Navigation]);
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            2023-07.08
+            {{new Date(Props.team.createtime).getFullYear()+`-`+(new Date(Props.team.createtime).getMonth()+1)+`-`+new Date(Props.team.createtime).getDate()}}
             </p>
           </ion-text>
         </div>
@@ -132,7 +135,7 @@ const modules = ref([Pagination, Navigation]);
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            2023-10-11
+            {{new Date(Props.team.createtime).getFullYear()+`-`+(new Date(Props.team.createtime).getMonth()+1)+`-`+(new Date(Props.team.createtime).getDate()+7)}}
             </p>
           </ion-text>
         </div>
@@ -144,7 +147,7 @@ const modules = ref([Pagination, Navigation]);
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            5人
+            {{team.mxnumber}}人
             </p>
           </ion-text>
         </div>
@@ -156,7 +159,8 @@ const modules = ref([Pagination, Navigation]);
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            爱英语、一起考级的小伙伴！
+<!--            爱英语、一起考级的小伙伴！-->
+              {{team.introduction}}
             </p>
           </ion-text>
         </div>

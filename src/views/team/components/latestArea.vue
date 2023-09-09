@@ -15,7 +15,7 @@ import {reactive, ref} from "vue";
 import {Swiper, SwiperSlide,} from 'swiper/vue';
 import {Pagination, Navigation} from 'swiper/modules';
 import 'swiper/css';
-
+const props=defineProps(['title'])
 import 'swiper/less/navigation';
 
 const modules = ref([Pagination, Navigation]);
@@ -33,7 +33,7 @@ const radio = ref('true')
   <div style="position:relative">
     <ion-text @click="$router.push('/study/lessons')"
               style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
-      <h4 style="color: #474747;font-weight: bolder;">最新</h4>
+      <h4 style="color: #474747;font-weight: bolder;">{{title}}</h4>
       <div
           style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>

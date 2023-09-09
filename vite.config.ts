@@ -20,7 +20,7 @@ export default defineConfig({
         vue(),
         legacy(),
         VitePWA({registerType: 'autoUpdate'}),
-        basicSsl(),
+        // basicSsl(),
     ],
     resolve: {
         alias: {

@@ -24,11 +24,11 @@ ion-avatar {
 
 ion-item {
   --border-radius: 10px;
-  --background: #eee;
+  --background: #F8F8F8;
 /*  --border-width:10px;
   --border-style: solid;
   --border-color: rgba(255, 255, 255, 0);*/
-  margin: 6px 0;
+  margin: 10px;
 }
 ion-label{
   margin: 16px 0;

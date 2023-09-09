@@ -10,3 +10,21 @@ export function login(user: any) {
         }
     });
 }
+export function getKcRecords(userid: any) {
+    return service({
+        url: "v3/StudyRecords/getKcRecords",
+        method: "get",
+        params: {
+            userid:userid
+        }
+    });
+}
+export function getZyRecords(userid: any) {
+    return service({
+        url: "v3/StudyRecords/getZyRecords",
+        method: "get",
+        params: {
+            userid:userid
+        }
+    });
+}

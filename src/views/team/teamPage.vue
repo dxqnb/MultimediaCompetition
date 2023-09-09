@@ -44,7 +44,7 @@
       <team-home-first-button></team-home-first-button>
       <notice-area></notice-area>
       <my-team-area></my-team-area>
-      <latest-area></latest-area>
+      <latest-area title="最新"></latest-area>
 
     </ion-content>
 

@@ -60,7 +60,7 @@ getKcDetailList('1').then(res => {
         </ion-segment-button>
       </ion-segment>
       <ion-content style="height:70vh">
-        <ion-list>
+        <ion-list style="background: white">
           <study-area-item v-for="(item, index) in items" :item="item" :index="index"></study-area-item>
         </ion-list>
         <ion-infinite-scroll>
@@ -129,7 +129,9 @@ getKcDetailList('1').then(res => {
   width: 95%;
   margin: 0 auto;
 }
-
+ion-content::part(background) {
+  background: white;
+}
 ion-segment {
   --background: var(--ion-background-color);
   height: 46px;

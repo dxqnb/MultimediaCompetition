@@ -2,8 +2,8 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'" style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
-        <ion-tab-button tab="tab1" href="/tabs/tab1">
+      <ion-tab-bar v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'" style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
+        <ion-tab-button tab="tab1" href="/tabs/home">
           <ion-icon class="notSelected" aria-hidden="true" :icon="home"/>
           <ion-icon class="selected" aria-hidden="true" :icon="homeSelect"/>
           <ion-label>首页</ion-label>
@@ -33,7 +33,7 @@
 
       </ion-tab-bar>
       <div
-          :style="height" v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'">
+          :style="height" v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'">
         <div
             style="width: 65px;height: 65px;border-radius: 100%;background-color: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));margin-left: -50%;margin-top: 50%;">
           <ion-icon :icon="main" style="width: 100%;height: 100%;"></ion-icon>

@@ -31,19 +31,10 @@
           :pagination="true" :scrollbar="true" :zoom="true"
           @swiper="onSwiper"
       >
-        <swiper-slide>
-          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">
+        <swiper-slide v-for="item in Banner">
+<!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
+          <ion-img :src="item.img"></ion-img>
         </swiper-slide>
-        <swiper-slide><img src="https://www.0030.store/swiperAd/ad2.png" alt=""></swiper-slide>
-        <swiper-slide>
-          <ion-img src="https://www.0030.store/sw1.png"></ion-img>
-        </swiper-slide>
-        <swiper-slide>Slide 4</swiper-slide>
-        <swiper-slide>Slide 5</swiper-slide>
-        <swiper-slide>Slide 6</swiper-slide>
-        <swiper-slide>Slide 7</swiper-slide>
-        <swiper-slide>Slide 8</swiper-slide>
-        <swiper-slide>Slide 9</swiper-slide>
       </swiper>
       <study-card></study-card>
 
@@ -71,7 +62,7 @@ ion-content::part(background) {
 
 .swiper {
   width: 90%;
-  height: 120px;
+  height: 110px;
   overflow: visible;
   margin: 30px auto;
 }
@@ -89,46 +80,6 @@ ion-content::part(background) {
 img {
   width: 100%;
   object-fit: cover !important;
-}
-
-.swiper-slide:nth-child(1n) {
-  background-color: rgb(206, 17, 17);
-}
-
-.swiper-slide:nth-child(2n) {
-  background-color: rgb(0, 140, 255);
-}
-
-.swiper-slide:nth-child(3n) {
-  background-color: rgb(10, 184, 111);
-}
-
-.swiper-slide:nth-child(4n) {
-  background-color: rgb(211, 122, 7);
-}
-
-.swiper-slide:nth-child(5n) {
-  background-color: rgb(118, 163, 12);
-}
-
-.swiper-slide:nth-child(6n) {
-  background-color: rgb(180, 10, 47);
-}
-
-.swiper-slide:nth-child(7n) {
-  background-color: rgb(35, 99, 19);
-}
-
-.swiper-slide:nth-child(8n) {
-  background-color: rgb(0, 68, 255);
-}
-
-.swiper-slide:nth-child(9n) {
-  background-color: rgb(218, 12, 218);
-}
-
-.swiper-slide:nth-child(10n) {
-  background-color: rgb(54, 94, 77);
 }
 
 </style>
@@ -155,9 +106,17 @@ import StudyArea from "@/views/study/components/studyArea.vue";
 import Robot from "@/components/robot.vue";
 import {getBanner} from "@/api/main";
 
-
+interface banner {
+  "id": number,
+  "img": string,
+  "title": string,
+  "link": string
+}
+const Banner=ref<banner[]>([])
 getBanner().then(res => {
-  console.log(res.data.data)
+  for (let datum of res.data.data) {
+  Banner.value.push(datum)
+  }
 })
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
@@ -166,7 +125,7 @@ const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoo
 const sw = ref();
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
-setTimeout(function () {
+  setTimeout(function () {
     swiper.slidePrev()
   }, 100);
 };

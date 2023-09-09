@@ -72,7 +72,7 @@ const ionRouter = useIonRouter();
         </div>
         <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;">
           <ion-button mode="md"
-                      @click="ionRouter.navigate('/team/teamDetail/1','forward','push')"
+                      @click="ionRouter.navigate('/team/teamDetail/2','forward','push')"
                       style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;">
             更多
           </ion-button>

@@ -23,8 +23,25 @@ import {
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
+import {getKcRecords, getZyRecords} from "@/api/user";
 
-const items = reactive([""]);
+interface lesson {
+  avatar: string,
+  content: string
+  createby: string
+  createtime: string
+  id: number
+  img: string,
+  kcid: number,
+  kclable: number,
+  studentname: string,
+  studytime: number,
+  title: string,
+  userid: number,
+  xiaojie: string,
+}
+
+const items = reactive<lesson[]>([]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
@@ -34,9 +51,28 @@ function handleRefresh(event: any) {
 }
 
 const segmentValue = ref("1")
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
-}
+// for (let i = 1; i < 20; i++) {
+//   items.push("Item " + i);
+// }
+getKcRecords(7).then((res) => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    items.push(res.data.data[i])
+  }
+  items.sort((a, b) => {
+    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
+  });
+
+})
+getZyRecords(7).then((res) => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    items.push(res.data.data[i])
+  }
+  items.sort((a, b) => {
+    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
+  });
+
+})
+
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
@@ -60,7 +96,7 @@ function change(event: any) {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-list>
+      <ion-list style="height: 100%;">
         <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
@@ -69,9 +105,9 @@ function change(event: any) {
                        :index="index"></lesson-item>
         </ion-item-group>
       </ion-list>
-      <ion-infinite-scroll>
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+<!--      <ion-infinite-scroll>-->
+<!--        <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+<!--      </ion-infinite-scroll>-->
     </ion-content>
   </IonPage>
 </template>

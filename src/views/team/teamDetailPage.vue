@@ -37,6 +37,8 @@ import * as marked from "marked";
 import dayjs from "dayjs";
 import ReleaseTask from "@/views/team/components/releaseTask.vue";
 import TeamInfo from "@/views/team/components/teamInfo.vue";
+import {getFridenTeam} from "@/api/team";
+import {useRoute} from "vue-router";
 
 const text = marked.parse('### Marked in the browser\n\nRendered by **marked**.');
 const blank = ref('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'/></svg>');
@@ -68,6 +70,36 @@ const remoteMassage = ref([
     ]
 )
 
+interface item {
+  attribute:string,
+  bgimg:string,
+  id:number,
+  introduction:string,
+  mxnumber:number,
+  number:number,
+  tavatar:string,
+  tname:string,
+  userid:number,
+}
+const team = ref<item>({
+  attribute:"",
+  bgimg:"",
+  id:0,
+  introduction:"",
+  mxnumber:0,
+  number:0,
+  tavatar:"",
+  tname:"",
+  userid:0,
+})
+const route = useRoute()
+let id=route.params.id;
+getFridenTeam({id: id}).then((res) => {
+  localStorage.setItem('id', res.data.data)
+  console.log(res.data.data)
+  team.value = res.data.data[0]
+});
+
 function sentEvent() {
   if (sentBar.value === '') {
     return
@@ -83,10 +115,7 @@ function sentEvent() {
   content.value.$el.scrollToBottom(300)
 }
 
-const team = ref({
-  teamName: '不简单队',
 
-})
 const segment = ref('info')
 const contentClass = ref('ion-padding info')
 
@@ -112,7 +141,7 @@ function change(event: any) {
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
-        <IonTitle>{{ team.teamName }}</IonTitle>
+        <IonTitle>{{ team.tname }}</IonTitle>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon :icon="ellipsisHorizontal"/>
@@ -143,7 +172,7 @@ function change(event: any) {
       </div>
       <div style="padding-top: 36px;height: 100%;">
         <div v-if="segment=='info'">
-          <team-info></team-info>
+          <team-info :team="team"></team-info>
         </div>
         <div v-else-if="segment=='taskProcess'">
           <task-process></task-process>
