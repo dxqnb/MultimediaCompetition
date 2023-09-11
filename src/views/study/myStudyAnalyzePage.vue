@@ -81,7 +81,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                     <ion-icon :icon="bluePoint" style="padding-right: 5px"></ion-icon>
                     <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C;font-size: 14px">学习进度</ion-text>
                   </div>
-                  <div style="margin-left: 21px">
+                  <div style="margin-left: 10px">
                     <ion-text style="font-size: 40px;font-weight: 600">
                       64
                     </ion-text>
@@ -89,7 +89,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                       次
                     </ion-text>
                   </div>
-                  <div style="color: #D2D2D2;font-size: 10px;margin: 0 auto;text-align: center">累计次数</div>
+                  <div style="color: #D2D2D2;font-size: 10px;width: 70%;text-align: center">累计次数</div>
                 </ion-col>
                 <ion-col size="7">
                   <div>

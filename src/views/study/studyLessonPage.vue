@@ -83,8 +83,8 @@ function addLesson() {
 
 <template>
   <IonPage>
-    <IonHeader class="ion-no-border ion-padding">
-      <IonToolbar>
+    <IonHeader style="background: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: #FFFFFF">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -97,8 +97,8 @@ function addLesson() {
         </ion-buttons>
       </IonToolbar>
     </IonHeader>
-    <ion-content :scroll-y="false" :fullscreen="true" class="ion-padding">
-      <ion-segment v-model="segmentValue" mode="ios" @ionChange="change">
+    <ion-content :scroll-y="false" :fullscreen="true" class="">
+      <ion-segment style="background: #F7F8F9;padding: 10px" v-model="segmentValue" mode="ios" @ionChange="change">
         <ion-segment-button :value="deptid">
           <ion-label><h3 style="font-weight: 900">专业课程</h3></ion-label>
         </ion-segment-button>
@@ -112,8 +112,8 @@ function addLesson() {
           <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
-      <ion-content style="height: 85vh;">
-        <ion-list>
+      <ion-content class="vice" style="height: 85vh;--padding-start: 10px;--padding-end: 10px">
+        <ion-list style="background: #FFFFFF;height: 100%;">
           <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
@@ -132,12 +132,12 @@ function addLesson() {
 
 <style scoped>
 ion-segment {
-  --background: var(--ion-background-color);
+  --background: white;
 }
 
-/*ion-list{
-  --ion-item-background: #ffffff;
-}*/
+ion-content.vice::part(background) {
+  background: #FFFFFF;
+}
 
 ion-segment-button::part(native) {
   color: #474747;

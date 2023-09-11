@@ -79,8 +79,8 @@ function change(event: any) {
 
 <template>
   <IonPage>
-    <IonHeader style="background: var(--ion-background-color)" class="ion-no-border ion-padding">
-      <IonToolbar style="--background: var(--ion-background-color)">
+    <IonHeader style="background: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: #FFFFFF">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -93,7 +93,7 @@ function change(event: any) {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-list style="height: 100%;">
+      <ion-list style="height: 100%;background: #FFFFFF">
         <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
@@ -110,13 +110,9 @@ function change(event: any) {
 </template>
 
 <style scoped>
-ion-segment {
-  --background: var(--ion-background-color);
+ion-content::part(background) {
+  background: #FFFFFF;
 }
-
-/*ion-list{
-  --ion-item-background: #ffffff;
-}*/
 
 ion-segment-button::part(native) {
   color: #474747;

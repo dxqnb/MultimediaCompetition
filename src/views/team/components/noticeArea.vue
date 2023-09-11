@@ -3,7 +3,31 @@ import {IonCard, IonCardContent, IonIcon, IonText} from "@ionic/vue";
 import {getNotice} from "@/api/team";
 import {ref} from "vue";
 
-const notice = ref('')
+interface noticeItem {
+  noticeid: number
+  noticetitle: string
+  noticetype: string
+  noticecontent: string
+  status: string,
+  createby: string,
+  createtime: string,
+  updateby: string,
+  studentname: string,
+  avatar: string
+}
+
+const notice = ref<noticeItem>({
+  noticeid: 0,
+  noticetitle: "",
+  noticetype: "",
+  noticecontent: "",
+  status: "",
+  createby: "",
+  createtime: "",
+  updateby: "",
+  studentname: "",
+  avatar: ""
+})
 getNotice().then((res) => {
   notice.value = res.data.data[0]
 
@@ -50,7 +74,7 @@ ion-card.inner ion-card-content {
 
 </style>
 <style>
-p{
+p {
   font-size: 12px !important;
 }
 </style>

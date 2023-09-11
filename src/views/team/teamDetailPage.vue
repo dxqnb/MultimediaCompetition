@@ -157,7 +157,7 @@ function change(event: any) {
     <ion-content :fullscreen="true" ref="content" :class="contentClass">
       <div style="width: 100%;" slot="fixed">
         <ion-segment v-model="segment" :scrollable="true" mode="md" value="info" @ionChange="change"
-                     style="background-color: #FFFFFF">
+                     style="background-color: #F7F8F9">
           <ion-segment-button value="info">
             <ion-label><h3 style="font-weight: 900">团队信息</h3></ion-label>
           </ion-segment-button>

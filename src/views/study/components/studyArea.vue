@@ -47,16 +47,16 @@ getKcDetailList('1').then(res => {
     <div class="area">
       <ion-segment mode="ios" value="first">
         <ion-segment-button value="first">
-          <ion-label><h3 style="font-weight: 900">专业课程</h3></ion-label>
+          <ion-label><span style="font-weight: 900;font-size: 12px">专业课程</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="second">
-          <ion-label><h3 style="font-weight: 900">时事政治</h3></ion-label>
+          <ion-label><span style="font-weight: 900;font-size: 12px">时事政治</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="third">
-          <ion-label><h3 style="font-weight: 900">专升本</h3></ion-label>
+          <ion-label><span style="font-weight: 900;font-size: 12px">专升本</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="fourth">
-          <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
+          <ion-label><span style="font-weight: 900;font-size: 12px">身心健康</span></ion-label>
         </ion-segment-button>
       </ion-segment>
       <ion-content style="height:70vh">
@@ -125,16 +125,12 @@ getKcDetailList('1').then(res => {
 </template>
 
 <style scoped>
-.area {
-  width: 95%;
-  margin: 0 auto;
-}
 ion-content::part(background) {
   background: white;
 }
 ion-segment {
   --background: var(--ion-background-color);
-  height: 46px;
+  height: 36px;
 }
 
 /* Material Design styles */

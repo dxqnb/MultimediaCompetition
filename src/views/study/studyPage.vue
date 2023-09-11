@@ -62,9 +62,9 @@ ion-content::part(background) {
 
 .swiper {
   width: 90%;
-  height: 110px;
+  height: 120px;
   overflow: visible;
-  margin: 30px auto;
+  margin: 10px auto;
 }
 
 .swiper-slide {
@@ -114,7 +114,7 @@ interface banner {
 }
 
 const Banner = ref<banner[]>([])
-getBanner().then(res => {
+getBanner('2').then(res => {
   for (let datum of res.data.data) {
     Banner.value.push(datum)
   }

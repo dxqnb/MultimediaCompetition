@@ -32,10 +32,10 @@ const radio = ref('true')
 <template>
   <div style="position:relative">
     <ion-text @click="$router.push('/study/lessons')"
-              style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
+              style="display: block;width: 100%;position:relative;margin: 36px 0 20px 10px">
       <h4 style="color: #474747;font-weight: bolder;">{{title}}</h4>
       <div
-          style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
+          style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>
     <swiper
         :slidesPerView="'auto'"
@@ -44,11 +44,11 @@ const radio = ref('true')
         class="mySwiper"
     >
       <swiper-slide v-for="i in 10">
-        <ion-avatar style="width: 38px;height: 38px;">
+        <ion-avatar style="width: 30px;height: 30px;">
           <img src="@/img/test.jpg">
         </ion-avatar>
         <div
-            style="width: 238px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 15px;padding-top: 10px"
+            style="width: 238px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 6px;padding-top: 10px"
             class="ion-padding">
           <div style="display: flex;justify-content: space-between;margin-bottom: 10px">
             <ion-text style="font-weight: 600;font-size: 13px;display: block;margin-top: 8px">咩咩</ion-text>

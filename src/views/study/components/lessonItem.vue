@@ -35,7 +35,7 @@ function addLesson() {
   <ion-item-sliding>
     <ion-item lines="full">
       <ion-img slot="start" :src="item.img"
-               style="height: 100px;width: 70px;">
+               style="height: 87px;width: 66px;margin-top: 12px;margin-bottom: 12px;border-radius: 10px;overflow: hidden;object-fit: cover;">
       </ion-img>
       <ion-label>
         <h3>{{ item.title }}</h3>
@@ -44,11 +44,11 @@ function addLesson() {
       </ion-label>
       <div slot="end" style="display: flex;flex-direction: column">
         <ion-button v-if="!$route.path.includes('history')"
-                    style="--background: #FFAA1B;--background-activated: #d38d17" @click="addLesson()">
-          <ion-text color="light">添加课程</ion-text>
+                    style="--background: #FFAA1B;--background-activated: #d38d17;--color: #ffffff" @click="addLesson()">
+          <ion-text>添加课程</ion-text>
         </ion-button>
-        <ion-button @click="$router.push('/study/lesson/'+kcid+'/'+type)">
-          <ion-text color="light">进入课程</ion-text>
+        <ion-button style="--background-activated: #4352b6;--background: #5D73FF;--color: #ffffff" @click="$router.push('/study/lesson/'+kcid+'/'+type)">
+          <ion-text>进入课程</ion-text>
         </ion-button>
       </div>
 
@@ -67,7 +67,7 @@ ion-avatar {
 
 ion-item {
   /*--border-radius: 10px;*/
-  /*  --background: #eee;*/
+    --background: #ffffff;
   /*  --border-width:10px;
     --border-style: solid;
     --border-color: rgba(255, 255, 255, 0);*/

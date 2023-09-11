@@ -156,7 +156,7 @@
               style="display: block;margin-left: 10px;width: 100%;position:relative;">
             <h4 style="color: #474747;font-weight: bolder;">学友团排行榜</h4>
             <div
-                style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
+                style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
           </ion-text>
         </div>
         <ion-text style="margin-top: 20px;display: block;font-size: 11px;font-weight: 500;color: #B0B0B0"
@@ -318,7 +318,7 @@ interface banner {
 }
 
 const Banner = ref<banner[]>([])
-getBanner().then(res => {
+getBanner('1').then(res => {
   for (let datum of res.data.data) {
     Banner.value.push(datum)
   }

@@ -245,7 +245,7 @@ onMounted(() => {
         </ion-card>
       </div>
       <ion-text style="font-weight: 900;font-size: 20px">视频学习时长</ion-text>
-      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);" @click="$router.push('/study/learningTime/1')">
+      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);">
         <ion-card-content style="padding: 0 20px;">
           <div style="margin: 10px 0">
             <ion-text style="display: inline-block;text-align: left;width: 50%;color: #242424">
@@ -269,7 +269,7 @@ onMounted(() => {
           </div>
         </ion-card-content>
       </ion-card>
-      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9F4FC, #F9F9F9);" @click="$router.push('/study/learningTime/1')">
+      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9F4FC, #F9F9F9);">
         <ion-card-content style="padding: 0 20px;">
           <div style="margin: 10px 0">
             <ion-text style="display: inline-block;text-align: left;width: 50%;color: #242424">
@@ -296,7 +296,7 @@ onMounted(() => {
       <ion-text style="font-weight: 900;font-size: 20px">测试记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9E9FC, #F9F9F9);">
         <ion-card-content style="display: flex">
-          <div style="margin: 10px 0;width: 70%;" @click="$router.push('/study/testRecording')">
+          <div style="margin: 10px 0;width: 70%;">
             <ion-text
                 style="display: inline-block;font-size: 13px;text-align: left;color: #5C5CCF;font-weight: bold;margin-bottom: 48px">
               {{ `你已完成3道测试练习，还剩2道` }}
@@ -322,8 +322,10 @@ onMounted(() => {
                     style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #FFE600"></span>&nbsp;错误&nbsp;65
               </div>
             </div>
+
           </div>
           <div style="width: 100px;height: 100px;margin-top: 20px" ref="testRecord">
+            11
           </div>
         </ion-card-content>
       </ion-card>

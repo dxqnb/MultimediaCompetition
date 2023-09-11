@@ -111,7 +111,7 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: 'news/:id',
-                props:true,
+                props: true,
                 component: () => import('@/views/study/newsDetailPage.vue')
             },
             {
@@ -142,6 +142,15 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'progress',
                 component: () => import('@/views/study/studyProgressPage.vue')
+            },
+            {
+                path: 'testRecording',
+                component: () => import('@/views/study/testRecordingPage.vue')
+            },
+            {
+                path: 'learningTime/:id',
+                props:true,
+                component: () => import('@/views/study/learningTimeDetailPage.vue')
             },
         ]
     },

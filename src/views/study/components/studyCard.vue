@@ -78,8 +78,8 @@ const router = useIonRouter();
     <!--          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>-->
     <!--        </ion-card-header>-->
 
-    <ion-card-content>
-      <ion-grid>
+    <ion-card-content style="padding: 0">
+      <ion-grid style="padding: 16px 10px 10px 10px">
         <ion-row>
           <!--          <ion-col @click="$router.push('/study/notice/')">-->
           <ion-col @click="()=>{router.push('/study/notice/')}">
@@ -100,8 +100,8 @@ const router = useIonRouter();
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-grid style="flex-wrap: nowrap;display: flex">
-        <ion-col>
+      <ion-grid style="flex-wrap: nowrap;display: flex;padding: 10px 0">
+        <ion-col size="6" style="padding: 0">
           <ion-card class="inner"
                     style="background: linear-gradient(to bottom right,rgba(59,143,255,0.43), rgba(153,198,255,0.43), rgba(201,230,255,0.43));"
                     @click="$router.push('/study/technology')">
@@ -115,7 +115,7 @@ const router = useIonRouter();
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col>
+        <ion-col size="6" style="padding: 0">
           <ion-card class="inner"
                     style="background: linear-gradient(to bottom right,rgba(93,123,229,0.6), rgba(166,170,246,0.6), rgba(218,227,255,0.6))"
                     @click="$router.push('/study/news')">
@@ -141,8 +141,9 @@ ion-card.inner {
   position: relative;
   width: 90%;
   display: inline-block;
-  height: 80px;
+  height: 74px;
   border-radius: 13px;
+  box-shadow: none;
 }
 
 ion-card {
