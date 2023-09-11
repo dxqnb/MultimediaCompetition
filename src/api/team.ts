@@ -17,6 +17,21 @@ export function getChatGroupMessage(groupid:any) {
         params: {
             groupid: groupid
         }
+    });
+}
+export function getNotice() {
+    return service({
+        url: "v3/Tool/getNotice",
+        method: "get",
+    });
+}
 
+export function getFridenTeamUserList(tid:any) {
+    return service({
+        url: "v3/FridenTeam/getFridenTeamUserList",
+        method: "get",
+        params:{
+            tid:tid,
+        }
     });
 }

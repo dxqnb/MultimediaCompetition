@@ -36,6 +36,9 @@ const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
     '    <path id="路径_74" data-name="路径 74" d="M467.9,102.348a.659.659,0,0,1,.948.913l-.04.041-6.749,6.42a.659.659,0,0,1-.947-.913l.04-.041Z" transform="translate(-454.685 -101.84)" fill="#515151"/>\n' +
     '  </g>\n' +
     '</svg>\n');
+function logout(){
+  localStorage.setItem('isLogin','false')
+}
 </script>
 
 <template>
@@ -110,6 +113,13 @@ const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
         <ion-item lines="none" style="--border-radius: 10px">
           <ion-icon slot="start" style="margin: 14px;width: 20px;height: 20px;" :icon="helpCircleOutline"></ion-icon>
           <ion-label style="font-weight: bold;font-size: 15px">反馈与帮助</ion-label>
+          <ion-icon slot="end" style="margin: 16px;width: 20px;height: 20px;" :icon="chevronForwardOutline"></ion-icon>
+        </ion-item>
+      </ion-item-group>
+      <ion-item-group style="border-radius: 10px">
+        <ion-item lines="none" style="--border-radius: 10px" @click="logout()">
+          <ion-icon slot="start" style="margin: 14px;width: 20px;height: 20px;" :icon="helpCircleOutline"></ion-icon>
+          <ion-label style="font-weight: bold;font-size: 15px">退出登录</ion-label>
           <ion-icon slot="end" style="margin: 16px;width: 20px;height: 20px;" :icon="chevronForwardOutline"></ion-icon>
         </ion-item>
       </ion-item-group>

@@ -32,14 +32,14 @@
           @swiper="onSwiper"
       >
         <swiper-slide v-for="item in Banner">
-<!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
+          <!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
           <ion-img :src="item.img"></ion-img>
         </swiper-slide>
       </swiper>
       <study-card></study-card>
 
       <study-area></study-area>
-
+      <robot></robot>
     </ion-content>
 
   </ion-page>
@@ -112,10 +112,11 @@ interface banner {
   "title": string,
   "link": string
 }
-const Banner=ref<banner[]>([])
+
+const Banner = ref<banner[]>([])
 getBanner().then(res => {
   for (let datum of res.data.data) {
-  Banner.value.push(datum)
+    Banner.value.push(datum)
   }
 })
 

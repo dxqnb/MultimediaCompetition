@@ -40,7 +40,7 @@
         <ion-col>
           <ion-card class="inner"
                     style="background: #F0F9FF;"
-                    @click="$router.push('/study/technology')">
+                    @click="$router.push('/study/notice')">
             <ion-card-content>
               <div class="text">
                 <ion-text style="font-size: 16px;color: #005FA8;display: block">
@@ -73,7 +73,7 @@
           </ion-card>
         </ion-col>
       </ion-grid>
-      <ion-card style="--background: white;position:relative;">
+      <ion-card style="--background: white;position:relative;" v-if="isLogin()">
         <ion-card-content style="padding: 20px 15px">
           <ion-icon style="width: 76px;height: 75px;position:absolute;top: -30px;z-index: -1;" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75.674" height="64.512" viewBox="0 0 75.674 64.512">
   <defs>
@@ -160,7 +160,7 @@
           </ion-text>
         </div>
         <ion-text style="margin-top: 20px;display: block;font-size: 11px;font-weight: 500;color: #B0B0B0"
-                  @click="$router.push('/study/lessons')">全部排名
+                  @click="$router.push('/team/ranking')">全部排名
           <ion-icon :icon="chevronForwardOutline" style="vertical-align: middle"></ion-icon>
         </ion-text>
       </div>
@@ -412,18 +412,14 @@ const onSwiper = (swiper: any) => {
     swiper.slidePrev()
   }, 100);
 };
-// })
-// sw.value.autoplay = {
-//   paused: false, pause(): void {
-//   }, resume(): void {
-//   }, start(): boolean {
-//     return false;
-//   }, stop(): boolean {
-//     return false;
-//   },
-//   timeLeft: 1000,
-//   running: true
-// }
+
+// 判断登录
+function isLogin() {
+  if (localStorage.getItem('user') == null) {
+    localStorage.setItem('isLogin', 'false')
+    return false
+  }else return localStorage.getItem('isLogin') == 'true';
+}
 </script>
 <style>
 .search input {

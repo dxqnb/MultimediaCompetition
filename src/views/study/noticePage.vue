@@ -20,9 +20,28 @@ import {
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
+import {getNotice} from "@/api/study";
 
+interface item {
+  noticeid: number,
+  noticetitle: string,
+  noticetype: number,
+  noticecontent: string,
+  status: number,
+  createby: string,
+  createtime: string,
+  updateby: string,
+  remark: string
+}
 
+const items = reactive<item[]>([]);
+getNotice().then(res => {
+  items.push(...res.data.data);
+});
 
+function isToday(date: Date) {
+  return new Date().toDateString() == date.toDateString()
+}
 </script>
 
 <template>
@@ -50,39 +69,26 @@ import {reactive, ref} from "vue";
         </ion-item>
       </div>
       <div style="margin-top: 40px">
-        <ion-card style="margin: 10px " @click="$router.push('/study/noticeDetail/系统消息')">
+        <ion-card style="margin: 10px " v-for="item in items" :key="item.noticeid"
+                  @click="$router.push('/study/noticeDetail/'+item.noticeid)">
           <ion-card-content>
             <ion-list>
               <ion-item lines="none">
                 <ion-thumbnail style="position: relative" slot="start">
                   <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
-                  <ion-badge style="position: absolute;top: -10%;right: -20%;" color="danger">2</ion-badge>
+                  <ion-badge style="position: absolute;top: -10%;right: -20%;" color="danger">&nbsp;</ion-badge>
                 </ion-thumbnail>
                 <ion-label>
-                  <h2 style="line-height: 200%">系统消息</h2>
-                  <p>新成就达成通知</p>
+                  <h2 style="line-height: 200%">
+                    {{ item.noticetype == 1 ? '系统消息' : item.noticetype == 2 ? '信息中心' : '校园通知' }}</h2>
+                  <p>{{ item.noticetitle }}</p>
                 </ion-label>
               </ion-item>
             </ion-list>
-            <ion-label style="font-size: 12px;color: #999999;position: absolute;top: 25px;right: 20px;">9:20</ion-label>
-
-          </ion-card-content>
-        </ion-card>
-        <ion-card style="margin: 10px " @click="$router.push('/study/noticeDetail/系统消息')">
-          <ion-card-content>
-            <ion-list>
-              <ion-item lines="none">
-                <ion-thumbnail style="position: relative" slot="start">
-                  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
-                  <ion-badge style="position: absolute;top: -10%;right: -20%;" color="danger">2</ion-badge>
-                </ion-thumbnail>
-                <ion-label>
-                  <h2 style="line-height: 200%">系统消息</h2>
-                  <p>新成就达成通知</p>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-            <ion-label style="font-size: 12px;color: #999999;position: absolute;top: 25px;right: 20px;">9:20</ion-label>
+            <ion-label style="font-size: 12px;color: #999999;position: absolute;top: 25px;right: 20px;">
+              <span>{{ isToday(new Date(item.createtime))?item.createtime.split(' ')[1]:item.createtime }}</span>
+              <span style="display: block;text-align: right">{{ item.createby }}</span>
+            </ion-label>
 
           </ion-card-content>
         </ion-card>

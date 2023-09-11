@@ -18,8 +18,11 @@ import 'swiper/css';
 
 import 'swiper/less/navigation';
 import {data} from "browserslist";
-const Props=defineProps(['team'])
+import {getFridenTeamUserList} from "@/api/team";
+const Props=defineProps(['team','user'])
 const modules = ref([Pagination, Navigation]);
+console.log(Props.user)
+
 </script>
 
 <template>
@@ -90,7 +93,7 @@ const modules = ref([Pagination, Navigation]);
           :navigation="true"
           class="mySwiper"
       >
-        <swiper-slide v-for="i in 10" style="width: 45%;">
+        <swiper-slide v-for="i in user" style="width: 45%;">
           <ion-card style="margin: 12px 0 ;box-shadow: none;width: 100%;">
             <ion-card-content style="padding: 0;margin: 10px">
               <div style="margin: 10px 0">
@@ -100,7 +103,7 @@ const modules = ref([Pagination, Navigation]);
                   <div style="width: 32px;height: 32px;background-color: #73C2FF;border-radius: 100%"></div>
                 </ion-avatar>
                 <ion-text style="font-size: 12px;display: inline-block;line-height: 9px"><p style="color: black">
-                  潇潇</p><br>
+                  {{ i.studentname }}</p><br>
                   <p style="color: #919191;font-size: 12px">队长</p></ion-text>
               </div>
               <ion-text style="font-size: 12px;color: #6D6D6D;margin: 1em">
@@ -160,7 +163,7 @@ const modules = ref([Pagination, Navigation]);
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
 <!--            爱英语、一起考级的小伙伴！-->
-              {{team.introduction}}
+              {{team.attribute}}
             </p>
           </ion-text>
         </div>

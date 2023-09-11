@@ -23,23 +23,62 @@ import {
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
+import {addZyKc, getKcDetailList, getZyKcDetailList} from "@/api/study";
 
-const items = reactive([""]);
+
+interface item {
+  id: number,
+  kcdictid: string,
+  img: string,
+  title: string,
+  introduction: number,
+  link: string,
+  createby: string,
+  createtime: string
+}
+
+const items = ref<item[]>([]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
     // Any calls to load data go here
     event.target.complete();
   }, 1000);
-};
-const segmentValue=ref("1")
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
-}
-function change(event: any) {
-  segmentValue.value = event.detail.value;
 }
 
+for (let i = 1; i < 20; i++) {
+
+}
+let user = localStorage.getItem('user')
+const deptid = ref('999')
+if (user != null) {
+  deptid.value = JSON.parse(user).deptid
+  getZyKcDetailList(deptid.value).then((res) => {
+    items.value = res.data.data
+  })
+}
+const segmentValue = ref("")
+segmentValue.value = deptid.value
+
+function change(event: any) {
+  console.log(event.detail.value)
+  if (event.detail.value == '1' || event.detail.value == '2' || event.detail.value == '3') {
+    getKcDetailList(event.detail.value).then((res) => {
+      items.value = res.data.data
+    })
+  } else {
+    getZyKcDetailList(deptid.value).then((res) => {
+      items.value = res.data.data
+    })
+  }
+}
+function addLesson() {
+  if (user != null) {
+    addZyKc(JSON.parse(user).username, deptid.value).then((res)=>{
+      console.log(res)
+    })
+  }
+}
 </script>
 
 <template>
@@ -59,17 +98,17 @@ function change(event: any) {
       </IonToolbar>
     </IonHeader>
     <ion-content :scroll-y="false" :fullscreen="true" class="ion-padding">
-      <ion-segment :value="segmentValue" mode="ios" @change="change">
-        <ion-segment-button value="1">
+      <ion-segment v-model="segmentValue" mode="ios" @ionChange="change">
+        <ion-segment-button :value="deptid">
           <ion-label><h3 style="font-weight: 900">专业课程</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="2">
+        <ion-segment-button value="1">
           <ion-label><h3 style="font-weight: 900">时事政治</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="3">
+        <ion-segment-button value="2">
           <ion-label><h3 style="font-weight: 900">专升本</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="4">
+        <ion-segment-button value="3">
           <ion-label><h3 style="font-weight: 900">身心健康</h3></ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -79,13 +118,13 @@ function change(event: any) {
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
           <ion-item-group class="ion-content-scroll-host">
-            <lesson-item v-if="segmentValue=='1'" v-for="(item, index) in items" :item="item" :index="index"></lesson-item>
-            <lesson-item v-if="segmentValue=='2'"></lesson-item>
+            <lesson-item v-for="(item, index) in items" :item="item" :type="deptid==segmentValue?'zykc':'kc'"
+                         :index="index"></lesson-item>
           </ion-item-group>
         </ion-list>
-        <ion-infinite-scroll>
-          <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
+<!--        <ion-infinite-scroll>-->
+<!--          <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+<!--        </ion-infinite-scroll>-->
       </ion-content>
     </ion-content>
   </IonPage>

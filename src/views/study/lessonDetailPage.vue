@@ -17,8 +17,12 @@ import {
 import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
+import {useRoute} from "vue-router";
+import {getZyKcList} from "@/api/study";
 
 const vs = ref();
+const item = ref();
+const route = useRoute()
 const scroll = ref(false);
 const content = ref();
 const scrollEvents = ref(true);
@@ -27,21 +31,29 @@ const divHeight = ref("76vh");
 const colors = ['#000', 'purple', 'orange', 'indigo', 'red'];
 const rating = ref(4.5);
 const segmentValue = ref('lesson');
+const vsp=ref<Player>(new Player({}))
 onMounted(() => {
   setTimeout(function () {
     // content.value.$el.scrollToPoint(0, fixed.value.offsetHeight, 500);
     divHeight.value = window.innerHeight - fixed.value.getBoundingClientRect().bottom - 16 + "px";
     console.log(divHeight.value)
   }, 100);
-  const vsp = new Player({
+  vsp.value = new Player({
     el: vs.value,
-    url: 'https://www.0030.store/5013.MP4',
+    url: "",
     height: '20vh',
     width: '85vw',
   })
 
 })
 
+if (route.path.includes('zykc')){
+  getZyKcList(<string>route.params.id).then((res)=>{
+    console.log(res)
+    item.value=res.data.data
+    // vsp.value.switchURL(item.value.video)
+  })
+}
 function onScroll(event: any) {
   // const scrollElement = event.target.$el;
   // const scrollTop = scrollElement.scrollTop;

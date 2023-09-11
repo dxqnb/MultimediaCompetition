@@ -1,4 +1,4 @@
-import {createApp} from 'vue'
+import {createApp, ref} from 'vue'
 
 // @ts-ignore
 import App from './App.vue'
@@ -78,6 +78,7 @@ router.isReady().then(() => {
 // app.component('swiper-slide', SwiperSlide);
 defineCustomElements(window).then(r => {
 });
+
 // },false);
 
 // if (Capacitor.isNativePlatform()) {

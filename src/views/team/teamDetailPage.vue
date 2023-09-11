@@ -37,7 +37,7 @@ import * as marked from "marked";
 import dayjs from "dayjs";
 import ReleaseTask from "@/views/team/components/releaseTask.vue";
 import TeamInfo from "@/views/team/components/teamInfo.vue";
-import {getFridenTeam} from "@/api/team";
+import {getFridenTeam, getFridenTeamUserList} from "@/api/team";
 import {useRoute} from "vue-router";
 
 const text = marked.parse('### Marked in the browser\n\nRendered by **marked**.');
@@ -71,34 +71,39 @@ const remoteMassage = ref([
 )
 
 interface item {
-  attribute:string,
-  bgimg:string,
-  id:number,
-  introduction:string,
-  mxnumber:number,
-  number:number,
-  tavatar:string,
-  tname:string,
-  userid:number,
+  attribute: string,
+  bgimg: string,
+  id: number,
+  introduction: string,
+  mxnumber: number,
+  number: number,
+  tavatar: string,
+  tname: string,
+  userid: number,
 }
+
 const team = ref<item>({
-  attribute:"",
-  bgimg:"",
-  id:0,
-  introduction:"",
-  mxnumber:0,
-  number:0,
-  tavatar:"",
-  tname:"",
-  userid:0,
+  attribute: "",
+  bgimg: "",
+  id: 0,
+  introduction: "",
+  mxnumber: 0,
+  number: 0,
+  tavatar: "",
+  tname: "",
+  userid: 0,
 })
 const route = useRoute()
-let id=route.params.id;
+const user = ref()
+let id = route.params.id;
 getFridenTeam({id: id}).then((res) => {
   localStorage.setItem('id', res.data.data)
   console.log(res.data.data)
   team.value = res.data.data[0]
 });
+getFridenTeamUserList(id).then((res) => {
+  user.value = res.data.data
+})
 
 function sentEvent() {
   if (sentBar.value === '') {
@@ -172,7 +177,7 @@ function change(event: any) {
       </div>
       <div style="padding-top: 36px;height: 100%;">
         <div v-if="segment=='info'">
-          <team-info :team="team"></team-info>
+          <team-info :team="team" :user="user"></team-info>
         </div>
         <div v-else-if="segment=='taskProcess'">
           <task-process></task-process>

@@ -18,7 +18,7 @@ import {
   IonItem,
   IonLabel,
   IonThumbnail,
-  IonTitle, createAnimation
+  IonTitle, createAnimation, alertController, useIonRouter, toastController
 } from "@ionic/vue";
 import {
   ellipsisHorizontalOutline,
@@ -28,10 +28,11 @@ import {
   addOutline,
   chevronDownOutline, phonePortraitOutline
 } from "ionicons/icons";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, onUpdated} from "vue";
 
 import {client, parsers, utils, server} from '@passwordless-id/webauthn'
 
+const router = useIonRouter();
 // async function login() {
 //   const challenge = "56535b13-5d93-4194-a282-f234c1c24500"
 //   const authentication = await client.authenticate(["3924HhJdJMy_svnUowT8eoXrOOO6NLP8SK85q2RPxdU"], challenge, {
@@ -40,10 +41,10 @@ import {client, parsers, utils, server} from '@passwordless-id/webauthn'
 //     "timeout": 60000
 //   })
 // }
-
+const radio = ref('false')
 let origin = document.location.origin
 let registration: any = {
-  username: "Arnaud",
+  username: "",
   challenge: utils.randomChallenge(),
   options: {
     authenticatorType: 'auto',
@@ -52,7 +53,13 @@ let registration: any = {
     attestation: false,
   },
   result: '',
-  parsed: ''
+  parsed: {
+    credential: {
+      id: "ZcHZKHDqdUKmnIxdRlaFnEuTn76qQigb4GXJuD3cbIw",
+      publicKey: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE7biQ_OU-wQhyBDI-fGn31fAH229PmBNEmMS2-aDRqYFZkfMzhAuWQhZIpdTVG6WmeFywnRovm0tYjaRTGatvbw==",
+      algorithm: 'ES256'
+    }
+  }
 }
 let authentication: any = {
   credentialId: null,
@@ -73,60 +80,90 @@ let verification: any = {
   //"SZYN5YgOjGh0NBcPZHZgW4/krrmihjLHmVzzuoMdl2MFAAAAAQ==",
   clientData: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMjRkMjI0ZDMtMWQwZi00MzAxLTg3NTktMzk4ODcwNTg1ZTU1Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ==", // null,
   //"eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiWmpreE5URTBZVGN0TkRKa015MDBOMlU0TFdFME1HTXRZVFEyTkdRNVlqTmpNVGN3Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo2MzM0MiIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
-  signature: "MEYCIQDgSy1brw1UVCT4kzaZIiiihNuC7KvV2vm3gO5f1CSscQIhAM6-MihKO2jnF_BHeEJMYZ7jN-kz9TuWqYwJJzm4fOcl", //null,
-  //"E/XchoqDlSOanozr0o03DN++EEz5qVymtgiaLbepoysxgdxAz/uH/34wt7/YrUs7ESaH/3ni3/0mk71WRc9SP9GMRNYqKSeZkwAM+ZHMc7e3OEpOETWIBCO+aOKmKPflB/nVzXocNUHnhW/aw5UAOhU43qjjy1X9+5+t+60C6RyGaDXTz6Mk6rmgX3z21M8pOFw8VAAtUojX6ab+Lh48SaMN1Z2BK8Exh//pFjveMVngx4yuYRm6Tu7irRvGZVe7Wnii6GNUz56kT2Q4Fc8hR28c3+qufKWuaHLJUnsw6GILQNxemDzirlKBhXFjz7Ht7tyGaqUwFZr9q+93j/95Ag==",
+  // signature: "MEYCIQDgSy1brw1UVCT4kzaZIiiihNuC7KvV2vm3gO5f1CSscQIhAM6-MihKO2jnF_BHeEJMYZ7jN-kz9TuWqYwJJzm4fOcl", //null,
+  signature: "E/XchoqDlSOanozr0o03DN++EEz5qVymtgiaLbepoysxgdxAz/uH/34wt7/YrUs7ESaH/3ni3/0mk71WRc9SP9GMRNYqKSeZkwAM+ZHMc7e3OEpOETWIBCO+aOKmKPflB/nVzXocNUHnhW/aw5UAOhU43qjjy1X9+5+t+60C6RyGaDXTz6Mk6rmgX3z21M8pOFw8VAAtUojX6ab+Lh48SaMN1Z2BK8Exh//pFjveMVngx4yuYRm6Tu7irRvGZVe7Wnii6GNUz56kT2Q4Fc8hR28c3+qufKWuaHLJUnsw6GILQNxemDzirlKBhXFjz7Ht7tyGaqUwFZr9q+93j/95Ag==",
   isValid: null
 }
+
+function isLogin() {
+  if (localStorage.getItem('user') == null) {
+    localStorage.setItem('isLogin', 'false')
+    return false
+  } else return localStorage.getItem('isLogin') == 'true';
+}
+
+onUpdated(async () => {
+  if (isLogin()) {
+    const alert = await alertController.create({
+      header: '提示',
+      subHeader: '您已登录',
+      message: '无需再次登陆',
+      buttons: ['好'],
+    })
+    await alert.present()
+    alert.onDidDismiss().then(() => {
+      router.push('/')
+    })
+  }
+})
 
 function newChallenge() {
   return utils.randomChallenge()
 }
 
-async function register() {
-  try {
-    let res = await client.register(registration.username, registration.challenge, registration.options)
-    console.log(res)
-
-    registration.result = res
-    registration.parsed = await server.verifyRegistration(res, {
-      challenge: registration.challenge,
-      origin: origin,
-    })
-
-    authentication.credentialId = res.credential.id
-  } catch (e) {
-    console.warn(e)
-    registration.result = {}
-  }
-}
-
 async function login() {
-  authentication.result = null
-  authentication.parsed = null
-  try {
-    const credentialId = authentication.credentialId
-    const res = await client.authenticate(credentialId ? [credentialId] : [], authentication.challenge, authentication.options)
-    console.log(res)
-
-    authentication.result = res
-
-    const credentialKey = {
-      id: registration.parsed.credential.id,
-      publicKey: registration.parsed.credential.publicKey,
-      algorithm: registration.parsed.credential.algorithm
-    }
-
-    const parsed = await server.verifyAuthentication(res, credentialKey, {
-      challenge: authentication.challenge,
-      origin: origin,
-      userVerified: authentication.userVerification === 'required',
-      counter: -1 // Fixes #27 since counter is 0 on first auth with ios/macOS
+  if (radio.value == 'false') {
+    const alert = await alertController.create({
+      header: '提示',
+      subHeader: '请阅读相关协议',
+      message: '请在阅读相关协议后登录',
+      buttons: ['好'],
     })
-    console.log(parsed)
-    authentication.parsed = parsed
-  } catch (e) {
-    console.warn(e)
+    await alert.present()
+  } else if (radio.value == 'true') {
+    if (localStorage.getItem('isRegister') == 'true') {
+      let register = localStorage.getItem('register')
+      if (register == null) return;
+      authentication.result = null
+      authentication.parsed = null
+      try {
+        const credentialId = JSON.parse(register).credential.id
+        const res = await client.authenticate(credentialId ? [credentialId] : [], authentication.challenge, authentication.options)
+        console.log(res)
 
+        authentication.result = res
+
+        const credentialKey = {
+          id: JSON.parse(register).credential.id,
+          publicKey: JSON.parse(register).credential.publicKey,
+          algorithm: JSON.parse(register).credential.algorithm
+        }
+
+        const parsed = await server.verifyAuthentication(res, credentialKey, {
+          challenge: authentication.challenge,
+          origin: origin,
+          userVerified: authentication.userVerification === 'required',
+          counter: -1 // Fixes #27 since counter is 0 on first auth with ios/macOS
+        })
+        console.log(parsed)
+        authentication.parsed = parsed
+        localStorage.setItem('reLogin', JSON.stringify(parsed))
+        localStorage.setItem('isLogin', 'true')
+        const toast = await toastController.create({
+          message: '登录成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+        router.push('/')
+      } catch (e) {
+        console.warn(e)
+      }
+    } else {
+      router.push('/login/second')
+    }
   }
 }
 
@@ -179,12 +216,8 @@ function parseClientData(clientData: any) {
         <ion-icon :icon="phonePortraitOutline"></ion-icon>
         用户名登录
       </ion-button>
-      <ion-button @click="register()"
-                  style="--color: #fff;font-size: 13px;width: 90%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
-        注册
-      </ion-button>
       <div style="margin: 10% auto;width: 226px;">
-        <ion-radio-group :allow-empty-selection="true" value="false">
+        <ion-radio-group :allow-empty-selection="true" v-model="radio">
           <ion-radio style="font-size: 9px;" mode="md" value="true" labelPlacement="end">
             <ion-text style="color: #515151">我已阅读并同意app</ion-text>
             <ion-text style="color: #5E88F8">《用户协议》</ion-text>

@@ -20,6 +20,7 @@
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^5.0.7",
     "@capacitor/core": "5.2.3",
+    "@capacitor/device": "^5.0.6",
     "@capacitor/filesystem": "^5.1.2",
     "@capacitor/haptics": "5.0.6",
     "@capacitor/ios": "5.2.3",

@@ -51,9 +51,6 @@ function handleRefresh(event: any) {
 }
 
 const segmentValue = ref("1")
-// for (let i = 1; i < 20; i++) {
-//   items.push("Item " + i);
-// }
 getKcRecords(7).then((res) => {
   for (let i = 0; i < res.data.data.length; i++) {
     items.push(res.data.data[i])
@@ -105,9 +102,9 @@ function change(event: any) {
                        :index="index"></lesson-item>
         </ion-item-group>
       </ion-list>
-<!--      <ion-infinite-scroll>-->
-<!--        <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
-<!--      </ion-infinite-scroll>-->
+      <!--      <ion-infinite-scroll>-->
+      <!--        <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+      <!--      </ion-infinite-scroll>-->
     </ion-content>
   </IonPage>
 </template>
