@@ -18,7 +18,7 @@ import {
   IonBadge,
   IonButton,
 } from "@ionic/vue";
-import {ellipsisHorizontal} from 'ionicons/icons';
+import {ellipsisHorizontal, ellipsisVertical, ellipsisVerticalOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 
 const items = reactive([""]);
@@ -52,8 +52,8 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
 
 <template>
   <IonPage>
-    <IonHeader style="background-color: #f7f7f7" class="ion-no-border ion-padding">
-      <IonToolbar>
+    <IonHeader style="background-color: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: white">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -66,13 +66,13 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <div v-for="i in 2">
+      <div v-for="i in 10">
         <div
-            style="width: 100%;border-radius: 10px;background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));margin: 0 auto;height: 40px;">
+            style="width: 100%;border-radius: 10px;margin: 0 auto;height: 40px;" :style="i%3==1?'background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));':i%3==2?'background: linear-gradient(to left,rgba(230,203,68,0.51), rgba(255,110,66,0.51));':'background: linear-gradient(to left,rgba(68,230,110,0.51), rgba(66,193,255,0.51));'">
           <ion-icon style="line-height: 40px;padding: 0 10px" :icon="star"></ion-icon>
           <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">java高级编程</ion-text>
         </div>
-        <ion-card style="margin: 5px 0 20px 0">
+        <ion-card style="margin: 5px 0 20px 0;--background: #ffffff">
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
             <ion-grid>
               <ion-row>
@@ -107,6 +107,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                     </ion-text>
                   </div>
                   <div style="color: #A0A0A0;font-size: 10px;width: 100%;text-align: right">信息中心</div>
+                  <ion-icon style="position: absolute;top: 4px;right: -10px;width: 20px;height: 20px;color: #E0E0E0" :icon="ellipsisVertical">111</ion-icon>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -119,10 +120,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
 
 <style scoped lang="scss">
 ion-content::part(background) {
-  /*background: url("https://www.0030.store/background.png") top right no-repeat, linear-gradient(to bottom, #5D7BE5, #ffffff, #ffffff);
-  background-size: 140%;
-  filter: blur(1.5px);*/
-  background: #f1f1f1;
+  background: #FBFBFB;
 }
 
 .item-lines-full {

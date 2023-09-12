@@ -71,9 +71,9 @@ let testRecordOption: EChartsOption = {
         show: true
       },
       data: [
-        {value: 2, name: '未完成',itemStyle:{color: '#FFFFFF',borderColor:'#FFFFFF'}},
-        {value: 2, name: '正确',itemStyle:{color: '#8056F5',borderColor:'#8056F5'}},
-        {value: 1, name: '错误',itemStyle:{color: '#FFE600',borderColor:'#FFE600'}},
+        {value: 2, name: '未完成', itemStyle: {color: '#FFFFFF', borderColor: '#FFFFFF'}},
+        {value: 2, name: '正确', itemStyle: {color: '#8056F5', borderColor: '#8056F5'}},
+        {value: 1, name: '错误', itemStyle: {color: '#FFE600', borderColor: '#FFE600'}},
       ]
     }
   ]
@@ -118,24 +118,26 @@ let actuallyRecordOption: EChartsOption = {
         show: true
       },
       data: [
-        {value: 2, name: '未完成',itemStyle:{color: '#FFFFFF',borderColor:'#FFFFFF'}},
-        {value: 2, name: '正确',itemStyle:{color: '#3C50E0',borderColor:'#3C50E0'}},
-        {value: 1, name: '错误',itemStyle:{color: '#FFC249',borderColor:'#FFC249'}},
+        {value: 2, name: '未完成', itemStyle: {color: '#FFFFFF', borderColor: '#FFFFFF'}},
+        {value: 2, name: '正确', itemStyle: {color: '#3C50E0', borderColor: '#3C50E0'}},
+        {value: 1, name: '错误', itemStyle: {color: '#FFC249', borderColor: '#FFC249'}},
       ]
     }
   ]
 };
 
 onMounted(() => {
-  let testChart = echarts.init(testRecord.value);
-  testRecordOption && testChart.setOption(testRecordOption);
-  let actuallyChart = echarts.init(actuallyRecord.value);
-  actuallyRecordOption && actuallyChart.setOption(actuallyRecordOption);
-  testChart.dispatchAction({
-    type: 'select',
+  setTimeout(() => {
+    let testChart = echarts.init(testRecord.value);
+    testRecordOption && testChart.setOption(testRecordOption);
+    let actuallyChart = echarts.init(actuallyRecord.value);
+    actuallyRecordOption && actuallyChart.setOption(actuallyRecordOption);
+    testChart.dispatchAction({
+      type: 'select',
+      name: '正确',
+    });
+  }, 100)
 
-    name: '正确',
-  });
 })
 </script>
 
@@ -144,7 +146,7 @@ onMounted(() => {
     <IonHeader style="background-color: #FFFFFF" class="ion-no-border ion-padding">
       <IonToolbar style="--background: white">
         <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button text="" default-href="/study/analyze"></ion-back-button>
         </ion-buttons>
         <IonTitle>学习进度</IonTitle>
         <ion-buttons slot="end">
@@ -245,8 +247,9 @@ onMounted(() => {
         </ion-card>
       </div>
       <ion-text style="font-weight: 900;font-size: 20px">视频学习时长</ion-text>
-      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);" @click="$router.push('/study/learningTime/1')">
-        <ion-card-content style="padding: 0 20px;">
+      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);"
+                @click="$router.push('/study/learningTime/《java编程基础》')">
+        <ion-card-content style="padding: 0 14px;">
           <div style="margin: 10px 0">
             <ion-text style="display: inline-block;text-align: left;width: 50%;color: #242424">
               《{{ `java编程基础` }}》
@@ -269,8 +272,9 @@ onMounted(() => {
           </div>
         </ion-card-content>
       </ion-card>
-      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9F4FC, #F9F9F9);" @click="$router.push('/study/learningTime/1')">
-        <ion-card-content style="padding: 0 20px;">
+      <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9F4FC, #F9F9F9);"
+                @click="$router.push('/study/learningTime/《java编程基础》')">
+        <ion-card-content style="padding: 0 14px;">
           <div style="margin: 10px 0">
             <ion-text style="display: inline-block;text-align: left;width: 50%;color: #242424">
               《{{ `java编程基础` }}》
@@ -295,24 +299,24 @@ onMounted(() => {
       </ion-card>
       <ion-text style="font-weight: 900;font-size: 20px">测试记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9E9FC, #F9F9F9);">
-        <ion-card-content style="display: flex">
-          <div style="margin: 10px 0;width: 70%;" @click="$router.push('/study/testRecording')">
+        <ion-card-content style="display: flex;padding: 10px 15px;">
+          <div style="margin: 10px 0;width: 70%;" @click="$router.push('/study/testRecording/《java编程基础》')">
             <ion-text
                 style="display: inline-block;font-size: 13px;text-align: left;color: #5C5CCF;font-weight: bold;margin-bottom: 48px">
               {{ `你已完成3道测试练习，还剩2道` }}
             </ion-text>
-            <div style="display: inline-block;text-align: left;width: 70%;color: #A9A9A9;font-size: 14px">
+            <div style="display: inline-block;text-align: left;width: 70%;color: #8A8ADD;font-size: 14px">
               当前正确率为&nbsp;
               <ion-text
-                  style="color: #444444;display: inline-block;padding-right: 5px;font-weight: 600">
+                  style="color: #5669F5;display: inline-block;padding-right: 5px;font-weight: 600">
                 55%
               </ion-text>
-              <div style="display: inline-block;text-align: left;color: #A9A9A9;font-size: 14px">
+              <div style="display: inline-block;text-align: left;color: #8A8ADD;font-size: 14px">
                 继续保持哦~
               </div>
             </div>
             <div
-                style="display: inline-block;font-size:14px;text-align: right;width: 30%;color: #A9A9A9;vertical-align: bottom">
+                style="display: inline-block;font-size:11px;text-align: right;width: 30%;color: #8A8ADD;vertical-align: bottom">
               <div>
                 <span
                     style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #8056F5"></span>&nbsp;正确&nbsp;65
@@ -331,24 +335,24 @@ onMounted(() => {
 
       <ion-text style="font-weight: 900;font-size: 20px">实操记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9FCF2, #F9F9F9);">
-        <ion-card-content style="display: flex">
+        <ion-card-content style="display: flex;padding: 10px 15px;">
           <div style="margin: 10px 0;width: 70%;">
             <ion-text
                 style="display: inline-block;font-size: 13px;text-align: left;color: #5C5CCF;font-weight: bold;margin-bottom: 48px">
               {{ `你已完成3道测试练习，还剩2道` }}
             </ion-text>
-            <div style="display: inline-block;text-align: left;width: 70%;color: #A9A9A9;font-size: 14px">
+            <div style="display: inline-block;text-align: left;width: 70%;color: #8A8ADD;font-size: 14px">
               当前正确率为&nbsp;
               <ion-text
-                  style="color: #444444;display: inline-block;padding-right: 5px;font-weight: 600">
+                  style="color: #5669F5;display: inline-block;padding-right: 5px;font-weight: 600">
                 55%
               </ion-text>
-              <div style="display: inline-block;text-align: left;color: #A9A9A9;font-size: 14px">
+              <div style="display: inline-block;text-align: left;color: #8A8ADD;font-size: 14px">
                 继续保持哦~
               </div>
             </div>
             <div
-                style="display: inline-block;font-size:14px;text-align: right;width: 30%;color: #A9A9A9;vertical-align: bottom">
+                style="display: inline-block;font-size:11px;text-align: right;width: 30%;color: #8A8ADD;vertical-align: bottom">
               <div>
                 <span
                     style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #3C50E0"></span>&nbsp;正确&nbsp;65
@@ -358,11 +362,8 @@ onMounted(() => {
                     style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #FFC249"></span>&nbsp;错误&nbsp;65
               </div>
             </div>
-
           </div>
-          <div style="width: 100px;height: 100px;margin-top: 20px" ref="actuallyRecord">
-            11
-          </div>
+          <div style="width: 100px;height: 100px;margin-top: 20px" ref="actuallyRecord"></div>
         </ion-card-content>
       </ion-card>
     </ion-content>

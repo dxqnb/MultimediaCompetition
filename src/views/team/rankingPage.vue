@@ -327,9 +327,13 @@ function change(event: any) {
           </ion-text>
           <ion-card
               class="teamCard">
+            <div
+                style="width: 11px;height: 11px;background: rgba(255,255,255,0.57);border-radius: 100%;position: absolute;top: 22px;left: 48px"></div>
+            <div
+                style="width: 11px;height: 11px;background: rgba(255,255,255,0.57);border-radius: 100%;position: absolute;top: 22px;right: 48px"></div>
             <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">参与度统计数据</ion-card-title>
             <ion-card-content>
-              <ion-accordion-group >
+              <ion-accordion-group>
                 <ion-accordion v-for="i in 2" :value="i+''" style="border-radius: 6px;margin: 6px 0">
                   <ion-item lines="none"
                             style="width: 100%;--background: white;position: relative;" slot="header">
@@ -362,6 +366,10 @@ function change(event: any) {
           </ion-text>
           <ion-card
               class="teamCard">
+            <div
+                style="width: 11px;height: 11px;background: rgba(255,255,255,0.57);border-radius: 100%;position: absolute;top: 22px;left: 48px"></div>
+            <div
+                style="width: 11px;height: 11px;background: rgba(255,255,255,0.57);border-radius: 100%;position: absolute;top: 22px;right: 48px"></div>
             <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px;">活跃度统计数据
             </ion-card-title>
             <ion-card-content>
@@ -393,29 +401,35 @@ function change(event: any) {
                   </ion-item>
                   <div slot="content" class="ion-padding">
                     <div
-                         style="background-color: #F7F8F9;width: 100%;display: flex;justify-content: space-around;border-radius: 10px">
+                        style="background-color: #F7F8F9;width: 100%;display: flex;justify-content: space-around;border-radius: 10px">
                       <div>
-                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                        <ion-text
+                            style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
                           学习次数
                         </ion-text>
-                        <ion-text style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
+                        <ion-text
+                            style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
                           5
                         </ion-text>
                       </div>
                       <div>
-                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                        <ion-text
+                            style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
                           观看时长
                         </ion-text>
-                        <ion-text style="font-size: 20px;color: #484848;display: inline-block;text-align: center;font-weight: 900">
+                        <ion-text
+                            style="font-size: 20px;color: #484848;display: inline-block;text-align: center;font-weight: 900">
                           2
                         </ion-text>
                         <ion-text style="font-size: 12px;color: #484848;text-align: center;">小时</ion-text>
                       </div>
                       <div>
-                        <ion-text style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
+                        <ion-text
+                            style="font-size: 12px;color: #B4B4B4;display: block;padding: 10px 0 6px 0;text-align: center">
                           活跃度
                         </ion-text>
-                        <ion-text style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
+                        <ion-text
+                            style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
                           60
                         </ion-text>
                       </div>
@@ -451,6 +465,7 @@ ion-content.team::part(background) {
   background-size: cover;
   box-shadow: none;
   margin: 16px;
+  position: relative;
 }
 
 ion-toolbar {

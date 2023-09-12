@@ -59,10 +59,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'study',
                 component: () => import('@/views/study/studyPage.vue'),
             },
-            {
-                path: 'tab3',
-                component: () => import('@/views/Tab3Page.vue'),
-            },
+            // {
+            //     path: 'tab3',
+            //     component: () => import('@/views/Tab3Page.vue'),
+            // },
             {
                 path: 'team',
                 component: () => import('@/views/team/teamPage.vue'),
@@ -144,7 +144,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/studyProgressPage.vue')
             },
             {
-                path: 'testRecording',
+                path: 'testRecording/:id',
+                props:true,
                 component: () => import('@/views/study/testRecordingPage.vue')
             },
             {

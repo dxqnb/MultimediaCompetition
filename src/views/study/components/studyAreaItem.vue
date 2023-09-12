@@ -2,17 +2,17 @@
 
 import {IonAvatar, IonItem, IonLabel} from "@ionic/vue";
 
-const props = defineProps(['item', 'index']);
+const props = defineProps(['item', 'index','type']);
 </script>
 
 <template>
-  <ion-item lines="none" :href="item.link">
+  <ion-item lines="none" :href="'/study/lesson/'+item.id+'/'+type">
     <ion-avatar slot="start" style="height: 50px;width: 50px;">
       <img :src="item.img" alt="avatar"/>
     </ion-avatar>
     <ion-label>
       <h3>{{ item.title }}</h3>
-      <p style="font-size: 10px">{{ item.createby }}</p>
+      <p style="font-size: 10px">{{ item.createby||'&nbsp;' }}</p>
     </ion-label>
   </ion-item>
 </template>

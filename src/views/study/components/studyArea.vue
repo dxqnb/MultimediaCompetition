@@ -14,25 +14,44 @@ import {
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
-import {getKcDetailList} from "@/api/study";
+import {getKcDetailList, getZyKcDetailList} from "@/api/study";
 
 interface item {
-  id: Number,
-  kcdictid:Number,
-  img: String,
-  title: String,
-  introduction: String,
-  link: String,
-  createby: String,
-  createtime: String,
+  id: number,
+  kcdictid: string,
+  img: string,
+  title: string,
+  introduction: number,
+  link: string,
+  createby: string,
+  createtime: string
 }
-const items = reactive<item[]>([]);
 
-getKcDetailList('1').then(res => {
-  for (let i = 0; i < res.data.data.length; i++) {
-    items.push(res.data.data[i])
+const items = ref<item[]>([]);
+
+let user = localStorage.getItem('user')
+const deptid = ref('999')
+if (user != null) {
+  deptid.value = JSON.parse(user).deptid
+  getZyKcDetailList(deptid.value).then((res) => {
+    items.value = res.data.data
+  })
+}
+const segmentValue = ref("")
+segmentValue.value = deptid.value
+
+async function change(event: any) {
+  console.log(event.detail.value)
+  if (event.detail.value == '1' || event.detail.value == '2' || event.detail.value == '3') {
+    await getKcDetailList(event.detail.value).then((res) => {
+      items.value = res.data.data
+    })
+  } else {
+    await getZyKcDetailList(deptid.value).then((res) => {
+      items.value = res.data.data
+    })
   }
-})
+}
 
 </script>
 
@@ -45,80 +64,80 @@ getKcDetailList('1').then(res => {
           style="border: 10px solid #8997ef;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>
     <div class="area">
-      <ion-segment mode="ios" value="first">
-        <ion-segment-button value="first">
+      <ion-segment mode="ios" v-model="segmentValue" @ionChange="change">
+        <ion-segment-button :value="deptid">
           <ion-label><span style="font-weight: 900;font-size: 12px">专业课程</span></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="second">
+        <ion-segment-button value="1">
           <ion-label><span style="font-weight: 900;font-size: 12px">时事政治</span></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="third">
+        <ion-segment-button value="2">
           <ion-label><span style="font-weight: 900;font-size: 12px">专升本</span></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="fourth">
+        <ion-segment-button value="3">
           <ion-label><span style="font-weight: 900;font-size: 12px">身心健康</span></ion-label>
         </ion-segment-button>
       </ion-segment>
       <ion-content style="height:70vh">
         <ion-list style="background: white">
-          <study-area-item v-for="(item, index) in items" :item="item" :index="index"></study-area-item>
+          <study-area-item v-for="(item, index) in items" :item="item" :type="deptid==segmentValue?'zykc':'kc'" :index="index"></study-area-item>
         </ion-list>
-        <ion-infinite-scroll>
-          <div class="infinite-scroll-content">
-            <svg
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 100 100"
-                enable-background="new 0 0 100 100"
-                xml:space="preserve"
-            >
-          <circle fill="none" stroke="#1b6dff" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="48"/>
-              <line
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke="#1b6dff"
-                  stroke-width="4"
-                  stroke-miterlimit="10"
-                  x1="50"
-                  y1="50"
-                  x2="85"
-                  y2="50.5"
-              >
-            <animateTransform
-                attributeName="transform"
-                dur="2s"
-                type="rotate"
-                from="0 50 50"
-                to="360 50 50"
-                repeatCount="indefinite"
-            />
-          </line>
-              <line
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke="#1b6dff"
-                  stroke-width="4"
-                  stroke-miterlimit="10"
-                  x1="50"
-                  y1="50"
-                  x2="49.5"
-                  y2="74"
-              >
-            <animateTransform
-                attributeName="transform"
-                dur="15s"
-                type="rotate"
-                from="0 50 50"
-                to="360 50 50"
-                repeatCount="indefinite"
-            />
-          </line>
-        </svg>
-          </div>
-        </ion-infinite-scroll>
+<!--        <ion-infinite-scroll>-->
+<!--          <div class="infinite-scroll-content">-->
+<!--            <svg-->
+<!--                version="1.1"-->
+<!--                xmlns="http://www.w3.org/2000/svg"-->
+<!--                xmlns:xlink="http://www.w3.org/1999/xlink"-->
+<!--                x="0px"-->
+<!--                y="0px"-->
+<!--                viewBox="0 0 100 100"-->
+<!--                enable-background="new 0 0 100 100"-->
+<!--                xml:space="preserve"-->
+<!--            >-->
+<!--          <circle fill="none" stroke="#1b6dff" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="48"/>-->
+<!--              <line-->
+<!--                  fill="none"-->
+<!--                  stroke-linecap="round"-->
+<!--                  stroke="#1b6dff"-->
+<!--                  stroke-width="4"-->
+<!--                  stroke-miterlimit="10"-->
+<!--                  x1="50"-->
+<!--                  y1="50"-->
+<!--                  x2="85"-->
+<!--                  y2="50.5"-->
+<!--              >-->
+<!--            <animateTransform-->
+<!--                attributeName="transform"-->
+<!--                dur="2s"-->
+<!--                type="rotate"-->
+<!--                from="0 50 50"-->
+<!--                to="360 50 50"-->
+<!--                repeatCount="indefinite"-->
+<!--            />-->
+<!--          </line>-->
+<!--              <line-->
+<!--                  fill="none"-->
+<!--                  stroke-linecap="round"-->
+<!--                  stroke="#1b6dff"-->
+<!--                  stroke-width="4"-->
+<!--                  stroke-miterlimit="10"-->
+<!--                  x1="50"-->
+<!--                  y1="50"-->
+<!--                  x2="49.5"-->
+<!--                  y2="74"-->
+<!--              >-->
+<!--            <animateTransform-->
+<!--                attributeName="transform"-->
+<!--                dur="15s"-->
+<!--                type="rotate"-->
+<!--                from="0 50 50"-->
+<!--                to="360 50 50"-->
+<!--                repeatCount="indefinite"-->
+<!--            />-->
+<!--          </line>-->
+<!--        </svg>-->
+<!--          </div>-->
+<!--        </ion-infinite-scroll>-->
       </ion-content>
     </div>
   </div>
@@ -128,6 +147,7 @@ getKcDetailList('1').then(res => {
 ion-content::part(background) {
   background: white;
 }
+
 ion-segment {
   --background: var(--ion-background-color);
   height: 36px;

@@ -8,11 +8,11 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonItem,
-  IonThumbnail,
-  IonLabel,
+  IonText,
+  IonGrid,
+  IonCol,
   IonContent,
-  IonList,
+  IonRow,
   IonCard,
   IonCardContent,
   IonBadge,
@@ -37,8 +37,8 @@ function handleRefresh(event: any) {
 
 <template>
   <IonPage>
-    <IonHeader style="background-color: #f7f7f7" class="ion-no-border ion-padding">
-      <IonToolbar>
+    <IonHeader style="background-color: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: white">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -75,7 +75,9 @@ function handleRefresh(event: any) {
           <ion-content style="height: 3em;white-space: nowrap;" :scroll-y="false" :scroll-x="true">
 
             <div
-                style="border-radius: 100%;width: 2em;height: 2em;display: inline-block;vertical-align: text-bottom;text-align: center;line-height: 2em;color: white;margin-right: 1em" :class="i%2==0?wrong:pass" v-for="i in 50">{{i}}</div>
+                style="border-radius: 100%;width: 2em;height: 2em;display: inline-block;vertical-align: text-bottom;text-align: center;line-height: 2em;color: white;margin-right: 1em"
+                :class="i%2==0?wrong:pass" v-for="i in 50">{{ i }}
+            </div>
           </ion-content>
         </ion-card-content>
       </ion-card>
@@ -90,10 +92,7 @@ function handleRefresh(event: any) {
 
 <style scoped lang="scss">
 ion-content.main::part(background) {
-  /*background: url("https://www.0030.store/background.png") top right no-repeat, linear-gradient(to bottom, #5D7BE5, #ffffff, #ffffff);
-  background-size: 140%;
-  filter: blur(1.5px);*/
-  background: #f1f1f1;
+  background: #F7F8F9;
 }
 
 .item-lines-full {
@@ -116,10 +115,12 @@ ion-button.topButton {
   --ion-color-base: #E3E7FF !important;
   --ion-color-contrast: #4257DF !important;
 }
-.pass{
+
+.pass {
   background-color: #5BC9A4;
 }
-.wrong{
+
+.wrong {
   background-color: #E15238;
 }
 </style>

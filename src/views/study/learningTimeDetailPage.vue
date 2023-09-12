@@ -22,12 +22,20 @@ import {
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {onMounted, reactive, ref} from "vue";
 import * as echarts from 'echarts';
-
+const props=defineProps(['id'])
+const now = new Date();
+const todayStr = now.getMonth().valueOf() + '/' + now.getDate()
 type EChartsOption = echarts.EChartsOption;
-let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+let dataAxis = [];
+for (let i = 0; i <= 6; i++) {
+  let time = (new Date).getTime() - 24 * 60 * 60 * 1000 * i;
+  let temp = new Date(time);
+  dataAxis.push(temp.getMonth().valueOf() + '/' + temp.getDate())
+}
+dataAxis = dataAxis.reverse()
 // prettier-ignore
-let data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
-let yMax = 500;
+let data = [20,10,10,50,60,70,20];
+let yMax = 100;
 let dataShadow = [];
 
 for (let i = 0; i < data.length; i++) {
@@ -36,15 +44,35 @@ for (let i = 0; i < data.length; i++) {
 const bar = ref();
 let testRecordOption: EChartsOption = {
   title: {
-    text: '特性示例：渐变色 阴影 点击缩放',
-    subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
+    text: '{a|66}{b| 分钟\n}{b| '+now.getMonth()+'月'+now.getDate()+'日}{c| 今日}',
+    // subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
+    textStyle: {
+      rich: {
+        a: {
+          color: '#FF8044',
+          fontSize: '25px',
+          fontWeight: 600,
+        },
+        b: {
+          color: '#999999',
+          fontSize: '11px',
+          fontWeight: 500,
+        },
+        c: {
+          color: '#FF9F9F',
+          fontSize: '11px',
+          fontWeight: 500,
+        },
+      },
+    },
+  },
+  grid: {
+    height: '120px',
+    width: '90%',
   },
   xAxis: {
+    type: 'category',
     data: dataAxis,
-    axisLabel: {
-      inside: true,
-      color: '#fff'
-    },
     axisTick: {
       show: false
     },
@@ -72,20 +100,19 @@ let testRecordOption: EChartsOption = {
   series: [
     {
       type: 'bar',
-      showBackground: true,
+      barWidth: '10px',
+      showBackground: false,
       itemStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          {offset: 0, color: '#83bff6'},
-          {offset: 0.5, color: '#188df0'},
-          {offset: 1, color: '#188df0'}
+          {offset: 0, color: '#FFBFAD'},
+          {offset: 1, color: '#FAF4F3'}
         ])
       },
       emphasis: {
         itemStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {offset: 0, color: '#2378f7'},
-            {offset: 0.7, color: '#2378f7'},
-            {offset: 1, color: '#83bff6'}
+          {offset: 0, color: '#fa9981'},
+          {offset: 1, color: '#fdccc2'}
           ])
         }
       },
@@ -95,8 +122,10 @@ let testRecordOption: EChartsOption = {
 };
 
 onMounted(() => {
-  let testChart = echarts.init(bar.value);
-  testRecordOption && testChart.setOption(testRecordOption);
+  setTimeout(() => {
+    let testChart = echarts.init(bar.value);
+    testRecordOption && testChart.setOption(testRecordOption);
+  }, 100)
 })
 </script>
 
@@ -105,9 +134,9 @@ onMounted(() => {
     <IonHeader style="background-color: #FFFFFF" class="ion-no-border ion-padding">
       <IonToolbar style="--background: white">
         <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button text="" default-href="/study/progress"></ion-back-button>
         </ion-buttons>
-        <IonTitle>学习进度</IonTitle>
+        <IonTitle>视频学习时长</IonTitle>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon :icon="ellipsisHorizontal"/>
@@ -119,13 +148,13 @@ onMounted(() => {
       <ion-text style="font-weight: 900;font-size: 20px">视频学习记录</ion-text>
       <div
           style="font-size: 13px;font-weight: 500;color: #474747;border-left: 4px solid #5676F1;padding-left: 2px;margin-top: 18px">
-        《java编程基础》
+        {{ id }}
       </div>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);">
-        <ion-card-content style="padding: 0 20px;">
+        <ion-card-content style="padding: 0 14px;">
           <div style="margin: 10px 0;border-bottom: 1px solid #F4E5E0;padding-bottom: 20px">
             <ion-text style="display: inline-block;text-align: left;width: 50%;color: #242424">
-              《{{ `java编程基础` }}》
+              {{ id }}
             </ion-text>
             <ion-text style="display: inline-block;text-align: right;width: 50%;color: #A9A9A9">
               {{ `正在学习` }}
@@ -143,7 +172,7 @@ onMounted(() => {
               总&nbsp;<ion-text style="color: #444444;font-weight: 600">120</ion-text>
             </div>
           </div>
-          <div style="width: 100%;height: 200px;" ref="bar">
+          <div style="width: 100%;height: 200px;margin: 30px 0" ref="bar">
 
           </div>
         </ion-card-content>

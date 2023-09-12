@@ -46,9 +46,6 @@ function handleRefresh(event: any) {
   }, 1000);
 }
 
-for (let i = 1; i < 20; i++) {
-
-}
 let user = localStorage.getItem('user')
 const deptid = ref('999')
 if (user != null) {
@@ -79,6 +76,7 @@ function addLesson() {
     })
   }
 }
+
 </script>
 
 <template>

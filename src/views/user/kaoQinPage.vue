@@ -8,7 +8,7 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonSegment,
+  IonList,
   IonSegmentButton,
   IonLabel,
   IonContent,
@@ -21,12 +21,16 @@ import {
   IonItem,
   IonItemGroup,
   IonButton,
-  IonRadio, IonRadioGroup, IonText, IonImg
+  IonRadio, IonRadioGroup, IonText, IonImg, IonAccordion, IonAccordionGroup
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
-import {chevronBackCircleOutline, chevronBackOutline, chevronForwardOutline} from "ionicons/icons";
+import {chevronBackCircleOutline, chevronBackOutline, chevronDownOutline, chevronForwardOutline} from "ionicons/icons";
 
 const index = ref(1);
+const signIn = ref('');
+const truant = ref('');
+const late = ref('');
+const leave = ref('');
 
 </script>
 
@@ -53,52 +57,140 @@ const index = ref(1);
         </ion-button>
       </ion-item>
       <ion-card
-          style="--background: linear-gradient(to bottom right, #8F44FF,#7B73FF,#8581FF,#8F8FFF,#999DFF,#A1A8FF,#A9B4FF);position:relative;display: flex;justify-content: space-between">
-        <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">签到</ion-text>
-        <ion-text style="font-size: 15px;color: white;display: block;margin: 22px 28px 0 0">《课程名称A》</ion-text>
-        <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
+          style="--background: linear-gradient(to bottom right, #8F44FF,#7B73FF,#8581FF,#8F8FFF,#999DFF,#A1A8FF,#A9B4FF);">
+        <ion-accordion-group v-model="signIn">
+          <ion-accordion value="ok"
+                         style="background: linear-gradient(to bottom right, #8F44FF,#7B73FF,#8581FF,#8F8FFF,#999DFF,#A1A8FF,#A9B4FF)">
+            <div slot="header" style="display: flex;justify-content: space-between;position:relative;">
+              <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">签到</ion-text>
+              <ion-icon :icon="chevronDownOutline"
+                        style="color: white;display: block;margin: 22px 28px 0 0;width: 20px;height: 20px;transition: all 500ms"
+                        :style="signIn=='ok'?'transform: rotateX(180deg)':''"></ion-icon>
+              <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
   <g id="组_1483" data-name="组 1483" transform="translate(-67.184 -158.232) rotate(-14)" opacity="0.11" style="mix-blend-mode: overlay;isolation: isolate">
     <path id="Vector" d="M.931,21.706a1.3,1.3,0,0,0,0,2.5A30.712,30.712,0,0,1,21.552,44.975a1.306,1.306,0,0,0,2.5,0A30.69,30.69,0,0,1,44.677,24.2a1.3,1.3,0,0,0,0-2.5A30.7,30.7,0,0,1,24.056.935a1.306,1.306,0,0,0-2.5,0A30.69,30.69,0,0,1,.931,21.706Z" transform="translate(47.821 175) rotate(42)" fill="#fff" style="isolation: isolate"/>
     <path id="Vector-2" data-name="Vector" d="M.286,6.68a.4.4,0,0,0,0,.769,9.451,9.451,0,0,1,6.346,6.392.4.4,0,0,0,.771,0,9.445,9.445,0,0,1,6.346-6.392.4.4,0,0,0,0-.769A9.448,9.448,0,0,1,7.4.288a.4.4,0,0,0-.771,0A9.445,9.445,0,0,1,.286,6.68Z" transform="matrix(0.914, 0.407, -0.407, 0.914, 74.607, 212.377)" fill="#fff" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
+            </div>
+            <ion-list slot="content" style="padding: 0 6px">
+              <ion-item-group>
+                <ion-item v-for="i in 4" lines="none">
+                  <div slot="start">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;line-height: 20px;height: 20px;margin-top: 4px">2023-09-04</ion-text>
+                    <ion-text style="font-size: 14px;font-weight: 600;color: #1f1f1f;display: block;margin: 4px 0 10px 0">移动终端跨平台开发</ion-text>
+                  </div>
+                  <div slot="end">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;">第七节</ion-text>
+                  </div>
+                </ion-item>
+              </ion-item-group>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-card>
       <ion-card
-          style="--background: linear-gradient(to bottom right, #FF8944,#FF8173,#FF907F,#FFA08B,#FFB098,#FFBDA2,#FFC5A9);position:relative;display: flex;justify-content: space-between">
-        <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">旷课</ion-text>
-        <ion-text style="font-size: 15px;color: white;display: block;margin: 22px 28px 0 0">《课程名称A》</ion-text>
-        <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
+          style="--background: linear-gradient(to bottom right, #FF8944,#FF8173,#FF907F,#FFA08B,#FFB098,#FFBDA2,#FFC5A9);">
+        <ion-accordion-group v-model="truant">
+          <ion-accordion value="ok"
+                         style="background: linear-gradient(to bottom right, #FF8944,#FF8173,#FF907F,#FFA08B,#FFB098,#FFBDA2,#FFC5A9)">
+            <div slot="header" style="display: flex;justify-content: space-between;position:relative;">
+              <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">旷课</ion-text>
+              <ion-icon :icon="chevronDownOutline"
+                        style="color: white;display: block;margin: 22px 28px 0 0;width: 20px;height: 20px;transition: all 500ms"
+                        :style="truant=='ok'?'transform: rotateX(180deg)':''"></ion-icon>
+              <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
   <g id="组_1483" data-name="组 1483" transform="translate(-67.184 -158.232) rotate(-14)" opacity="0.11" style="mix-blend-mode: overlay;isolation: isolate">
     <path id="Vector" d="M.931,21.706a1.3,1.3,0,0,0,0,2.5A30.712,30.712,0,0,1,21.552,44.975a1.306,1.306,0,0,0,2.5,0A30.69,30.69,0,0,1,44.677,24.2a1.3,1.3,0,0,0,0-2.5A30.7,30.7,0,0,1,24.056.935a1.306,1.306,0,0,0-2.5,0A30.69,30.69,0,0,1,.931,21.706Z" transform="translate(47.821 175) rotate(42)" fill="#fff" style="isolation: isolate"/>
     <path id="Vector-2" data-name="Vector" d="M.286,6.68a.4.4,0,0,0,0,.769,9.451,9.451,0,0,1,6.346,6.392.4.4,0,0,0,.771,0,9.445,9.445,0,0,1,6.346-6.392.4.4,0,0,0,0-.769A9.448,9.448,0,0,1,7.4.288a.4.4,0,0,0-.771,0A9.445,9.445,0,0,1,.286,6.68Z" transform="matrix(0.914, 0.407, -0.407, 0.914, 74.607, 212.377)" fill="#fff" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
+            </div>
+            <ion-list slot="content" style="padding: 0 6px">
+              <ion-item-group>
+                <ion-item v-for="i in 4" lines="none">
+                  <div slot="start">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;line-height: 20px;height: 20px;margin-top: 4px">2023-09-04</ion-text>
+                    <ion-text style="font-size: 14px;font-weight: 600;color: #1f1f1f;display: block;margin: 4px 0 10px 0">移动终端跨平台开发</ion-text>
+                  </div>
+                  <div slot="end">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;">第七节</ion-text>
+                  </div>
+                </ion-item>
+              </ion-item-group>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-card>
       <ion-card
-          style="--background: linear-gradient(to bottom right, #4475FF,#73B4FF,#80BDFF,#8BC5FF,#96CCFF,#A0D3FF,#A9D9FF);position:relative;display: flex;justify-content: space-between">
-        <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">迟到</ion-text>
-        <ion-text style="font-size: 15px;color: white;display: block;margin: 22px 28px 0 0">《课程名称A》</ion-text>
-        <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
+          style="--background: linear-gradient(to bottom right, #4475FF,#73B4FF,#80BDFF,#8BC5FF,#96CCFF,#A0D3FF,#A9D9FF);">
+        <ion-accordion-group v-model="late">
+          <ion-accordion value="ok"
+                         style="background: linear-gradient(to bottom right, #4475FF,#73B4FF,#80BDFF,#8BC5FF,#96CCFF,#A0D3FF,#A9D9FF)">
+            <div slot="header" style="display: flex;justify-content: space-between;position:relative;">
+              <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">迟到</ion-text>
+              <ion-icon :icon="chevronDownOutline"
+                        style="color: white;display: block;margin: 22px 28px 0 0;width: 20px;height: 20px;transition: all 500ms"
+                        :style="late=='ok'?'transform: rotateX(180deg)':''"></ion-icon>
+              <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
   <g id="组_1483" data-name="组 1483" transform="translate(-67.184 -158.232) rotate(-14)" opacity="0.11" style="mix-blend-mode: overlay;isolation: isolate">
     <path id="Vector" d="M.931,21.706a1.3,1.3,0,0,0,0,2.5A30.712,30.712,0,0,1,21.552,44.975a1.306,1.306,0,0,0,2.5,0A30.69,30.69,0,0,1,44.677,24.2a1.3,1.3,0,0,0,0-2.5A30.7,30.7,0,0,1,24.056.935a1.306,1.306,0,0,0-2.5,0A30.69,30.69,0,0,1,.931,21.706Z" transform="translate(47.821 175) rotate(42)" fill="#fff" style="isolation: isolate"/>
     <path id="Vector-2" data-name="Vector" d="M.286,6.68a.4.4,0,0,0,0,.769,9.451,9.451,0,0,1,6.346,6.392.4.4,0,0,0,.771,0,9.445,9.445,0,0,1,6.346-6.392.4.4,0,0,0,0-.769A9.448,9.448,0,0,1,7.4.288a.4.4,0,0,0-.771,0A9.445,9.445,0,0,1,.286,6.68Z" transform="matrix(0.914, 0.407, -0.407, 0.914, 74.607, 212.377)" fill="#fff" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
+            </div>
+            <ion-list slot="content" style="padding: 0 6px">
+              <ion-item-group>
+                <ion-item v-for="i in 4" lines="none">
+                  <div slot="start">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;line-height: 20px;height: 20px;margin-top: 4px">2023-09-04</ion-text>
+                    <ion-text style="font-size: 14px;font-weight: 600;color: #1f1f1f;display: block;margin: 4px 0 10px 0">移动终端跨平台开发</ion-text>
+                  </div>
+                  <div slot="end">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;">第七节</ion-text>
+                  </div>
+                </ion-item>
+              </ion-item-group>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-card>
       <ion-card
-          style="--background: linear-gradient(to bottom right, #B5E300,#91E064,#9BE27B,#A4E490,#AEE6A5,#B9E8BD,#C4EAD6);position:relative;display: flex;justify-content: space-between">
-        <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">请假</ion-text>
-        <ion-text style="font-size: 15px;color: white;display: block;margin: 22px 28px 0 0">《课程名称A》</ion-text>
-        <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
+          style="--background: linear-gradient(to bottom right, #B5E300,#91E064,#9BE27B,#A4E490,#AEE6A5,#B9E8BD,#C4EAD6);">
+        <ion-accordion-group v-model="leave">
+          <ion-accordion value="ok"
+                         style="background: linear-gradient(to bottom right, #B5E300,#91E064,#9BE27B,#A4E490,#AEE6A5,#B9E8BD,#C4EAD6)">
+            <div slot="header" style="display: flex;justify-content: space-between;position:relative;">
+              <ion-text style="font-size: 19px;color: white;display: block;margin: 19px 0 19px 28px;">请假</ion-text>
+              <ion-icon :icon="chevronDownOutline"
+                        style="color: white;display: block;margin: 22px 28px 0 0;width: 20px;height: 20px;transition: all 500ms"
+                        :style="leave=='ok'?'transform: rotateX(180deg)':''"></ion-icon>
+              <ion-icon style="width: 70px;height: 70px;position: absolute;top: -24px;left: -14px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="70.408" height="61.948" viewBox="0 0 70.408 61.948">
   <g id="组_1483" data-name="组 1483" transform="translate(-67.184 -158.232) rotate(-14)" opacity="0.11" style="mix-blend-mode: overlay;isolation: isolate">
     <path id="Vector" d="M.931,21.706a1.3,1.3,0,0,0,0,2.5A30.712,30.712,0,0,1,21.552,44.975a1.306,1.306,0,0,0,2.5,0A30.69,30.69,0,0,1,44.677,24.2a1.3,1.3,0,0,0,0-2.5A30.7,30.7,0,0,1,24.056.935a1.306,1.306,0,0,0-2.5,0A30.69,30.69,0,0,1,.931,21.706Z" transform="translate(47.821 175) rotate(42)" fill="#fff" style="isolation: isolate"/>
     <path id="Vector-2" data-name="Vector" d="M.286,6.68a.4.4,0,0,0,0,.769,9.451,9.451,0,0,1,6.346,6.392.4.4,0,0,0,.771,0,9.445,9.445,0,0,1,6.346-6.392.4.4,0,0,0,0-.769A9.448,9.448,0,0,1,7.4.288a.4.4,0,0,0-.771,0A9.445,9.445,0,0,1,.286,6.68Z" transform="matrix(0.914, 0.407, -0.407, 0.914, 74.607, 212.377)" fill="#fff" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
+            </div>
+            <ion-list slot="content" style="padding: 0 6px">
+              <ion-item-group>
+                <ion-item v-for="i in 4" lines="none">
+                  <div slot="start">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;line-height: 20px;height: 20px;margin-top: 4px">2023-09-04</ion-text>
+                    <ion-text style="font-size: 14px;font-weight: 600;color: #1f1f1f;display: block;margin: 4px 0 10px 0">移动终端跨平台开发</ion-text>
+                  </div>
+                  <div slot="end">
+                    <ion-text style="font-size: 12px;color: #777777;display: block;">第七节</ion-text>
+                  </div>
+                </ion-item>
+              </ion-item-group>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
       </ion-card>
     </ion-content>
   </IonPage>
