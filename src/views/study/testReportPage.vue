@@ -16,14 +16,63 @@ import {
   IonCard,
   IonCardContent,
   IonBadge,
-  IonButton, IonSegment,
+  IonButton, IonSegment, useIonRouter,
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
+import {useRoute} from "vue-router";
+import {getTestKcTiList} from "@/api/study";
 
-const items = reactive([""]);
+const items = reactive<any[]>([]);
 const pass = ref('pass');
 const wrong = ref('wrong');
+const taoid = ref('');
+const route = useRoute()
+const error: string = route.params.item + '';
+
+if (error != null && error.includes(',')) {
+  for (let i = 0; i < error.split(',').length - 1; i++) {
+    items.push(error.split(',')[i])
+  }
+  taoid.value = error.split(',')[error.split(',').length - 1]
+} else {
+  taoid.value = error
+}
+
+interface item {
+  "id": number
+  "problem": string
+  "taoid": number
+  "tres": string
+  "optionA": string
+  "optionB": string
+  "optionC": string
+  "optionD": string
+  "answer": string
+  "createtime": string
+}
+
+const problem = reactive<any[]>([]);
+const optionA = reactive<any[]>([]);
+const optionB = reactive<any[]>([]);
+const optionC = reactive<any[]>([]);
+const optionD = reactive<any[]>([]);
+const length = ref(0)
+const answerItem = reactive<item[]>([])
+getTestKcTiList(taoid.value).then((res) => {
+  length.value = res.data.data.length
+  for (let i = 0; i < length.value; i++) {
+    // console.log(res.data.data[i])
+    problem.push(res.data.data[i].problem)
+    optionA.push(res.data.data[i].optionA)
+    optionB.push(res.data.data[i].optionB)
+    optionC.push(res.data.data[i].optionC)
+    optionD.push(res.data.data[i].optionD)
+    answerItem.push(res.data.data[i])
+  }
+  // console.log(problem)
+})
+
 
 function handleRefresh(event: any) {
   setTimeout(() => {
@@ -67,7 +116,7 @@ function handleRefresh(event: any) {
                 </ion-text>
               </ion-col>
               <ion-col size="6" style="text-align: right">
-                <span style="font-size: 12px">共{{ `50` }}题</span>
+                <span style="font-size: 12px">共{{ length }}题</span>
               </ion-col>
             </ion-row>
 
@@ -76,7 +125,7 @@ function handleRefresh(event: any) {
 
             <div
                 style="border-radius: 100%;width: 2em;height: 2em;display: inline-block;vertical-align: text-bottom;text-align: center;line-height: 2em;color: white;margin-right: 1em"
-                :class="i%2==0?wrong:pass" v-for="i in 50">{{ i }}
+                :class="items.includes(i+'')?wrong:pass" v-for="i in length">{{ i }}
             </div>
           </ion-content>
         </ion-card-content>

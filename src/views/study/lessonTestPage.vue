@@ -21,25 +21,125 @@ import {
   IonRefresherContent,
   IonFooter,
   IonButton,
-  IonRadio, IonRadioGroup, IonText, IonImg
+  IonRadio, IonRadioGroup, IonText, IonImg, alertController, useIonRouter
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
+import {useRoute} from "vue-router";
+import {getTestKcTiList, ifAnswer} from "@/api/study";
 
-const items = reactive([""]);
+const route = useRoute()
+const router = useIonRouter()
+const taoid = route.params.id;
+const answer = reactive<string[]>([]);
 const num = ref('1')
+const answerOption = ref('')
+const error = reactive<any[]>([]);
+const problem = reactive<any[]>([]);
+const optionA = reactive<any[]>([]);
+const optionB = reactive<any[]>([]);
+const optionC = reactive<any[]>([]);
+const optionD = reactive<any[]>([]);
+const length = ref(0)
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
 
-function handleRefresh(event: any) {
-  setTimeout(() => {
-    // Any calls to load data go here
-    event.target.complete();
-  }, 1000);
-};
-
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
+interface item {
+  "id": number
+  "problem": string
+  "taoid": number
+  "tres": string
+  "optionA": string
+  "optionB": string
+  "optionC": string
+  "optionD": string
+  "answer": string
+  "createtime": string
 }
 
+const answerItem = reactive<item[]>([])
+getTestKcTiList(taoid).then((res) => {
+  length.value = res.data.data.length
+  for (let i = 0; i < length.value; i++) {
+    // console.log(res.data.data[i])
+    problem.push(res.data.data[i].problem)
+    optionA.push(res.data.data[i].optionA)
+    optionB.push(res.data.data[i].optionB)
+    optionC.push(res.data.data[i].optionC)
+    optionD.push(res.data.data[i].optionD)
+    answerItem.push(res.data.data[i])
+  }
+  // console.log(problem)
+})
+
+// let tmp=reactive<string[]>([])
+for (let i = 0; i < length.value; i++) {
+  answer.push("");
+}
+console.log(answer)
+
+function change() {
+  answerOption.value = answer[Number(num.value) - 1]
+}
+
+function change1() {
+  answer[Number(num.value) - 1] = answerOption.value
+  console.log(answer)
+}
+
+async function submit() {
+  if (answer.includes('')) {
+    const alert1 = await alertController.create({
+      header: '提示',
+      subHeader: '你还有题目未作答，确认提交？',
+      message: '请选择',
+      buttons: [
+        {
+          role: 'cancel',
+          text: '取消',
+        },
+        {
+          text: '确认',
+          role: 'ok',
+        },
+      ],
+    })
+    await alert1.present()
+    alert1.onDidDismiss().then(async (res) => {
+      if (res.role == 'ok') {
+        for (let i = length.value; i > 0; i--) {
+          ifAnswer(i.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+            if (res.data.code == 900) {
+              error.push(i)
+            }
+            if (i == 1) {
+              setTimeout(() => {
+                error.sort()
+                error.push(taoid)
+                router.push('/study/testReport/' + error.toString())
+              }, 500)
+            }
+          })
+        }
+      }
+    })
+  } else {
+    for (let i = length.value; i > 0; i--) {
+      ifAnswer(i.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+        if (res.data.code == 900) {
+          error.push(i)
+        }
+        if (i == 1) {
+          setTimeout(() => {
+            error.sort()
+            error.push(taoid)
+            router.push('/study/testReport/' + error.toString())
+          }, 500)
+        }
+      })
+    }
+  }
+}
 
 </script>
 
@@ -62,12 +162,13 @@ for (let i = 1; i < 20; i++) {
       <div slot="fixed" style="width: 100%;white-space: nowrap;background: #F7F8F9;top: 0;left: 0;padding: 4px 10px">
         <ion-text
             style="display: inline-block;font-size: 14px;height: 44px;line-height: 44px;vertical-align: bottom;color: #888888;margin: 0 16px 0 0">
-          共20题
+          共{{ length }}题
         </ion-text>
 
         <div style="display: inline-block;width: 85%;">
-          <ion-segment :scrollable="true" v-model="num" mode="ios">
-            <ion-segment-button v-for="i in 20" style="width: 30px;height: 30px;min-width: auto;margin: 0 10px" :value="i+''">
+          <ion-segment :scrollable="true" @ionChange="change" v-model="num" mode="ios">
+            <ion-segment-button v-for="i in length" style="width: 30px;height: 30px;min-width: auto;margin: 0 10px"
+                                :value="i+''">
               <span style="font-size: 13px">{{ i }}</span>
             </ion-segment-button>
 
@@ -83,19 +184,20 @@ for (let i = 1; i < 20; i++) {
       <div>
         <ion-text class="ion-margin">
           <p class="ion-margin">
-            问：Java是什么？1.1 Java是么1.1 Java是什么？1.1 Java是么？1.1 Java是什么？1.1 Java是什么？
+            {{ problem[Number(num)-1] }}
           </p>
         </ion-text>
-        <ion-img src="https://www.0030.store/swiperAd/ad1.png"></ion-img>
+        <ion-img v-if="false" src="https://www.0030.store/swiperAd/ad1.png"></ion-img>
         <div style="margin-top: 30px">
-          <ion-segment value="A" mode="ios" style="display: inline-block;background: #FFFFFF">
+          <ion-segment @ionChange="change1()" v-model="answerOption" mode="ios"
+                       style="display: inline-block;background: #FFFFFF">
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
                                   value="A">
                 <ion-label style=""><h6>A</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                123</p>
+                {{ optionA[Number(num)-1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -103,7 +205,7 @@ for (let i = 1; i < 20; i++) {
                 <ion-label style=""><h6>B</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                123</p>
+                {{ optionB[Number(num)-1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -111,7 +213,7 @@ for (let i = 1; i < 20; i++) {
                 <ion-label style=""><h6>C</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                123</p>
+                {{ optionC[Number(num)-1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -119,7 +221,7 @@ for (let i = 1; i < 20; i++) {
                 <ion-label style=""><h6>D</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                123</p>
+                {{ optionD[Number(num)-1] }}</p>
             </div>
           </ion-segment>
         </div>
@@ -128,8 +230,18 @@ for (let i = 1; i < 20; i++) {
     <ion-footer style="height: 100px;" class="ion-no-border">
       <ion-toolbar style="--background: transparent;height: 100px;">
         <div style="margin: 0 auto;display: flex;width: 100%;justify-content: space-evenly;">
-          <ion-button shape="round" style="width: 40%;--background: #5676F1;--color: white;">上一题</ion-button>
-          <ion-button shape="round" style="width: 40%;--background: #5676F1;--color: white;">确定</ion-button>
+          <ion-button shape="round" @click="()=>{num=(Number(num)-1).toString();change()}" :disabled="num=='1'"
+                      style="width: 40%;--background: #5676F1;--color: white;">上一题
+          </ion-button>
+          <ion-button shape="round" @click="()=>{
+            if(num!=length.toString()){
+              num=(Number(num)+1).toString()
+            }else {
+              submit()
+            }
+            change()
+          }" style="width: 40%;--background: #5676F1;--color: white;">{{ num == length.toString() ? '提交' : '下一题' }}
+          </ion-button>
         </div>
       </ion-toolbar>
     </ion-footer>
@@ -166,6 +278,7 @@ ion-segment-button::before {
   opacity: 0;
   display: none;
 }
+
 ion-segment-button::part(indicator) {
   padding-inline: 0;
 }

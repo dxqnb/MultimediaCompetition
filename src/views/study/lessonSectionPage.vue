@@ -101,7 +101,7 @@ function change(event: any) {
         <ion-segment-button value="comment">
           <ion-label><h3 style="font-weight: 900">我的笔记</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button value="test" @click="$router.push('/study/test/')">
+        <ion-segment-button value="test" @click="$router.push('/study/test/1')">
           <ion-label><h3 style="font-weight: 900">随堂练习</h3></ion-label>
         </ion-segment-button>
       </ion-segment>

@@ -23,7 +23,39 @@ import {
   IonButton,
   IonRadio, IonRadioGroup, IonText, IonImg, IonAccordionGroup, IonAccordion, IonItem
 } from "@ionic/vue";
-import {reactive, ref} from "vue";
+import {reactive, ref,onMounted} from "vue";
+import { getMyQj } from "@/api/user";
+
+const data = localStorage.getItem('user') as string | null;
+const userid = ref('');
+  if (data) { // 检查数据是否存在
+    const parsedData = JSON.parse(data); // 将字符串转换为对象
+
+    if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
+      userid.value = parsedData.username; // 提取 username 并赋值给变量
+    }
+	// const username=userid.value;
+	// console.log(userid.value);
+
+  }
+interface item {
+	id : number,
+	username : string,
+	qjkc : string,
+	qjyy : string,
+	qjtime : string
+}
+const items = ref<item[]>([]);
+const qjkc=ref('');
+const qjyy=ref('');
+const qjtime=ref('');
+	onMounted(async () => {
+	  const response = await getMyQj(userid.value);
+	  qjkc.value=response.data.data[0].qjkc
+	  qjyy.value=response.data.data[0].qjyy
+	  qjtime.value=response.data.data[0].qjtime
+	});
+
 
 
 </script>
@@ -45,20 +77,16 @@ import {reactive, ref} from "vue";
           <div style="background: #F9FAFE;width: 100%;position: relative;border-radius: 10px;overflow: hidden">
             <div style="padding: 20px 0 20px 10px">
               <div style="margin-bottom: 10px">
-                <ion-text style="font-size: 13px;color: #727272">请假日期：</ion-text>
-                <ion-text style="font-size: 15px;color: #444444">2023年06月15日-2023年06月20日</ion-text>
+                <ion-text style="font-size: 13px;color: #727272">请假课程：</ion-text>
+                <ion-text style="font-size: 15px;color: #444444">{{qjkc}}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">请假类别：</ion-text>
-                <ion-text style="font-size: 15px;color: #444444">因事请假</ion-text>
+                <ion-text style="font-size: 15px;color: #444444">{{qjyy}}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">提交时间：</ion-text>
-                <ion-text style="font-size: 15px;color: #444444">2023年06月13日</ion-text>
-              </div>
-              <div>
-                <ion-text style="font-size: 13px;color: #727272">销假时间：</ion-text>
-                <ion-text style="font-size: 15px;color: #42BB24">2023年06月20日</ion-text>
+                <ion-text style="font-size: 15px;color: #444444">{{qjtime}}</ion-text>
               </div>
 
             </div>

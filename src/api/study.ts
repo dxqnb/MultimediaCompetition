@@ -69,3 +69,27 @@ export function getZyKcList(szyid: string) {
         }
     });
 }
+
+export function ifAnswer(id: string, taoid: any, userid: string, uanswer: string, res: string) {
+    return service({
+        url: "v3/TestKc/ifAnswer",
+        method: "post",
+        params: {
+            id: id,
+            taoid: taoid,
+            userid: userid,
+            uanswer: uanswer,
+            res: res
+        }
+    });
+}
+
+export function getTestKcTiList(taoid: any) {
+    return service({
+        url: "v3/TestKc/getTestKcTiList",
+        method: "get",
+        params: {
+            taoid: taoid,
+        }
+    });
+}

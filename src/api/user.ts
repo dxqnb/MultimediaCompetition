@@ -28,3 +28,21 @@ export function getZyRecords(userid: any) {
         }
     });
 }
+export function getMyFridenTeam(userid: any) {
+    return service({
+        url: "v3/FridenTeam/getMyFridenTeam",
+        method: "get",
+        params: {
+            userid:userid
+        }
+    });
+}
+export function getMyQj(username: any) {
+    return service({
+        url: "v3/My/getMyQj",
+        method: "get",
+        params: {
+            username:username
+        }
+    });
+}

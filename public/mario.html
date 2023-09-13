@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mario Game</title>
+    <script src="https://cjrtnc.leaningtech.com/20230216/loader.js"></script>
+    <script src="/jquery.js"></script>
+    <script src="/jquery.simulate.js"></script>
+</head>
+
+<body>
+<button>a</button>
+<script>
+    setTimeout(() => {
+        console.log(document.getElementsByTagName('canvas')[0])
+        document.getElementsByTagName('button')[0].addEventListener('click', () => {
+            console.log($(document.getElementsByTagName('canvas')[0])[0])
+            $(document.getElementsByTagName('input')[0]).val('')
+        })
+    }, 10000)
+
+</script>
+</body>
+<script>
+    cheerpjInit({enableInputMethods: true}).then(function () {
+        cheerpjAddStringFile("/str/mylevel.txt", `----------------------------------------------------------xxx---------------------------------------
+--------------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxx--x--------------------------------------
+--------------------------------xXXXXXXXXXXXXXXXXXXXXXXXXXX---x------------SSSSSSSSSSSSSSSSSSSSSSSSS
+-------------------------------xxXXXXXXXXXXXXXXXXXXXXXXXXXX----x-------------[]-------SSSSSSSSSSSSSS
+------------------------------xx-XXXXXXXXXXXXXXXXXXXXXXXXXX-----x------------[]-------SSSSSSSSSSSSSS
+------------------------------xS-XXXXXXXXXXXXXXXXXXXXXXXXXX------x-----------[]-------SSSSSSSSSSSSSS
+------------------------------x--XXXXXXXXXXXXXXXXXXXXXXXXXX-------x----------<>---------------------
+-xxx-------------------------xx--XXXXXXXXXXXXXXXXXXXXXXXXXX--------x-------------------------xxx----
+xx--xx----------------------xxS--XXXXXXXXXXXXXXXXXXXXXXXXXX---------x-----------------xxxxxxxx?-xxxx
+XX--X-x----------SSQS-------x----XXXXXXXXXXXXXXXXXXXXXXXXXX----------x---------------xx-SSSSSS??SSSS
+XX--XX-x---xxxx------------xx----XXXXXXXXXXXXXXXXXXXXXXXXXX-----------x-------------xx--SSSSS---SSSS
+XX--XXX-x-xx<>-x----------xx---E-XXXXXXXXXXXXXXXXXXXXXXXXXX------------x----xxx----xx---SSSSS---SSSS
+XX--XXXX-xx-[]--xxxxxxxxxxx------XXXXXXXXXXXXXXXXXXXXXXXXXX-----------X-xxxxx--xxxxx---------oooSSSS
+XX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXXXXXXXXXX--XXXXX---XXXXXXXXXXXXX`);
+    });
+    cheerpjCreateDisplay(512, 500);
+    cheerpjRunJar("/app/static/mario.jar");
+
+
+</script>
+</html>

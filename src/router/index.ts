@@ -41,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'chatWithAI',
                 component: () => import('@/views/AI/chatWithAIPage.vue'),
             },
+            {
+                path: 'mario',
+                component: () => import('@/views/AI/marioPage.vue'),
+            },
         ]
     },
     {
@@ -124,7 +128,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/noticeDetailPage.vue')
             },
             {
-                path: 'test',
+                path: 'test/:id',
+                props: true,
                 component: () => import('@/views/study/lessonTestPage.vue')
             },
             {
@@ -136,7 +141,8 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/mySchedulePage.vue')
             },
             {
-                path: 'testReport',
+                path: 'testReport/:item',
+                props: true,
                 component: () => import('@/views/study/testReportPage.vue')
             },
             {
@@ -145,12 +151,12 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: 'testRecording/:id',
-                props:true,
+                props: true,
                 component: () => import('@/views/study/testRecordingPage.vue')
             },
             {
                 path: 'learningTime/:id',
-                props:true,
+                props: true,
                 component: () => import('@/views/study/learningTimeDetailPage.vue')
             },
         ]

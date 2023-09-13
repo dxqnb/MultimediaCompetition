@@ -116,7 +116,7 @@
               <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">
                 <ion-icon style="vertical-align: middle;font-size: 14px" :icon="addOutline">
                 </ion-icon>
-                <span style="vertical-align: middle">添加</span>
+                <span style="vertical-align: middle">查看更多</span>
               </ion-text>
             </ion-item>
           </div>
