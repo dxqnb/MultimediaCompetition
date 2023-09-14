@@ -57,12 +57,12 @@ onMounted(() => {
               <ion-avatar style="width: 20px;height: 20px;display:inline-block;margin-right: 8px">
                 <img :src="avatar" style="vertical-align: middle;" alt="">
               </ion-avatar>
-              <ion-text style="display: inline-block;font-size: 10px">{{ title }}</ion-text>
+              <ion-text style="display: inline-block;font-size: 10px;width: 70%;overflow: hidden">{{ title }}</ion-text>
             </div>
           </ion-col>
           <ion-col style="white-space: nowrap;" size="4">
-            <ion-icon style="vertical-align: middle;margin-right: 8px" :icon="thumbsUpOutline"></ion-icon>
-            <ion-text style="display: inline-block;font-size: 8px">{{ likeCount }}</ion-text>
+            <ion-icon style="vertical-align: middle;margin-right: 8px;color: #6e6e6e" :icon="thumbsUpOutline"></ion-icon>
+            <ion-text style="display: inline-block;font-size: 12px;color: #6e6e6e">{{ likeCount }}</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -33,11 +33,11 @@ const img = ref();
       </div>
       <ion-grid style="padding: 10px 0 15px 0">
         <ion-row>
-          <ion-col style="margin-left: 10px" size="11">
+          <ion-col style="margin-left: 10px;margin-bottom: 0;padding-bottom: 0" size="11">
             <ion-text color="dark"><h2>8组数据带你看2023年上半年经济活力</h2></ion-text>
           </ion-col>
-          <ion-col style="white-space: nowrap;margin-left: 10px" size="4">
-            <ion-text style="display: inline-block;font-size: 8px">新华网</ion-text>
+          <ion-col style="white-space: nowrap;margin-left: 10px;margin-top: 0;padding-top: 0" size="4">
+            <ion-text style="display: inline-block;font-size: 12px">新华网</ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -79,7 +79,7 @@ const router = useIonRouter();
     <!--        </ion-card-header>-->
 
     <ion-card-content style="padding: 0">
-      <ion-grid style="padding: 16px 10px 10px 10px">
+      <ion-grid style="padding: 16px 10px 4px 10px">
         <ion-row>
           <!--          <ion-col @click="$router.push('/study/notice/')">-->
           <ion-col @click="()=>{router.push('/study/notice/')}">
@@ -177,10 +177,10 @@ ion-icon.right {
 ion-icon.bottom {
   vertical-align: bottom;
   position: absolute;
-  bottom: 8px;
+  bottom: 2px;
   right: 12px;
-  height: 1.3em;
-  width: 1.3em;
+  height: 44px;
+  width: 44px;
 }
 
 </style>

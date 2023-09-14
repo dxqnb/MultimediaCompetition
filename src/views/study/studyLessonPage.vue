@@ -149,7 +149,7 @@ ion-segment-button {
   --indicator-color: #5b78ec;
   --border-radius: 20px;
   --color-checked: #fff;
-
+  --color: #7C8091;
 }
 
 </style>

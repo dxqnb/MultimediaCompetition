@@ -7,11 +7,11 @@ const props = defineProps(['item', 'index','type']);
 
 <template>
   <ion-item lines="none" :href="'/study/lesson/'+item.id+'/'+type">
-    <ion-avatar slot="start" style="height: 50px;width: 50px;">
+    <ion-avatar slot="start" style="height: 44px;width: 42px;">
       <img :src="item.img" alt="avatar"/>
     </ion-avatar>
-    <ion-label>
-      <h3>{{ item.title }}</h3>
+    <ion-label style="margin-top: 10px">
+      <h3 style="font-size: 14px;font-weight: 600">{{ item.title }}</h3>
       <p style="font-size: 10px">{{ item.createby||'&nbsp;' }}</p>
     </ion-label>
   </ion-item>

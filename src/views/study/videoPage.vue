@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import Player from "xgplayer";
 import {
   IonAvatar,
@@ -20,6 +20,7 @@ import {
   thumbsUpOutline
 } from "ionicons/icons";
 import {useRoute} from "vue-router";
+import {getVideoJs} from "@/api/study";
 
 const id = useRoute().params.id;
 const head = ref();
@@ -28,24 +29,20 @@ const content = ref();
 const num = ref(0);
 const contentHeight = ref("height: 100vh;width: 100vw;");
 const wInnerHeight = ref<number>(0.0);
-const vsp = ref<Player[]>([]);
+const vsp = reactive<Player[]>([]);
 const scrollEvents = ref(true);
 const flag = ref(false);
 const isOpen = ref(false);
-const video = ref([{
+const video = reactive([{
   url: 'https://www.0030.store/f8df496ca33539a37c1a3420c2e69b94.MP4',
-  height: '100%',
-  width: '100%',
 }, {
   url: 'https://www.0030.store/7d90f9affa69747b7672d68635c5b5c7.MP4',
-  height: 'calc(100vh - 100px)',
-  width: '100%',
 }
   , {
     url: 'https://www.0030.store/7d90f9affa69747b7672d68635c5b5c7.MP4',
-    height: '100%',
-    width: '100%',
   }]);
+
+
 const height = ref(0.0);
 onMounted(() => {
   // const vsp = new Player({
@@ -60,18 +57,33 @@ onMounted(() => {
   //   height: '100%',
   //   width: '100%',
   // })
-  for (let i = 0; i < video.value.length; i++) {
-    vsp.value.push(new Player({
-      el: vs.value[i],
-      url: video.value[i].url,
-      // height: 'calc(93% - 83px)',
-      height: '90%',
-      width: '100vw',
-      mobile: {
-        gestureY: false,
-      },
-    }))
-  }
+  getVideoJs(id, Number(id) + 5).then((res) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      video.push({url: res.data.data[i].link})
+      vsp.push(new Player({
+        el: vs.value[vsp.length],
+        url: res.data.data[i].link,
+        // height: 'calc(93% - 83px)',
+        height: '88%',
+        width: '100vw',
+        mobile: {
+          gestureY: false,
+        },
+      }))
+    }
+  })
+  // for (let i = 0; i < video.length; i++) {
+  //   vsp.push(new Player({
+  //     el: vs.value[i],
+  //     url: video[i].url,
+  //     // height: 'calc(93% - 83px)',
+  //     height: '88%',
+  //     width: '100vw',
+  //     mobile: {
+  //       gestureY: false,
+  //     },
+  //   }))
+  // }
   setTimeout(() => {
     // console.log(vs.value)
     wInnerHeight.value = window.innerHeight - head.value.$el.offsetHeight;
@@ -88,26 +100,23 @@ function onScroll(event: any) {
   scrollEvents.value = false;
   if (event.target.detail.deltaY > 150) {
     num.value++;
-
-    console.log(num.value)
   } else if (num.value >= 1 && event.target.detail.deltaY < -150) {
     num.value--;
-    console.log(num.value)
-
   }
   content.value.$el.scrollToPoint(0, wInnerHeight.value * num.value, 200);
   setTimeout(function () {
     if (event.target.detail.deltaY > 150) {
-      vsp.value[num.value - 1].pause();
+      vsp[num.value - 1].pause();
 
-      console.log(num.value)
     } else if (num.value >= 0 && event.target.detail.deltaY < -150) {
-      vsp.value[num.value + 1].pause();
-
+      vsp[num.value + 1].pause();
     }
-    vsp.value[num.value].play();
+    vsp[num.value].play();
     scrollEvents.value = true;
   }, 300)
+  if (num.value==vs.value.length-3){
+    console.log('该加载更多了')
+  }
   // console.log(event);
 }
 
@@ -135,18 +144,19 @@ const modal = ref()
     </IonHeader>
     <ion-content style="background-color: black" ref="content" :fullscreen="true" :scroll-events="scrollEvents"
                  @ionScrollEnd="onScroll">
-      <div :style="contentHeight" v-for="(item,i) in video">
+      <div :style="contentHeight" v-for="i in video.length+1">
         <div ref="vs"></div>
-        <div style="height: 10%; background-color: #0d0d0d;color: #e7e7e7 ;display: flex">
-          <div style="height: 100%;line-height: 8vh;margin:0 30px;width: 50%;">
+        <div style="height: 12%; background-color: #0d0d0d;color: #e7e7e7 ;display: flex;position:relative;">
+          <div style="position:absolute;top: -30px;color: white;left: 0;padding-left: 20px;font-size: 12px">文案文案文案文案文案文案文案</div>
+          <div style="height: 100%;line-height: 10vh;margin:0 30px;width: 50%;">
             <ion-avatar style="width: 40px;height: 40px;display:inline-block;margin-right: 8px">
               <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;" alt="">
             </ion-avatar>
             <ion-text style="display: inline-block;font-size: 10px">技术大牛</ion-text>
           </div>
-          <div style="width: 50%;line-height: 8vh">
+          <div style="width: 50%;line-height: 11vh;text-align: right;padding-right: 20px">
             <ion-icon style="vertical-align: text-bottom;margin-right: 8px;width: 1.5em;height: 1.5em;"
-                      :icon="flag?heart:heartOutline" @click="flag=!flag"></ion-icon>
+                      :icon="flag?heart:heartOutline" :style="flag?'color:red':''" @click="flag=!flag"></ion-icon>
             <ion-text style="display: inline-block;">{{ flag ? 256 + 1 : 256 }}</ion-text>
             <ion-icon @click="isOpen=true"
                       style="vertical-align: text-bottom;margin-right: 8px;width: 1.5em;height: 1.5em;margin-left: 10px"
@@ -180,11 +190,12 @@ const modal = ref()
           </ion-item>
         </ion-list>
         <div slot="fixed" style="bottom: 50%;left: 0;width: 100%;background-color: #FFFFFF" class="ion-padding">
-<!--          <ion-input @click="modal.$el.setCurrentBreakpoint(0.75)" placeholder="Search"></ion-input>-->
-          <ion-text style="display:block;color: #5B78EC;font-size: 15px;font-weight: 500;margin-top: 10px">我的评论</ion-text>
+          <!--          <ion-input @click="modal.$el.setCurrentBreakpoint(0.75)" placeholder="Search"></ion-input>-->
+          <ion-text style="display:block;color: #5B78EC;font-size: 15px;font-weight: 500;margin-top: 10px">我的评论
+          </ion-text>
           <ion-searchbar class="search" :mode="'md'" search-icon="1"
-                       style="--box-shadow: none;--border-radius: 10px;font-size: 13px !important;width: 100%;"
-                       placeholder="请输入"></ion-searchbar>
+                         style="--box-shadow: none;--border-radius: 10px;font-size: 13px !important;width: 100%;"
+                         placeholder="请输入"></ion-searchbar>
         </div>
 
       </ion-content>
@@ -206,11 +217,12 @@ ion-item.vice::part(native) {
 }
 </style>
 <style>
-.searchbar-input.sc-ion-searchbar-md{
-  padding-left: 6px!important;
-  padding-right: 0!important;
+.searchbar-input.sc-ion-searchbar-md {
+  padding-left: 6px !important;
+  padding-right: 0 !important;
 }
-ion-modal{
+
+ion-modal {
   --height: 100%;
 }
 </style>

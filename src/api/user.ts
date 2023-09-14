@@ -46,3 +46,15 @@ export function getMyQj(username: any) {
         }
     });
 }
+//不安全！！！！！
+export function getUserDetail(userid: any) {
+    return service({
+        url: "v3/User/getUserDetail",
+        method: "get",
+        params: {
+            userid:userid
+        }
+    });
+}
+//不安全
+

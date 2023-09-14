@@ -32,7 +32,7 @@ import {el} from "vuetify/locale";
 interface item {
   id: Number,
   likecount: Number,
-  img: String,
+  coverimg: string
   title: String,
   avatar: String,
   link: String,
@@ -50,49 +50,48 @@ function handleRefresh(event: any) {
     event.target.complete();
   }, 1000);
 }
-getVideoJs(1,10).then(res => {
+
+getVideoJs(1, 10).then(res => {
   for (let i = 0; i < res.data.data.length; i++) {
     if (i % 2 == 0) {
       itemsLeft.push(res.data.data[i])
-    }else{
+    } else {
       itemsRight.push(res.data.data[i])
     }
   }
   console.log(itemsLeft)
 })
-for (let i = 1; i < 10; i++) {
-  itemsLeft.push({
-    id: i,
-    likecount: 0,
-    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
-    title: "title"+i,
-    avatar: 'https://www.0030.store/favicon.png',
-    link: "String",
-    createBy: 'admin',
-    createtime: "String",
-    lll: "String",
-  });
-  itemsRight.push({
-    id: i,
-    likecount: 0,
-    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
-    title: "title"+i,
-    avatar: 'https://www.0030.store/favicon.png',
-    link: "String",
-    createBy: 'admin',
-    createtime: "String",
-    lll: "String",
-  });
-}
-console.log(itemsLeft)
-
+// for (let i = 1; i < 10; i++) {
+//   itemsLeft.push({
+//     id: i,
+//     likecount: 0,
+//     coverimg: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+//     title: "title" + i,
+//     avatar: 'https://www.0030.store/favicon.png',
+//     link: "String",
+//     createBy: 'admin',
+//     createtime: "String",
+//     lll: "String",
+//   });
+//   itemsRight.push({
+//     id: i,
+//     likecount: 0,
+//     coverimg: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
+//     title: "title" + i,
+//     avatar: 'https://www.0030.store/favicon.png',
+//     link: "String",
+//     createBy: 'admin',
+//     createtime: "String",
+//     lll: "String",
+//   });
+// }
 
 </script>
 
 <template>
   <IonPage>
-    <IonHeader class="ion-no-border ion-padding">
-      <IonToolbar>
+    <IonHeader style="background: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: white">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -122,12 +121,14 @@ console.log(itemsLeft)
       <ion-content style="height: 85vh;">
         <ion-grid>
           <ion-row class="ion-align-items-start">
-            <ion-col>
-              <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount" :img-url="item.img" :title="item.title" :item="item"
+            <ion-col size="6"  >
+              <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount"
+                        :img-url="item.coverimg" :title="item.title" :item="item"
                         :index="index"/>
             </ion-col>
-            <ion-col>
-              <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount" :img-url="item.img" :title="item.title" :item="item"
+            <ion-col size="6" >
+              <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount"
+                        :img-url="item.coverimg" :title="item.title" :item="item"
                         :index="index"/>
             </ion-col>
           </ion-row>
@@ -138,8 +139,13 @@ console.log(itemsLeft)
 </template>
 
 <style scoped lang="scss">
+ion-content::part(background) {
+  background: #F7F8F9
+}
+
+
 ion-segment {
-  --background: var(--ion-background-color);
+  --background: #F7F8F9;
 }
 
 /*ion-list{
@@ -151,11 +157,11 @@ ion-segment-button::part(native) {
 }
 
 .segment-button-checked::part(native) {
-  color: #ffffff;
+  color: #5D73FF;
 }
 
 ion-segment-button {
-  --indicator-color: #5b78ec;
+  --indicator-color: #BDD7FE;
   --border-radius: 20px;
   --color-checked: #fff;
 }

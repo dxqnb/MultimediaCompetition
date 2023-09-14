@@ -8,7 +8,7 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonSegment,
+  IonText,
   IonSegmentButton,
   IonLabel,
   IonContent,
@@ -16,7 +16,6 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonInfiniteScroll,
   IonRefresher,
   IonRefresherContent,
   IonItemGroup,
@@ -28,9 +27,13 @@ import {reactive, ref} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
 import TecItem from "@/views/study/components/tecItem.vue";
 import NewsItem from "@/views/study/components/newsItem.vue";
+import {getVideoYw} from "@/api/study";
 
 const items = reactive([""]);
-
+const main = ref(true);
+getVideoYw(0,10).then((res)=>{
+  console.log(res.data.data)
+})
 function handleRefresh(event: any) {
   setTimeout(() => {
     // Any calls to load data go here
@@ -47,8 +50,8 @@ for (let i = 1; i < 20; i++) {
 
 <template>
   <IonPage>
-    <IonHeader class="ion-no-border ion-padding">
-      <IonToolbar>
+    <IonHeader style="background: #FFFFFF" class="ion-no-border ion-padding">
+      <IonToolbar style="--background: white">
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
@@ -60,63 +63,46 @@ for (let i = 1; i < 20; i++) {
         </ion-buttons>
       </IonToolbar>
     </IonHeader>
-    <ion-content :scroll-y="false" :fullscreen="true" class="ion-padding">
-<!--      <div style="width: 50%;">-->
-        <ion-segment style="width: 50%;" value="first" mode="md">
-          <ion-segment-button value="first">
-            <ion-label style="margin: auto;"><h3 style="font-weight: 900;">推荐</h3></ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="second">
-            <ion-label><h3 style="font-weight: 900">要闻</h3></ion-label>
-          </ion-segment-button>
-        </ion-segment>
-<!--      </div>-->
-      <ion-content style="height: 85vh;">
-        <ion-grid>
-          <ion-row class="ion-align-items-start">
-            <ion-col>
-              <news-item @click="$router.push('/study/news/1')"></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-              <news-item></news-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-content>
+    <ion-content :fullscreen="true" class="ion-padding">
+      <!--      <div style="width: 50%;">-->
+      <!--      <ion-segment style="width: 50%;" value="first" mode="md">-->
+      <!--        <ion-segment-button value="first">-->
+      <!--          <ion-label style="margin: auto;"><h3 style="font-weight: 900;">推荐</h3></ion-label>-->
+      <!--        </ion-segment-button>-->
+      <!--        <ion-segment-button value="second">-->
+      <!--          <ion-label><h3 style="font-weight: 900">要闻</h3></ion-label>-->
+      <!--        </ion-segment-button>-->
+      <!--      </ion-segment>-->
+      <ion-text style="color:#333333;font-size: 18px;font-weight: 600;display: inline-block;margin: 10px 14px">精选文章
+      </ion-text>
+      <div style="width: 100%;padding-left: 20px;font-weight: 600;font-size: 14px">
+        <ion-text :style="main?'color:#333333':'color:#C2C2C2'" style="padding-right: 10px" @click="main=true">推荐
+        </ion-text>
+        <ion-text :style="!main?'color:#333333':'color:#C2C2C2'" @click="main=false">要闻</ion-text>
+      </div>
+      <!--      </div>-->
+      <ion-grid>
+        <ion-row class="ion-align-items-start">
+          <ion-col>
+            <news-item @click="$router.push('/study/news/1')"></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+            <news-item></news-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </IonPage>
 </template>
 
 <style scoped lang="scss">
-/*ion-segment {
-  --background: var(--ion-background-color);
+ion-content::part(background) {
+  background: #F7F8F9
 }
-
-!*ion-list{
-  --ion-item-background: #ffffff;
-}*!
-
-ion-segment-button::part(native) {
-  color: #474747;
-}
-
-.segment-button-checked::part(native) {
-  color: #ffffff;
-}
-
-ion-segment-button {
-  --indicator-color: #5b78ec;
-  --border-radius: 20px;
-  --color-checked: #fff;
-}
-
-ion-segment-button::before {
-  opacity: 0;
-}*/
 
 .item {
   background-color: #ccc;

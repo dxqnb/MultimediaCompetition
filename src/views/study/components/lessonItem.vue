@@ -37,10 +37,10 @@ function addLesson() {
       <ion-img slot="start" :src="item.img"
                style="height: 87px;width: 66px;margin-top: 12px;margin-bottom: 12px;border-radius: 10px;overflow: hidden;object-fit: cover;">
       </ion-img>
-      <ion-label>
-        <h3>{{ item.title }}</h3>
+      <ion-label style="margin-top: 2px;margin-bottom: 0">
+        <h3 style="font-weight: 600">{{ item.title }}</h3>
         <p style="font-size: 10px;padding: 5px 0 5px 0">{{ item.createby }}</p>
-        <p style="font-size: 10px">{{ item.createtime }}</p>
+        <p style="font-size: 10px;padding-top: 12px">{{ item.createtime }}</p>
       </ion-label>
       <div slot="end" style="display: flex;flex-direction: column">
         <ion-button v-if="!$route.path.includes('history')"

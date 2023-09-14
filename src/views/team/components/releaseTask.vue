@@ -20,17 +20,78 @@ import {
   IonList,
   pickerController,
   IonDatetime,
-  IonDatetimeButton
+  IonDatetimeButton, toastController, IonImg
 } from "@ionic/vue";
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import {Camera, CameraResultType} from "@capacitor/camera";
-import {addOutline, chevronForwardOutline} from "ionicons/icons";
+import {addOutline, chevronForwardOutline, closeCircleOutline, closeOutline} from "ionicons/icons";
 import dayjs from "dayjs";
+import {addFridenTeamTask, delFridenTeamTaskById, getFridenTeamTaskList, upTaskOpen} from "@/api/team";
+import {useRoute} from "vue-router";
 
+const textarea = ref()
+const taskName = ref()
+const postDate = ref()
+const select = ref('3天')
+
+interface item {
+  id: number,
+  tid: number,
+  userid: number,
+  task: string,
+  img: string,
+  open: string,
+  target: number,
+  finishtime: number
+}
+
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
+
+interface image {
+  // webPath?: string,
+  // path?: string,
+  base64?: string,
+  file: File,
+}
+
+function base64ToFile(base64: string | undefined, fileName: string) {
+  if (base64 == undefined) return;
+  let arr = base64.split(",");
+  // let tmp = arr[0].match(/:(.*?);/)
+  // console.log(tmp)
+  // if (tmp == null) return
+  // let mime = tmp[1];
+  let bstr = atob(arr[1]);
+  let n = bstr.length;
+  let u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], fileName, {type: 'image'});
+}
+
+const imageList = reactive<image[]>([])
 const unfinished = ref(false)
 const finished = ref(false)
+const publishItem = reactive<item[]>([]);
+const unPublishItem = reactive<item[]>([]);
 const checkbox = ref([])
 const releasePage = ref(false)
+const route = useRoute()
+const tid = route.params.id
+getFridenTeamTaskList(tid).then((res) => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    if (res.data.data[i].open == '1') {
+      publishItem.push(res.data.data[i])
+    } else {
+      unPublishItem.push(res.data.data[i])
+    }
+  }
+  console.log(publishItem)
+  console.log(unPublishItem)
+})
 
 function click(num: number) {
   if (num === 1) {
@@ -51,11 +112,16 @@ async function takePicture() {
   const image = await Camera.getPhoto({
     quality: 90,
     allowEditing: true,
-    resultType: CameraResultType.Uri
+    resultType: CameraResultType.DataUrl
   });
-  var imageUrl = image.webPath;
-  console.log(image, imageUrl)
-  return imageUrl;
+  let dataUrl = image.dataUrl == undefined ? '.' : image.dataUrl
+  let temp = base64ToFile(image.dataUrl, imageList.length.toString(6) + dataUrl.split('/')[1].split(';')[0])
+  if (temp == null) return
+  imageList.push({
+    base64: image.dataUrl,
+    file: temp,
+  })
+  return;
 }
 
 const team = ref({
@@ -133,47 +199,6 @@ const pickerColumns = [
       },
     ],
   },
-  {
-    name: 'days',
-    options: [
-      {
-        text: '请选学习时长',
-        value: '请选择',
-      },
-      {
-        text: '1小时',
-        value: '1',
-      },
-      {
-        text: '2小时',
-        value: '14',
-      },
-      {
-        text: '3小时',
-        value: '3',
-      },
-      {
-        text: '4小时',
-        value: '4',
-      },
-      {
-        text: '5小时',
-        value: '5',
-      },
-      {
-        text: '6小时',
-        value: '6',
-      },
-      {
-        text: '7小时',
-        value: '7',
-      },
-      {
-        text: '8小时',
-        value: '8',
-      },
-    ],
-  },
 ];
 const vocabulary = ref('请选择');
 const days = ref('请选择');
@@ -186,9 +211,9 @@ const pickerButtons = [
   {
     text: 'Confirm',
     handler: (value: any) => {
-      window.alert(`单词数:${value.vocabulary.value} 天数:${value.days.value}`);
+      // window.alert(`单词数:${value.vocabulary.value} );
       vocabulary.value = value.vocabulary.text;
-      days.value = value.days.text;
+      // days.value = value.days.text;
     },
   },
 ];
@@ -215,6 +240,110 @@ async function openPicker() {
 //   }
 //   console.log(selectData.value)
 // }
+function publish(id: any) {
+  upTaskOpen(id, tid).then(async (res) => {
+    console.log(res.data)
+    const toast = await toastController.create({
+      message: '发布成功'
+    })
+    await toast.present().then(() => {
+      setTimeout(() => {
+        toast.dismiss()
+      }, 1000)
+    })
+    getFridenTeamTaskList(tid).then((res) => {
+      publishItem.splice(0, publishItem.length);
+      unPublishItem.splice(0, unPublishItem.length);
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i].open == '1') {
+          publishItem.push(res.data.data[i])
+        } else {
+          unPublishItem.push(res.data.data[i])
+        }
+      }
+      console.log(publishItem)
+      console.log(unPublishItem)
+    })
+  })
+}
+
+function deleteTask(id: any) {
+  delFridenTeamTaskById(id).then(async (res) => {
+    console.log(res.data)
+    const toast = await toastController.create({
+      message: '删除成功'
+    })
+    await toast.present().then(() => {
+      setTimeout(() => {
+        toast.dismiss()
+      }, 1000)
+    })
+    getFridenTeamTaskList(tid).then((res) => {
+      publishItem.splice(0, publishItem.length);
+      unPublishItem.splice(0, unPublishItem.length);
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i].open == '1') {
+          publishItem.push(res.data.data[i])
+        } else {
+          unPublishItem.push(res.data.data[i])
+        }
+      }
+    })
+  })
+}
+
+function post() {
+  // const formData = new FormData()
+  //
+  // for (let i = 0; i < imageList.length; i++) {
+  //   formData.append('img', imageList[i].file)
+  // }
+  let imgFile = []
+  for (let i = 0; i < imageList.length; i++) {
+    imgFile.push(imageList[i].file)
+  }
+  console.log(imgFile)
+  let a = {
+    tid: tid,
+    userid: userid,
+    task: taskName.value,
+    taskdetail: textarea.value,
+    img: '',
+    finishtime: Number(select.value.substring(0, select.value.length - 1)),
+    target: Number(vocabulary.value.substring(0, vocabulary.value.length - 1)),
+    file: imgFile.length == 0 ? undefined : imgFile,
+  }
+  addFridenTeamTask(a).then(async (res) => {
+    console.log(res)
+    if (res.data.code == 0) {
+      const toast = await toastController.create({
+        message: '添加成功'
+      })
+      await toast.present().then(() => {
+        setTimeout(() => {
+          toast.dismiss()
+        }, 1000)
+      })
+      releasePage.value = false;
+      getFridenTeamTaskList(tid).then((res) => {
+        publishItem.splice(0, publishItem.length);
+        unPublishItem.splice(0, unPublishItem.length);
+        for (let i = 0; i < res.data.data.length; i++) {
+          if (res.data.data[i].open == '1') {
+            publishItem.push(res.data.data[i])
+          } else {
+            unPublishItem.push(res.data.data[i])
+          }
+        }
+        console.log(publishItem)
+      })
+    }
+  })
+}
+
+function delPic(id: number) {
+  imageList.splice(id, 1)
+}
 </script>
 
 <template>
@@ -232,17 +361,17 @@ async function openPicker() {
       <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">任务列表</ion-text>
       <div v-if="!finished">
         <ion-text style="color:#5C82FF;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">未发布</ion-text>
-        <ion-item-sliding style="margin: 12px 0;">
+        <ion-item-sliding style="margin: 12px 0;" v-for="item in unPublishItem">
           <ion-item lines="none" style="--inner-padding-end:0;--border-radius: 8px">
             <ion-card
                 style="--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none;width: 100%;margin: 0;">
               <ion-card-content>
-                <div style="display: flex;">
-                  <ion-checkbox value="1" ref="checkbox" @click="test()"
-                                style="--border-radius: 100%;--checkmark-width: 3px;--checkmark-color: white;width: 10%;height: 73px;--size:22px;--border-width:1px;--border-color:rgba(0,22,161,0.15)"
-                                mode="md"></ion-checkbox>
-                  <div style="width: 40%;" @click="$router.push('/team/submitTask/1')">
-                    <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词
+                <div style="display: flex;justify-content: space-evenly">
+                  <!--                  <ion-checkbox value="1" ref="checkbox" @click="test()"-->
+                  <!--                                style="&#45;&#45;border-radius: 100%;&#45;&#45;checkmark-width: 3px;&#45;&#45;checkmark-color: white;width: 10%;height: 73px;&#45;&#45;size:22px;&#45;&#45;border-width:1px;&#45;&#45;border-color:rgba(0,22,161,0.15)"-->
+                  <!--                                mode="md"></ion-checkbox>-->
+                  <div style="width: 50%;">
+                    <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">{{ item.task }}
                     </ion-text>
                     <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">
                       截止日期&nbsp;2023-10-11
@@ -260,24 +389,24 @@ async function openPicker() {
           </ion-item>
 
           <ion-item-options>
-            <ion-item-option>发布</ion-item-option>
-            <ion-item-option color="danger">删除</ion-item-option>
+            <ion-item-option style="color: white" @click="publish(item.id)">发布</ion-item-option>
+            <ion-item-option color="danger" @click="deleteTask(item.id)">删除</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </div>
       <div v-if="!unfinished">
         <ion-text style="color:#747474;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">已发布</ion-text>
-        <ion-item-sliding style="margin: 12px 0;">
+        <ion-item-sliding style="margin: 12px 0;" v-for="item in publishItem">
           <ion-item lines="none" style="--inner-padding-end:0;--border-radius: 8px">
             <ion-card
                 style="--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none;width: 100%;margin: 0;">
               <ion-card-content>
-                <div style="display: flex;">
-                  <ion-checkbox value="2" ref="checkbox"
-                                style="--border-radius: 100%;--checkmark-width: 3px;--checkmark-color: white;width: 10%;height: 73px;--size:22px;--border-width:1px;--border-color:rgba(0,22,161,0.15)"
-                                mode="md"></ion-checkbox>
-                  <div style="width: 40%;" @click="$router.push('/team/submitTask/1')">
-                    <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">熟悉150个英语单词
+                <div style="display: flex;justify-content: space-evenly">
+                  <!--                  <ion-checkbox value="2" ref="checkbox"-->
+                  <!--                                style="&#45;&#45;border-radius: 100%;&#45;&#45;checkmark-width: 3px;&#45;&#45;checkmark-color: white;width: 10%;height: 73px;&#45;&#45;size:22px;&#45;&#45;border-width:1px;&#45;&#45;border-color:rgba(0,22,161,0.15)"-->
+                  <!--                                mode="md"></ion-checkbox>-->
+                  <div style="width: 50%;" @click="$router.push('/team/submitTask/1')">
+                    <ion-text style="display: block;font-size: 16px;font-weight: 500;color: #343434">{{ item.task }}
                     </ion-text>
                     <ion-text style="display: block;font-size: 12px;font-weight: 400;color: #7D7D7D;margin-top: 10px">
                       截止日期&nbsp;2023-10-11
@@ -295,17 +424,16 @@ async function openPicker() {
           </ion-item>
 
           <ion-item-options>
-            <ion-item-option>发布</ion-item-option>
-            <ion-item-option color="danger">删除</ion-item-option>
+            <ion-item-option color="danger" @click="deleteTask(item.id)">删除</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </div>
 
 
-      <div style="position:fixed;bottom: 0;width: 100%;left: 0;">
+      <div style="position:fixed;bottom: 0;width: 100%;left: 0;z-index:1">
         <ion-button @click="releasePage=true"
                     style="width: 80%;display: block;--background: #515EFF;--color: white;margin: 0 auto 2em;">
-          发布任务
+          创建任务
         </ion-button>
       </div>
     </div>
@@ -316,7 +444,7 @@ async function openPicker() {
                     style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;--background: transparent;">
           取消
         </ion-button>
-        <ion-button
+        <ion-button @click="post()"
                     style="font-size: 12px;--padding-bottom: 0;--padding-top: 0;min-height: 2.2em;margin: 0 10px 0 0;--background: transparent;">
           保存
         </ion-button>
@@ -333,20 +461,21 @@ async function openPicker() {
                     label-placement="stacked"
                     :clear-on-edit="true"
                     placeholder="请输入任务名"
+                    v-model="taskName"
                 >
                 </ion-input>
               </ion-item>
               <ion-item lines="none">
-                <ion-input label="发布日期" label-placement="start" type="date"></ion-input>
+                <ion-input v-model="postDate" label="发布日期" label-placement="start" type="date"></ion-input>
               </ion-item>
-<!--                <ion-datetime id="datetime"></ion-datetime>-->
+              <!--                <ion-datetime id="datetime"></ion-datetime>-->
 
               <ion-item lines="none">
                 <ion-select label="组队天数" placeholder="7"
                             class="always-flip"
                             :toggle-icon="chevronForwardOutline"
                             interface="alert"
-                            value="7天">
+                            value="7天" v-model="select">
                   <ion-select-option v-for="i in 100" :value="i+'天'"><p style="width: 100%;text-align: center">{{
                       i
                     }}天</p>
@@ -356,7 +485,7 @@ async function openPicker() {
               <ion-item lines="none">
                 <ion-label>任务要求</ion-label>
                 <ion-label style="margin: 0;" slot="end" @click="openPicker">
-                  <ion-text>{{ vocabulary }} {{ days }}</ion-text>
+                  <ion-text>{{ vocabulary }}</ion-text>
                   <ion-icon style="color: rgb(89, 89, 89)" :icon="chevronForwardOutline"></ion-icon>
                 </ion-label>
               </ion-item>
@@ -381,8 +510,20 @@ async function openPicker() {
             </ion-text>
             <div
                 style="background-color: white;width: 100%;margin: 10px auto; border-radius: 14px;border: solid 1px #6379FF;padding: 10px">
-              <ion-textarea placeholder="请输入提交内容" :auto-grow="true"
-                            style="border: none;font-size: 16px;font-weight: 400;--color: #585858;"></ion-textarea>
+              <ion-textarea placeholder="请输入提交内容" :auto-grow="true" v-model="textarea"
+                            style="border: none;font-size: 16px;font-weight: 400;--color: #585858;">
+              </ion-textarea>
+              <div style="display: flex;justify-content: left">
+                <div style="margin: 4px;width: 30%;border-radius: 10px;position: relative;margin: 4px;width: 30%;"
+                     v-for="(item,i) in imageList">
+                  <ion-img style="width: 100%;border-radius: 10px;overflow:hidden;"
+                           :src="item.base64"></ion-img>
+                  <ion-icon style="position:absolute; top: -8px;left: -8px;color: #7B73FF" :icon="closeCircleOutline"
+                            @click="delPic(i)"></ion-icon>
+
+                </div>
+
+              </div>
             </div>
           </div>
 

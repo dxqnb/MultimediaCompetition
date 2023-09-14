@@ -8,7 +8,6 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonItem,
   IonThumbnail,
   IonLabel,
   IonContent,
@@ -66,7 +65,6 @@ const remoteMassage = ref([
         isMyself: true,
         username: '队长',
       },
-
     ]
 )
 
@@ -177,7 +175,7 @@ function change(event: any) {
       </div>
       <div style="padding-top: 36px;height: 100%;">
         <div v-if="segment=='info'">
-          <team-info :team="team" :user="user"></team-info>
+          <team-info :duizhangID="team.userid" :team="team" :user="user"></team-info>
         </div>
         <div v-else-if="segment=='taskProcess'">
           <task-process></task-process>

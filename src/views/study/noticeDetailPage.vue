@@ -50,6 +50,9 @@ const title = ref('')
 const noticecontent = ref('')
 const remark = ref('')
 const createtime = ref('')
+const type = ref('')
+const createby = ref('')
+const avatar = ref('')
 const notice = ref<item[]>();
 onMounted(async () => {
   const response = await getNoticeId(noticeId);
@@ -57,6 +60,9 @@ onMounted(async () => {
   noticecontent.value = response.data.data[0].noticecontent
   remark.value = response.data.data[0].remark
   createtime.value = response.data.data[0].createtime
+  createby.value = response.data.data[0].createby
+  avatar.value = response.data.data[0].avatar
+  type.value=response.data.data[0].noticetype == 1 ? '系统消息' : response.data.data[0].noticetype == 2 ? '信息中心' : '校园通知'
 });
 </script>
 
@@ -67,7 +73,7 @@ onMounted(async () => {
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
-        <IonTitle>{{  }}</IonTitle>
+        <IonTitle>{{ type }}</IonTitle>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon :icon="ellipsisHorizontal"/>
@@ -78,30 +84,30 @@ onMounted(async () => {
     <ion-content :fullscreen="true" ref="content">
       <div class="ion-padding">
         <ion-text style="width: 100%;text-align: center;color: #2A2A2A;font-size: 20px;font-weight: 900;display: block">
-          关于宿舍区整体网络升级改造的公告
+          {{title}}
         </ion-text>
         <ion-item lines="none"
                   style="--background: #f1f1f1;padding:10px 0;border-bottom: 1px solid rgba(112,112,112,0.2);margin-bottom: 10px">
-          <ion-avatar style="margin: 10px;"><img src="https://ionicframework.com/docs/img/demos/thumbnail.svg">
+          <ion-avatar style="margin: 10px;"><img :src="avatar">
           </ion-avatar>
           <div>
-            <ion-text style="display: block;color: #2A2A2A;font-size: 14px">刘晓晓</ion-text>
-            <ion-text style="color: #A8A8A8;font-size: 12px">09月19日&nbsp;&nbsp;18:19&nbsp;发布</ion-text>
+            <ion-text style="display: block;color: #2A2A2A;font-size: 14px">{{ createby }}</ion-text>
+            <ion-text style="color: #A8A8A8;font-size: 12px">{{ createtime }}&nbsp;发布</ion-text>
           </div>
         </ion-item>
-        <div style="margin: 20px">
-          各位同学：
+        <div style="margin: 20px" v-html="noticecontent"></div>
+<!--          各位同学：-->
 
-          我校现有生活区的网络系统建于2014年7月，网络设备与线缆逐渐老化，故障率增高等问题日益严重，而且宿舍区WIFI无线系统基本瘫痪。近年来，学校与运营商协调，对网络系统进行修补与调整，调整期间，运营商邀请部分学生参与了网络测试体验。
-          学校与中国移动、中国电信等运营商进行多轮沟通后，将于今年暑期对学校所有宿舍楼的网络进行一次全面的升级改造，铺设光纤进入学生宿舍，有线、WIFI无线设备均安装房间内，提升网络效能。
-          为了顺利地开展网络系统的改造升级工作，现做出以下几点重要的提示：
-          1、带离贵重物品。2023年7月、8月间，宿舍网络改造工程施工过程中，需要进入每一间宿舍，在假期离校前，请务必将贵重物品（如现金、银行卡、笔记本电脑、运动装备、限量版的衣物鞋等）带离，床上用品、书籍及其它物品打包妥善存放并上锁。
-          2、新改造的宿舍网将支持更高速的网络，提供更多样网络服务产品，包括：不同运营商的多种带宽速率与多种同时接入终端数量（有线或WIFI无线）等多样的组合套餐产品，基础网络套餐保持价格不变，其他网络产品价格不高于在甬高校的平均水平。
-          3、宿舍网使用过程中有任何问题可拨打信息呼叫中心电话86328890（电信、移动短号681890）进行咨询、解决。
-          最后，感谢您对宿舍网升级改造工作的理解与支持。
-          浙江纺织服装职业技术学院
-          2023年6月12日
-        </div>
+<!--          我校现有生活区的网络系统建于2014年7月，网络设备与线缆逐渐老化，故障率增高等问题日益严重，而且宿舍区WIFI无线系统基本瘫痪。近年来，学校与运营商协调，对网络系统进行修补与调整，调整期间，运营商邀请部分学生参与了网络测试体验。-->
+<!--          学校与中国移动、中国电信等运营商进行多轮沟通后，将于今年暑期对学校所有宿舍楼的网络进行一次全面的升级改造，铺设光纤进入学生宿舍，有线、WIFI无线设备均安装房间内，提升网络效能。-->
+<!--          为了顺利地开展网络系统的改造升级工作，现做出以下几点重要的提示：-->
+<!--          1、带离贵重物品。2023年7月、8月间，宿舍网络改造工程施工过程中，需要进入每一间宿舍，在假期离校前，请务必将贵重物品（如现金、银行卡、笔记本电脑、运动装备、限量版的衣物鞋等）带离，床上用品、书籍及其它物品打包妥善存放并上锁。-->
+<!--          2、新改造的宿舍网将支持更高速的网络，提供更多样网络服务产品，包括：不同运营商的多种带宽速率与多种同时接入终端数量（有线或WIFI无线）等多样的组合套餐产品，基础网络套餐保持价格不变，其他网络产品价格不高于在甬高校的平均水平。-->
+<!--          3、宿舍网使用过程中有任何问题可拨打信息呼叫中心电话86328890（电信、移动短号681890）进行咨询、解决。-->
+<!--          最后，感谢您对宿舍网升级改造工作的理解与支持。-->
+<!--          浙江纺织服装职业技术学院-->
+<!--          2023年6月12日-->
+<!--        </div>-->
       </div>
       <div style="width: 100%;background-color: #FFFFFF;padding: 20px;">
         <ion-button style="width: 100%;--background: #ECF4FF;font-size: 12px;--color: #7EA9FF;" disabled>已读 334,901&nbsp;<ion-icon

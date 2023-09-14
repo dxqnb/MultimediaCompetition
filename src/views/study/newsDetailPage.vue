@@ -8,7 +8,7 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonSegment,
+  IonText,
   IonSegmentButton,
   IonLabel,
   IonContent,

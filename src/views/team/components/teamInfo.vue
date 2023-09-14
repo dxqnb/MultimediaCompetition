@@ -19,7 +19,8 @@ import 'swiper/css';
 import 'swiper/less/navigation';
 import {data} from "browserslist";
 import {getFridenTeamUserList} from "@/api/team";
-const Props=defineProps(['team','user'])
+
+const Props = defineProps(['team', 'user', 'duizhangID'])
 const modules = ref([Pagination, Navigation]);
 console.log(Props.user)
 
@@ -33,9 +34,9 @@ console.log(Props.user)
     </ion-img>
     <ion-card-content style="padding: 10px;">
       <div>
-<!--        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block">【备战英语】我们不简单队<br>（组队背单词）-->
-<!--        </ion-text>-->
-        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block"> {{team.tname}}
+        <!--        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block">【备战英语】我们不简单队<br>（组队背单词）-->
+        <!--        </ion-text>-->
+        <ion-text style="font-weight: bolder;font-size: 24px;color: black;display: block"> {{ team.tname }}
         </ion-text>
       </div>
 
@@ -70,7 +71,7 @@ console.log(Props.user)
         <ion-text style="font-weight: bolder;font-size: 20px;color: black;display: block;margin-bottom: 6px">简介
         </ion-text>
         <ion-text style="font-weight: bolder;font-size: 12px;color: #3B3B3B;display: block"><p>
-          {{team.introduction}}</p>
+          {{ team.introduction }}</p>
         </ion-text>
       </div>
       <!--      <ion-content class="inner" style="width: 100%;height: 100px;" :scroll-x="true" :scroll-y="false">-->
@@ -99,16 +100,16 @@ console.log(Props.user)
               <div style="margin: 10px 0">
                 <ion-avatar
                     style="width: 32px;height: 32px;display: inline-block;position: relative;vertical-align: baseline;margin-right: 5px">
-                  <!--                <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>-->
-                  <div style="width: 32px;height: 32px;background-color: #73C2FF;border-radius: 100%"></div>
+                  <img alt="Silhouette of a person's head" :src="i.avatar"/>
+<!--                  <div style="width: 32px;height: 32px;background-color: #73C2FF;border-radius: 100%"></div>-->
                 </ion-avatar>
                 <ion-text style="font-size: 12px;display: inline-block;line-height: 9px"><p style="color: black">
                   {{ i.studentname }}</p><br>
-                  <p style="color: #919191;font-size: 12px">队长</p></ion-text>
+                  <p style="color: #919191;font-size: 12px">{{ i.userid == duizhangID ? '队长' : '队员' }}</p>
+                </ion-text>
               </div>
               <ion-text style="font-size: 12px;color: #6D6D6D;margin: 1em">
-                21数媒|爱好|能源&nbsp;&nbsp;&nbsp;
-                机械|细节狂魔...
+                {{i.deptname}}
               </ion-text>
             </ion-card-content>
           </ion-card>
@@ -120,50 +121,54 @@ console.log(Props.user)
       style="margin: 12px 0;--background: #ffffff;box-shadow: none">
     <ion-card-content style="padding: 16px;">
       <div style="">
-        <span style="height: 16px;width: 16px;background-color: #59ADFF;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+        <span
+            style="height: 16px;width: 16px;background-color: #59ADFF;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
         <div style="display: inline-block;margin-left: 10px">
           <ion-text style="font-size: 12px;color: #979797;display: block;">成立时间
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            {{new Date(Props.team.createtime).getFullYear()+`-`+(new Date(Props.team.createtime).getMonth()+1)+`-`+new Date(Props.team.createtime).getDate()}}
+              {{ new Date(Props.team.createtime).getFullYear() + `-` + (new Date(Props.team.createtime).getMonth() + 1) + `-` + new Date(Props.team.createtime).getDate() }}
             </p>
           </ion-text>
         </div>
       </div>
       <div style="margin: 10px 0">
-        <span style="height: 16px;width: 16px;background-color: #FF7600;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+        <span
+            style="height: 16px;width: 16px;background-color: #FF7600;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
         <div style="display: inline-block;margin-left: 10px">
           <ion-text style="font-size: 12px;color: #979797;display: block;">结束时间
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            {{new Date(Props.team.createtime).getFullYear()+`-`+(new Date(Props.team.createtime).getMonth()+1)+`-`+(new Date(Props.team.createtime).getDate()+7)}}
+              {{ new Date(Props.team.createtime).getFullYear() + `-` + (new Date(Props.team.createtime).getMonth() + 1) + `-` + (new Date(Props.team.createtime).getDate() + 7) }}
             </p>
           </ion-text>
         </div>
       </div>
       <div style="margin: 10px 0">
-        <span style="height: 16px;width: 16px;background-color: #9DFF89;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+        <span
+            style="height: 16px;width: 16px;background-color: #9DFF89;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
         <div style="display: inline-block;margin-left: 10px">
           <ion-text style="font-size: 12px;color: #979797;display: block;">人数上限
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-            {{team.mxnumber}}人
+              {{ team.mxnumber }}人
             </p>
           </ion-text>
         </div>
       </div>
       <div style="margin: 10px 0">
-        <span style="height: 16px;width: 16px;background-color: #FFCC00;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+        <span
+            style="height: 16px;width: 16px;background-color: #FFCC00;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
         <div style="display: inline-block;margin-left: 10px">
           <ion-text style="font-size: 12px;color: #979797;display: block;">队员要求
           </ion-text>
           <ion-text style="font-size: 14px;color: black;display: block">
             <p>
-<!--            爱英语、一起考级的小伙伴！-->
-              {{team.attribute}}
+              <!--            爱英语、一起考级的小伙伴！-->
+              {{ team.attribute }}
             </p>
           </ion-text>
         </div>
@@ -189,7 +194,8 @@ ion-content.inner::part(background) {
   background: #fff;
 
 }
-*{
+
+* {
   --swiper-navigation-size: 24px;
 }
 

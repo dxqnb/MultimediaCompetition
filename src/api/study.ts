@@ -21,7 +21,7 @@ export function getZyKcDetailList(zyid: string) {
     });
 }
 
-export function getVideoJs(id: number, iid: number) {
+export function getVideoJs(id: any, iid: any) {
     return service({
         url: "v3/VideoJs/getVideoJs",
         method: "get",
@@ -60,12 +60,24 @@ export function addZyKc(username: string, zykcid: string) {
     });
 }
 
-export function getZyKcList(szyid: string) {
+export function getZyKcList(szyid: string, userid: any) {
     return service({
         url: "v3/Study/getZyKcList",
         method: "get",
         params: {
-            szyid: szyid
+            szyid: szyid,
+            userid: userid
+        }
+    });
+}
+
+export function getKcList(sid: string, userid: any) {
+    return service({
+        url: "v3/Study/getKcList",
+        method: "get",
+        params: {
+            sid: sid,
+            userid: userid
         }
     });
 }
@@ -90,6 +102,17 @@ export function getTestKcTiList(taoid: any) {
         method: "get",
         params: {
             taoid: taoid,
+        }
+    });
+}
+
+export function getVideoYw(id: any, iid: any) {
+    return service({
+        url: "v3/VideoYw/getVideoYw",
+        method: "get",
+        params: {
+            id: id,
+            iid: iid
         }
     });
 }

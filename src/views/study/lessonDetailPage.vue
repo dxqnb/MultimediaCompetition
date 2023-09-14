@@ -18,10 +18,21 @@ import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "io
 import Player from "xgplayer";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getZyKcList} from "@/api/study";
+import {getKcList, getZyKcList} from "@/api/study";
 
 const vs = ref();
-const item = ref();
+const item = ref({
+  id: 0,
+  szyid: 0,
+  lable: "",
+  xiaojie: "",
+  title: "",
+  content: "",
+  stitile: "",
+  video: "",
+  img: "",
+  createby: ""
+});
 const route = useRoute()
 const scroll = ref(false);
 const content = ref();
@@ -31,34 +42,45 @@ const divHeight = ref("76vh");
 const colors = ['#000', 'purple', 'orange', 'indigo', 'red'];
 const rating = ref(4.5);
 const segmentValue = ref('lesson');
-const vsp=ref<Player>(new Player({}))
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
+var vsp: Player;
 onMounted(() => {
   setTimeout(function () {
     // content.value.$el.scrollToPoint(0, fixed.value.offsetHeight, 500);
     divHeight.value = window.innerHeight - fixed.value.getBoundingClientRect().bottom - 16 + "px";
     console.log(divHeight.value)
-  }, 100);
-  vsp.value = new Player({
+  }, 1000);
+  vsp = new Player({
     el: vs.value,
     url: "",
     height: '20vh',
-    width: '85vw',
+    width: '92%',
   })
 
 })
 
-if (route.path.includes('zykc')){
-  getZyKcList(<string>route.params.id).then((res)=>{
+if (route.path.includes('zykc')) {
+  getZyKcList(<string>route.params.id, userid).then((res) => {
     console.log(res)
-    item.value=res.data.data
-    // vsp.value.switchURL(item.value.video)
+    item.value = res.data.data[0]
+
+    vsp.switchURL(item.value.video)
+  })
+} else {
+  getKcList(<string>route.params.id, userid).then((res) => {
+    console.log(res)
+    item.value = res.data.data[0]
+    vsp.switchURL(item.value.video)
+
   })
 }
+
 function onScroll(event: any) {
   // const scrollElement = event.target.$el;
   // const scrollTop = scrollElement.scrollTop;
   // console.log(event.target.detail.scrollTop)
-  if (event.target.detail.scrollTop > 150) {
+  if (event.target.detail.scrollTop > 100) {
     scrollEvents.value = false;
     content.value.$el.scrollToBottom(500);
     setTimeout(function () {
@@ -75,6 +97,7 @@ function onScroll(event: any) {
   }
   // console.log(event);
 }
+
 function change(event: any) {
   segmentValue.value = event.detail.value;
 }
@@ -96,26 +119,33 @@ function change(event: any) {
     </ion-header>
     <ion-content class="main" style="z-index: -2;" :scroll-events="scrollEvents" @ionScrollEnd="onScroll" ref="content"
                  :fullscreen="true">
-      <div slot="fixed" style="width: 90vw;left: 5vw;right: 5vw;z-index: -1;">
-        <div ref="fixed" style="margin: 30px 30px">
-          <ion-text color="light"><h2>java编程基础</h2></ion-text>
-          <ion-chip color="light">王思睿</ion-chip>
+      <div slot="fixed" style="width: 96vw;left: 0;z-index: -1;left: 2vw;">
+        <div ref="fixed" style="margin: 0px 18px 30px 18px;">
+          <ion-text><h2 style="color: #FFFFFF;font-weight: 900">{{ item.title }}</h2></ion-text>
+          <ion-chip
+              style="color: white;--background: rgba(255,255,255,0.23);border-radius: 8px;font-size: 12px;height: 26px;">
+            {{ item.createby }}
+          </ion-chip>
         </div>
         <div ref="vs" style="border-radius: 10px;margin: 0 auto"></div>
       </div>
-      <div style="height: 350px;width: 1px;pointer-events: none;"></div>
+      <div style="height: 310px;width: 100%;" @click="vsp.isPlaying?vsp.pause():vsp.play()"></div>
       <ion-card :style="`z-index: 1000;margin: 0;height:`+divHeight">
-        <ion-card-content>
-          <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 50%;padding-bottom: 10px;">
-            <ion-segment-button value="lesson" >
+        <ion-card-content style="padding-top: 0;">
+          <ion-segment mode="md" :value="segmentValue" @ionChange="change" style="width: 100%;padding-bottom: 10px;">
+            <ion-segment-button value="lesson">
               <ion-label><h3 style="font-weight: 900">课程</h3></ion-label>
             </ion-segment-button>
-            <ion-segment-button value="comment" >
+            <ion-segment-button value="test">
+              <ion-label><h3 style="font-weight: 900">习题</h3></ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="comment">
               <ion-label><h3 style="font-weight: 900">评价</h3></ion-label>
             </ion-segment-button>
+
           </ion-segment>
           <ion-content :scroll-y="scroll" :style="`height:`+ divHeight">
-            <ion-list v-if="segmentValue=='lesson'" style="margin-top: 14px;margin-bottom: 120px">
+            <ion-list v-if="segmentValue=='lesson'" style="margin-bottom: 120px">
               <ion-item-group>
                 <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
                   <ion-label>初识Java</ion-label>
@@ -397,8 +427,9 @@ ion-content.main::part(background) {
   background-size: contain;
   z-index: -2;
 }
+
 ion-toolbar {
-    --background: transparent;
-  }
+  --background: transparent;
+}
 
 </style>
