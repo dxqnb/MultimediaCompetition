@@ -14,7 +14,51 @@ import {
 } from "@ionic/vue";
 import {chevronForward, chevronDown} from 'ionicons/icons';
 import TaskProcessItem from "@/views/team/components/taskProcessItem.vue";
+import {reactive} from "vue";
+import {useRoute} from "vue-router";
+import {getFridenTeamTaskfinshNo, getFridenTeamTaskfinshYes} from "@/api/team";
 
+interface item     {
+      id: number
+      taskid: number
+      tid: number
+      userid: number
+      studentname: string
+      avatar: string,
+      task: string
+      taskdetail: string
+      img: string
+      target: number
+      finishtime: number
+      content: string
+      isfinsh: string
+      createtime: string
+    }
+const finishedItem = reactive<item[]>([]);
+const unfinishedItem = reactive<item[]>([]);
+const route = useRoute()
+const tid = route.params.id
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
+
+
+
+getFridenTeamTaskfinshYes(tid).then((res)=>{
+  for (let i = 0; i < res.data.data.length; i++) {
+    if (res.data.data[i].userid == userid) {
+      finishedItem.push(res.data.data[i])
+    }
+  }
+  console.log(finishedItem)
+})
+getFridenTeamTaskfinshNo(tid).then((res)=>{
+  for (let i = 0; i < res.data.data.length; i++) {
+    if (res.data.data[i].userid == userid) {
+      unfinishedItem.push(res.data.data[i])
+    }
+  }
+  console.log(unfinishedItem)
+})
 </script>
 
 <template>

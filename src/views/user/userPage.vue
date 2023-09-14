@@ -72,11 +72,11 @@
               style="width: 100%;border-radius: 8px;height: 63px;background: #FFFFFF">
             <ion-item lines="none" style="--background: none">
               <ion-text slot="start" style="color: #303030;font-weight: bold">我的雷达图</ion-text>
-              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">
-                <ion-icon style="vertical-align: middle;font-size: 14px;color: #AEAEAE" :icon="removeOutline">
-                </ion-icon>
-                <span style="vertical-align: middle;color: #AEAEAE">删除</span>
-              </ion-text>
+<!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
+<!--                <ion-icon style="vertical-align: middle;font-size: 14px;color: #AEAEAE" :icon="removeOutline">-->
+<!--                </ion-icon>-->
+<!--                <span style="vertical-align: middle;color: #AEAEAE">删除</span>-->
+<!--              </ion-text>-->
             </ion-item>
           </div>
           <div
@@ -84,7 +84,7 @@
             <ion-icon :icon="except" style="width: 100%;position: absolute;bottom: -6.5%;"></ion-icon>
 
             <div style="display: inline-block;vertical-align: top;margin: 20px 0 0 0">
-              <div style="color: #C4C4C4;font-size: 15px;font-weight: 500;letter-spacing: 1px">
+              <div style="color: #C4C4C4;font-size: 12px;font-weight: 500;letter-spacing: 1px">
                 个人能力分析-雷达图
               </div>
               <div style="display: flex;justify-content: space-around;margin-top: 6px">
@@ -103,7 +103,7 @@
                   </ion-text>
                 </div>
               </div>
-              <div style="color: #868686;font-size: 10px;text-align: center">2021-2023学年</div>
+              <div style="color: #868686;font-size: 10px;text-align: center;margin-top: 10px">2021-2023学年</div>
             </div>
             <div ref="radar" style="width: 178px;height: 120px;margin-top: 16px"></div>
           </div>
@@ -113,11 +113,11 @@
               style="width: 100%;border-radius: 8px;height: 63px;background: repeating-linear-gradient(to bottom,#5E8EFD,#4F7AF8)">
             <ion-item lines="none" style="--background: none">
               <ion-text slot="start" style="color: #FFFFFF;font-weight: bold">最近课程</ion-text>
-              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">
-                <ion-icon style="vertical-align: middle;font-size: 14px" :icon="addOutline">
-                </ion-icon>
-                <span style="vertical-align: middle">查看更多</span>
-              </ion-text>
+<!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
+<!--                <ion-icon style="vertical-align: middle;font-size: 14px" :icon="addOutline">-->
+<!--                </ion-icon>-->
+<!--                <span style="vertical-align: middle">查看更多</span>-->
+<!--              </ion-text>-->
             </ion-item>
           </div>
           <div
@@ -382,7 +382,7 @@ let radarOption: EChartsOption = {
       center: ['50%', '50%'],
       radius: '80%',
       startAngle: 90,
-      splitNumber: 4,
+      splitNumber: 5,
       axisName: {
         color: '#428BD4',
         padding: 0,

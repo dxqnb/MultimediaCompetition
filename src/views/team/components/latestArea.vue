@@ -32,10 +32,10 @@ const radio = ref('true')
 <template>
   <div style="position:relative">
     <ion-text @click="$router.push('/study/lessons')"
-              style="display: block;width: 100%;position:relative;margin: 36px 0 20px 10px">
+              style="display: block;width: 100%;position:relative;margin: 36px 0 30px 10px">
       <h4 style="color: #474747;font-weight: bolder;">{{title}}</h4>
       <div
-          style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
+          style="border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;" :style="title=='最新'?'border:10px solid rgb(137, 192, 239)':'border: 10px solid #8eabfc;'"></div>
     </ion-text>
     <swiper
         :slidesPerView="'auto'"

@@ -428,7 +428,7 @@ function delPic(id: number) {
           </ion-item-options>
         </ion-item-sliding>
       </div>
-
+      <div style="height: 150px;"></div>
 
       <div style="position:fixed;bottom: 0;width: 100%;left: 0;z-index:1">
         <ion-button @click="releasePage=true"

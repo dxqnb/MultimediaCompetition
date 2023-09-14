@@ -12,34 +12,25 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
-<!--      <ion-searchbar style="padding:0"></ion-searchbar>-->
+      <!--      <ion-searchbar style="padding:0"></ion-searchbar>-->
       <ion-searchbar class="search" :mode="'md'"
                      style="--box-shadow: none;--border-radius: 10px;font-size: 12px !important;"
                      placeholder="新生入学攻略"></ion-searchbar>
       <swiper
-          :effect="'cards'"
+          effect="cards"
           :grabCursor="true"
           :modules="modules"
           :autoplay="{ delay: 3000, disableOnInteraction: false, }"
           :initialSlide="1"
           :loop="true"
           :space-between="50"
-          @swiper="onSwiper"
           :pagination="true" :scrollbar="true" :zoom="true"
+          @swiper="onSwiper"
       >
-        <swiper-slide>
-          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">
+        <swiper-slide v-for="item in Banner">
+          <!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
+          <ion-img :src="item.img"></ion-img>
         </swiper-slide>
-        <swiper-slide><img src="https://www.0030.store/swiperAd/ad2.png" alt=""></swiper-slide>
-        <swiper-slide>
-          <ion-img src="https://www.0030.store/sw1.png"></ion-img>
-        </swiper-slide>
-        <swiper-slide>Slide 4</swiper-slide>
-        <swiper-slide>Slide 5</swiper-slide>
-        <swiper-slide>Slide 6</swiper-slide>
-        <swiper-slide>Slide 7</swiper-slide>
-        <swiper-slide>Slide 8</swiper-slide>
-        <swiper-slide>Slide 9</swiper-slide>
       </swiper>
       <team-home-first-button></team-home-first-button>
       <notice-area></notice-area>
@@ -87,46 +78,6 @@ img {
   object-fit: cover !important;
 }
 
-.swiper-slide:nth-child(1n) {
-  background-color: rgb(206, 17, 17);
-}
-
-.swiper-slide:nth-child(2n) {
-  background-color: rgb(0, 140, 255);
-}
-
-.swiper-slide:nth-child(3n) {
-  background-color: rgb(10, 184, 111);
-}
-
-.swiper-slide:nth-child(4n) {
-  background-color: rgb(211, 122, 7);
-}
-
-.swiper-slide:nth-child(5n) {
-  background-color: rgb(118, 163, 12);
-}
-
-.swiper-slide:nth-child(6n) {
-  background-color: rgb(180, 10, 47);
-}
-
-.swiper-slide:nth-child(7n) {
-  background-color: rgb(35, 99, 19);
-}
-
-.swiper-slide:nth-child(8n) {
-  background-color: rgb(0, 68, 255);
-}
-
-.swiper-slide:nth-child(9n) {
-  background-color: rgb(218, 12, 218);
-}
-
-.swiper-slide:nth-child(10n) {
-  background-color: rgb(54, 94, 77);
-}
-
 </style>
 
 <script setup lang="ts">
@@ -150,6 +101,7 @@ import TeamHomeFirstButton from "@/views/team/components/teamHomeFirstButton.vue
 import MyTeamArea from "@/views/team/components/myTeamArea.vue";
 import LatestArea from "@/views/team/components/latestArea.vue";
 import NoticeArea from "@/views/team/components/noticeArea.vue";
+import {getBanner} from "@/api/main";
 
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
@@ -163,18 +115,21 @@ const onSwiper = (swiper: any) => {
     swiper.slidePrev()
   }, 100);
 };
-// })
-// sw.value.autoplay = {
-//   paused: false, pause(): void {
-//   }, resume(): void {
-//   }, start(): boolean {
-//     return false;
-//   }, stop(): boolean {
-//     return false;
-//   },
-//   timeLeft: 1000,
-//   running: true
-// }
+
+interface banner {
+  "id": number,
+  "img": string,
+  "title": string,
+  "link": string
+}
+
+const Banner = ref<banner[]>([])
+getBanner('3').then(res => {
+  for (let datum of res.data.data) {
+    Banner.value.push(datum)
+  }
+})
+
 </script>
 <style>
 .search input {
