@@ -21,12 +21,12 @@ import {
   IonRefresherContent,
   IonItemGroup,
   IonButton,
-  IonRadio, IonRadioGroup
+  IonRadio, IonRadioGroup, IonInfiniteScrollContent
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import TecItem from "@/views/study/components/tecItem.vue";
-import {getVideoJs} from "@/api/study";
+import {getVideoJs, getVideoYw} from "@/api/study";
 import {el} from "vuetify/locale";
 
 interface item {
@@ -51,7 +51,9 @@ function handleRefresh(event: any) {
   }, 1000);
 }
 
-getVideoJs(1, 10).then(res => {
+const index = ref(0)
+getVideoJs(index.value, index.value + 10).then(res => {
+  index.value += 10
   for (let i = 0; i < res.data.data.length; i++) {
     if (i % 2 == 0) {
       itemsLeft.push(res.data.data[i])
@@ -59,7 +61,6 @@ getVideoJs(1, 10).then(res => {
       itemsRight.push(res.data.data[i])
     }
   }
-  console.log(itemsLeft)
 })
 // for (let i = 1; i < 10; i++) {
 //   itemsLeft.push({
@@ -85,7 +86,18 @@ getVideoJs(1, 10).then(res => {
 //     lll: "String",
 //   });
 // }
-
+function ionInfinite() {
+  getVideoJs(index.value, index.value + 10).then(res => {
+    index.value += 10
+    for (let i = 0; i < res.data.data.length; i++) {
+      if (i % 2 == 0) {
+        itemsLeft.push(res.data.data[i])
+      } else {
+        itemsRight.push(res.data.data[i])
+      }
+    }
+  })
+}
 </script>
 
 <template>
@@ -121,18 +133,21 @@ getVideoJs(1, 10).then(res => {
       <ion-content style="height: 85vh;">
         <ion-grid>
           <ion-row class="ion-align-items-start">
-            <ion-col size="6"  >
+            <ion-col size="6">
               <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount"
                         :img-url="item.coverimg" :title="item.title" :item="item"
                         :index="index"/>
             </ion-col>
-            <ion-col size="6" >
+            <ion-col size="6">
               <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount"
                         :img-url="item.coverimg" :title="item.title" :item="item"
                         :index="index"/>
             </ion-col>
           </ion-row>
         </ion-grid>
+        <ion-infinite-scroll @ionInfinite="ionInfinite">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
       </ion-content>
     </ion-content>
   </IonPage>

@@ -8,7 +8,7 @@ body::-webkit-scrollbar {
 
 /** Ionic CSS Variables **/
 :root {
-    --ion-font-family: '思源黑体';
+    --ion-font-family: '思源黑体 CN';
     /** primary **/
     --ion-color-primary: #8997ef;
     --ion-color-primary-rgb: 45, 211, 111;

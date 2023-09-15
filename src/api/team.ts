@@ -100,3 +100,83 @@ export function addFridenTeamTask(data: any) {
         },
     });
 }
+
+export function upTaskFinsh(data: any) {
+    return service({
+        url: "v3/FridenTeamTask/upTaskFinsh",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
+export function delFridenTeam(id: any) {
+    return service({
+        url: "v3/FridenTeam/delFridenTeam",
+        method: "delete",
+        params: {
+            id: id
+        }
+    });
+}
+
+export function getTaskDetail(id: any) {
+    return service({
+        url: "v3/FridenTeamTask/getTaskDetail",
+        method: "get",
+        params: {
+            id: id
+        }
+    });
+}
+
+export function getMyFridenTeam(userid: any) {
+    return service({
+        url: "v3/FridenTeam/getMyFridenTeam",
+        method: "get",
+        params: {
+            userid: userid
+        }
+    });
+}
+
+export function getFridenTeamMessageList(tid: any) {
+    return service({
+        url: "v3/FridenTeam/getFridenTeamMessageList",
+        method: "get",
+        params: {
+            tid: tid
+        }
+    });
+}
+
+export function getFridenList(listclass: any) {
+    return service({
+        url: "v3/FridenList/getFridenList",
+        method: "get",
+        params: {
+            listclass: listclass
+        }
+    });
+}
+
+export function getAllFridenTeam() {
+    return service({
+        url: "v3/FridenTeam/getAllFridenTeam",
+        method: "get",
+    });
+}
+
+export function addTeamMessage(tid: any, userid: any, content: any) {
+    return service({
+        url: "v3/FridenTeam/addTeamMessage",
+        method: "post",
+        params: {
+            tid: tid,
+            userid: userid,
+            content: content
+        }
+    });
+}

@@ -83,7 +83,7 @@ function click(num: number) {
     <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">任务列表</ion-text>
     <div v-if="!finished">
       <ion-text style="color:#5C82FF;font-size: 14px;font-weight: 400;display: block;margin: 16px 0">待完成</ion-text>
-      <ion-card @click="$router.push('/team/submitTask/'+item.taskid)"
+      <ion-card @click="$router.push('/team/submitTask/'+item.taskid+'/'+tid)"
                 style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none" v-for="item in unfinishedItem">
         <ion-card-content>
           <div style="display: flex;">

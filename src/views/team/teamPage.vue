@@ -91,7 +91,7 @@ import {
   IonImg,
   IonicSlides,
 } from '@ionic/vue';
-import {defineComponent, onMounted, onUnmounted, ref} from "vue";
+import {defineComponent, onMounted, onUnmounted, reactive, ref} from "vue";
 import io from 'socket.io-client';
 import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swiper/modules';
 import 'swiper/css/effect-cards';
@@ -102,12 +102,14 @@ import MyTeamArea from "@/views/team/components/myTeamArea.vue";
 import LatestArea from "@/views/team/components/latestArea.vue";
 import NoticeArea from "@/views/team/components/noticeArea.vue";
 import {getBanner} from "@/api/main";
+import {getMyFridenTeam} from "@/api/team";
 
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
 
 // onMounted(() => {
 const sw = ref();
+
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
 
@@ -122,6 +124,7 @@ interface banner {
   "title": string,
   "link": string
 }
+
 
 const Banner = ref<banner[]>([])
 getBanner('3').then(res => {

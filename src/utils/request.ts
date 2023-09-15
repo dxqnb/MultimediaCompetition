@@ -10,8 +10,8 @@ import axios from "axios";
 // 创建一个 axios 实例
 const service = axios.create({
 	withCredentials: true, // send cookies when cross-domain requests
-	baseURL: "http://localhost:8081/",
-	// baseURL: "http://100.99.22.97:8081/",
+	// baseURL: "http://localhost:8081/",
+	baseURL: "http://100.99.22.97:8081/",
 	timeout: 100000, // 设定响应超时
 	headers: {
 		"Content-Type": "application/json;charset=UTF-8"

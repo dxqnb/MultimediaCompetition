@@ -13,10 +13,10 @@
       <div>
         <ion-avatar @click="$router.push('/login')" slot="start"
                     style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
-            src="https://www.0030.store/favicon.png" alt=""></ion-avatar>
+            :src='avatar' alt=""></ion-avatar>
         <div style="display: inline-block;margin-top: 30px;vertical-align: top">
-          <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">学生1006</ion-text>
-          <ion-text style="color: rgba(255,255,255,0.65);font-size: 10px;display: block">学号：202010807</ion-text>
+          <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">{{ studentname }}</ion-text>
+          <ion-text style="color: rgba(255,255,255,0.65);font-size: 10px;display: block">学号：{{ userid }}</ion-text>
         </div>
         <ion-chip
             style="margin: 25px;font-size: 10px;border-radius: 6px;--background: #B0957D;--color: #fff;vertical-align: top;height: auto;">
@@ -72,11 +72,11 @@
               style="width: 100%;border-radius: 8px;height: 63px;background: #FFFFFF">
             <ion-item lines="none" style="--background: none">
               <ion-text slot="start" style="color: #303030;font-weight: bold">我的雷达图</ion-text>
-<!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
-<!--                <ion-icon style="vertical-align: middle;font-size: 14px;color: #AEAEAE" :icon="removeOutline">-->
-<!--                </ion-icon>-->
-<!--                <span style="vertical-align: middle;color: #AEAEAE">删除</span>-->
-<!--              </ion-text>-->
+              <!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
+              <!--                <ion-icon style="vertical-align: middle;font-size: 14px;color: #AEAEAE" :icon="removeOutline">-->
+              <!--                </ion-icon>-->
+              <!--                <span style="vertical-align: middle;color: #AEAEAE">删除</span>-->
+              <!--              </ion-text>-->
             </ion-item>
           </div>
           <div
@@ -108,44 +108,88 @@
             <div ref="radar" style="width: 178px;height: 120px;margin-top: 16px"></div>
           </div>
         </div>
-        <div style="width: 100%;margin-top: 20px;position: relative;height: 190px;" @click="$router.push('/user/history')">
+        <div style="width: 100%;margin-top: 20px;position: relative;height: 190px;"
+             @click="$router.push('/user/history')">
           <div
               style="width: 100%;border-radius: 8px;height: 63px;background: repeating-linear-gradient(to bottom,#5E8EFD,#4F7AF8)">
             <ion-item lines="none" style="--background: none">
               <ion-text slot="start" style="color: #FFFFFF;font-weight: bold">最近课程</ion-text>
-<!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
-<!--                <ion-icon style="vertical-align: middle;font-size: 14px" :icon="addOutline">-->
-<!--                </ion-icon>-->
-<!--                <span style="vertical-align: middle">查看更多</span>-->
-<!--              </ion-text>-->
+              <!--              <ion-text slot="end" style="color: #FFFFFF;font-weight: bold;font-size: 11px">-->
+              <!--                <ion-icon style="vertical-align: middle;font-size: 14px" :icon="addOutline">-->
+              <!--                </ion-icon>-->
+              <!--                <span style="vertical-align: middle">查看更多</span>-->
+              <!--              </ion-text>-->
             </ion-item>
           </div>
           <div
               style="width: 100%;height: 120px;background: repeating-linear-gradient(to bottom,#F2F6FF,#FFFFFF,#FFFFFF);overflow: hidden;border-radius: 8px;position: absolute;top: 45px;z-index: 100;display: flex;justify-content: space-evenly">
             <ion-icon :icon="except" style="width: 100%;position: absolute;bottom: -6.5%;"></ion-icon>
-            <ion-avatar style="width: 88px;height: 88px;margin-top: 12px;display: inline-block"><img
-                src="https://www.0030.store/test.jpg" alt=""></ion-avatar>
+            <ion-icon style="width: 88px;height: 88px;margin-top: 12px;display: inline-block" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="88" height="88" viewBox="0 0 88 88">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="椭圆_183" data-name="椭圆 183" cx="44" cy="44" r="44" transform="translate(53 458)" fill="#cee3ff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x2="1.202" y2="0.585" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#98c8ff"/>
+      <stop offset="0.294" stop-color="#6b91ff"/>
+      <stop offset="1" stop-color="#4168f3"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.827" x2="0.327" y2="0.998" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a5c5ff"/>
+      <stop offset="0.227" stop-color="#6fa6ff"/>
+      <stop offset="0.343" stop-color="#498eff"/>
+      <stop offset="0.592" stop-color="#6fa6ff"/>
+      <stop offset="0.685" stop-color="#a5c5ff"/>
+      <stop offset="0.716" stop-color="#6fa6ff"/>
+    </linearGradient>
+    <radialGradient id="radial-gradient" cx="0.19" cy="0.711" r="0.379" gradientTransform="matrix(0.147, 0.985, -1.296, 0.273, -1.157, 0.132)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1451be"/>
+      <stop offset="1" stop-color="#4168f3" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="linear-gradient-3" x1="0.565" x2="0.565" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e7efff"/>
+      <stop offset="1" stop-color="#a6c4ff"/>
+    </linearGradient>
+  </defs>
+  <g id="蒙版组_29" data-name="蒙版组 29" transform="translate(-53 -458)" clip-path="url(#clip-path)">
+    <g id="组_1240" data-name="组 1240" transform="translate(49.549 454.549)">
+      <path id="路径_211" data-name="路径 211" d="M151.043,12h79.826a7.043,7.043,0,0,1,7.044,7.043V98.869a7.043,7.043,0,0,1-7.044,7.043H151.043A7.043,7.043,0,0,1,144,98.869V19.043A7.043,7.043,0,0,1,151.043,12Z" transform="translate(-144 -12)" fill="url(#linear-gradient)"/>
+      <g id="组_1237" data-name="组 1237" transform="translate(30.815 71.902)">
+        <path id="路径_212" data-name="路径 212" d="M594.815,994.348c0,1.3-6.9,2.348-15.408,2.348S564,995.644,564,994.348,570.9,992,579.408,992,594.815,993.051,594.815,994.348Z" transform="translate(-564 -992)" fill="#1543d9"/>
+      </g>
+      <g id="组_1238" data-name="组 1238" transform="translate(18.643 24.065)">
+        <path id="路径_213" data-name="路径 213" d="M405.084,341.213A4.928,4.928,0,0,1,408.24,340h36.335a3.873,3.873,0,0,1,1.555.315,3.376,3.376,0,0,1,1.04.706l4.565,4.565c.062.062.121.125.177.192a3.366,3.366,0,0,1,.7,1.343,3.872,3.872,0,0,1,.068,1.585l-5.247,33.127a4.634,4.634,0,0,1-.571,1.585,5.216,5.216,0,0,1-2.624,2.241,4.617,4.617,0,0,1-1.654.315H406.247a3.591,3.591,0,0,1-2.772-1.213l-4.2-4.2a3.32,3.32,0,0,1-.366-.366,3.59,3.59,0,0,1-.764-2.928l5.247-33.127A4.925,4.925,0,0,1,405.084,341.213Zm20.181,14.829.506-3.2h-3.7Zm-8.957,7.423-3.194-3.195-.506,3.195Z" transform="translate(-398.095 -340)" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+        <path id="路径_214" data-name="路径 214" d="M405.084,341.213A4.928,4.928,0,0,1,408.24,340h36.335a3.873,3.873,0,0,1,1.555.315,3.376,3.376,0,0,1,1.04.706l4.565,4.565c.062.062.121.125.177.192a3.366,3.366,0,0,1,.7,1.343,3.872,3.872,0,0,1,.068,1.585l-5.247,33.127a4.634,4.634,0,0,1-.571,1.585,5.216,5.216,0,0,1-2.624,2.241,4.617,4.617,0,0,1-1.654.315H406.247a3.591,3.591,0,0,1-2.772-1.213l-4.2-4.2a3.32,3.32,0,0,1-.366-.366,3.59,3.59,0,0,1-.764-2.928l5.247-33.127A4.925,4.925,0,0,1,405.084,341.213Zm20.181,14.829.506-3.2h-3.7Zm-8.957,7.423-3.194-3.195-.506,3.195Z" transform="translate(-398.095 -340)" fill-rule="evenodd" fill="url(#radial-gradient)"/>
+      </g>
+      <g id="组_1239" data-name="组 1239" transform="translate(18.643 24.065)">
+        <path id="路径_215" data-name="路径 215" d="M444.576,340a3.873,3.873,0,0,1,1.555.315,3.331,3.331,0,0,1,1.913,2.241,3.861,3.861,0,0,1,.068,1.585l-5.247,33.127a4.607,4.607,0,0,1-.57,1.585,5.231,5.231,0,0,1-2.624,2.241,4.639,4.639,0,0,1-1.655.315H401.682a3.467,3.467,0,0,1-3.536-4.141l5.247-33.127A5.07,5.07,0,0,1,408.24,340Zm-7.167,27.606H406.663l-.656,4.141h30.746ZM422.3,348.282h-8.385a5.07,5.07,0,0,0-4.848,4.141l-1.093,6.9a3.875,3.875,0,0,0,.068,1.585,3.339,3.339,0,0,0,1.914,2.241,3.879,3.879,0,0,0,1.554.315H419.9a5.07,5.07,0,0,0,4.848-4.141l1.093-6.9a3.468,3.468,0,0,0-3.536-4.141Zm16.419,11.042H427.54l-.656,4.141h11.18Zm-17.075-6.9-1.093,6.9h-8.385l1.093-6.9Z" transform="translate(-398.095 -340)" fill="url(#linear-gradient-3)"/>
+      </g>
+      <path id="路径_216" data-name="路径 216" d="M151.97,13H231.8a6.97,6.97,0,0,1,6.97,6.97V99.8a6.97,6.97,0,0,1-6.97,6.97H151.97A6.97,6.97,0,0,1,145,99.8V19.97A6.97,6.97,0,0,1,151.97,13Z" transform="translate(-144.927 -12.927)" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
+'></ion-icon>
             <div style="display: inline-block;vertical-align: top;margin: 20px 0 0 0">
               <div style="color: #AFAFAF;font-size: 15px;font-weight: 500;letter-spacing: 1px">
-                《java编程基础》/老师名字
+                《{{ lessonName }}》/{{ TeacherName }}
               </div>
               <div style="display: flex;justify-content: space-around;margin-top: 6px">
                 <div>
                   <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">
-                    20<span style="font-size: 15px">课</span></ion-text>
+                    2<span style="font-size: 15px">课</span></ion-text>
                   <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
                     已学
                   </ion-text>
                 </div>
                 <div>
                   <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">
-                    20<span style="font-size: 15px">题</span></ion-text>
+                    2<span style="font-size: 15px">题</span></ion-text>
                   <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
                     测试
                   </ion-text>
                 </div>
                 <div>
-                  <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">3<span
+                  <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">1<span
                       style="font-size: 15px">题</span></ion-text>
                   <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
                     实操
@@ -156,22 +200,22 @@
           </div>
         </div>
 
-      <swiper
-          effect="cards"
-          :grabCursor="true"
-          :modules="modules"
-          :autoplay="{ delay: 3000, disableOnInteraction: false, }"
-          :initialSlide="1"
-          :loop="true"
-          :space-between="50"
-          :pagination="true" :scrollbar="true" :zoom="true"
-          @swiper="onSwiper"
-      >
-        <swiper-slide v-for="item in Banner">
-          <!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
-          <ion-img :src="item.img"></ion-img>
-        </swiper-slide>
-      </swiper>
+        <swiper
+            effect="cards"
+            :grabCursor="true"
+            :modules="modules"
+            :autoplay="{ delay: 3000, disableOnInteraction: false, }"
+            :initialSlide="1"
+            :loop="true"
+            :space-between="50"
+            :pagination="true" :scrollbar="true" :zoom="true"
+            @swiper="onSwiper"
+        >
+          <swiper-slide v-for="item in Banner">
+            <!--          <img src="https://www.0030.store/swiperAd/ad1.png" alt="">-->
+            <ion-img :src="item.img"></ion-img>
+          </swiper-slide>
+        </swiper>
 
         <ion-card style="--background: #fff;margin: 0">
           <ion-card-header style="padding: 16px;border-bottom: 2px solid #F3F3F3;position: relative">
@@ -286,9 +330,9 @@
             </div>
           </ion-card-content>
         </ion-card>
-
       </div>
-
+      <robot></robot>
+      <div style="height: 30px"></div>
     </ion-content>
 
   </ion-page>
@@ -343,7 +387,7 @@ import {
   , IonCardContent
   , IonCardHeader
 } from '@ionic/vue';
-import {defineComponent, onMounted, onUnmounted, ref} from "vue";
+import {defineComponent, onMounted, onUnmounted, ref, reactive} from "vue";
 import io from 'socket.io-client';
 import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swiper/modules';
 import 'swiper/css/effect-cards';
@@ -353,6 +397,7 @@ import Robot from "@/components/robot.vue";
 import {addOutline, notificationsOutline, removeOutline, settingsOutline} from "ionicons/icons";
 import * as echarts from "echarts";
 import {getBanner} from "@/api/main";
+import {getKcRecords, getZyRecords} from "@/api/user";
 
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
@@ -437,6 +482,46 @@ let radarOption: EChartsOption = {
     }
   ]
 };
+
+interface lesson {
+  avatar: string,
+  content: string
+  createby: string
+  createtime: string
+  id: number
+  img: string,
+  kcid: number,
+  kclable: number,
+  studentname: string,
+  studytime: number,
+  title: string,
+  userid: number,
+  xiaojie: string,
+}
+
+const lessonName = ref('')
+const TeacherName = ref('')
+const items = reactive<lesson[]>([]);
+getKcRecords(7).then((res) => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    items.push(res.data.data[i])
+  }
+  items.sort((a, b) => {
+    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
+  });
+  lessonName.value = items[0].title
+  TeacherName.value = items[0].createby
+})
+getZyRecords(7).then((res) => {
+  for (let i = 0; i < res.data.data.length; i++) {
+    items.push(res.data.data[i])
+  }
+  items.sort((a, b) => {
+    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
+  });
+  lessonName.value = items[0].title
+  TeacherName.value = items[0].createby
+})
 onMounted(() => {
 
   setTimeout(function () {
@@ -758,16 +843,46 @@ const except = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
     '    </g>\n' +
     '  </g>\n' +
     '</svg>\n')
+
 interface banner {
   "id": number,
   "img": string,
   "title": string,
   "link": string
 }
+
 const Banner = ref<banner[]>([])
 getBanner('3').then(res => {
   for (let datum of res.data.data) {
     Banner.value.push(datum)
   }
 })
+
+const data = localStorage.getItem('user') as string | null;
+const userid = ref('');
+const studentname = ref('');
+const deptname = ref('');
+const avatar = ref('');
+if (data) { // 检查数据是否存在
+  const parsedData = JSON.parse(data); // 将字符串转换为对象
+
+  if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
+    userid.value = parsedData.username; // 提取 username 并赋值给变量
+  }
+
+  if (parsedData && parsedData.studentname) { // 检查是否成功解析并存在 username 字段
+    studentname.value = parsedData.studentname; // 提取 username 并赋值给变量
+  }
+
+  if (parsedData && parsedData.deptname) { // 检查是否成功解析并存在 username 字段
+    deptname.value = parsedData.deptname; // 提取 username 并赋值给变量
+  }
+
+  if (parsedData && parsedData.avatar) { // 检查是否成功解析并存在 username 字段
+    avatar.value = parsedData.avatar; // 提取 username 并赋值给变量
+  }
+  // const username=userid.value;
+  // console.log(userid.value);
+
+}
 </script>

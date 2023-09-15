@@ -8,11 +8,11 @@ import {
   IonButtons,
   IonBackButton,
   IonIcon,
-  IonThumbnail,
+  IonItem,
   IonLabel,
   IonContent,
   IonList,
-  IonCard,
+  IonPopover,
   IonCardContent,
   IonBadge,
   IonButton,
@@ -24,7 +24,7 @@ import {
   IonRadio,
   IonRadioGroup,
   IonSearchbar,
-  IonFooter,
+  IonFooter, alertController, toastController, useIonRouter,
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
@@ -36,7 +36,13 @@ import * as marked from "marked";
 import dayjs from "dayjs";
 import ReleaseTask from "@/views/team/components/releaseTask.vue";
 import TeamInfo from "@/views/team/components/teamInfo.vue";
-import {getFridenTeam, getFridenTeamUserList} from "@/api/team";
+import {
+  addTeamMessage,
+  delFridenTeam,
+  getFridenTeam,
+  getFridenTeamMessageList,
+  getFridenTeamUserList
+} from "@/api/team";
 import {useRoute} from "vue-router";
 
 const text = marked.parse('### Marked in the browser\n\nRendered by **marked**.');
@@ -46,27 +52,18 @@ const sent = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
     '</svg>\n');
 const sentBar = ref('')
 const content = ref()
-const remoteMassage = ref([
-      {
-        time: '7-19 16:59',
-        text: marked.parse('### Marked in the browser\n\nRendered by **marked**.'),
-        isMyself: true,
-        username: '队长',
-      },
-      {
-        time: '7-19 16:59',
-        text: marked.parse('你好，我是小明，很高兴认识你'),
-        isMyself: false,
-        username: '队员1',
-      },
-      {
-        time: '7-19 16:59',
-        text: marked.parse('你好，我也很高兴认识你'),
-        isMyself: true,
-        username: '队长',
-      },
-    ]
-)
+const length = ref(0)
+
+interface message {
+  time: string,
+  text: string,
+  isMyself: boolean,
+  username: string,
+  avatar: string
+}
+
+const remoteMassage = ref<message[]>([])
+const userid = Number(JSON.parse(localStorage.getItem('user') || '').id)
 
 interface item {
   attribute: string,
@@ -92,32 +89,116 @@ const team = ref<item>({
   userid: 0,
 })
 const route = useRoute()
+const router = useIonRouter()
 const user = ref()
 let id = route.params.id;
 getFridenTeam({id: id}).then((res) => {
   localStorage.setItem('id', res.data.data)
-  console.log(res.data.data)
   team.value = res.data.data[0]
 });
 getFridenTeamUserList(id).then((res) => {
   user.value = res.data.data
+
 })
 
 function sentEvent() {
   if (sentBar.value === '') {
     return
   }
-  // console.log(remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2))
-  remoteMassage.value.push({
-    time: !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
-    text: marked.parse(sentBar.value),
-    isMyself: true,
-    username: '队长',
+  getFridenTeamMessageList(id).then((res) => {
+    console.log(res.data.data)
+    for (let i = length.value; i < res.data.data.length; i++) {
+      remoteMassage.value.push({
+        time: i == 0 ? res.data.data[0].createtime : !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
+        text: marked.parse(res.data.data[i].content),
+        isMyself: userid == res.data.data[i].userid,
+        username: res.data.data[i].studentname,
+        avatar: res.data.data[i].avatar
+      })
+    }
+    length.value = res.data.data.length
+    addTeamMessage(id, userid, sentBar.value).then(() => {
+      length.value += 1
+      remoteMassage.value.push({
+        time: !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
+        text: marked.parse(sentBar.value),
+        isMyself: true,
+        username: JSON.parse(localStorage.getItem('user') || '').studentname,
+        avatar: JSON.parse(localStorage.getItem('user') || '').avatar
+
+      })
+      sentBar.value = ''
+      content.value.$el.scrollToBottom(300)
+    })
   })
-  sentBar.value = ''
-  content.value.$el.scrollToBottom(300)
+
+  // console.log(remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2))
+
 }
 
+//收消息开始/////////
+setInterval(() => {
+  getFridenTeamMessageList(id).then((res) => {
+    console.log(res.data.data)
+    for (let i = length.value; i < res.data.data.length; i++) {
+      remoteMassage.value.push({
+        time: i == 0 ? res.data.data[0].createtime : !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),
+        text: marked.parse(res.data.data[i].content),
+        isMyself: userid == res.data.data[i].userid,
+        username: res.data.data[i].studentname,
+        avatar: res.data.data[i].avatar
+      })
+    }
+    length.value = res.data.data.length
+  })
+}, 2000)
+
+//收消息结束/////////
+async function delTeam() {
+  const alert1 = await alertController.create({
+    header: '提示',
+    subHeader: '是否删除该学友团',
+    message: '请选择',
+    buttons: [
+      {
+        role: 'cancel',
+        text: '取消',
+      },
+      {
+        text: '确定',
+        role: 'ok',
+      },
+    ],
+  })
+  await alert1.present()
+
+  alert1.onDidDismiss().then(async (res) => {
+    if (res.role == 'ok') {
+      if (team.value.userid != userid) {
+        const toast = await toastController.create({
+          message: '您不是队长'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+        return
+      }
+      delFridenTeam(id).then(async () => {
+        const toast = await toastController.create({
+          message: '登录成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+        router.push('/tabs/team')
+      })
+    }
+  })
+}
 
 const segment = ref('info')
 const contentClass = ref('ion-padding info')
@@ -146,7 +227,7 @@ function change(event: any) {
         </ion-buttons>
         <IonTitle>{{ team.tname }}</IonTitle>
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button id="popover-button">
             <ion-icon :icon="ellipsisHorizontal"/>
           </ion-button>
         </ion-buttons>
@@ -202,7 +283,7 @@ function change(event: any) {
                         style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
                       {{ item.username }}
                     </ion-text>
-                    <img style="width: 48px;height: 48px;" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                    <img style="width: 48px;height: 48px;" :src="item.avatar"
                          alt=""/>
                   </ion-avatar>
                   <div v-html="item.text"
@@ -228,7 +309,7 @@ function change(event: any) {
                         style="position: absolute;top: -18px;font-size: 12px;width: 48px;display: block;text-align: center;">
                       {{ item.username }}
                     </ion-text>
-                    <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg" style="width: 48px;height: 48px;"
+                    <img :src="item.avatar" style="width: 48px;height: 48px;"
                          alt=""/>
                   </ion-avatar>
                 </div>
@@ -239,6 +320,13 @@ function change(event: any) {
         </div>
       </div>
     </ion-content>
+    <ion-popover trigger="popover-button" :dismiss-on-select="true">
+      <ion-content>
+        <ion-list>
+          <ion-item :button="true" :detail="false" @click="delTeam">解散该学友团</ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-popover>
     <ion-footer style="background-color: #f7f7f7" v-if="segment=='talk'">
       <ion-toolbar>
         <ion-searchbar v-model="sentBar" :animated="true" inputmode="text" placeholder="请输入..." type="text"

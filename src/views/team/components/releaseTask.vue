@@ -49,8 +49,6 @@ const user = localStorage.getItem('user') || ''
 const userid = JSON.parse(user).id
 
 interface image {
-  // webPath?: string,
-  // path?: string,
   base64?: string,
   file: File,
 }
@@ -115,7 +113,7 @@ async function takePicture() {
     resultType: CameraResultType.DataUrl
   });
   let dataUrl = image.dataUrl == undefined ? '.' : image.dataUrl
-  let temp = base64ToFile(image.dataUrl, imageList.length.toString(6) + dataUrl.split('/')[1].split(';')[0])
+  let temp = base64ToFile(image.dataUrl, imageList.length.toString(6) + '.' + dataUrl.split('/')[1].split(';')[0])
   if (temp == null) return
   imageList.push({
     base64: image.dataUrl,
@@ -293,11 +291,6 @@ function deleteTask(id: any) {
 }
 
 function post() {
-  // const formData = new FormData()
-  //
-  // for (let i = 0; i < imageList.length; i++) {
-  //   formData.append('img', imageList[i].file)
-  // }
   let imgFile = []
   for (let i = 0; i < imageList.length; i++) {
     imgFile.push(imageList[i].file)
@@ -311,7 +304,7 @@ function post() {
     img: '',
     finishtime: Number(select.value.substring(0, select.value.length - 1)),
     target: Number(vocabulary.value.substring(0, vocabulary.value.length - 1)),
-    file: imgFile.length == 0 ? undefined : imgFile,
+    file: imgFile.length == 0 ? undefined : imgFile[0],
   }
   addFridenTeamTask(a).then(async (res) => {
     console.log(res)
@@ -520,9 +513,7 @@ function delPic(id: number) {
                            :src="item.base64"></ion-img>
                   <ion-icon style="position:absolute; top: -8px;left: -8px;color: #7B73FF" :icon="closeCircleOutline"
                             @click="delPic(i)"></ion-icon>
-
                 </div>
-
               </div>
             </div>
           </div>

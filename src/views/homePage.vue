@@ -1,16 +1,10 @@
 <template>
   <ion-page class="page">
-    <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, #668CFC)" class="ion-no-border ion-padding">
+<!--    <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, #668CFC)" class="ion-no-border ion-padding">-->
+    <ion-header collapse="fade" style="background: #FFFFFF" class="ion-no-border ion-padding">
       <ion-toolbar style="--background: transparent" class="head">
         <div style="display: flex;justify-content: space-between">
-          <ion-icon style="width: 100px;height: 30px;margin: auto 0" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="99.852" height="28.548" viewBox="0 0 99.852 28.548">
-  <g id="组_1504" data-name="组 1504" transform="translate(-653.005 -281.351)">
-    <path id="路径_587" data-name="路径 587" d="M678.877,306.584,676,309.146l-5.665-6.348-5.151,6.973-3.1-2.277,5.636-7.629-2.5-2.817-.484.627-.855-.627-1.963,1.452-.711-.968V309.8h-3.9V298.842l-1.308,3.785-2.988-1.053,3.727-10.959h-1.565v-4.639h2.107v-4.554H661.2v4.554h1.677v4.639H661.2v1.879l.681-.511,1.11,1.537,3.387-4.612h-2.618v-4.982H668v-2.533h4.582v2.533h5.123v4.982h-3.643l4.783,6.49-3.1,2.278-.825-1.11-2.25,3.046Zm-8.823-9.9,2.476-3.36-2.077-2.817,2.134-1.594h-4.7l2.133,1.594-2.476,3.359Z" transform="translate(0 0.014)" fill="#fff"/>
-    <path id="路径_588" data-name="路径 588" d="M674.134,281.737h22.428V309.26H674.134Zm4.1,22.97H692.38V286.319H678.231Zm11.615-6.406h1.935v5.58h-6.235v-7.629h-.91l-2.107,7.856-2.961-.8,1.907-7.059H679.03v-3.727h12.354v3.727h-2.791v3.929h1.254Zm-10.02-10.673h10.987v3.615H679.827Z" transform="translate(6.935 0.127)" fill="#fff"/>
-    <path id="路径_589" data-name="路径 589" d="M696.148,291.739h-2.192V288.1h3.1l-3.189-1.337,2.221-5.407,3.217,1.337-.171.4H706v3.5h-2.419l-.826,1.509h3.529v3.643h-3.444l4.014,2.136-1.537,2.876h9.563V309.9H696.12V297.432l-2.334-1.222Zm.911-3.643h1.594l.826-1.509h-1.794Zm7.656,8.655-5.095-2.733-1.48,2.733Zm5.836,3.1H700.475v1.708h10.076Zm0,6.4v-1.737H700.475v1.737Zm6.091-23.426V295.7h-9.336V282.831Zm-3.529,9.022V286.7h-2.278v5.152Z" transform="translate(13.385)" fill="#fff"/>
-    <path id="路径_590" data-name="路径 590" d="M718.567,307.681a8.783,8.783,0,0,1-2.812-2.1,7.614,7.614,0,0,1-1.484-2.533,8.177,8.177,0,0,1-.472-2.146V282.219h5.03V300.8a3.525,3.525,0,0,0,.209.75,2.541,2.541,0,0,0,.645.926,3.984,3.984,0,0,0,1.346.786,6.188,6.188,0,0,0,2.3.295l.035.594v-.594a6.175,6.175,0,0,0,2.359-.313,3.92,3.92,0,0,0,1.361-.821,2.278,2.278,0,0,0,.611-.942c.093-.316.151-.53.175-.647V282.219H732.9v18.859a9.207,9.207,0,0,1-.506,2.079,7.508,7.508,0,0,1-1.485,2.48,8.9,8.9,0,0,1-2.811,2.079,10.008,10.008,0,0,1-4.453.873.763.763,0,0,1-.157-.017.8.8,0,0,0-.158-.017h-.279A10.114,10.114,0,0,1,718.567,307.681Z" transform="translate(19.953 0.285)" fill="#fff"/>
-  </g>
-</svg>'></ion-icon>
+          <ion-avatar style="height: 30px;margin: auto 0;--border-radius: 0;width: auto;"><img src="@/img/logo.png"/></ion-avatar>
           <ion-searchbar class="search" :mode="'md'"
                          style="--box-shadow: none;--border-radius: 10px;font-size: 12px !important;width: 210px;height: 30px;--background: white"
                          placeholder="新生入学攻略"></ion-searchbar>

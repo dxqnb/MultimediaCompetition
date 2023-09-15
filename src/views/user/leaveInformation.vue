@@ -34,7 +34,7 @@ const userid = ref('');
     if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
       userid.value = parsedData.username; // 提取 username 并赋值给变量
     }
-	// const username=userid.value;
+	const username=userid.value;
 	// console.log(userid.value);
 
   }

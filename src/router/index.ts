@@ -199,7 +199,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/team/teamDetailPage.vue')
             },
             {
-                path: 'submitTask/:id',
+                path: 'submitTask/:id/:tid',
                 props: true,
                 component: () => import('@/views/team/submitTaskPage.vue')
             },
@@ -237,7 +237,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/user/gradePage.vue')
             },
             {
-                path: 'gradeDetail/:id',
+                path: 'gradeDetail/:year',
                 props: true,
                 component: () => import('@/views/user/gradeDetailPage.vue')
             },

@@ -25,14 +25,56 @@ import {
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
 import Information from "@/views/user/components/information.vue";
+import Informationpunish from "@/views/user/components/informationpunish.vue";
 
+import { getMyWin } from "@/api/user";
+import { getMyCf } from "@/api/user";
+
+const data = localStorage.getItem('user') as string | null;
+const userid = ref('');
+  if (data) { // 检查数据是否存在
+    const parsedData = JSON.parse(data); // 将字符串转换为对象
+
+    if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
+      userid.value = parsedData.username; // 提取 username 并赋值给变量
+    }
+	// const username=userid.value;
+	// console.log(userid.value);
+
+  }
 const segmentValue = ref('rewards');
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
 }
-
-
+interface item {
+	id : number,
+	username : string,
+	year : string,
+	wintime : string,
+	winname : string,
+	level : string,
+	money : string,
+	remark : string
+}
+interface cfitem {
+	id : number,
+	username : string,
+	year : string,
+	createtime : string,
+	cfname : string,
+	cfleavel : string,
+	cfreason : string,
+	remark : string
+}
+const items = ref<item[]>([]);
+const cfitems = ref<item[]>([]);
+  getMyWin(userid.value).then((res) => {
+    items.value = res.data.data
+  })
+  getMyCf(userid.value).then((res) => {
+    cfitems.value = res.data.data
+  })
 </script>
 
 <template>
@@ -56,8 +98,8 @@ function change(event: any) {
       </ion-segment>
     </ion-header>
     <ion-content :fullscreen="true">
-      <information v-if="segmentValue=='rewards'" v-for="index in 10" :index="index"></information>
-      <information v-for="index in 5" :index="index" v-if="segmentValue=='punishment'"></information>
+      <information v-if="segmentValue=='rewards'" v-for="(item, index) in items" :item="item"></information>
+      <informationpunish v-for="(item, index) in cfitems" :item="item" v-if="segmentValue=='punishment'"></informationpunish>
     </ion-content>
   </IonPage>
 </template>

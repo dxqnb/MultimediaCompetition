@@ -37,8 +37,7 @@ getNotice().then((res) => {
 <template>
   <div>
     <ion-card class="inner"
-              style=""
-              @click="$router.push('/study/technology')">
+              style="">
       <ion-card-content>
         <!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
         <ion-text style="font-size: 12px; color: #7B7B7B">
@@ -46,7 +45,9 @@ getNotice().then((res) => {
         </ion-text>
         <ion-text style="font-size: 12px !important; color: #586DEF">
           <!--              "背单词"不简单队"达成"百日单词"目标-->
-          <div style="display: inline-block;font-size: 12px; color: #586DEF" v-html="notice.noticecontent"></div>
+          <div style="display: inline-block;font-size: 12px; color: #586DEF">
+            “背单词”学友小队 达成“百日单词”目标
+          </div>
         </ion-text>
         <ion-text style="font-size: 12px; color: #FFBB00">
           &nbsp;恭喜他们!

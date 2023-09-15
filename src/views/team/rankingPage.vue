@@ -32,7 +32,8 @@ import {
   IonTitle
 } from "@ionic/vue";
 import {ellipsisHorizontalOutline, chevronForwardOutline, star, starOutline} from "ionicons/icons";
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import {getAllFridenTeam, getFridenList} from "@/api/team";
 
 const content = ref();
 const toggle = ref();
@@ -229,6 +230,33 @@ onMounted(() => {
 
 })
 
+interface rankItem {
+  id: number,
+  tname: string,
+  userid: number,
+  tavatar: string,
+  bgimg: string,
+  introduction: string,
+  number: number,
+  mxnumber: number,
+  attribute: string,
+  activity: number,
+  createtime: string
+}
+
+const mainList = ref<rankItem[]>([])
+getAllFridenTeam().then((res) => {
+  let a = [];
+  for (let i = 0; i < res.data.data.length; i++) {
+    a.push(res.data.data[i])
+    // mainList.push(res.data.data[i])
+  }
+  a.sort((a: rankItem, b: rankItem) => {
+    return b.activity - a.activity
+  })
+  mainList.value = a
+
+})
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
@@ -272,7 +300,7 @@ function change(event: any) {
             </ion-segment-button>
           </ion-segment>
           <ion-content class="second" :scroll-y="true" style="height: 92%">
-            <ion-card v-for="i in 10"
+            <ion-card v-for="i in mainList.length"
                       :style="i==1?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#FFE066, #FDF4DE, #F9F9F9)`:i==2?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#C5D9E9, #F9F9F9, #F9F9F9)`:i==3?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#F1DAB7, #F4F1EA, #F9F9F9)`:`margin: 12px 0 ;box-shadow: none;--background: rgba(119,119,119,0.05)`">
               <ion-card-content style="padding: 0 4px 4px 4px">
                 <div style="height: 40px;width: 100%;position: relative">
@@ -302,7 +330,9 @@ function change(event: any) {
                             src="https://www.0030.store/test.jpg"
                             alt=""/></ion-thumbnail>
                         <div style="margin-left: 10px">
-                          <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">【备战英语】我们不简单队<br>（组队背单词）
+                          <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{
+                              mainList[i-1].tname
+                            }}
                           </ion-text>
                         </div>
                       </div>

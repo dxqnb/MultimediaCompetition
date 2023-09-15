@@ -116,3 +116,12 @@ export function getVideoYw(id: any, iid: any) {
         }
     });
 }
+export function addYwLike(id: any) {
+    return service({
+        url: "v3/VideoYw/addYwLike",
+        method: "post",
+        params: {
+            id: id,
+        }
+    });
+}

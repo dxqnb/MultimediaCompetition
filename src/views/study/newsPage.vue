@@ -16,8 +16,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonRefresher,
-  IonRefresherContent,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonItemGroup,
   IonButton,
   IonRadio, IonRadioGroup
@@ -29,22 +29,44 @@ import TecItem from "@/views/study/components/tecItem.vue";
 import NewsItem from "@/views/study/components/newsItem.vue";
 import {getVideoYw} from "@/api/study";
 
-const items = reactive([""]);
+interface news {
+  id: number,
+  title: string,
+  ly: string,
+  img: string,
+  content: string,
+  likecount: number,
+  lll: number,
+  avatar: string,
+  createby: string,
+  createtime: string
+}
+
+const index = ref(0)
 const main = ref(true);
-getVideoYw(0,10).then((res)=>{
-  console.log(res.data.data)
+const news = reactive<any[]>([])
+getVideoYw(index.value, index.value + 10).then((res) => {
+  index.value += 10
+  for (let i = 0; i < res.data.data.length; i++) {
+    news.push(res.data.data[i])
+  }
 })
+
 function handleRefresh(event: any) {
   setTimeout(() => {
     // Any calls to load data go here
     event.target.complete();
   }, 1000);
-};
-
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
 }
 
+function ionInfinite() {
+  getVideoYw(index.value, index.value + 10).then((res) => {
+    index.value += 10
+    for (let i = 0; i < res.data.data.length; i++) {
+      news.push(res.data.data[i])
+    }
+  })
+}
 
 </script>
 
@@ -84,17 +106,13 @@ for (let i = 1; i < 20; i++) {
       <ion-grid>
         <ion-row class="ion-align-items-start">
           <ion-col>
-            <news-item @click="$router.push('/study/news/1')"></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
-            <news-item></news-item>
+            <news-item v-for="item in news" :item="item"></news-item>
           </ion-col>
         </ion-row>
       </ion-grid>
+      <ion-infinite-scroll @ionInfinite="ionInfinite">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
     </ion-content>
   </IonPage>
 </template>

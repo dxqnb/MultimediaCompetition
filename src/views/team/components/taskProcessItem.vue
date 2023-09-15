@@ -14,7 +14,8 @@ import {
 } from "@ionic/vue";
 import {chevronDown, chevronForward} from "ionicons/icons";
 import {onMounted, ref} from "vue";
-
+const props=defineProps(['finalItem','index'])
+console.log(props.finalItem)
 // let open: any;
 // let close: any;
 // const click = ref(true)
@@ -67,11 +68,11 @@ import {onMounted, ref} from "vue";
   <ion-card
       style="margin: 12px 0 ;--background: #FAFBFF;border: solid 1px rgba(0,22,161,0.15);box-shadow: none">
     <ion-card-content>
-      <ion-accordion-group :multiple="true" :value="['first']">
+      <ion-accordion-group :multiple="true" :value="['']">
         <ion-accordion value="first">
           <ion-item style="--background: #FAFBFF;--padding-start: 0;--background-activated:#FAFBFF" slot="header">
             <ion-label>
-              <p style="color:#333333;font-size: 16px;font-weight: 600">任务1：熟悉150个英语单词</p>
+              <p style="color:#333333;font-size: 16px;font-weight: 600">任务{{index}}：{{ finalItem.task }}</p>
             </ion-label>
           </ion-item>
           <div slot="content" style="border-top: solid 1px #E1E1E1">
@@ -80,18 +81,18 @@ import {onMounted, ref} from "vue";
             </ion-text>
             <div
                 style="border-radius:0 0 10px 10px;padding-top: 10px;">
-              <div style="width: 100%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in 3">
+              <div style="width: 100%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in finalItem.finished">
                 <ion-avatar
                     style="display:inline-block;vertical-align: top;margin-top: 1em;width: 2em;height: 2em;margin-right: 6px">
-                  <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;width: 2em;height: 2em;"
+                  <img :src="i.avatar" style="vertical-align: middle;width: 2em;height: 2em;"
                        alt="">
                 </ion-avatar>
                 <div style="width: 100px;display: inline-block;margin: 0;">
                   <ion-text style="white-space: nowrap;display: flex;">
-                    <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ `2019不挂科` }}</p>
-                    <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `12:25` }}</p>
+                    <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ i.studentname }}</p>
+                    <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `` }}</p>
                   </ion-text>
-                  <ion-range disabled style="padding: 0" :value="50"></ion-range>
+                  <ion-range disabled style="padding: 0" :value="100"></ion-range>
                 </div>
                 <div
                     style="display: inline-block;vertical-align: top;margin-top: 1em;margin-left: 1em;white-space: nowrap">
@@ -99,7 +100,7 @@ import {onMounted, ref} from "vue";
                     <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>
                   </ion-radio-group>
                   <ion-text>
-                    <p style="display: inline-block;font-size: 12px">35/30单词</p>
+                    <p style="display: inline-block;font-size: 12px">{{finalItem.target}}/{{ finalItem.target }}</p>
                   </ion-text>
                 </div>
                 <div
@@ -113,31 +114,31 @@ import {onMounted, ref} from "vue";
             </ion-text>
             <div
                 style="border-radius:0 0 10px 10px;padding-top: 10px;">
-              <div style="width: 100%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in 3">
+              <div style="width: 100%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in finalItem.unfinished">
                 <ion-avatar
                     style="display:inline-block;vertical-align: top;margin-top: 1em;width: 2em;height: 2em;margin-right: 6px">
-                  <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;width: 2em;height: 2em;"
+                  <img :src="i.avatar" style="vertical-align: middle;width: 2em;height: 2em;"
                        alt="">
                 </ion-avatar>
                 <div style="width: 100px;display: inline-block;margin: 0;">
                   <ion-text style="white-space: nowrap;display: flex;">
-                    <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ `2019不挂科` }}</p>
-                    <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `12:25` }}</p>
+                    <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ i.studentname }}</p>
+                    <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `` }}</p>
                   </ion-text>
-                  <ion-range disabled style="padding: 0" :value="50"></ion-range>
+                  <ion-range disabled style="padding: 0" :value="5"></ion-range>
                 </div>
                 <div
                     style="display: inline-block;vertical-align: top;margin-top: 1em;margin-left: 1em;white-space: nowrap">
                   <ion-radio-group value="true" style="vertical-align: middle;margin-right: 0.4em">
-                    <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>
+<!--                    <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>-->
                   </ion-radio-group>
                   <ion-text>
-                    <p style="display: inline-block;font-size: 12px">35/30单词</p>
+                    <p style="display: inline-block;font-size: 12px">{{finalItem.target}}/{{ finalItem.target }}</p>
                   </ion-text>
                 </div>
                 <div
-                    style="display: inline-block;vertical-align: top;position: absolute;top: 20px;right: 20px;font-size: 12px;color: #64DD3E">
-                  {{ `已完成` }}
+                    style="display: inline-block;vertical-align: top;position: absolute;top: 20px;right: 20px;font-size: 12px;color: #525252">
+                  {{ `未完成` }}
                 </div>
               </div>
             </div>

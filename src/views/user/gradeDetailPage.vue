@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import {
   IonHeader,
   IonPage,
@@ -26,10 +25,98 @@ import {
   IonRadioGroup,
   IonRow,
   IonCol,
-  IonGrid,
+  loadingController,
 } from "@ionic/vue";
 import {ellipsisHorizontal, searchOutline} from 'ionicons/icons';
-import {reactive, ref} from "vue";
+import {reactive, ref, onMounted} from "vue";
+import {useRoute} from 'vue-router';
+import {getMyGrades} from "@/api/user";
+import {cjzj} from "@/api/user";
+import axios from 'axios';
+
+const route = useRoute();
+const yeartime = route.params.year;
+console.log(yeartime)
+
+interface item {
+  id: number,
+  username: string,
+  classname: number,
+  year: string,
+  semester: number,
+  grades: string
+}
+
+const data = localStorage.getItem('user') as string | null;
+const userid = ref('');
+if (data) { // 检查数据是否存在
+  const parsedData = JSON.parse(data); // 将字符串转换为对象
+
+  if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
+    userid.value = parsedData.username; // 提取 username 并赋值给变量
+  }
+  // const username=userid.value;
+  // console.log(userid.value);
+
+}
+const tableList = reactive<Array<any>>([]);
+const year = ref('');
+const semester = ref('');
+const classname = ref('');
+const grades = ref('');
+onMounted(async () => {
+  const response = await getMyGrades(userid.value, yeartime);
+  year.value = response.data.data[0].year
+  semester.value = response.data.data[0].semester
+  classname.value = response.data.data[0].classname
+  grades.value = response.data.data[0].grades
+  response.data.data.forEach((item: { year: string, semester: string, classname: string, grades: number }) => {
+    tableList.push(item);
+  });
+});
+const dataList = reactive<Array<any>>([]);
+// const cjzj = async () => {
+// 	try {
+// 		// 调用 getMyGrades 方法获取数据
+// 		const response = await getMyGrades(userid.value, yeartime);
+//
+// 		dataList.push(...response.data.data) // Assuming response.data.data is an array
+//
+//
+// 		// 将 dataList 转换为 JSON 字符串
+// 		const jsonString = JSON.stringify([...dataList]);
+//
+// 		console.log(jsonString);
+//
+// 		// 调用 ErnieBot 的接口进行分析
+// 		const ernieResponse = await axios.post('https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token=24.31c7b20e312a87844c316e73d5cbc861.2592000.1697375987.282335-38049038', jsonString);
+//
+// 		// 处理 ErnieBot 返回的分析结果
+// 		console.log(ernieResponse.data);
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// };
+const user = localStorage.getItem('user') || ''
+const username = JSON.parse(user).username
+const studentname = JSON.parse(user).studentname
+const avatar = JSON.parse(user).avatar
+const smart = ref('')
+const popover = ref();
+const popoverFlag = ref(false);
+
+async function smartAnalysis() {
+  const loading = await loadingController.create({
+    message: '小U正在努力分析...',
+    // duration: 3000,
+  });
+  loading.present();
+  cjzj(username, year.value).then((res) => {
+    loading.dismiss()
+    popoverFlag.value = true
+    smart.value = res.data.result
+  })
+}
 
 const mainIcon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="193" height="35" viewBox="0 0 193 35">\n' +
     '  <defs>\n' +
@@ -303,9 +390,6 @@ const AIIcon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
 
 import type {TableColumnCtx} from 'element-plus'
 
-const popover = ref();
-const popoverFlag = ref(false);
-
 interface User {
   date: string
   semester: number
@@ -316,52 +400,14 @@ interface User {
 // const formatter = (row: User, column: TableColumnCtx<User>) => {
 //   return row.address
 // }
-
-const tableData: User[] = [
-  {
-    date: '2021-2022',
-    semester: 1,
-    className: '《移动应用开发》',
-    grade: 60,
-  },
-  {
-    date: '2021-2022',
-    semester: 1,
-    className: '《移动应用开发》',
-    grade: 80,
-  },
-  {
-    date: '2021-2022',
-    semester: 1,
-    className: '《移动应用开发》',
-    grade: 70,
-  },
-  {
-    date: '2021-2022',
-    semester: 1,
-    className: '《移动应用开发》',
-    grade: 100,
-  },
-  {
-    date: '2021-2022',
-    semester: 1,
-    className: '《移动应用开发》',
-    grade: 50,
-  },
-]
-
-function open() {
-
-}
 </script>
 
 <template>
   <IonPage>
-    <IonHeader collapse="fade" style=""
-               class="ion-no-border ion-padding">
+    <IonHeader collapse="fade" style="" class="ion-no-border ion-padding">
       <IonToolbar style="--color: white;--background: none" class="">
         <ion-buttons slot="start">
-          <ion-back-button style="color: #FFFFFF" text="" default-href="/tabs/user"></ion-back-button>
+          <ion-back-button style="color: #FFFFFF" text="" default-href="/user/grade/"></ion-back-button>
         </ion-buttons>
         <IonTitle>成绩查询</IonTitle>
       </IonToolbar>
@@ -371,7 +417,7 @@ function open() {
       <div style="display:flex;" class="ion-padding">
         <ion-button
             style="width: 30%;--background: #6761FD;--color: white;font-size: 13px;min-height: 42px;height: 42px;margin-top: 8px"
-            @click="popoverFlag=true">
+            @click="smartAnalysis">
           智能分析&nbsp;<ion-icon :icon="searchOutline"></ion-icon>
         </ion-button>
         <ion-searchbar class="search" :mode="'md'"
@@ -379,16 +425,12 @@ function open() {
                        placeholder="请输入"></ion-searchbar>
       </div>
       <div>
-        <el-table
-            :data="tableData"
-            :default-sort="{ prop: 'date', order: 'descending' }"
-            style="width: 100%;font-size: 12px"
-            border
-        >
-          <el-table-column prop="date" label="学年" sortable align="center"/>
+        <el-table :data="tableList " :default-sort="{ prop: 'date', order: 'descending' }"
+                  style="width: 100%;font-size: 12px" border>
+          <el-table-column prop="year" label="学年" sortable align="center"/>
           <el-table-column prop="semester" label="学期" width="70" align="center"/>
-          <el-table-column prop="className" label="课程名称" min-width="126" align="center"/>
-          <el-table-column prop="grade" label="成绩" sortable align="center"/>
+          <el-table-column prop="classname" label="课程名称" min-width="126" align="center"/>
+          <el-table-column prop="grades" label="成绩" sortable align="center"/>
         </el-table>
       </div>
     </ion-content>
@@ -396,22 +438,30 @@ function open() {
       <ion-popover style="--width: 312px" @ionPopoverDidDismiss="popoverFlag=false" :is-open="popoverFlag"
                    reference="event">
         <div style="background: #FFFFFF;overflow: hidden;width: 100%;position: relative">
-          <ion-icon :icon="AIIcon" style="width: 250px;height: 217px;position: absolute;top: -50px;left: -10px"></ion-icon>
-          <ion-icon :icon="viceIcon" style="width: 60px;height: 60px;position: absolute;bottom: 20px;right: 10px"></ion-icon>
+          <ion-icon :icon="AIIcon"
+                    style="width: 250px;height: 217px;position: absolute;top: -50px;left: -10px"></ion-icon>
+          <ion-icon :icon="viceIcon"
+                    style="width: 60px;height: 60px;position: absolute;bottom: 20px;right: 10px"></ion-icon>
           <ion-text
               style="font-size: 22px;font-weight: 900;color: #6761FD;text-align: center;width: 100%;display: block;margin: 16px 0">
             智能分析
           </ion-text>
           <ion-text
               style="font-size: 13px;font-weight: 900;color: #808080;text-align: center;width: 100%;display: block;padding: 0 26px 40px 26px">
-            你是一个在读书方面非常认真努力的学生。积极参与课堂讨论，勤奋完成作业，积极参加课外阅读和研究项目。追求分数的同时，更注重深入理解知识。这一学期，你展示出极高的学习动力和自律能力，不断克服困难和挑战。对知识的渴望和追求使得你在读书上取得了显著的成就。通过努力，你已经为自己的未来做好了充分的准备。
+            <!--            你是一个在读书方面非常认真努力的学生。积极参与课堂讨论，勤奋完成作业，积极参加课外阅读和研究项目。追求分数的同时，更注重深入理解知识。这一学期，你展示出极高的学习动力和自律能力，不断克服困难和挑战。对知识的渴望和追求使得你在读书上取得了显著的成就。通过努力，你已经为自己的未来做好了充分的准备。-->
+            {{ smart }}
           </ion-text>
         </div>
         <div style="width: 100%;background: #6761FD">
-          <ion-avatar style="width:41px;height: 41px;margin: 10px;display: inline-block"><img src="@/img/card.png"></ion-avatar>
+          <ion-avatar style="width:41px;height: 41px;margin: 10px;display: inline-block"><img
+              :src="avatar"></ion-avatar>
           <div style="display:inline-block;vertical-align: top;margin-top: 14px">
-            <ion-text style="display: block;color: #FFFFFF;font-size: 15px;font-weight: 600;">学生1006</ion-text>
-            <ion-text style="display: block;color: #FFFFFF;font-size: 10px;font-weight: 500;">202010807</ion-text>
+            <ion-text
+                style="display: block;color: #FFFFFF;font-size: 15px;font-weight: 600;">{{ studentname }}
+            </ion-text>
+            <ion-text
+                style="display: block;color: #FFFFFF;font-size: 10px;font-weight: 500;">{{ username }}
+            </ion-text>
           </div>
         </div>
       </ion-popover>
@@ -428,7 +478,6 @@ ion-content::part(background) {
   background: url("@/img/grade.png");
   background-size: cover;
 }
-
 </style>
 <style>
 .search input {

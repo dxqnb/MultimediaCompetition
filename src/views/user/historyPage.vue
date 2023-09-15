@@ -39,6 +39,7 @@ interface lesson {
   title: string,
   userid: number,
   xiaojie: string,
+  iszy?: string
 }
 
 const items = reactive<lesson[]>([]);
@@ -67,7 +68,6 @@ getZyRecords(7).then((res) => {
   items.sort((a, b) => {
     return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
   });
-
 })
 
 
@@ -82,7 +82,7 @@ function change(event: any) {
     <IonHeader style="background: #FFFFFF" class="ion-no-border ion-padding">
       <IonToolbar style="--background: #FFFFFF">
         <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button text="" default-href="/tabs/user"></ion-back-button>
         </ion-buttons>
         <IonTitle>学习记录</IonTitle>
         <ion-buttons slot="end">
@@ -98,7 +98,7 @@ function change(event: any) {
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
         <ion-item-group class="ion-content-scroll-host">
-          <lesson-item v-for="(item, index) in items" :item="item"
+          <lesson-item v-for="(item, index) in items" :type="item.iszy=='1'" :item="item"
                        :index="index"></lesson-item>
         </ion-item-group>
       </ion-list>
