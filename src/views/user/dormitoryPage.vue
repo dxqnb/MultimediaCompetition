@@ -160,7 +160,7 @@ console.log(itemsLeft)
                       style="width: 60px;height: 89px;margin: 0 auto 12px auto;display: block;"></ion-icon>
             <div style="text-align: center">
               <ion-text style="font-size: 12px;color: #363636">状态：</ion-text>
-              <ion-text style="font-size: 12px;color: #5D73FF">{{status == 0 ?"入住":"退宿"}}</ion-text>
+              <ion-text style="font-size: 12px;color: #5D73FF">{{status == '0' ?"入住":"退宿"}}</ion-text>
             </div>
           </div>
         </div>

@@ -30,25 +30,25 @@ onMounted(() => {
   // fireKeyEvent(button.value.$el, 'keypress', 40);
 })
 
-function fireKeyEvent(el, evtType, keyCode) {
+function fireKeyEvent(el:any, evtType:any, keyCode:any) {
   var evtObj;
-  if (document.createEvent) {
-    evtObj = document.createEvent('UIEvents');
-    evtObj.initUIEvent(evtType, true, true, window, 1);
-
-    delete evtObj.keyCode;
-    if (typeof evtObj.keyCode === "undefined") {//为了模拟keycode
-      Object.defineProperty(evtObj, "keyCode", {value: keyCode});
-    } else {
-      evtObj.key = String.fromCharCode(keyCode);
-    }
-
-    if (typeof evtObj.ctrlKey === 'undefined') {//为了模拟ctrl键
-      Object.defineProperty(evtObj, "ctrlKey", {value: true});
-    } else {
-      evtObj.ctrlKey = true;
-    }
-  }
+  // if (document.createEvent) {
+  //   evtObj = document.createEvent('UIEvents');
+  //   evtObj.initUIEvent(evtType, true, true, window, 1);
+  //
+  //   delete evtObj.keyCode;
+  //   if (typeof evtObj.keyCode === "undefined") {//为了模拟keycode
+  //     Object.defineProperty(evtObj, "keyCode", {value: keyCode});
+  //   } else {
+  //     evtObj.key = String.fromCharCode(keyCode);
+  //   }
+  //
+  //   if (typeof evtObj.ctrlKey === 'undefined') {//为了模拟ctrl键
+  //     Object.defineProperty(evtObj, "ctrlKey", {value: true});
+  //   } else {
+  //     evtObj.ctrlKey = true;
+  //   }
+  // }
   el.dispatchEvent(evtObj);
 }
 
