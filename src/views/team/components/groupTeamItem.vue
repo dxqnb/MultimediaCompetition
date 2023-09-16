@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
-import {IonAvatar, IonCard, IonCardContent, IonIcon, IonText, IonThumbnail,IonChip} from "@ionic/vue";
+import {IonAvatar, IonCard, IonCardContent, IonIcon, IonText, IonThumbnail, IonChip} from "@ionic/vue";
 import {reactive, ref} from "vue";
+import {getAllFridenTeam} from "@/api/team";
+
+
 
 const props = defineProps(['item', 'index', 'disable']);
 
@@ -11,30 +14,33 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
     '    <circle id="椭圆_32" data-name="椭圆 32" cx="18.5" cy="18.5" r="18.5" transform="translate(22 41)" fill="#5676f1"/>\n' +
     '  </g>\n' +
     '</svg>\n')
+
+
 </script>
 
 <template>
   <ion-card
-      :style="disable?'margin: 12px 0 ;--background: #ffffff;box-shadow: none;opacity:0.5':'margin: 12px 0 ;--background: #ffffff;box-shadow: none'" >
+            :style="disable?'margin: 12px 0 ;--background: #ffffff;box-shadow: none;opacity:0.5':'margin: 12px 0 ;--background: #ffffff;box-shadow: none'">
     <ion-card-content style="padding: 10px">
       <ion-chip
-          style="position: absolute;top: -4px;right: -4px;font-size: 13px;margin: 0;border-radius: 6px;padding-top: 10px;padding-right: 14px" :style="disable?'--background: #949494;--color: #fff;':'--background: #2483FF;--color: #fff;'"
+          style="position: absolute;top: -4px;right: -4px;font-size: 13px;margin: 0;border-radius: 6px;padding-top: 10px;padding-right: 14px"
+          :style="disable?'--background: #949494;--color: #fff;':'--background: #2483FF;--color: #fff;'"
           mode="md">队伍
       </ion-chip>
       <div>
         <div style="display: flex;">
-          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img src="https://www.0030.store/test.jpg"
+          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg"
                                                                          alt=""/></ion-thumbnail>
           <div style="margin-left: 10px">
             <ion-chip
                 style="font-size: 12px;--color: rgba(16,9,207,0.45);--background: rgba(44,0,255,0.1);padding-top: 0;padding-bottom: 0;margin: 0;">
-              @爱学习的小鱼
+              {{ item.studentname }}
             </ion-chip>
-            <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">【备战英语】我们不简单队<br>（组队背单词）
+            <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{ item.tname }}
             </ion-text>
             <ion-text
                 style="display: block;color: rgba(0,0,0,0.32);width: 90%;font-size: 12px;text-align: right;margin-top: 5px;font-weight: bold">
-              周日&nbsp;12月21日&nbsp;00：00
+              {{ item.createtime }}
             </ion-text>
           </div>
         </div>
@@ -55,7 +61,9 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
           <!--                <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"/>-->
           <div style="width: 22px;height: 22px;background-color: #E2E3FF;border-radius: 100%"></div>
         </ion-avatar>
-        <ion-text style="color: #B5B5B5;font-size: 13px;vertical-align: middle;padding-left: 10px">4人已参加</ion-text>
+        <ion-text style="color: #B5B5B5;font-size: 13px;vertical-align: middle;padding-left: 10px">
+          {{ item.number }}人已参加
+        </ion-text>
       </div>
       <ion-icon :icon="circle" style="position: absolute;bottom: -30px;right: -20px;font-size: 81px"></ion-icon>
     </ion-card-content>

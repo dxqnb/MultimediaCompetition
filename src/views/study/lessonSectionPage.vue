@@ -43,7 +43,7 @@ import {onMounted, reactive, ref} from "vue";
 import {useRoute} from "vue-router";
 import {
   addKcNote,
-  addZyKcNote,
+  addZyKcNote, delKcNote, delZyKcNote,
   getKcNoteList,
   getKcXj, getMyKcNoteList,
   getMyZyKcNoteList,
@@ -239,15 +239,6 @@ function post() {
           }, 1000)
         })
       }
-      getZyKcZj(id, userid).then((res) => {
-        data.value = res.data.data[0]
-        const vsp = new Player({
-          el: vs.value,
-          url: data.value.video,
-          height: '30vh',
-          width: '100%',
-        })
-      })
       getZyKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -272,15 +263,6 @@ function post() {
           }, 1000)
         })
       }
-      getKcXj(id, userid).then((res) => {
-        data.value = res.data.data[0]
-        const vsp = new Player({
-          el: vs.value,
-          url: data.value.video,
-          height: '30vh',
-          width: '100%',
-        })
-      })
       getKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -298,6 +280,56 @@ function post() {
 
 function delPic(id: number) {
   imageList.splice(id, 1)
+}
+
+function delNotice(id: number) {
+  if (type == 'zykc') {
+    delZyKcNote(id).then(async (res) => {
+      if (res.data.code == 0) {
+        const toast = await toastController.create({
+          message: '删除成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+      }
+      getZyKcNoteList(id).then((res) => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          noticeList.push(res.data.data[i])
+        }
+      })
+      getMyZyKcNoteList(id, userid).then((res) => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          myNoticeList.push(res.data.data[i])
+        }
+      })
+    })
+  } else {
+    delKcNote(id).then(async (res) => {
+      if (res.data.code == 0) {
+        const toast = await toastController.create({
+          message: '发布成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+      }
+      getKcNoteList(id).then((res) => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          noticeList.push(res.data.data[i])
+        }
+      })
+      getMyKcNoteList(id, userid).then((res) => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          myNoticeList.push(res.data.data[i])
+        }
+      })
+    })
+  }
 }
 </script>
 
@@ -385,10 +417,13 @@ function delPic(id: number) {
                            style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                 </div>
               </div>
-              <ion-text slot="end" style="color: #9F9F9F;font-size: 12px">{{
-                  i.open == 1 ? '公开' : '未公开'
-                }}
-              </ion-text>
+              <div slot="end">
+                <ion-text style="color: #9F9F9F;font-size: 12px;display: block;text-align: center">{{
+                    i.open == 1 ? '公开' : '未公开'
+                  }}
+                </ion-text>
+                <ion-button expand="block" @click="delKcNote(i.id)" style="">删除</ion-button>
+              </div>
             </ion-item>
           </ion-list>
         </ion-card-content>
