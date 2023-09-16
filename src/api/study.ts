@@ -116,6 +116,7 @@ export function getVideoYw(id: any, iid: any) {
         }
     });
 }
+
 export function addYwLike(id: any) {
     return service({
         url: "v3/VideoYw/addYwLike",
@@ -123,5 +124,158 @@ export function addYwLike(id: any) {
         params: {
             id: id,
         }
+    });
+}
+
+export function getZyKcZj(id: any, userid: any) {
+    return service({
+        url: "v3/Study/getZyKcZj",
+        method: "get",
+        params: {
+            id: id,
+            userid: userid
+        }
+    });
+}
+
+export function getKcXj(id: any, userid: any) {
+    return service({
+        url: "v3/Study/getKcXj",
+        method: "get",
+        params: {
+            id: id,
+            userid: userid
+        }
+    });
+}
+
+export function getKc(id: any) {
+    return service({
+        url: "v3/Study/getKc",
+        method: "get",
+        params: {
+            id: id,
+        }
+    });
+}
+
+export function getZyKc(id: any) {
+    return service({
+        url: "v3/Study/getZyKc",
+        method: "get",
+        params: {
+            id: id,
+        }
+    });
+}
+
+export function getTestKcTaoList(kcid: any) {
+    return service({
+        url: "v3/TestKc/getTestKcTaoList",
+        method: "get",
+        params: {
+            kcid: kcid,
+        }
+    });
+}
+
+export function getTestZyTaoList(kcid: any) {
+    return service({
+        url: "v3/TestZy/getTestZyTaoList",
+        method: "get",
+        params: {
+            kcid: kcid,
+        }
+    });
+}
+
+export function getTestZyTiList(taoid: any) {
+    return service({
+        url: "v3/TestZy/getTestZyTiList",
+        method: "get",
+        params: {
+            taoid: taoid,
+        }
+    });
+}
+
+export function getKcNoteList(kcxjid: any) {
+    return service({
+        url: "v3/StudyNote/getKcNoteList",
+        method: "get",
+        params: {
+            kcxjid: kcxjid,
+        }
+    });
+}
+
+export function getZyKcNoteList(kcxjid: any) {
+    return service({
+        url: "v3/StudyNote/getZyKcNoteList",
+        method: "get",
+        params: {
+            kcxjid: kcxjid,
+        }
+    });
+}
+
+export function getMyKcNoteList(kcxjid: any, userid: any) {
+    return service({
+        url: "v3/StudyNote/getMyKcNoteList",
+        method: "get",
+        params: {
+            kcxjid: kcxjid,
+            userid: userid
+        }
+    });
+}
+
+export function getMyZyKcNoteList(kcxjid: any, userid: any) {
+    return service({
+        url: "v3/StudyNote/getMyZyKcNoteList",
+        method: "get",
+        params: {
+            kcxjid: kcxjid,
+            userid: userid
+        }
+    });
+}
+export function delKcNote(id: any) {
+    return service({
+        url: "v3/StudyNote/delKcNote",
+        method: "delete",
+        params: {
+            id:id
+        }
+    });
+}
+export function delZyKcNote(id: any) {
+    return service({
+        url: "v3/StudyNote/delZyKcNote",
+        method: "delete",
+        params: {
+            id:id
+        }
+    });
+}
+
+export function addKcNote(data: any) {
+    return service({
+        url: "v3/StudyNote/addKcNote",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+export function addZyKcNote(data: any) {
+    return service({
+        url: "v3/StudyNote/addZyKcNote",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
     });
 }

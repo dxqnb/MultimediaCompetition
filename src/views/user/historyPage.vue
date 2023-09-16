@@ -93,12 +93,12 @@ function change(event: any) {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-list style="height: 100%;background: #FFFFFF">
+      <ion-list style="background: #FFFFFF">
         <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
         <ion-item-group class="ion-content-scroll-host">
-          <lesson-item v-for="(item, index) in items" :type="item.iszy=='1'" :item="item"
+          <lesson-item v-for="(item, index) in items" :type="item.iszy=='1'?'zykc':'kc'" :item="item"
                        :index="index"></lesson-item>
         </ion-item-group>
       </ion-list>

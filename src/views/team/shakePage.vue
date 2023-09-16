@@ -18,7 +18,7 @@ import {
   IonItem,
   IonLabel,
   IonThumbnail,
-  IonTitle, createAnimation
+  IonTitle, createAnimation, toastController
 } from "@ionic/vue";
 import {
   ellipsisHorizontalOutline,
@@ -26,9 +26,10 @@ import {
   star,
   starOutline,
   addOutline,
-  chevronDownOutline
+  chevronDownOutline, playCircleOutline
 } from "ionicons/icons";
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import {addFridenTeamUser, getFridenTeamByAttribute, getFridenTeamByAttribute111} from "@/api/team";
 
 const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="23.104" height="23" viewBox="0 0 23.104 23">\n' +
     '  <g id="streamlinehq-interface-arrows-synchronize-_flat-48-ico_GN5YOoIRNzxqfcyY" data-name="streamlinehq-interface-arrows-synchronize-          flat-48-ico_GN5YOoIRNzxqfcyY" transform="translate(3)" style="isolation: isolate">\n' +
@@ -45,34 +46,179 @@ const iconElement = ref();
 const div1 = ref();
 const div2 = ref();
 const div3 = ref();
+const vocabulary = reactive([{
+  w: '自律',
+  clicked: false
+},
+  {
+    w: '竞赛',
+    clicked: false
+  },
+  {
+    w: '活泼',
+    clicked: false
+  },
+  {
+    w: '获奖经历',
+    clicked: false
+  },
+  {
+    w: '语文',
+    clicked: false
+  },
+  {
+    w: '数学',
+    clicked: false
+  },
+  {
+    w: '英语',
+    clicked: false
+  },
+])
+
+function choose(index: number) {
+  vocabulary[index].clicked = !vocabulary[index].clicked
+  for (let i = 0; i < vocabulary.length; i++) {
+    if (i == index) continue
+    vocabulary[i].clicked = false
+  }
+}
+
+const shakeTeam = ref({
+  id: 0,
+  tname: "",
+  userid: 0,
+  tavatar: "",
+  bgimg: "",
+  introduction: "",
+  number: 0,
+  mxnumber: 0,
+  attribute: '',
+  activity: 0,
+  createtime: ""
+})
+
+function shake() {
+  animation.play()
+  for (let i = 0; i < vocabulary.length; i++) {
+    if (vocabulary[i].clicked) {
+      getFridenTeamByAttribute(vocabulary[i].w).then(async (res) => {
+        if (res.data.data.length != 0) {
+          shakeTeam.value = res.data.data[0]
+          let toast = await toastController.create({
+            message: '成功匹配'
+          })
+          await toast.present().then(() => {
+            setTimeout(() => {
+              toast.dismiss()
+            }, 1000)
+          })
+        } else {
+          let toast = await toastController.create({
+            message: '未匹配成功，请重试'
+          })
+          await toast.present().then(() => {
+            setTimeout(() => {
+              toast.dismiss()
+            }, 1000)
+          })
+          shakeTeam.value = {
+            id: 0,
+            tname: "",
+            userid: 0,
+            tavatar: "",
+            bgimg: "",
+            introduction: "",
+            number: 0,
+            mxnumber: 0,
+            attribute: '',
+            activity: 0,
+            createtime: ""
+          }
+        }
+      })
+      return;
+    }
+  }
+  getFridenTeamByAttribute111().then(async (res) => {
+    if (res.data.data.length != 0) {
+      let toast = await toastController.create({
+        message: '成功匹配'
+      })
+      await toast.present().then(() => {
+        setTimeout(() => {
+          toast.dismiss()
+        }, 1000)
+      })
+      shakeTeam.value = res.data.data[0]
+    } else {
+      let toast = await toastController.create({
+        message: '未匹配成功，请重试'
+      })
+      await toast.present().then(() => {
+        setTimeout(() => {
+          toast.dismiss()
+        }, 1000)
+      })
+      shakeTeam.value = {
+        id: 0,
+        tname: "",
+        userid: 0,
+        tavatar: "",
+        bgimg: "",
+        introduction: "",
+        number: 0,
+        mxnumber: 0,
+        attribute: '',
+        activity: 0,
+        createtime: ""
+      }
+    }
+  })
+}
+
 onMounted(() => {
-        const div1Animation = createAnimation()
-          .addElement(div1.value)
-          .keyframes([
-            { offset: 0, transform: 'scale(1)' },
-            { offset: 0.5, transform: 'scale(1.2)' },
-            { offset: 1, transform: 'scale(1) ' },
-          ]);
+  const div1Animation = createAnimation()
+      .addElement(div1.value)
+      .keyframes([
+        {offset: 0, transform: 'scale(1)'},
+        {offset: 0.5, transform: 'scale(1.2)'},
+        {offset: 1, transform: 'scale(1) '},
+      ]);
 
-        // const div2Animation = createAnimation()
-        //   .addElement(div2.value)
-        //   .keyframes([
-        //     { offset: 0, transform: 'scale(1)', },
-        //     { offset: 0.5, transform: 'scale(1.5)'},
-        //     { offset: 1, transform: 'scale(1)'},
-        //   ]);
+  // const div2Animation = createAnimation()
+  //   .addElement(div2.value)
+  //   .keyframes([
+  //     { offset: 0, transform: 'scale(1)', },
+  //     { offset: 0.5, transform: 'scale(1.5)'},
+  //     { offset: 1, transform: 'scale(1)'},
+  //   ]);
 
-        const div3Animation = createAnimation()
-          .addElement(iconElement.value.$el)
-          .keyframes([
-            { offset: 0, transform: 'translate(-80%, -60%)'},
-            { offset: 0.33, transform: 'translate(-50%, -50%)'},
-            { offset: 0.66, transform: 'translate(-20%, -40%)' },
-            { offset: 1, transform: 'translate(-50%, -50%)'},
-          ]);
+  const div3Animation = createAnimation()
+      .addElement(iconElement.value.$el)
+      .keyframes([
+        {offset: 0, transform: 'translate(-80%, -60%)'},
+        {offset: 0.33, transform: 'translate(-50%, -50%)'},
+        {offset: 0.66, transform: 'translate(-20%, -40%)'},
+        {offset: 1, transform: 'translate(-50%, -50%)'},
+      ]);
 
-        animation = createAnimation().duration(200).iterations(1).addAnimation([div1Animation,div3Animation]);
-      });
+  animation = createAnimation().duration(200).iterations(1).addAnimation([div1Animation, div3Animation]);
+});
+const userid = Number(JSON.parse(localStorage.getItem('user') || '').id)
+
+function join() {
+  addFridenTeamUser(shakeTeam.value.id, userid).then(async (res) => {
+    const toast = await toastController.create({
+      message: res.data.code == 0 ? '加入成功' : '加入失败'
+    })
+    await toast.present().then(() => {
+      setTimeout(() => {
+        toast.dismiss()
+      }, 1000)
+    })
+  })
+}
 </script>
 
 <template>
@@ -91,48 +237,58 @@ onMounted(() => {
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" :scroll-y="false">
-      <div style="margin: 10px auto;width: 80%;background: linear-gradient(to bottom, #E4E1FF, #DBEAFF, #F0FFFF ,#F5F9FF,#F7FAFF,#F9FBFF,#FBFCFF,#FDFDFF,#FFFFFF);border-radius: 24px">
+      <div
+          style="margin: 10px auto;width: 80%;background: linear-gradient(to bottom, #E4E1FF, #DBEAFF, #F0FFFF ,#F5F9FF,#F7FAFF,#F9FBFF,#FBFCFF,#FDFDFF,#FFFFFF);border-radius: 24px">
         <ion-text
             style="display: block;width: 100%;text-align: center;color: #4051BC;font-size: 28px;font-weight: 900;padding: 20px 0;">
           摇一摇&nbsp;<ion-icon style="vertical-align: sub" :icon="icon"></ion-icon>
         </ion-text>
         <div ref="div1"
-            style="width: 182px;height: 182px;background: rgba(93,109,255,0.13);margin: 0 auto 20px auto;position:relative;border-radius: 100%;">
+             style="width: 182px;height: 182px;background: rgba(93,109,255,0.13);margin: 0 auto 20px auto;position:relative;border-radius: 100%;">
           <div ref="div2"
-              style="width: 138px;height: 138px;background: rgba(93,120,255,0.42);top: 50%;left: 50%;transform: translate(-50%, -50%);border-radius: 100%;position:absolute;">
+               style="width: 138px;height: 138px;background: rgba(93,120,255,0.42);top: 50%;left: 50%;transform: translate(-50%, -50%);border-radius: 100%;position:absolute;">
             <div ref="div3"
-                style="width: 100px;height: 100px;background: rgba(93,120,255,0.72);top: 50%;left: 50%;transform: translate(-50%, -50%);border-radius: 100%;position:absolute;">
-              <ion-icon :icon="phoneShake" ref="iconElement" @click="animation.play()"
+                 style="width: 100px;height: 100px;background: rgba(93,120,255,0.72);top: 50%;left: 50%;transform: translate(-50%, -50%);border-radius: 100%;position:absolute;">
+              <ion-icon :icon="phoneShake" ref="iconElement" @click="shake()"
                         style="display: block;width: 58px;height: 54px;top: 50%;left: 50%;transform: translate(-50%, -50%);position:absolute;"></ion-icon>
             </div>
           </div>
         </div>
         <div
             style="display: flex;justify-content: center;padding-bottom: 20px;border-bottom: 1px solid rgba(130,147,255,0.18)">
-          <ion-chip mode="md" style="border-radius: 8px;min-width: 48px;--background: #D6DBFF;--color: #7D8DFF">
-            <ion-text style="width: 100%;text-align: center;font-size: 11px;">自律</ion-text>
+          <!--          <ion-chip mode="md"-->
+          <!--                    style="border-radius: 8px;min-width: 48px;&#45;&#45;background: #D6DBFF;&#45;&#45;color: #7D8DFF;font-weight: 900">-->
+          <!--            <ion-text style="width: 100%;text-align: center;font-size: 11px;">自律</ion-text>-->
+          <!--          </ion-chip>-->
+          <ion-chip mode="md" v-if="shakeTeam.attribute!=''"
+                    style="border-radius: 8px;min-width: 48px;--background: #D6F5FF;--color: #6DDBFF;font-weight: 900">
+            <ion-text style="width: 100%;text-align: center;font-size: 11px;">{{ shakeTeam.attribute }}</ion-text>
           </ion-chip>
-          <ion-chip mode="md" style="border-radius: 8px;min-width: 48px;--background: #D6DBFF;--color: #7D8DFF">
-            <ion-text style="width: 100%;text-align: center;font-size: 11px;">自律</ion-text>
-          </ion-chip>
-          <ion-chip mode="md" style="border-radius: 8px;min-width: 48px;--background: #D6DBFF;--color: #7D8DFF">
-            <ion-text style="width: 100%;text-align: center;font-size: 11px;">自律</ion-text>
-          </ion-chip>
+          <!--          <ion-chip mode="md"-->
+          <!--                    style="border-radius: 8px;min-width: 48px;&#45;&#45;background: #FFF8D6;&#45;&#45;color: #F9BE00;font-weight: 900">-->
+          <!--            <ion-text style="width: 100%;text-align: center;font-size: 11px;">活泼</ion-text>-->
+          <!--          </ion-chip>-->
         </div>
 
-        <div style="padding: 16px">
+        <div style="padding: 16px" v-if="shakeTeam.id!=0">
           <div style="display: flex;position:relative;">
             <ion-thumbnail style="--border-radius: 8px;--size: 42px"><img
-                src="https://www.0030.store/test.jpg"
+                :src="shakeTeam.tavatar"
                 alt=""/></ion-thumbnail>
             <div style="margin-left: 10px">
-              <ion-text style="display: block;color: #505050;font-weight: bold;font-size: 14px">2019不挂科
+              <ion-text style="display: block;color: #505050;font-weight: bold;font-size: 14px">{{ shakeTeam.tname }}
               </ion-text>
             </div>
             <ion-text
-                style="position:absolute;bottom: 0;right: 0;color: rgba(64,81,188,0.66);font-size: 12px;font-weight: bold">
+                style="position:absolute;bottom: 0;right: 0;color: rgba(64,81,188,0.66);font-size: 12px;font-weight: bold;display: block">
+              <ion-button
+                  expand="block" @click="join()"
+                  style="--background: #FFAC3A;--background-activated: #c2832c;--color: white;font-size: 12px;height: 26px;min-height: 0;--padding-start: 3px;--padding-end: 3px;--border-radius: 10px">
+                点击加入&nbsp;
+              </ion-button>
               相距2.1公里
             </ion-text>
+
           </div>
         </div>
       </div>
@@ -146,11 +302,13 @@ onMounted(() => {
           </ion-item>
           <div class="ion-padding" slot="content"
                style="display: flex;justify-content: center;background-color: #fff;flex-wrap: wrap">
-            <ion-chip mode="md" v-for="i in 10"
-                      style="border-radius: 8px;min-width: 48px;--background: #D6DBFF;--color: #7D8DFF;margin: 10px 5px">
-              <ion-text style="width: 100%;text-align: center;font-size: 11px;">自律</ion-text>
+            <ion-chip mode="md" v-for="(item,i) in vocabulary" :disabled="!item.clicked" @click="choose(i)"
+                      style="border-radius: 8px;min-width: 48px;margin: 10px 5px;font-weight: 900"
+                      :style="i%4==0?'--background: #D6DBFF;--color: #7D8DFF;':i%4==1?'--background: #D6F5FF;--color: #6DDBFF;':i%4==2?'--background: #FFF8D6;--color: #F9BE00;':'--background: #DAFFD6;--color: #00E286;'">
+              <ion-text style="width: 100%;text-align: center;font-size: 11px;">{{ item.w }}</ion-text>
             </ion-chip>
-            <ion-chip mode="md" style="border-radius: 8px;min-width: 48px;--background: #F2F2F2;--color: #909090;margin: 10px 5px">
+            <ion-chip mode="md"
+                      style="border-radius: 8px;min-width: 48px;--background: #F2F2F2;--color: #909090;margin: 10px 5px">
               <ion-icon style="margin: 0" :icon="addOutline"></ion-icon>
               <ion-text style="width: 100%;text-align: center;font-size: 11px;">自定义</ion-text>
             </ion-chip>
@@ -168,6 +326,11 @@ ion-content::part(background) {
   z-index: -2;
 }
 
+.chip-disabled {
+  cursor: pointer;
+  pointer-events: all;
+
+}
 
 ion-toolbar {
   --background: transparent;

@@ -1,10 +1,11 @@
 <template>
   <ion-page class="page">
-<!--    <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, #668CFC)" class="ion-no-border ion-padding">-->
+    <!--    <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, #668CFC)" class="ion-no-border ion-padding">-->
     <ion-header collapse="fade" style="background: #FFFFFF" class="ion-no-border ion-padding">
       <ion-toolbar style="--background: transparent" class="head">
         <div style="display: flex;justify-content: space-between">
-          <ion-avatar style="height: 30px;margin: auto 0;--border-radius: 0;width: auto;"><img src="@/img/logo.png"/></ion-avatar>
+          <ion-avatar style="height: 30px;margin: auto 0;--border-radius: 0;width: auto;"><img src="@/img/logo.png"/>
+          </ion-avatar>
           <ion-searchbar class="search" :mode="'md'"
                          style="--box-shadow: none;--border-radius: 10px;font-size: 12px !important;width: 210px;height: 30px;--background: white"
                          placeholder="新生入学攻略"></ion-searchbar>
@@ -66,7 +67,8 @@
           </ion-card>
         </ion-col>
       </ion-grid>
-      <ion-card style="--background: white;position:relative;box-shadow: rgba(0,0,0,0.06) 0 4px 8px;margin-top: 10px" v-if="isLogin()">
+      <ion-card style="--background: white;position:relative;box-shadow: rgba(0,0,0,0.06) 0 4px 8px;margin-top: 10px"
+                v-if="isLogin()">
         <ion-card-content style="padding: 20px 15px;">
           <ion-icon style="width: 76px;height: 75px;position:absolute;top: -30px;z-index: -1;" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75.674" height="64.512" viewBox="0 0 75.674 64.512">
   <defs>
@@ -162,33 +164,33 @@
             style="width: 30%;height: 90px;background: linear-gradient(to bottom,#C5D9E9,#EFF3F6,#F1F4F8,#F3F5F9,#F5F6FA,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img src="https://www.0030.store/test.jpg"></ion-img>
+              <ion-img :src="finalList[1].bgimg"></ion-img>
             </ion-avatar>
-            <ion-text style="display: block;font-size: 14px;font-weight: bolder;color: #888888;margin: 4px 0">TOP.2
+            <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #888888;margin: 4px 0">TOP.2
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">【备战英语...</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[1].tname }}</ion-text>
           </div>
         </div>
         <div
             style="width: 30%;height: 100px;background: linear-gradient(to bottom,#FFE066,#FFF2D2,#FCF4E1,#F9F6EE,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img src="https://www.0030.store/test.jpg"></ion-img>
+              <ion-img :src="finalList[0].bgimg"></ion-img>
             </ion-avatar>
-            <ion-text style="display: block;font-size: 14px;font-weight: bolder;color: #F19700;margin: 4px 0">TOP.1
+            <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #F19700;margin: 4px 0">TOP.1
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">【备战英语...</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[0].tname }}</ion-text>
           </div>
         </div>
         <div
             style="width: 30%;height: 80px;background: linear-gradient(to bottom,#F1DAB7,#F1EDE2,#F3F0EA,#F4F3F2,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img src="https://www.0030.store/test.jpg"></ion-img>
+              <ion-img :src="finalList[2].bgimg"></ion-img>
             </ion-avatar>
-            <ion-text style="display: block;font-size: 14px;font-weight: bolder;color: #B48445;margin: 4px 0">TOP.3
+            <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #B48445">TOP.3
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">【备战英语...</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[2].tname }}</ion-text>
           </div>
         </div>
       </div>
@@ -302,6 +304,7 @@ import 'swiper/css';
 import LatestArea from "@/views/team/components/latestArea.vue";
 import {getBanner} from "@/api/main";
 import {arrowForwardOutline, chevronForwardOutline, playCircleOutline} from "ionicons/icons";
+import {getAllFridenTeam} from "@/api/team";
 
 
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
@@ -408,6 +411,73 @@ const onSwiper = (swiper: any) => {
     swiper.slidePrev()
   }, 100);
 };
+
+interface rankItem {
+  id: number,
+  tname: string,
+  userid: number,
+  tavatar: string,
+  bgimg: string,
+  introduction: string,
+  number: number,
+  mxnumber: number,
+  attribute: string,
+  activity: number,
+  createtime: string
+}
+
+const finalList = ref<rankItem[]>([{
+  id: 0,
+  tname: "暂无队伍",
+  userid: 0,
+  tavatar: "http://qny.daichenghang.top/mrtx.jpeg",
+  bgimg: "",
+  introduction: "",
+  number: 0,
+  mxnumber: 0,
+  attribute: "",
+  activity: 0,
+  createtime: ""
+},
+  {
+    id: 0,
+    tname: "暂无队伍",
+    userid: 0,
+    tavatar: "http://qny.daichenghang.top/mrtx.jpeg",
+    bgimg: "",
+    introduction: "",
+    number: 0,
+    mxnumber: 0,
+    attribute: "",
+    activity: 0,
+    createtime: ""
+  },
+  {
+    id: 0,
+    tname: "暂无队伍",
+    userid: 0,
+    tavatar: "http://qny.daichenghang.top/mrtx.jpeg",
+    bgimg: "",
+    introduction: "",
+    number: 0,
+    mxnumber: 0,
+    attribute: "",
+    activity: 0,
+    createtime: ""
+  }])
+getAllFridenTeam().then((res) => {
+  let a = [];
+  for (let i = 0; i < res.data.data.length; i++) {
+    a.push(res.data.data[i])
+    // mainList.push(res.data.data[i])
+  }
+  a.sort((a: rankItem, b: rankItem) => {
+    return b.activity - a.activity
+  })
+  for (let i = 0; i < a.length && i < 3; i++) {
+    finalList.value[i] = a[i]
+  }
+})
 
 // 判断登录
 function isLogin() {

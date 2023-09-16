@@ -26,11 +26,12 @@ import {
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getTestKcTiList, ifAnswer} from "@/api/study";
+import {getKcNoteList, getTestKcTiList, getTestZyTiList, ifAnswer} from "@/api/study";
 
 const route = useRoute()
 const router = useIonRouter()
-const taoid = route.params.id;
+const type = route.params.id.toString().includes('zykc') ? 'zykc' : 'kc';
+const taoid = route.params.id.toString().split('kc')[1];
 const answer = reactive<string[]>([]);
 const num = ref('1')
 const answerOption = ref('')
@@ -58,20 +59,34 @@ interface item {
 }
 
 const answerItem = reactive<item[]>([])
-getTestKcTiList(taoid).then((res) => {
-  length.value = res.data.data.length
-  for (let i = 0; i < length.value; i++) {
-    // console.log(res.data.data[i])
-    problem.push(res.data.data[i].problem)
-    optionA.push(res.data.data[i].optionA)
-    optionB.push(res.data.data[i].optionB)
-    optionC.push(res.data.data[i].optionC)
-    optionD.push(res.data.data[i].optionD)
-    answerItem.push(res.data.data[i])
-  }
-  // console.log(problem)
-})
+if (type=="zykc"){
+  getTestZyTiList(taoid).then((res) => {
+    length.value = res.data.data.length
+    for (let i = 0; i < length.value; i++) {
+      // console.log(res.data.data[i])
+      problem.push(res.data.data[i].problem)
+      optionA.push(res.data.data[i].optionA)
+      optionB.push(res.data.data[i].optionB)
+      optionC.push(res.data.data[i].optionC)
+      optionD.push(res.data.data[i].optionD)
+      answerItem.push(res.data.data[i])
+    }
+  })
+}else {
+  getTestKcTiList(taoid).then((res) => {
+    length.value = res.data.data.length
+    for (let i = 0; i < length.value; i++) {
+      // console.log(res.data.data[i])
+      problem.push(res.data.data[i].problem)
+      optionA.push(res.data.data[i].optionA)
+      optionB.push(res.data.data[i].optionB)
+      optionC.push(res.data.data[i].optionC)
+      optionD.push(res.data.data[i].optionD)
+      answerItem.push(res.data.data[i])
+    }
+  })
 
+}
 // let tmp=reactive<string[]>([])
 for (let i = 0; i < length.value; i++) {
   answer.push("");
@@ -150,7 +165,7 @@ async function submit() {
         <ion-buttons slot="start">
           <ion-back-button style="color: black" text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
-        <IonTitle>{{ `1.1 Java是什么？` }}</IonTitle>
+        <IonTitle>{{ route.params.title }}</IonTitle>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon style="color: black" :icon="searchOutline"/>
@@ -184,7 +199,7 @@ async function submit() {
       <div>
         <ion-text class="ion-margin">
           <p class="ion-margin">
-            {{ problem[Number(num)-1] }}
+            {{ problem[Number(num) - 1] }}
           </p>
         </ion-text>
         <ion-img v-if="false" src="https://www.0030.store/swiperAd/ad1.png"></ion-img>
@@ -197,7 +212,7 @@ async function submit() {
                 <ion-label style=""><h6>A</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                {{ optionA[Number(num)-1] }}</p>
+                {{ optionA[Number(num) - 1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -205,7 +220,7 @@ async function submit() {
                 <ion-label style=""><h6>B</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                {{ optionB[Number(num)-1] }}</p>
+                {{ optionB[Number(num) - 1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -213,7 +228,7 @@ async function submit() {
                 <ion-label style=""><h6>C</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                {{ optionC[Number(num)-1] }}</p>
+                {{ optionC[Number(num) - 1] }}</p>
             </div>
             <div style="position: relative;margin: 20px 10px;">
               <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
@@ -221,7 +236,7 @@ async function submit() {
                 <ion-label style=""><h6>D</h6></ion-label>
               </ion-segment-button>
               <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
-                {{ optionD[Number(num)-1] }}</p>
+                {{ optionD[Number(num) - 1] }}</p>
             </div>
           </ion-segment>
         </div>

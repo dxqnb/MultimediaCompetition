@@ -327,7 +327,7 @@ function change(event: any) {
                     <div>
                       <div style="display: flex;">
                         <ion-thumbnail style="--border-radius: 8px;--size: 66px"><img
-                            src="https://www.0030.store/test.jpg"
+                            :src="mainList[i-1].tavatar"
                             alt=""/></ion-thumbnail>
                         <div style="margin-left: 10px">
                           <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{

@@ -139,7 +139,6 @@ function sentEvent() {
 //收消息开始/////////
 setInterval(() => {
   getFridenTeamMessageList(id).then((res) => {
-    console.log(res.data.data)
     for (let i = length.value; i < res.data.data.length; i++) {
       remoteMassage.value.push({
         time: i == 0 ? res.data.data[0].createtime : !remoteMassage.value[remoteMassage.value.length - 1].time.includes(' ') ? remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2) == dayjs().format('HH:mm').substring(0, 2) || remoteMassage.value[remoteMassage.value.length - 1].time == '' ? '' : dayjs().format('HH:mm') : dayjs().format('HH:mm'),

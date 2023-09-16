@@ -16,22 +16,54 @@ import {
 } from "@ionic/vue";
 import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
 import Player from "xgplayer";
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getKcList, getZyKcList} from "@/api/study";
+import {
+  getKc,
+  getKcList,
+  getKcXj,
+  getTestKcTaoList,
+  getTestZyTaoList,
+  getZyKc,
+  getZyKcList,
+  getZyKcZj
+} from "@/api/study";
+
+interface comment {
+  id: number,
+  userid: number,
+  kcid: number,
+  studentname: string,
+  avatar: string,
+  star: string,
+  content: string,
+  createtime: string
+}
 
 const vs = ref();
+// const item = ref({
+//   id: 0,
+//   szyid: 0,
+//   lable: "",
+//   xiaojie: "",
+//   title: "",
+//   content: "",
+//   stitile: "",
+//   video: "",
+//   img: "",
+//   createby: ""
+// });
 const item = ref({
   id: 0,
-  szyid: 0,
-  lable: "",
-  xiaojie: "",
+  zyid: 0,
+  deptname: "",
   title: "",
-  content: "",
-  stitile: "",
-  video: "",
   img: "",
-  createby: ""
+  introduction: "",
+  link: "",
+  createby: "",
+  createtime: "",
+  iszy: ""
 });
 const route = useRoute()
 const scroll = ref(false);
@@ -45,6 +77,33 @@ const segmentValue = ref('lesson');
 const user = localStorage.getItem('user') || ''
 const userid = JSON.parse(user).id
 var vsp: Player;
+
+interface section {
+  id: number,
+  sid?: number,
+  szyid?: number,
+  lable: string,
+  xiaojie: string,
+  title: string,
+  content: string,
+  stitile: string,
+  video: string,
+  img: string,
+  createby: string,
+  createtime: string
+}
+
+interface test {
+  id: number,
+  tname: string,
+  kcid: number,
+  createby: string,
+  createtime: string
+}
+
+const sectionItem = reactive<section[]>([])
+const commentItem = reactive<comment[]>([])
+const testItem = reactive<test[]>([])
 onMounted(() => {
   setTimeout(function () {
     // content.value.$el.scrollToPoint(0, fixed.value.offsetHeight, 500);
@@ -61,19 +120,37 @@ onMounted(() => {
 })
 
 if (route.path.includes('zykc')) {
+  getZyKc(<string>route.params.id).then((res) => {
+    item.value = res.data.data[0]
+    vsp.switchURL(item.value.link)
+  })
   getZyKcList(<string>route.params.id, userid).then((res) => {
-    console.log(res)
-    item.value = res.data.data[0]
-
-    vsp.switchURL(item.value.video)
+    for (let i = 0; i < res.data.data.length; i++) {
+      sectionItem.push(res.data.data[i])
+    }
   })
+  getTestZyTaoList(<string>route.params.id).then((res) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      testItem.push(res.data.data[i])
+    }
+  })
+
 } else {
-  getKcList(<string>route.params.id, userid).then((res) => {
-    console.log(res)
+  getKc(<string>route.params.id).then((res) => {
     item.value = res.data.data[0]
-    vsp.switchURL(item.value.video)
-
+    vsp.switchURL(item.value.link)
   })
+  getKcList(<string>route.params.id, userid).then((res) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      sectionItem.push(res.data.data[i])
+    }
+  })
+  getTestKcTaoList(<string>route.params.id).then((res) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      testItem.push(res.data.data[i])
+    }
+  })
+
 }
 
 function onScroll(event: any) {
@@ -147,131 +224,23 @@ function change(event: any) {
           <ion-content :scroll-y="scroll" :style="`height:`+ divHeight">
             <ion-list v-if="segmentValue=='lesson'" style="margin-bottom: 120px">
               <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full" @click="$router.push('/study/section/1')">
+                <!--                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">-->
+                <!--                  <ion-label>初识Java</ion-label>-->
+                <!--                </ion-item-divider>-->
+                <ion-item lines="full" v-for="i in sectionItem"
+                          @click="route.path.includes('zykc')?$router.push('/study/section/'+'zykc'+i.id):$router.push('/study/section/'+'kc'+i.id)">
                   <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
+                  <ion-label>{{ i.xiaojie }}&nbsp;{{ i.stitile }}</ion-label>
                   <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
                 </ion-item>
               </ion-item-group>
+            </ion-list>
+            <ion-list v-if="segmentValue=='test'" style="margin-bottom: 120px">
               <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-              </ion-item-group>
-              <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
-                </ion-item>
-              </ion-item-group>
-              <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
-                </ion-item>
-              </ion-item-group>
-              <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
-                </ion-item>
-              </ion-item-group>
-              <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
-                </ion-item>
-              </ion-item-group>
-              <ion-item-group>
-                <ion-item-divider :sticky="true" style="border-radius: 5px;height: 46px;">
-                  <ion-label>初识Java</ion-label>
-                </ion-item-divider>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.1 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="full">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.2 Java是什么？</ion-label>
-                </ion-item>
-                <ion-item lines="none">
-                  <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>1.3 Java是什么？</ion-label>
+                <ion-item lines="full" v-for="i in testItem"
+                          @click="route.path.includes('zykc')?$router.push('/study/test/'+'zykc'+i.id+'/'+i.tname):$router.push('/study/section/'+'kc'+i.id+'/'+i.tname)">
+                  <ion-note slot="start" mode="md">测试</ion-note>
+                  <ion-label>{{ i.tname }}</ion-label>
                 </ion-item>
               </ion-item-group>
             </ion-list>

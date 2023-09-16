@@ -29,18 +29,18 @@ import TecItem from "@/views/study/components/tecItem.vue";
 import NewsItem from "@/views/study/components/newsItem.vue";
 import {getVideoYw} from "@/api/study";
 
-interface news {
-  id: number,
-  title: string,
-  ly: string,
-  img: string,
-  content: string,
-  likecount: number,
-  lll: number,
-  avatar: string,
-  createby: string,
-  createtime: string
-}
+// interface news {
+//   id: number,
+//   title: string,
+//   ly: string,
+//   img: string,
+//   content: string,
+//   likecount: number,
+//   lll: number,
+//   avatar: string,
+//   createby: string,
+//   createtime: string
+// }
 
 const index = ref(0)
 const main = ref(true);

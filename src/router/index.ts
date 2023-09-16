@@ -128,7 +128,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/noticeDetailPage.vue')
             },
             {
-                path: 'test/:id',
+                path: 'test/:id/:title',
                 props: true,
                 component: () => import('@/views/study/lessonTestPage.vue')
             },

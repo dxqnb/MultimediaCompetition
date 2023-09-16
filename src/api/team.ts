@@ -180,3 +180,31 @@ export function addTeamMessage(tid: any, userid: any, content: any) {
         }
     });
 }
+
+export function addFridenTeamUser(tid: any, userid: any) {
+    return service({
+        url: "v3/FridenTeam/addFridenTeamUser",
+        method: "post",
+        params: {
+            tid: tid,
+            userid: userid,
+        }
+    });
+}
+
+export function getFridenTeamByAttribute(attribute: any) {
+    return service({
+        url: "v3/FridenTeamTask/getFridenTeamByAttribute",
+        method: "get",
+        params: {
+            attribute: attribute
+        }
+    });
+}
+
+export function getFridenTeamByAttribute111() {
+    return service({
+        url: "v3/FridenTeamTask/getFridenTeamByAttribute111",
+        method: "get",
+    });
+}

@@ -26,13 +26,15 @@ import {
   IonRadioGroup,
   IonRow,
   IonCol,
-  IonGrid,
+  IonGrid, IonInfiniteScroll, IonInfiniteScrollContent,
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {onMounted, reactive, ref} from "vue";
 import TecItem from "@/views/study/components/tecItem.vue";
-import {getVideoJs} from "@/api/study";
+import {getVideoJs, getVideoYw} from "@/api/study";
 import {getMyDor, getMyQj} from "@/api/user";
+import NewsItem from "@/views/study/components/newsItem.vue";
+
 const codeIcon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="59.392" height="59.437" viewBox="0 0 59.392 59.437">\n' +
     '  <path id="路径_226" data-name="路径 226" d="M45.867,45.376H72.119v5.413H45.867Zm32.928,0h15.2v5.413H78.8Zm20.77,0h5.523V50.9H99.565ZM45.867,66.33H72.119v5.417H45.867ZM45.7,45.376h5.413V71.628H45.7V45.376Zm21.011,0h5.413V71.628H66.707Zm-11.86,9.9h7.369v7.369H54.846ZM78.8,50.789h5.27v5.555H78.8Zm15.194,0h5.779V61.011H93.99Zm5.576,5.555h5.523v9.672H99.565Zm-15.3,4.145h9.729V67.45H84.265Zm5.445,5.523h9.9v5.612h-9.9V66.012Zm-10.882.175h5.437v5.437H78.828ZM45.7,77.053h5.413V89.317H45.7V77.053Zm5.425,11.111h5.857v5.861H51.121ZM45.7,93.792h5.425v11.021H45.7V93.792ZM56.648,77.053H73.313v6.733H56.648ZM60.7,83.187h6.953v6.4H60.7Zm5.657,4.977h6.953V99.3H66.36Zm-5.4,5.629h6.692v11.021H60.964V93.792Zm-5.572,4.043h6.5v6.978h-6.5ZM82.855,77.053H95.29V88.163H82.855V77.053Zm15.41,0h6.823v6.823H98.265ZM77.5,82.608h6.823V94.982H77.5Zm10.927,4H95.29v7.124H88.426ZM77.5,97.835h6.823v6.978H77.5ZM93.912,99.3h11.176v5.515H93.912ZM99.5,93.731h5.588v6.733H99.5Z" transform="translate(-45.696 -45.376)" fill="#3f3f3f"/>\n' +
     '</svg>')
@@ -42,8 +44,8 @@ const itemsRight = reactive<item[]>([]);
 
 const data = localStorage.getItem('user') as string | null;
 const userid = ref('');
-const studentname=ref('');
-const deptname=ref('');
+const studentname = ref('');
+const deptname = ref('');
 if (data) { // 检查数据是否存在
   const parsedData = JSON.parse(data); // 将字符串转换为对象
 
@@ -62,6 +64,7 @@ if (data) { // 检查数据是否存在
   // console.log(userid.value);
 
 }
+
 interface item {
   id: Number,
   likecount: Number,
@@ -74,18 +77,18 @@ interface item {
   lll: String,
 }
 
-const dorarea=ref('');
-const dornum=ref('');
-const roomnum=ref('');
-const bednum=ref('');
-const status=ref('');
+const dorarea = ref('');
+const dornum = ref('');
+const roomnum = ref('');
+const bednum = ref('');
+const status = ref('');
 onMounted(async () => {
   const response = await getMyDor(userid.value);
-  dorarea.value=response.data.data[0].dorarea
-  dornum.value=response.data.data[0].dornum
-  roomnum.value=response.data.data[0].roomnum
-  bednum.value=response.data.data[0].bednum
-  status.value=response.data.data[0].status
+  dorarea.value = response.data.data[0].dorarea
+  dornum.value = response.data.data[0].dornum
+  roomnum.value = response.data.data[0].roomnum
+  bednum.value = response.data.data[0].bednum
+  status.value = response.data.data[0].status
 });
 
 function handleRefresh(event: any) {
@@ -95,6 +98,15 @@ function handleRefresh(event: any) {
   }, 1000);
 }
 
+const index = ref(0)
+const main = ref(true);
+const news = reactive<any[]>([])
+getVideoYw(index.value, index.value + 10).then((res) => {
+  index.value += 10
+  for (let i = 0; i < res.data.data.length; i++) {
+    news.push(res.data.data[i])
+  }
+})
 getVideoJs(1, 10).then(res => {
   for (let i = 0; i < res.data.data.length; i++) {
     if (i % 2 == 0) {
@@ -105,31 +117,15 @@ getVideoJs(1, 10).then(res => {
   }
   console.log(itemsLeft)
 })
-for (let i = 1; i < 10; i++) {
-  itemsLeft.push({
-    id: i,
-    likecount: 0,
-    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
-    title: "title" + i,
-    avatar: 'https://www.0030.store/favicon.png',
-    link: "String",
-    createBy: 'admin',
-    createtime: "String",
-    lll: "String",
-  });
-  itemsRight.push({
-    id: i,
-    likecount: 0,
-    img: "https://www.0030.store/%E5%9F%BA%E6%9C%AC%E7%A7%AF%E5%88%86%E5%85%AC%E5%BC%8F.jpeg",
-    title: "title" + i,
-    avatar: 'https://www.0030.store/favicon.png',
-    link: "String",
-    createBy: 'admin',
-    createtime: "String",
-    lll: "String",
-  });
+
+function ionInfinite() {
+  getVideoYw(index.value, index.value + 10).then((res) => {
+    index.value += 10
+    for (let i = 0; i < res.data.data.length; i++) {
+      news.push(res.data.data[i])
+    }
+  })
 }
-console.log(itemsLeft)
 </script>
 
 <template>
@@ -147,10 +143,11 @@ console.log(itemsLeft)
       <div
           style="width: 100%;background: linear-gradient(to bottom,#DEE6FB,#FFFFFF);border-radius: 16px;border: 1px solid #FFFFFF;position: relative">
         <div style="margin: 20px">
-          <ion-text style="font-size: 12px;color: #7A7A7A;display: block">学号：{{userid}}</ion-text>
-          <ion-text style="font-size: 25px;color: #142352;display: block;font-weight: 900;margin-top: 10px">{{studentname}}
+          <ion-text style="font-size: 12px;color: #7A7A7A;display: block">学号：{{ userid }}</ion-text>
+          <ion-text style="font-size: 25px;color: #142352;display: block;font-weight: 900;margin-top: 10px">
+            {{ studentname }}
           </ion-text>
-          <ion-text style="font-size: 18px;color: #1B44B1;display: block;font-weight: 600">{{deptname}}
+          <ion-text style="font-size: 18px;color: #1B44B1;display: block;font-weight: 600">{{ deptname }}
           </ion-text>
         </div>
         <div style="position:absolute;top: -14px;right: 20px;">
@@ -160,7 +157,7 @@ console.log(itemsLeft)
                       style="width: 60px;height: 89px;margin: 0 auto 12px auto;display: block;"></ion-icon>
             <div style="text-align: center">
               <ion-text style="font-size: 12px;color: #363636">状态：</ion-text>
-              <ion-text style="font-size: 12px;color: #5D73FF">{{status == '0' ?"入住":"退宿"}}</ion-text>
+              <ion-text style="font-size: 12px;color: #5D73FF">{{ status == '0' ? "入住" : "退宿" }}</ion-text>
             </div>
           </div>
         </div>
@@ -171,7 +168,9 @@ console.log(itemsLeft)
           <div style="font-size: 16px;color: #333333;border-left: 2px solid #5054EE;padding-left: 3px;font-weight: 900">
             详细地址
           </div>
-          <ion-text style="font-size: 12px;color: #474D5D;padding-left: 6px">{{dorarea+dornum+"栋"+roomnum+"室"+" "+bednum+"号床"}}</ion-text>
+          <ion-text style="font-size: 12px;color: #474D5D;padding-left: 6px">
+            {{ dorarea + dornum + "栋" + roomnum + "室" + " " + bednum + "号床" }}
+          </ion-text>
         </div>
         <ion-icon style="width: 46px;height: 46px;margin: 15px;"
                   icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46.19" height="46.192" viewBox="0 0 46.19 46.192"><defs><linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#4f7afb"/><stop offset="1" stop-color="#c9d7fd"/></linearGradient></defs><path id="路径_176" data-name="路径 176" d="M68.911,86.758H57.364V49.617A3.14,3.14,0,0,1,60.2,46.483l16.06-1.606V75.211a1.05,1.05,0,1,0,2.1,0V53.165h6.3V75.211a1.05,1.05,0,1,0,2.1,0V53.165a2.1,2.1,0,0,0-2.1-2.1h-6.3V43.717a1.05,1.05,0,0,0-1.154-1.045L59.991,44.394a5.249,5.249,0,0,0-4.727,5.223V86.758h-6.3v-4.4A2.85,2.85,0,0,0,50.3,81.176a6.893,6.893,0,0,0,.769-3.6,17.332,17.332,0,0,0-.658-4.667,7.218,7.218,0,0,0-.792-1.847,1.864,1.864,0,0,0-3.4,0,7.254,7.254,0,0,0-.792,1.847,17.333,17.333,0,0,0-.658,4.667,6.892,6.892,0,0,0,.769,3.6,2.848,2.848,0,0,0,1.331,1.179v4.4H43.716a1.05,1.05,0,0,0,0,2.1H68.911a1.05,1.05,0,1,0,0-2.1ZM47.317,73.943a6.762,6.762,0,0,1,.6-1.64,6.768,6.768,0,0,1,.6,1.64,15.464,15.464,0,0,1,.451,3.63c0,.677-.076,2.887-1.05,2.887s-1.05-2.21-1.05-2.887a15.464,15.464,0,0,1,.451-3.63ZM63.662,55.265h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm-8.4,6.3h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm-8.4,6.3h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm2.1-4.2h2.1v4.2h-2.1Zm-6.3,10.5h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm4.2,0h-2.1v-4.2h2.1Zm-10.5,2.1h2.1v4.2h-2.1Zm4.2,0h2.1v4.2h-2.1Zm16.8-14.7h-2.1v-4.2h2.1Zm0,6.3h-2.1v-4.2h2.1Zm-2.1,2.1h2.1v4.2h-2.1Zm7.387,11.964a4.208,4.208,0,0,0-2.019-1.3,5.249,5.249,0,0,0-8.518-.164H76.26a4.2,4.2,0,1,0,0,8.4h8.4a4.2,4.2,0,0,0,3.188-6.932Zm-3.188,4.832h-8.4a2.1,2.1,0,0,1,0-4.2h1.612a1.05,1.05,0,0,0,.909-.525,3.149,3.149,0,0,1,5.475.033,1.05,1.05,0,0,0,.745.521,2.1,2.1,0,0,1-.342,4.17Z" transform="translate(-42.667 -42.668)" fill="url(#linear-gradient)"/></svg>'></ion-icon>
@@ -319,19 +318,15 @@ console.log(itemsLeft)
           </ion-segment-button>
         </ion-segment>
         <ion-grid>
-          <ion-row class="ion-align-items-start">
-            <ion-col>
-              <tec-item v-for="(item, index) in itemsLeft" :avatar="item.avatar" :like-count="item.likecount"
-                        :img-url="item.img" :title="item.title" :item="item"
-                        :index="index"/>
-            </ion-col>
-            <ion-col>
-              <tec-item v-for="(item, index) in itemsRight" :avatar="item.avatar" :like-count="item.likecount"
-                        :img-url="item.img" :title="item.title" :item="item"
-                        :index="index"/>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-row class="ion-align-items-start">
+          <ion-col>
+            <news-item v-for="item in news" :item="item"></news-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        <ion-infinite-scroll @ionInfinite="ionInfinite">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
       </div>
     </ion-content>
   </IonPage>
