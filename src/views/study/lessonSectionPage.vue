@@ -422,7 +422,7 @@ function delNotice(id: number) {
                     i.open == 1 ? '公开' : '未公开'
                   }}
                 </ion-text>
-                <ion-button expand="block" @click="delKcNote(i.id)" style="">删除</ion-button>
+                <ion-button expand="block" @click="delNotice(i.id)" style="">删除</ion-button>
               </div>
             </ion-item>
           </ion-list>

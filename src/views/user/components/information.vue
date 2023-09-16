@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import {IonCard, IonLabel, IonText,IonAccordionGroup,IonItem,IonAccordion} from "@ionic/vue";
+import {IonCard, IonLabel, IonText, IonAccordionGroup, IonItem, IonAccordion} from "@ionic/vue";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 const props = defineProps(['item', 'index']);
 
 </script>
@@ -21,27 +23,27 @@ const props = defineProps(['item', 'index']);
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">学年：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">2021</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.year }}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">类别：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">校级奖学金</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.level }}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">获奖时间：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">2021-10-28</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.wintime }}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">获奖名称：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">2021年校级奖学金-一等奖</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.winname }}</ion-text>
               </div>
               <div style="margin-bottom: 10px">
                 <ion-text style="font-size: 13px;color: #727272">奖金：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">9000.00</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.money }}</ion-text>
               </div>
-              <div style="">
+              <div style="" v-if="item.remark!=undefined&&item.remark!=''">
                 <ion-text style="font-size: 13px;color: #727272">备注：</ion-text>
-                <ion-text style="font-size: 13px;color: #444444">学习优秀，符合评定要求</ion-text>
+                <ion-text style="font-size: 13px;color: #444444">{{ item.remark }}</ion-text>
               </div>
             </div>
           </div>
