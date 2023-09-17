@@ -16,7 +16,7 @@ import {
   IonAvatar,
   IonItemDivider,
   IonItemGroup,
-  IonButton,
+  IonButton, toastController, useIonRouter,
 } from "@ionic/vue";
 import {
   createOutline,
@@ -36,8 +36,21 @@ const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
     '    <path id="路径_74" data-name="路径 74" d="M467.9,102.348a.659.659,0,0,1,.948.913l-.04.041-6.749,6.42a.659.659,0,0,1-.947-.913l.04-.041Z" transform="translate(-454.685 -101.84)" fill="#515151"/>\n' +
     '  </g>\n' +
     '</svg>\n');
-function logout(){
-  localStorage.setItem('isLogin','false')
+const username = JSON.parse(localStorage.getItem('user') || '').studentname
+const studentNumber = JSON.parse(localStorage.getItem('user') || '').username
+const router = useIonRouter()
+
+async function logout() {
+  localStorage.setItem('isLogin', 'false')
+  const toast = await toastController.create({
+    message: '修改成功'
+  })
+  await toast.present().then(() => {
+    setTimeout(() => {
+      toast.dismiss()
+    }, 1000)
+  })
+  router.push('/')
 }
 </script>
 
@@ -65,8 +78,11 @@ function logout(){
           <ion-avatar slot="start" style="margin: 14px;width: 52px;height: 52px;"><img
               src="https://www.0030.store/favicon.png" alt=""></ion-avatar>
           <div>
-            <ion-label style="display: block;color: #14121E;font-weight: bolder">学生1006</ion-label>
-            <ion-label style="display: block;color: #8492A2;font-size: 12px;font-weight: bold">2021080506</ion-label>
+            <ion-label style="display: block;color: #14121E;font-weight: bolder">{{ username }}</ion-label>
+            <ion-label style="display: block;color: #8492A2;font-size: 12px;font-weight: bold">{{
+                studentNumber
+              }}
+            </ion-label>
           </div>
           <ion-icon slot="end" :icon="createOutline"></ion-icon>
         </ion-item>
@@ -158,7 +174,8 @@ ion-item {
 ion-item-divider {
   --background: #F7F8F9;
 }
-ion-item-group{
+
+ion-item-group {
   margin-top: 20px;
 }
 </style>

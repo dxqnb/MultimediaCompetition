@@ -35,7 +35,7 @@ import {reactive, ref} from "vue";
     <IonHeader class="ion-no-border ion-padding">
       <IonToolbar>
         <ion-buttons slot="start">
-          <ion-back-button style="color: black" text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button style="color: black" text="" default-href="/"></ion-back-button>
         </ion-buttons>
         <IonTitle>智U</IonTitle>
       </IonToolbar>
@@ -45,7 +45,7 @@ import {reactive, ref} from "vue";
         <ion-row>
           <ion-col size="12">
             <div class="first"
-                 style="width: 100%;height: 125px;border-radius: 10px;position: relative;margin-top: 20px">
+                 style="width: 100%;height: 125px;border-radius: 10px;position: relative;margin-top: 20px" @click="$router.push('/smartU/chat')">
               <ion-text style="color: white;font-weight: bolder;font-size: 20px;display: block;text-align: right">
                 智小U
                 <div

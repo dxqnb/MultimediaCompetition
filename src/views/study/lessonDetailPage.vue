@@ -4,30 +4,57 @@ import {
   IonButton,
   IonButtons,
   IonContent,
-  IonHeader, IonIcon,
+  IonHeader,
+  IonIcon,
   IonPage,
   IonText,
   IonImg,
   IonCardContent,
   IonCard,
   IonChip,
-  IonItemGroup, IonItemDivider, IonItem, IonList, IonNote, IonAvatar, IonCardTitle, IonCardHeader, IonCardSubtitle,
-  IonToolbar, IonSegmentButton, IonLabel, IonSegment, onIonViewDidEnter, onIonViewWillEnter
+  IonItemGroup,
+  IonItemDivider,
+  IonItem,
+  IonList,
+  IonNote,
+  IonAvatar,
+  IonCardTitle,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonToolbar,
+  IonSegmentButton,
+  IonLabel,
+  IonSegment,
+  onIonViewDidEnter,
+  onIonViewWillEnter,
+  IonInput,
+  IonTitle,
+  IonModal, IonRadio, IonTextarea, IonRadioGroup, actionSheetController, toastController
 } from "@ionic/vue";
-import {ellipsisHorizontalOutline, checkmarkOutline, star, starOutline} from "ionicons/icons";
+import {
+  ellipsisHorizontalOutline,
+  checkmarkOutline,
+  star,
+  starOutline,
+  closeOutline,
+  cameraOutline, imagesOutline, closeCircleOutline
+} from "ionicons/icons";
 import Player from "xgplayer";
 import {onMounted, reactive, ref} from "vue";
 import {useRoute} from "vue-router";
 import {
+  addKcNote, addKcPj,
+  addZyKcNote, addZyKcPj,
   getKc,
-  getKcList,
-  getKcXj,
+  getKcList, getKcNoteList, getKcPjList,
+  getKcXj, getMyKcNoteList, getMyZyKcNoteList,
   getTestKcTaoList,
   getTestZyTaoList,
   getZyKc,
-  getZyKcList,
+  getZyKcList, getZyKcNoteList, getZyKcPjList,
   getZyKcZj
 } from "@/api/study";
+import {Camera, CameraResultType} from "@capacitor/camera";
 
 interface comment {
   id: number,
@@ -37,7 +64,8 @@ interface comment {
   avatar: string,
   star: string,
   content: string,
-  createtime: string
+  createtime: string,
+  img?: string
 }
 
 const vs = ref();
@@ -77,6 +105,17 @@ const segmentValue = ref('lesson');
 const user = localStorage.getItem('user') || ''
 const userid = JSON.parse(user).id
 var vsp: Player;
+const flag = ref(false);
+const modal = ref()
+const page = ref()
+const textarea = ref('')
+const postRating = ref(0)
+
+function dismiss() {
+  modal.value.$el.dismiss();
+}
+
+const presentingElement = ref('')
 
 interface section {
   id: number,
@@ -101,9 +140,55 @@ interface test {
   createtime: string
 }
 
+interface image {
+  base64?: string,
+  file: File,
+}
+
+function base64ToFile(base64: string | undefined, fileName: string) {
+  if (base64 == undefined) return;
+  let arr = base64.split(",");
+  // let tmp = arr[0].match(/:(.*?);/)
+  // console.log(tmp)
+  // if (tmp == null) return
+  // let mime = tmp[1];
+  let bstr = atob(arr[1]);
+  let n = bstr.length;
+  let u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], fileName, {type: 'image'});
+}
+
+const imageList = reactive<image[]>([])
+
+async function takePicture() {
+  const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: true,
+    resultType: CameraResultType.DataUrl
+  });
+  let dataUrl = image.dataUrl == undefined ? '.' : image.dataUrl
+  let temp = base64ToFile(image.dataUrl, imageList.length.toString(6) + '.' + dataUrl.split('/')[1].split(';')[0])
+  if (temp == null) return
+  imageList.push({
+    base64: image.dataUrl,
+    file: temp,
+  })
+  return;
+}
+
+
+function delPic(idP: number) {
+  imageList.splice(idP, 1)
+}
+
 const sectionItem = reactive<section[]>([])
 const commentItem = reactive<comment[]>([])
 const testItem = reactive<test[]>([])
+const average = ref(0.0)
 onMounted(() => {
   setTimeout(function () {
     // content.value.$el.scrollToPoint(0, fixed.value.offsetHeight, 500);
@@ -116,6 +201,7 @@ onMounted(() => {
     height: '20vh',
     width: '92%',
   })
+  presentingElement.value = page.value.$el;
 
 })
 
@@ -134,6 +220,16 @@ if (route.path.includes('zykc')) {
       testItem.push(res.data.data[i])
     }
   })
+  getZyKcPjList(<string>route.params.id).then((res) => {
+    if (res.data.data.length == 0) return
+    let count = 0
+    for (let i = 0; i < res.data.data.length; i++) {
+      commentItem.push(res.data.data[i])
+      count += Number(commentItem[i].star)
+      console.log(Number(commentItem[i].star))
+    }
+    average.value = Number((count / commentItem.length).toFixed(1))
+  })
 
 } else {
   getKc(<string>route.params.id).then((res) => {
@@ -150,7 +246,103 @@ if (route.path.includes('zykc')) {
       testItem.push(res.data.data[i])
     }
   })
+  getKcPjList(<string>route.params.id).then((res) => {
+    if (res.data.data.length == 0) return
+    let count = 0
+    for (let i = 0; i < res.data.data.length; i++) {
+      commentItem.push(res.data.data[i])
+      count += Number(commentItem[i].star)
+      console.log(Number(commentItem[i].star))
+    }
+    average.value = Number((count / commentItem.length).toFixed(1))
+  })
+}
 
+function post() {
+  let a = {
+    userid: userid,
+    kcid: route.params.id,
+    content: textarea.value,
+    img: '',
+    star: postRating.value,
+    // open: radio.value,
+    file: imageList.length == 0 ? undefined : imageList[0].file,
+  }
+  console.log(a)
+  flag.value = true;
+  if (route.path.includes('zykc')) {
+    addZyKcPj(a).then(async (res) => {
+      if (res.data.code == 0) {
+        const toast = await toastController.create({
+          message: '发布成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+      }
+      commentItem.splice(0, commentItem.length);
+      getZyKcPjList(<string>route.params.id).then((res) => {
+        if (res.data.data.length == 0) return
+        let count = 0
+        for (let i = 0; i < res.data.data.length; i++) {
+          commentItem.push(res.data.data[i])
+          count += Number(commentItem[i].star)
+          console.log(Number(commentItem[i].star))
+        }
+        average.value = Number((count / commentItem.length).toFixed(1))
+      })
+    })
+  } else {
+    addKcPj(a).then(async (res) => {
+      if (res.data.code == 0) {
+        const toast = await toastController.create({
+          message: '发布成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+      }
+      commentItem.splice(0, commentItem.length);
+      getKcPjList(<string>route.params.id).then((res) => {
+        if (res.data.data.length == 0) return
+        let count = 0
+        for (let i = 0; i < res.data.data.length; i++) {
+          commentItem.push(res.data.data[i])
+          count += Number(commentItem[i].star)
+          console.log(Number(commentItem[i].star))
+        }
+        average.value = Number((count / commentItem.length).toFixed(1))
+      })
+    })
+  }
+  dismiss();
+}
+
+async function canDismiss() {
+  if (!flag.value) {
+    const actionSheet = await actionSheetController.create({
+      header: '还没保存确定要关闭吗?',
+      buttons: [
+        {
+          text: '是的',
+          role: 'confirm',
+        },
+        {
+          text: '取消',
+          role: 'cancel',
+        },
+      ],
+    });
+    actionSheet.present();
+    const {role} = await actionSheet.onWillDismiss();
+    return role === 'confirm';
+  }
+  flag.value = false
+  return true
 }
 
 function onScroll(event: any) {
@@ -181,7 +373,7 @@ function change(event: any) {
 </script>
 
 <template>
-  <ion-page class="page">
+  <ion-page ref="page" class="page">
     <ion-header collapse="fade" class="ion-no-border ion-padding">
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -245,42 +437,46 @@ function change(event: any) {
               </ion-item-group>
             </ion-list>
             <div v-if="segmentValue=='comment'" style="margin-top: 14px;margin-bottom: 120px">
-              <ion-card>
+              <ion-card class="comment">
                 <ion-card-content>
                   <div>
-                    <pre style="display: inline-block;margin: 5px 8px;width: 50px;color: #ff9900">{{ rating }}分</pre>
+                    <pre style="display: inline-block;margin: 5px 8px;width: 50px;color: #ff9900">{{ average }}分</pre>
                     <v-rating
                         color="#000"
-                        v-model="rating"
+                        v-model="average"
                         :hover="true"
                         half-increments
                     >
                       <template v-slot:item="props:any">
                         <ion-icon color="primary" size="large" :icon=" props.isFilled ? star : starOutline "
                                   @click="()=>{props.onClick;/*console.log(props)*/}"></ion-icon>
-
                       </template>
                     </v-rating>
                   </div>
-                  <ion-text color="medium" style="font-size: 10px">有xx人评价了这个课</ion-text>
+                  <div style="display: flex;justify-content: space-between;">
+                    <ion-text color="medium" style="font-size: 10px">有{{ commentItem.length }}人评价了这个课</ion-text>
+                    <ion-button id="open-modal" style="min-height: auto;height: 20px;font-size: 12px;--color: white">
+                      发表笔记
+                    </ion-button>
+                  </div>
                 </ion-card-content>
 
               </ion-card>
-              <ion-card>
+              <ion-card class="comment">
                 <ion-card-content style="padding: 0">
                   <ion-list>
-                    <ion-item lines="none" class="ion-text-wrap">
+                    <ion-item lines="none" class="ion-text-wrap" v-for="item in commentItem">
                       <div style="width: 70px;"></div>
                       <div class="ion-padding-top ion-margin-top">
                         <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                          <img src="https://www.0030.store/favicon.png" alt="">
+                          <img :src="item.avatar" alt="">
                         </ion-avatar>
-                        <ion-text><h2>爱学习的小鱼</h2></ion-text>
-                        <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
+                        <ion-text><h2>{{ item.studentname }}</h2></ion-text>
+                        <ion-text color="medium" style="font-size: 10px">{{ item.createtime }}</ion-text>
                         <v-rating
                             :disabled="true"
                             color="#000"
-                            v-model="rating"
+                            :model-value="item.star"
                             :hover="true"
                             half-increments
                             style="position: absolute;right: 20px;top: 35px;"
@@ -291,89 +487,8 @@ function change(event: any) {
                           </template>
                         </v-rating>
                         <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
-                          真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                        <ion-img src="https://www.0030.store/test.jpg"
-                                 style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
-                      </div>
-                    </ion-item>
-                    <ion-item lines="none" class="ion-text-wrap">
-                      <div style="width: 70px;"></div>
-                      <div class="ion-padding-top ion-margin-top">
-                        <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                          <img src="https://www.0030.store/favicon.png" alt="">
-                        </ion-avatar>
-                        <ion-text><h2>爱学习的小鱼</h2></ion-text>
-                        <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
-                        <v-rating
-                            color="#000"
-                            :disabled="true"
-                            v-model="rating"
-                            :hover="true"
-                            half-increments
-                            style="position: absolute;right: 20px;top: 35px;"
-                        >
-                          <template v-slot:item="props:any">
-                            <ion-icon color="primary" size="small" :icon=" props.isFilled ? star : starOutline "
-                            ></ion-icon>
-                          </template>
-                        </v-rating>
-                        <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
-                          真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                        <ion-img src="https://www.0030.store/test.jpg"
-                                 style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
-                      </div>
-                    </ion-item>
-                    <ion-item lines="none" class="ion-text-wrap">
-                      <div style="width: 70px;"></div>
-                      <div class="ion-padding-top ion-margin-top">
-                        <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                          <img src="https://www.0030.store/favicon.png" alt="">
-                        </ion-avatar>
-                        <ion-text><h2>爱学习的小鱼</h2></ion-text>
-                        <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
-                        <v-rating
-                            :disabled="true"
-                            color="#000"
-                            v-model="rating"
-                            :hover="true"
-                            half-increments
-                            style="position: absolute;right: 20px;top: 35px;"
-                        >
-                          <template v-slot:item="props:any">
-                            <ion-icon color="primary" size="small" :icon=" props.isFilled ? star : starOutline "
-                            ></ion-icon>
-                          </template>
-                        </v-rating>
-                        <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
-                          真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                        <ion-img src="https://www.0030.store/test.jpg"
-                                 style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
-                      </div>
-                    </ion-item>
-                    <ion-item lines="none" class="ion-text-wrap">
-                      <div style="width: 70px;"></div>
-                      <div class="ion-padding-top ion-margin-top">
-                        <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
-                          <img src="https://www.0030.store/favicon.png" alt="">
-                        </ion-avatar>
-                        <ion-text><h2>爱学习的小鱼</h2></ion-text>
-                        <ion-text color="medium" style="font-size: 10px">五个小时前</ion-text>
-                        <v-rating
-                            color="#000"
-                            v-model="rating"
-                            :disabled="true"
-                            :hover="true"
-                            half-increments
-                            style="position: absolute;right: 20px;top: 35px;"
-                        >
-                          <template v-slot:item="props:any">
-                            <ion-icon color="primary" size="small" :icon=" props.isFilled ? star : starOutline "
-                            ></ion-icon>
-                          </template>
-                        </v-rating>
-                        <ion-text style="display: block;padding: 10px 0 4px 0;"><p>
-                          真的很喜欢这个老师介绍的东西，都是满满的干货！！</p></ion-text>
-                        <ion-img src="https://www.0030.store/test.jpg"
+                          {{ item.content }}</p></ion-text>
+                        <ion-img :src="item.img" v-if="item.img != undefined && item.img != ''"
                                  style="width: 95%;height: 180px;margin: 20px auto;border-radius: 10px;overflow: hidden;object-fit: cover;"></ion-img>
                       </div>
                     </ion-item>
@@ -381,7 +496,68 @@ function change(event: any) {
                 </ion-card-content>
               </ion-card>
 
+              <ion-modal ref="modal" trigger="open-modal" :can-dismiss="canDismiss"
+                         :presenting-element="presentingElement">
+                <ion-header class="ion-no-border">
+                  <ion-toolbar style="--background: #F7F8F9">
+                    <ion-title>发表评价</ion-title>
+                    <ion-buttons slot="start">
+                      <ion-button @click="dismiss()">
+                        <ion-icon style="color: black" :icon="closeOutline"></ion-icon>
+                      </ion-button>
+                    </ion-buttons>
+                  </ion-toolbar>
+                </ion-header>
+                <ion-content class="ion-padding vice">
+                  <div style="border-radius: 10px;background: #FFFFFF">
+                    <ion-item style="--background: white;border-radius: 10px;padding: 20px 20px 0 20px">
+                      <pre style="display: inline-block;margin: 5px 8px;width: 50px;color: #ff9900">{{
+                          postRating
+                        }}分</pre>
+                      <v-rating
+                          color="#000"
+                          v-model="postRating"
+                          :hover="true"
+                          half-increments
+                      >
+                        <template v-slot:item="props:any">
+                          <ion-icon color="primary" size="large" :icon=" props.isFilled ? star : starOutline "
+                                    @click="()=>{props.onClick;/*console.log(props)*/}"></ion-icon>
+                        </template>
+                      </v-rating>
+                    </ion-item>
+                    <ion-text
+                        style="padding-left: 20px;padding-top: 10px;--color:#858585;color: #858585;display: inline-block">
+                      <ion-icon :icon="cameraOutline"
+                                style="width: 26px;height: 26px;vertical-align: bottom;"></ion-icon>
+                      截图
+                    </ion-text>&nbsp;
+                    <ion-text style="padding-left: 10px;padding-top: 10px;--color:#858585;color: #858585">
+                      <ion-icon :icon="imagesOutline" style="width: 26px;height: 26px;vertical-align: bottom;"
+                                @click="takePicture()"></ion-icon>
+                      上传图片
+                    </ion-text>&nbsp;
+                    <ion-textarea fill="solid" style="height: 300px;padding: 10px" v-model="textarea"></ion-textarea>
+                    <div style="display: flex;justify-content: left">
+                      <div style="margin: 4px;width: 30%;border-radius: 10px;position: relative;margin: 4px;width: 30%;"
+                           v-for="(item,i) in imageList">
+                        <ion-img style="width: 100%;border-radius: 10px;overflow:hidden;"
+                                 :src="item.base64"></ion-img>
+                        <ion-icon style="position:absolute; top: -8px;left: -8px;color: #7B73FF"
+                                  :icon="closeCircleOutline"
+                                  @click="delPic(i)"></ion-icon>
+                      </div>
+                    </div>
 
+                  </div>
+                  <div style="width: 100%;margin-top: 30px;">
+                    <ion-button @click="post"
+                                style="width: 90%;margin: auto;--color: white;--background: #5B78EC;--background-activated: #475eb9"
+                                :expand="'block'" fill="solid">发布
+                    </ion-button>
+                  </div>
+                </ion-content>
+              </ion-modal>
             </div>
           </ion-content>
         </ion-card-content>
@@ -401,4 +577,7 @@ ion-toolbar {
   --background: transparent;
 }
 
+.comment {
+  margin: 10px;
+}
 </style>

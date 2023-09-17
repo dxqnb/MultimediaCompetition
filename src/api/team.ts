@@ -112,6 +112,27 @@ export function upTaskFinsh(data: any) {
     });
 }
 
+export function addFridenTeam(data: any) {
+    return service({
+        url: "v3/FridenTeam/addFridenTeam",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+export function addFridenTeamBgimg(data: any) {
+    return service({
+        url: "v3/FridenTeam/addFridenTeamBgimg",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
 export function delFridenTeam(id: any) {
     return service({
         url: "v3/FridenTeam/delFridenTeam",
@@ -206,5 +227,16 @@ export function getFridenTeamByAttribute111() {
     return service({
         url: "v3/FridenTeamTask/getFridenTeamByAttribute111",
         method: "get",
+    });
+}
+
+export function delFridenUser(userid: any, tid: any) {
+    return service({
+        url: "v3/FridenTeamUser/delFridenUser",
+        method: "post",
+        params: {
+            userid: userid,
+            tid: tid
+        }
     });
 }

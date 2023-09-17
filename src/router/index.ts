@@ -45,6 +45,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'mario',
                 component: () => import('@/views/AI/marioPage.vue'),
             },
+            {
+                path: 'chat',
+                component: () => import('@/views/AI/chatPage.vue'),
+            },
         ]
     },
     {

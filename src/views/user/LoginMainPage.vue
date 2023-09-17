@@ -92,7 +92,7 @@ function isLogin() {
   } else return localStorage.getItem('isLogin') == 'true';
 }
 
-onUpdated(async () => {
+onMounted(async () => {
   if (isLogin()) {
     const alert = await alertController.create({
       header: '提示',

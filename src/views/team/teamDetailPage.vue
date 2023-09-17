@@ -24,10 +24,10 @@ import {
   IonRadio,
   IonRadioGroup,
   IonSearchbar,
-  IonFooter, alertController, toastController, useIonRouter,
+  IonFooter, alertController, toastController, useIonRouter, onIonViewDidLeave,
 } from "@ionic/vue";
 import {ellipsisHorizontal} from 'ionicons/icons';
-import {reactive, ref} from "vue";
+import {onUnmounted, reactive, ref} from "vue";
 import TaskProcess from "@/views/team/components/taskProcess.vue";
 import TaskList from "@/views/team/components/taskList.vue";
 
@@ -38,7 +38,7 @@ import ReleaseTask from "@/views/team/components/releaseTask.vue";
 import TeamInfo from "@/views/team/components/teamInfo.vue";
 import {
   addTeamMessage,
-  delFridenTeam,
+  delFridenTeam, delFridenUser,
   getFridenTeam,
   getFridenTeamMessageList,
   getFridenTeamUserList
@@ -90,7 +90,7 @@ const team = ref<item>({
 })
 const route = useRoute()
 const router = useIonRouter()
-const user = ref()
+const user = ref([])
 let id = route.params.id;
 getFridenTeam({id: id}).then((res) => {
   localStorage.setItem('id', res.data.data)
@@ -98,7 +98,6 @@ getFridenTeam({id: id}).then((res) => {
 });
 getFridenTeamUserList(id).then((res) => {
   user.value = res.data.data
-
 })
 
 function sentEvent() {
@@ -137,7 +136,7 @@ function sentEvent() {
 }
 
 //收消息开始/////////
-setInterval(() => {
+const interval = setInterval(() => {
   getFridenTeamMessageList(id).then((res) => {
     for (let i = length.value; i < res.data.data.length; i++) {
       remoteMassage.value.push({
@@ -151,8 +150,57 @@ setInterval(() => {
     length.value = res.data.data.length
   })
 }, 2000)
+onUnmounted(() => {
+  console.log(1111)
+  clearInterval(interval)
+})
 
 //收消息结束/////////
+async function tackOutTeam() {
+  const alert1 = await alertController.create({
+    header: '提示',
+    subHeader: '是否退出学友团',
+    message: '请选择',
+    buttons: [
+      {
+        role: 'cancel',
+        text: '取消',
+      },
+      {
+        text: '确定',
+        role: 'ok',
+      },
+    ],
+  })
+  await alert1.present()
+  alert1.onDidDismiss().then(async (res) => {
+    if (res.role == 'ok') {
+      if (team.value.userid == userid) {
+        const toast = await toastController.create({
+          message: '您是队长，无法退出'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+        return
+      }
+      delFridenUser(userid, id).then(async () => {
+        const toast = await toastController.create({
+          message: '退出成功'
+        })
+        await toast.present().then(() => {
+          setTimeout(() => {
+            toast.dismiss()
+          }, 1000)
+        })
+        router.push('/tabs/team')
+      })
+    }
+  })
+}
+
 async function delTeam() {
   const alert1 = await alertController.create({
     header: '提示',
@@ -170,7 +218,6 @@ async function delTeam() {
     ],
   })
   await alert1.present()
-
   alert1.onDidDismiss().then(async (res) => {
     if (res.role == 'ok') {
       if (team.value.userid != userid) {
@@ -186,7 +233,7 @@ async function delTeam() {
       }
       delFridenTeam(id).then(async () => {
         const toast = await toastController.create({
-          message: '登录成功'
+          message: '删除成功'
         })
         await toast.present().then(() => {
           setTimeout(() => {
@@ -222,7 +269,7 @@ function change(event: any) {
     <IonHeader style="background-color: #FFFFFF" class="ion-no-border ion-padding">
       <IonToolbar>
         <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button text="" default-href="/tabs/team"></ion-back-button>
         </ion-buttons>
         <IonTitle>{{ team.tname }}</IonTitle>
         <ion-buttons slot="end">
@@ -323,6 +370,9 @@ function change(event: any) {
       <ion-content>
         <ion-list>
           <ion-item :button="true" :detail="false" @click="delTeam">解散该学友团</ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item :button="true" :detail="false" @click="tackOutTeam">退出该学友团</ion-item>
         </ion-list>
       </ion-content>
     </ion-popover>

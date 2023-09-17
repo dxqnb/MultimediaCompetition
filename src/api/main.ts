@@ -8,3 +8,12 @@ export function getBanner(type:any) {
         }
     });
 }
+export function chats(msg:any) {
+    return service({
+        url: "v3/WenXin/chats",
+        method: "post",
+        params:{
+            msg:msg,
+        }
+    });
+}

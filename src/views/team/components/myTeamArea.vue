@@ -9,9 +9,9 @@ import {
   IonRadio,
   IonAvatar,
   IonRange,
-  IonButton, IonTabButton, useIonRouter
+  IonButton, IonTabButton, useIonRouter, onIonViewDidEnter, onIonViewWillEnter
 } from "@ionic/vue";
-import {reactive, ref} from "vue";
+import {onMounted, onUpdated, reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
 import animation from "@/animations/customAnimation";
 import router from "@/router";
@@ -64,44 +64,89 @@ const finalItem = reactive<final[]>([]);
 const ffffffff = reactive<final[]>([]);
 const temp1 = ref<item[] | undefined>()
 const temp2 = ref<item[] | undefined>()
-getMyFridenTeam(userid).then((res: any) => {
-  for (let i = 0; i < res.data.data.length; i++) {
-    teamList.push(res.data.data[i])
-  }
-  segment.value = res.data.data[0].id
-  getFridenTeamTaskList(segment.value).then((res) => {
+// getMyFridenTeam(userid).then((res: any) => {
+//   for (let i = 0; i < res.data.data.length; i++) {
+//     teamList.push(res.data.data[i])
+//   }
+//   segment.value = res.data.data[0].id
+//   getFridenTeamTaskList(segment.value).then((res) => {
+//     for (let i = 0; i < res.data.data.length; i++) {
+//       if (res.data.data[i].open == '1') {
+//         finalItem.push(res.data.data[i])
+//       }
+//     }
+//     console.log(finalItem)
+//     getFridenTeamTaskfinshYes(segment.value).then((res) => {
+//       for (let i = 0; i < res.data.data.length; i++) {
+//         for (let j = 0; j < finalItem.length; j++) {
+//           if (res.data.data[i].taskid == finalItem[j].id) {
+//             if (finalItem[j].finished == undefined) finalItem[j].finished = []
+//             finalItem[j].finished?.push(res.data.data[i])
+//           }
+//         }
+//       }
+//       getFridenTeamTaskfinshNo(segment.value).then((res) => {
+//         for (let i = 0; i < res.data.data.length; i++) {
+//           for (let j = 0; j < finalItem.length; j++) {
+//             if (res.data.data[i].taskid == finalItem[j].id) {
+//               if (finalItem[j].unfinished == undefined) finalItem[j].unfinished = []
+//               finalItem[j].unfinished?.push(res.data.data[i])
+//             }
+//           }
+//         }
+//         for (let j = 0; j < finalItem.length; j++) {
+//           ffffffff.push(finalItem[j])
+//         }
+//         temp1.value = ffffffff[0].finished
+//         temp2.value = ffffffff[0].unfinished
+//       })
+//     })
+//   })
+// })
+onMounted(() => {
+  finalItem.splice(0, finalItem.length);
+  ffffffff.splice(0, ffffffff.length);
+  teamList.splice(0, teamList.length);
+  getMyFridenTeam(userid).then((res: any) => {
     for (let i = 0; i < res.data.data.length; i++) {
-      if (res.data.data[i].open == '1') {
-        finalItem.push(res.data.data[i])
-      }
+      teamList.push(res.data.data[i])
     }
-    console.log(finalItem)
-    getFridenTeamTaskfinshYes(segment.value).then((res) => {
+    segment.value = res.data.data[0].id
+    getFridenTeamTaskList(segment.value).then((res) => {
       for (let i = 0; i < res.data.data.length; i++) {
-        for (let j = 0; j < finalItem.length; j++) {
-          if (res.data.data[i].taskid == finalItem[j].id) {
-            if (finalItem[j].finished == undefined) finalItem[j].finished = []
-            finalItem[j].finished?.push(res.data.data[i])
-          }
+        if (res.data.data[i].open == '1') {
+          finalItem.push(res.data.data[i])
         }
       }
-      getFridenTeamTaskfinshNo(segment.value).then((res) => {
+      console.log(finalItem)
+      getFridenTeamTaskfinshYes(segment.value).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           for (let j = 0; j < finalItem.length; j++) {
             if (res.data.data[i].taskid == finalItem[j].id) {
-              if (finalItem[j].unfinished == undefined) finalItem[j].unfinished = []
-              finalItem[j].unfinished?.push(res.data.data[i])
+              if (finalItem[j].finished == undefined) finalItem[j].finished = []
+              finalItem[j].finished?.push(res.data.data[i])
             }
           }
         }
-        for (let j = 0; j < finalItem.length; j++) {
-          ffffffff.push(finalItem[j])
-        }
-        temp1.value = ffffffff[0].finished
-        temp2.value = ffffffff[0].unfinished
+        getFridenTeamTaskfinshNo(segment.value).then((res) => {
+          for (let i = 0; i < res.data.data.length; i++) {
+            for (let j = 0; j < finalItem.length; j++) {
+              if (res.data.data[i].taskid == finalItem[j].id) {
+                if (finalItem[j].unfinished == undefined) finalItem[j].unfinished = []
+                finalItem[j].unfinished?.push(res.data.data[i])
+              }
+            }
+          }
+          for (let j = 0; j < finalItem.length; j++) {
+            ffffffff.push(finalItem[j])
+          }
+          temp1.value = ffffffff[0].finished
+          temp2.value = ffffffff[0].unfinished
+        })
       })
     })
   })
+
 })
 </script>
 
@@ -118,9 +163,15 @@ getMyFridenTeam(userid).then((res: any) => {
         <ion-segment-button :value="i.id" v-for="i in teamList">
           <ion-label><h3 style="font-weight: 900">{{ i.tname }}</h3></ion-label>
         </ion-segment-button>
+        <ion-segment-button :value="0" v-if="teamList.length==0">
+          <ion-label><h3 style="font-weight: 900">你还没加入任何一个学友团</h3></ion-label>
+        </ion-segment-button>
       </ion-segment>
       <div
           style="background-color: #FFFFFF;border-radius:0 0 10px 10px;padding-top: 1em;">
+        <div v-if="temp1==undefined&&temp2==undefined">
+          暂无任务
+        </div>
         <div style="width: 90%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in temp1">
           <ion-avatar
               style="display:inline-block;vertical-align: top;margin-top: 1em;width: 2em;height: 2em;margin-right: 6px">
@@ -177,8 +228,8 @@ getMyFridenTeam(userid).then((res: any) => {
           </div>
         </div>
         <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;">
-          <ion-button mode="md"
-                      @click="ionRouter.navigate('/team/teamDetail/1','forward','push')"
+          <ion-button mode="md" v-if="temp1!=undefined||temp2!=undefined"
+                      @click="ionRouter.navigate('/team/teamDetail/'+segment,'forward','push')"
                       style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;">
             更多
           </ion-button>

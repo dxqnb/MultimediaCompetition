@@ -11,10 +11,10 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <div>
-        <ion-avatar @click="$router.push('/login')" slot="start"
+        <ion-avatar @click="isOpen=true" slot="start"
                     style="margin: 20px 20px 0 20px;width: 66px;height: 66px;display: inline-block"><img
             :src='avatar' alt=""></ion-avatar>
-        <div style="display: inline-block;margin-top: 30px;vertical-align: top">
+        <div style="display: inline-block;margin-top: 30px;vertical-align: top" @click="$router.push('/login')">
           <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">{{ studentname }}</ion-text>
           <ion-text style="color: rgba(255,255,255,0.65);font-size: 10px;display: block">学号：{{ userid }}</ion-text>
         </div>
@@ -333,6 +333,12 @@
       </div>
       <robot></robot>
       <div style="height: 30px"></div>
+      <ion-action-sheet
+          :is-open="isOpen"
+          header="修改头像"
+          :buttons="actionSheetButtons"
+          @didDismiss="dismiss($event)"
+      ></ion-action-sheet>
     </ion-content>
 
   </ion-page>
@@ -382,12 +388,16 @@ import {
   IonIcon,
   IonText,
   IonImg,
-  IonicSlides, IonHeader, IonAvatar, IonChip,
-  IonCard
-  , IonCardContent
-  , IonCardHeader
+  IonicSlides,
+  IonHeader,
+  IonAvatar,
+  IonChip,
+  IonCard,
+  IonCardContent,
+  IonActionSheet,
+  IonCardHeader, toastController
 } from '@ionic/vue';
-import {defineComponent, onMounted, onUnmounted, ref, reactive} from "vue";
+import {defineComponent, onMounted, onUnmounted, ref, reactive, onUpdated} from "vue";
 import io from 'socket.io-client';
 import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swiper/modules';
 import 'swiper/css/effect-cards';
@@ -397,13 +407,90 @@ import Robot from "@/components/robot.vue";
 import {addOutline, notificationsOutline, removeOutline, settingsOutline} from "ionicons/icons";
 import * as echarts from "echarts";
 import {getBanner} from "@/api/main";
-import {getKcRecords, getZyRecords} from "@/api/user";
+import {getKcRecords, getUserDetail, getZyRecords, upAvatar} from "@/api/user";
+import {Camera, CameraResultType} from "@capacitor/camera";
 
-
+const isOpen = ref(false)
+const actionSheetButtons = [
+  {
+    text: '修改头像',
+    data: {
+      action: 'update',
+    },
+  },
+  {
+    text: 'Cancel',
+    role: 'cancel',
+    data: {
+      action: 'cancel',
+    },
+  },
+];
 const modules = ref([EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom, IonicSlides]);
 type EChartsOption = echarts.EChartsOption;
 const sw = ref();
 const radar = ref();
+
+interface image {
+  base64?: string,
+  file: File,
+}
+
+const imageList = ref<image>()
+
+function base64ToFile(base64: string | undefined, fileName: string) {
+  if (base64 == undefined) return;
+  let arr = base64.split(",");
+  let bstr = atob(arr[1]);
+  let n = bstr.length;
+  let u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], fileName, {type: 'image'});
+}
+
+const user = localStorage.getItem('user') || ''
+
+async function dismiss(event: CustomEvent) {
+  isOpen.value = false
+  if (event.detail.data.action == 'update') {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl
+    });
+    let dataUrl = image.dataUrl == undefined ? '.' : image.dataUrl
+    let temp = base64ToFile(image.dataUrl, 'tempAvatar.' + dataUrl.split('/')[1].split(';')[0])
+    if (temp == null) return
+    imageList.value = {
+      base64: image.dataUrl,
+      file: temp,
+    }
+    let a = {
+      userName: JSON.parse(user).username,
+      avatar: '',
+      file: imageList.value.file
+    }
+    upAvatar(a).then(async (res) => {
+      console.log(res.data)
+      const toast = await toastController.create({
+        message: '修改成功'
+      })
+      await toast.present().then(() => {
+        setTimeout(() => {
+          toast.dismiss()
+        }, 1000)
+      })
+      getUserDetail(JSON.parse(user).id).then((res) => {
+        localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+        updata()
+      })
+    })
+  }
+}
+
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
 
@@ -523,7 +610,6 @@ getZyRecords(7).then((res) => {
   TeacherName.value = items[0].createby
 })
 onMounted(() => {
-
   setTimeout(function () {
     let radarChart = echarts.init(radar.value);
     radarOption && radarChart.setOption(radarOption);
@@ -858,31 +944,42 @@ getBanner('3').then(res => {
   }
 })
 
-const data = localStorage.getItem('user') as string | null;
+function updata() {
+  let data = localStorage.getItem('user') as string | null;
+  if (data) { // 检查数据是否存在
+    let parsedData = JSON.parse(data); // 将字符串转换为对象
+
+    if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
+      userid.value = parsedData.username; // 提取 username 并赋值给变量
+    }
+
+    if (parsedData && parsedData.studentname) { // 检查是否成功解析并存在 username 字段
+      studentname.value = parsedData.studentname; // 提取 username 并赋值给变量
+    }
+
+    if (parsedData && parsedData.deptname) { // 检查是否成功解析并存在 username 字段
+      deptname.value = parsedData.deptname; // 提取 username 并赋值给变量
+    }
+
+    if (parsedData && parsedData.avatar) { // 检查是否成功解析并存在 username 字段
+      avatar.value = parsedData.avatar; // 提取 username 并赋值给变量
+    }
+
+  }
+}
+
 const userid = ref('');
 const studentname = ref('');
 const deptname = ref('');
 const avatar = ref('');
-if (data) { // 检查数据是否存在
-  const parsedData = JSON.parse(data); // 将字符串转换为对象
+onUpdated(() => {
+  // getUserDetail(JSON.parse(user).id).then((res) => {
+  //   localStorage.setItem('user', JSON.stringify(res.data.data[0]))
+  updata()
+  // })
+})
 
-  if (parsedData && parsedData.username) { // 检查是否成功解析并存在 username 字段
-    userid.value = parsedData.username; // 提取 username 并赋值给变量
-  }
-
-  if (parsedData && parsedData.studentname) { // 检查是否成功解析并存在 username 字段
-    studentname.value = parsedData.studentname; // 提取 username 并赋值给变量
-  }
-
-  if (parsedData && parsedData.deptname) { // 检查是否成功解析并存在 username 字段
-    deptname.value = parsedData.deptname; // 提取 username 并赋值给变量
-  }
-
-  if (parsedData && parsedData.avatar) { // 检查是否成功解析并存在 username 字段
-    avatar.value = parsedData.avatar; // 提取 username 并赋值给变量
-  }
-  // const username=userid.value;
-  // console.log(userid.value);
+function upImg() {
 
 }
 </script>

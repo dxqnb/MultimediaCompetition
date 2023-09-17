@@ -52,7 +52,7 @@ function handleRefresh(event: any) {
 }
 
 const segmentValue = ref("1")
-getKcRecords(7).then((res) => {
+getKcRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((res) => {
   for (let i = 0; i < res.data.data.length; i++) {
     items.push(res.data.data[i])
   }
@@ -61,7 +61,7 @@ getKcRecords(7).then((res) => {
   });
 
 })
-getZyRecords(7).then((res) => {
+getZyRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((res) => {
   for (let i = 0; i < res.data.data.length; i++) {
     items.push(res.data.data[i])
   }

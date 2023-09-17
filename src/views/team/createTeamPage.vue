@@ -15,7 +15,7 @@ import {
   IonList,
   IonCard,
   IonCardContent,
-  IonBadge,
+  IonTextarea,
   IonChip,
   IonButton, pickerController,
   IonText, IonSelect, IonInput, IonSelectOption
@@ -23,9 +23,16 @@ import {
 import {addOutline, ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import {chevronForwardOutline} from 'ionicons/icons';
+import {addFridenTeam} from "@/api/team";
 
 const vocabulary = ref('请选择');
 const days = ref('请选择');
+const tname = ref('');
+const introduction = ref('');
+const maxNumber = ref('2');
+const flag = ref(false);
+const textarea = ref('');
+const attribute = ref('自定义');
 
 // function handleRefresh(event: any) {
 //   setTimeout(() => {
@@ -141,7 +148,7 @@ const pickerButtons = [
   },
   {
     text: 'Confirm',
-    handler: (value:any) => {
+    handler: (value: any) => {
       window.alert(`单词数:${value.vocabulary.value} 天数:${value.days.value}`);
       vocabulary.value = value.vocabulary.text;
       days.value = value.days.text;
@@ -161,6 +168,26 @@ async function openPicker() {
   await picker.present();
 }
 
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
+
+function post() {
+  let a = {
+    tname: tname.value,
+    userid: userid,
+    tavatar: '',
+    introduction: introduction.value,
+    in_type: 0,
+    number: 1,
+    mxnumber: maxNumber.value,
+    attribute: attribute.value == '自定义' ? '' : attribute.value,
+  }
+addFridenTeam(a).then((res)=>{
+  console.log(res.data)
+})
+
+}
+
 </script>
 
 <template>
@@ -168,7 +195,7 @@ async function openPicker() {
     <IonHeader style="background-color: #f7f7f7" class="ion-no-border ion-padding">
       <IonToolbar>
         <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
+          <ion-back-button text="" default-href="/tabs/team"></ion-back-button>
         </ion-buttons>
         <IonTitle>自建组队</IonTitle>
         <ion-buttons slot="end">
@@ -184,6 +211,7 @@ async function openPicker() {
           <ion-list>
             <ion-item lines="none">
               <ion-input
+                  v-model="tname"
                   label="队伍名"
                   label-placement="stacked"
                   :clear-on-edit="true"
@@ -192,15 +220,29 @@ async function openPicker() {
               </ion-input>
             </ion-item>
             <ion-item lines="none">
-              <ion-select label="组队人数" placeholder="2"
+              <ion-input
+                  v-model="introduction"
+                  label="团队说明"
+                  label-placement="stacked"
+                  :clear-on-edit="true"
+                  placeholder="请输入队伍说明"
+              >
+              </ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-select label="组队人数" placeholder="4"
+                          v-model="maxNumber"
                           class="always-flip"
                           :toggle-icon="chevronForwardOutline"
                           interface="popover"
                           value="2">
-                <ion-select-option value="2">2</ion-select-option>
-                <ion-select-option value="3">3</ion-select-option>
                 <ion-select-option value="4">4</ion-select-option>
                 <ion-select-option value="5">5</ion-select-option>
+                <ion-select-option value="6">6</ion-select-option>
+                <ion-select-option value="7">7</ion-select-option>
+                <ion-select-option value="8">8</ion-select-option>
+                <ion-select-option value="9">9</ion-select-option>
+                <ion-select-option value="10">10</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item lines="none">
@@ -224,13 +266,17 @@ async function openPicker() {
             </ion-item>
             <ion-item lines="none">
               <ion-label>设置学友属性</ion-label>
-              <ion-chip>
-                <ion-icon style="margin: 0" :icon="addOutline"></ion-icon>
-                自定义
+              <ion-chip slot="end" @click="flag=true">
+                <ion-icon style="margin: 0" v-if="!flag" :icon="addOutline"></ion-icon>
+                <span v-if="!flag">
+                  {{ attribute }}
+                </span>
+                <ion-textarea @keydown.enter="()=>{flag=false;attribute=textarea}" v-model="textarea" v-if="flag"
+                              style="--padding-start: 0;--padding-top: 0;--padding-bottom: 0;--padding-end: 0;width: 50px;"></ion-textarea>
               </ion-chip>
             </ion-item>
             <ion-item lines="none" style="padding: 20px 0">
-              <ion-button
+              <ion-button @click="post"
                   style="width: 100%;--background: #515EFF;color: #FFFFFF;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 1em">
                 创建队伍
               </ion-button>

@@ -126,13 +126,37 @@ export function getMyGrades(username: any, year: any) {
         }
     })
 }
-export function cjzj(username: any,year: any) {
+
+export function cjzj(username: any, year: any) {
     return service({
         url: "v3/WenXin/cjzj",
         method: "post",
         params: {
-            username:username,
-			year:year
+            username: username,
+            year: year
         }
+    });
+}
+
+export function firstUpPwd(username: any, password: any, rpassword: any) {
+    return service({
+        url: "v3/User/firstUpPwd",
+        method: "post",
+        params: {
+            userName: username,
+            password: password,
+            rpassword: rpassword
+        }
+    });
+}
+
+export function upAvatar(data: any) {
+    return service({
+        url: "v3/User/upAvatar",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
     });
 }

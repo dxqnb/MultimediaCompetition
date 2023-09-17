@@ -268,7 +268,7 @@ function change(event: any) {
     <ion-header collapse="fade" class="ion-no-border ion-padding">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button style="color: #f4f5f8" text="" default-href="/study/lessons"></ion-back-button>
+          <ion-back-button style="color: #f4f5f8" text="" default-href="/tabs/team"></ion-back-button>
         </ion-buttons>
         <ion-title style="--color:white ">排行榜</ion-title>
         <ion-buttons slot="end">
@@ -327,7 +327,7 @@ function change(event: any) {
                     <div>
                       <div style="display: flex;">
                         <ion-thumbnail style="--border-radius: 8px;--size: 66px"><img
-                            :src="mainList[i-1].tavatar"
+                            :src="mainList[i-1].bgimg"
                             alt=""/></ion-thumbnail>
                         <div style="margin-left: 10px">
                           <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{

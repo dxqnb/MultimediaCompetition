@@ -239,6 +239,8 @@ function post() {
           }, 1000)
         })
       }
+      noticeList.splice(0, noticeList.length);
+      myNoticeList.splice(0, myNoticeList.length);
       getZyKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -263,6 +265,8 @@ function post() {
           }, 1000)
         })
       }
+      noticeList.splice(0, noticeList.length);
+      myNoticeList.splice(0, myNoticeList.length);
       getKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -278,13 +282,13 @@ function post() {
   dismiss();
 }
 
-function delPic(id: number) {
-  imageList.splice(id, 1)
+function delPic(idP: number) {
+  imageList.splice(idP, 1)
 }
 
-function delNotice(id: number) {
+function delNotice(idN: number) {
   if (type == 'zykc') {
-    delZyKcNote(id).then(async (res) => {
+    delZyKcNote(idN).then(async (res) => {
       if (res.data.code == 0) {
         const toast = await toastController.create({
           message: '删除成功'
@@ -295,6 +299,8 @@ function delNotice(id: number) {
           }, 1000)
         })
       }
+      noticeList.splice(0, noticeList.length);
+      myNoticeList.splice(0, myNoticeList.length);
       getZyKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -307,7 +313,7 @@ function delNotice(id: number) {
       })
     })
   } else {
-    delKcNote(id).then(async (res) => {
+    delKcNote(idN).then(async (res) => {
       if (res.data.code == 0) {
         const toast = await toastController.create({
           message: '发布成功'
@@ -318,6 +324,8 @@ function delNotice(id: number) {
           }, 1000)
         })
       }
+      noticeList.splice(0, noticeList.length);
+      myNoticeList.splice(0, myNoticeList.length);
       getKcNoteList(id).then((res) => {
         for (let i = 0; i < res.data.data.length; i++) {
           noticeList.push(res.data.data[i])
@@ -331,6 +339,7 @@ function delNotice(id: number) {
     })
   }
 }
+
 </script>
 
 <template>
@@ -340,7 +349,7 @@ function delNotice(id: number) {
         <div ref="vs">
         </div>
         <ion-buttons style="position: absolute;top: 20px;left: 20px">
-          <ion-back-button style="color: #f4f5f8" text="" default-href="/study/lesson/1"></ion-back-button>
+          <ion-back-button style="color: #f4f5f8" text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
         <ion-buttons style="position: absolute;top: 20px;right: 20px">
           <ion-button>
@@ -365,7 +374,7 @@ function delNotice(id: number) {
     <ion-content>
       <div v-if="segmentValue=='notice'">
         <ion-card-content style="padding: 0">
-          <ion-list>
+          <ion-list style="margin-bottom: 50px">
             <ion-item lines="full" class="ion-text-wrap" v-for="i in noticeList">
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
@@ -402,7 +411,7 @@ function delNotice(id: number) {
       </div>
       <div v-if="segmentValue=='myNotice'">
         <ion-card-content style="padding: 0">
-          <ion-list>
+          <ion-list style="margin-bottom: 50px">
             <ion-item lines="full" class="ion-text-wrap" v-for="i in myNoticeList">
               <div class="ion-padding-top ion-margin-top">
                 <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">

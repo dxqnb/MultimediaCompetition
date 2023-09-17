@@ -18,12 +18,20 @@ import {
   IonItem,
   IonLabel,
   IonThumbnail,
-  IonTitle, createAnimation, IonBackButton, IonButtons, alertController, useIonRouter, toastController
+  IonTitle,
+  createAnimation,
+  IonBackButton,
+  IonButtons,
+  alertController,
+  useIonRouter,
+  toastController,
+  onIonViewDidEnter
 } from "@ionic/vue";
 import {onMounted, onUpdated, ref} from "vue";
 import {login} from "@/api/user";
 import {client, parsers, server, utils} from "@passwordless-id/webauthn";
-import { getPlatforms } from '@ionic/vue';
+import {getPlatforms} from '@ionic/vue';
+
 const num = ref('2021080406');
 const pw = ref('123456');
 const radio = ref('false');
@@ -78,7 +86,7 @@ async function register() {
       origin: origin,
     })
     authentication.credentialId = res.credential.id
-    localStorage.setItem('register',JSON.stringify(res))
+    localStorage.setItem('register', JSON.stringify(res))
   } catch (e) {
     console.warn(e)
     registration.result = {}
@@ -106,7 +114,7 @@ function isLogin() {
 //     })
 //   }
 // })
-onUpdated(async () => {
+onIonViewDidEnter(async () => {
   if (isLogin()) {
     const alert = await alertController.create({
       header: '提示',
@@ -133,13 +141,31 @@ async function doLogin() {
   } else if (radio.value == 'true') {
     login({userName: num.value, password: pw.value}).then(async (res) => {
       console.log(res)
-
       if (res.data.code == 200) {
         localStorage.setItem('isLogin', 'true')
+        localStorage.removeItem('user')
         localStorage.setItem('user', JSON.stringify(res.data.data))
         const toast = await toastController.create({
           message: '登录成功'
         })
+        if (res.data.data.userstatus == 0) {
+          const alert2 = await alertController.create({
+            header: '提示',
+            subHeader: '第一次登录，请进行密码修改',
+            message: '请确认',
+            buttons: [
+              {
+                text: '确认',
+                role: 'ok',
+              },
+            ],
+          })
+          await alert2.present()
+          alert2.onDidDismiss().then(() => {
+            router.push('/login/register')
+          })
+          return
+        }
         const alert1 = await alertController.create({
           header: '提示',
           subHeader: '是否允许之后使用生物识别登录',

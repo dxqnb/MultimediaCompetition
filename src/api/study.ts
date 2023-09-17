@@ -258,6 +258,24 @@ export function delZyKcNote(id: any) {
         }
     });
 }
+export function getKcPjList(kcid: any) {
+    return service({
+        url: "v3/StudyPj/getKcPjList",
+        method: "get",
+        params: {
+            kcid:kcid
+        }
+    });
+}
+export function getZyKcPjList(kcid: any) {
+    return service({
+        url: "v3/StudyPj/getZyKcPjList",
+        method: "get",
+        params: {
+            kcid:kcid
+        }
+    });
+}
 
 export function addKcNote(data: any) {
     return service({
@@ -272,6 +290,26 @@ export function addKcNote(data: any) {
 export function addZyKcNote(data: any) {
     return service({
         url: "v3/StudyNote/addZyKcNote",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+export function addKcPj(data: any) {
+    return service({
+        url: "v3/StudyPj/addKcPj",
+        method: "post",
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+export function addZyKcPj(data: any) {
+    return service({
+        url: "v3/StudyPj/addZyKcPj",
         method: "post",
         data,
         headers: {

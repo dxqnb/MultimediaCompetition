@@ -18,7 +18,7 @@ import {
   IonItem,
   IonLabel,
   IonThumbnail,
-  IonTitle, createAnimation, IonBackButton, IonButtons
+  IonTitle, createAnimation, IonBackButton, IonButtons, toastController, useIonRouter
 } from "@ionic/vue";
 import {
   ellipsisHorizontalOutline,
@@ -29,6 +29,33 @@ import {
   chevronDownOutline, phonePortraitOutline, settingsOutline, notificationsOutline
 } from "ionicons/icons";
 import {onMounted, ref} from "vue";
+import {firstUpPwd, getUserDetail} from "@/api/user";
+
+const router = useIonRouter()
+const phone = ref('')
+const username = ref('')
+const password = ref('')
+const rePassword = ref('')
+const user = localStorage.getItem('user') || ''
+const userid = JSON.parse(user).id
+getUserDetail(userid).then((res) => {
+  phone.value = res.data.data[0].phonenumber
+  username.value = res.data.data[0].username
+})
+
+function post() {
+  firstUpPwd(username.value, password.value, rePassword.value).then(async (res) => {
+    const toast = await toastController.create({
+      message: '修改成功'
+    })
+    await toast.present().then(() => {
+      setTimeout(() => {
+        toast.dismiss()
+      }, 1000)
+    })
+    router.push('/')
+  })
+}
 </script>
 
 <template>
@@ -61,26 +88,28 @@ import {onMounted, ref} from "vue";
           </ion-text>
           <form action="" method="get">
             <ion-label style="margin: 20px 0 10px 10px;display: block">学号</ion-label>
-            <ion-input fill="outline" inputmode="numeric" :autofocus="true" enterkeyhint="next" type="number"
-                       shape="round" placeholder="输入你的学号" mode="md" value="2021080418"
+            <ion-input disabled fill="outline" inputmode="numeric" :autofocus="true" enterkeyhint="next" type="number"
+                       shape="round" placeholder="输入你的学号" mode="md" v-model="username"
                        style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
             </ion-input>
-            <ion-label style="margin: 20px 0 10px 10px;display: block">手机号</ion-label>
-            <ion-input fill="outline" inputmode="numeric" :autofocus="true" enterkeyhint="next" type="tel"
-                       shape="round" placeholder="输入你的手机号" mode="md" :minlength="11" :maxlength="11" value="13888888888"
-                       style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
-            </ion-input>
+<!--            <ion-label style="margin: 20px 0 10px 10px;display: block">手机号</ion-label>-->
+<!--            <ion-input disabled fill="outline" inputmode="numeric" :autofocus="true" enterkeyhint="next" type="tel"-->
+<!--                       shape="round" placeholder="输入你的手机号" mode="md" :minlength="11" :maxlength="11"-->
+<!--                       v-model="phone"-->
+<!--                       style="&#45;&#45;background: #F1F1F1;&#45;&#45;border-radius:16px;&#45;&#45;border-color:#F1F1F1;min-height: 44px;font-size: 14px">-->
+<!--            </ion-input>-->
             <ion-label style="margin: 20px 0 10px 10px;display: block">修改密码</ion-label>
-            <ion-input fill="outline" inputmode="text" :autofocus="false" enterkeyhint="send" type="password"
-                       shape="round" placeholder="输入你的密码" mode="md" value=""
+            <ion-input fill="outline" inputmode="text" :autofocus="false" enterkeyhint="next" type="password"
+                       shape="round" placeholder="输入你的密码" mode="md" v-model="password"
                        style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
             </ion-input>
             <ion-label style="margin: 20px 0 10px 10px;display: block">确认密码</ion-label>
-            <ion-input fill="outline" inputmode="text" :autofocus="false" enterkeyhint="send" type="password"
-                       shape="round" placeholder="输入你的密码" mode="md" value=""
+            <ion-input fill="outline" inputmode="text" v-model="rePassword" :autofocus="false" enterkeyhint="send"
+                       type="password"
+                       shape="round" placeholder="输入你的密码" mode="md"
                        style="--background: #F1F1F1;--border-radius:16px;--border-color:#F1F1F1;min-height: 44px;font-size: 14px">
             </ion-input>
-            <ion-button type="submit"
+            <ion-button @click="post"
                         style="--color: #fff;font-size: 13px;width: 100%;margin: 30px auto;display:block;--background: #5676F1;min-height: 47px">
               登录
             </ion-button>

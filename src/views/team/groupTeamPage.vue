@@ -24,24 +24,23 @@ import groupTeamItem from '@/views/team/components/groupTeamItem.vue'
 import {getAllFridenTeam} from "@/api/team";
 
 interface team {
+  id:number,
   tname: string,
   studentname: string
   bgimg: string,
   number: number,
+  mxnumber: number,
   createtime: string
 }
 
-const items = ref<team[]>([]);
+interface team {
+  avatar: String
+}
+const items = reactive<team[]>([]);
 getAllFridenTeam().then((res) => {
   console.log(res.data.data)
   for (let i = 0; i < res.data.data.length; i++) {
-    items.value.push({
-      tname: res.data.data[i].tname,
-      studentname: res.data.data[i].studentname,
-      bgimg: res.data.data[i].bgimg,
-      number: res.data.data[i].number,
-      createtime: res.data.data[i].createtime
-    })
+    items.push(res.data.data[i])
   }
 })
 
@@ -64,7 +63,7 @@ getAllFridenTeam().then((res) => {
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
       <div style="width: 100%;">
-        <ion-segment style="width: 110px;min-width: 0;margin: 0 auto;" value="join">
+        <ion-segment style="width: 110px;min-width: 0;margin: 0 auto;" @ionChange="()=>{$router.push('/team/createTeam')}" value="join">
           <ion-segment-button style="min-width: 55px;min-height: 20px" value="join">
             <ion-label style="font-size: 13px">参与</ion-label>
           </ion-segment-button>
@@ -74,14 +73,20 @@ getAllFridenTeam().then((res) => {
         </ion-segment>
       </div>
       <div>
-        <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">进行中
+        <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">可参加
         </ion-text>
-        <group-team-item v-for="item in items" :item="item" :disable="false"></group-team-item>
+        <div>
+          <group-team-item index="able" v-for="item in items" :item="item" :disable="false"></group-team-item>
+        </div>
+
       </div>
       <div>
-        <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">已完成
+        <ion-text style="color:#333333;font-size: 16px;font-weight: 600;display: block;margin: 14px 0">已满员
         </ion-text>
-        <group-team-item v-for="item in items" :item="item" :disable="true"></group-team-item>
+        <div >
+          <group-team-item index="disable"  v-for="item in items" :item="item" :disable="true"></group-team-item>
+        </div>
+
       </div>
     </ion-content>
   </IonPage>

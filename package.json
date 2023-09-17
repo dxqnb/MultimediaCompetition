@@ -16,6 +16,7 @@
     "@awesome-cordova-plugins/flashlight": "^6.4.0",
     "@capacitor-community/apple-sign-in": "^5.0.0",
     "@capacitor-community/camera-preview": "5.0.0",
+    "@capacitor-community/speech-recognition": "^5.0.0",
     "@capacitor/android": "5.2.3",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^5.0.7",
