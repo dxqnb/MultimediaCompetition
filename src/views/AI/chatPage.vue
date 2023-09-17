@@ -40,6 +40,14 @@ const sent = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
 const sentBar = ref('')
 const content = ref()
 
+interface message {
+  time: string,
+  text: string,
+  isMyself: boolean,
+  username: string,
+  avatar: string
+}
+
 const remoteMassage = ref<message[]>([])
 remoteMassage.value.push({
   time: dayjs().format('HH:mm'),

@@ -97,8 +97,8 @@ async function dismiss(event: CustomEvent) {
       const toast = await toastController.create({
         message: '修改成功'
       })
-      bgimg.value=imageList.value.base64
-      flag.value=false
+      bgimg.value = <string>imageList.value?.base64
+      flag.value = false
       await toast.present().then(() => {
         setTimeout(() => {
           toast.dismiss()
