@@ -19,7 +19,6 @@ import 'swiper/css';
 import 'swiper/less/navigation';
 import {data} from "browserslist";
 import {addFridenTeamBgimg, getFridenTeamUserList} from "@/api/team";
-import {Autoplay, EffectCards, Keyboard, Scrollbar, Zoom} from "swiper/types/modules";
 import * as echarts from "echarts";
 import {Camera, CameraResultType} from "@capacitor/camera";
 import {getUserDetail, upAvatar} from "@/api/user";

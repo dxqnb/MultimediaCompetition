@@ -44,7 +44,12 @@ getAllFridenTeam().then((res) => {
     mainList.push(res.data.data[i])
   }
 })
-const userid = Number(JSON.parse(localStorage.getItem('user') || '').id)
+var userid = 0;
+const user = localStorage.getItem('user') || ''
+if (user != '') {
+  userid = Number(JSON.parse(user).id)
+}
+
 function join(tid: any) {
   addFridenTeamUser(tid, userid).then(async (res) => {
     const toast = await toastController.create({

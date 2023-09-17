@@ -39,7 +39,7 @@ const router = useIonRouter()
 let origin = document.location.origin
 let registration: any = {
   username: "Arnaud",
-  challenge: utils.randomChallenge(),
+  challenge: utils.randomChallenge,
   options: {
     authenticatorType: 'auto',
     userVerification: 'required',
@@ -51,7 +51,7 @@ let registration: any = {
 }
 let authentication: any = {
   credentialId: null,
-  challenge: utils.randomChallenge(),
+  challenge: utils.randomChallenge,
   options: {
     authenticatorType: 'auto',
     userVerification: 'required',

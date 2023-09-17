@@ -5,7 +5,6 @@ import {
   , IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonImg, IonText, toastController
 } from "@ionic/vue";
 import {addZyKc, getZyKcDetailList} from "@/api/study";
-import {ref} from "vue/dist/vue";
 import {useRoute} from "vue-router";
 
 const route = useRoute();

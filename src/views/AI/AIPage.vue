@@ -45,7 +45,7 @@ import {reactive, ref} from "vue";
         <ion-row>
           <ion-col size="12">
             <div class="first"
-                 style="width: 100%;height: 125px;border-radius: 10px;position: relative;margin-top: 20px" @click="$router.push('/smartU/chat')">
+                 style="width: 100%;height: 125px;border-radius: 10px;position: relative;margin-top: 20px" @click="$router.push('/smartU/chatWithAI')">
               <ion-text style="color: white;font-weight: bolder;font-size: 20px;display: block;text-align: right">
                 智小U
                 <div
@@ -68,7 +68,7 @@ import {reactive, ref} from "vue";
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="6" style="object-fit: cover">
+          <ion-col size="6" style="object-fit: cover" @click="$router.push('/smartU/mario')">
             <img src="../../img/smartU2.png" alt="">
           </ion-col>
           <ion-col size="6" style="object-fit: cover">
@@ -79,7 +79,7 @@ import {reactive, ref} from "vue";
           <ion-col size="6" style="object-fit: cover">
             <img src="../../img/smartU4.png" alt="">
           </ion-col>
-          <ion-col size="6" style="object-fit: cover">
+          <ion-col size="6" style="object-fit: cover" @click="$router.push('/smartU/chat')">
             <img src="../../img/smartU5.png" alt="">
           </ion-col>
         </ion-row>

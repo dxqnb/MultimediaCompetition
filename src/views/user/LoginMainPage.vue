@@ -45,7 +45,7 @@ const radio = ref('false')
 let origin = document.location.origin
 let registration: any = {
   username: "",
-  challenge: utils.randomChallenge(),
+  challenge: utils.randomChallenge,
   options: {
     authenticatorType: 'auto',
     userVerification: 'required',
@@ -63,7 +63,7 @@ let registration: any = {
 }
 let authentication: any = {
   credentialId: null,
-  challenge: utils.randomChallenge(),
+  challenge: utils.randomChallenge,
   options: {
     authenticatorType: 'auto',
     userVerification: 'required',
@@ -107,9 +107,9 @@ onMounted(async () => {
   }
 })
 
-function newChallenge() {
-  return utils.randomChallenge()
-}
+// function newChallenge() {
+//   return utils.randomChallenge()
+// }
 
 async function login() {
   if (radio.value == 'false') {

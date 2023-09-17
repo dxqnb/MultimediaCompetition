@@ -24,7 +24,39 @@ import {
   IonRadio, IonRadioGroup, IonText, IonImg, IonChip
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
+import {TextToSpeech} from '@capacitor-community/text-to-speech';
+import {SpeechRecognition} from "@capacitor-community/speech-recognition";
 
+SpeechRecognition.requestPermission();
+SpeechRecognition.start({
+  language: "zh-CN",
+  maxResults: 2,
+  prompt: "说点什么",
+  partialResults: true,
+  popup: true,
+}).then((res) => {
+  console.log(res)
+})
+
+
+// listen to partial results
+SpeechRecognition.addListener("partialResults", (data: any) => {
+  console.log("partialResults was fired", data.matches);
+});
+
+const speak = async () => {
+  await TextToSpeech.speak({
+    text: '你好啊',
+    lang: 'zh-CN',
+    rate: 1.0,
+    pitch: 1.0,
+    volume: 1.0,
+    voice: 156,
+    category: 'ambient',
+  });
+  const voices = await TextToSpeech.getSupportedVoices();
+  console.log(voices)
+};
 </script>
 
 <template>
@@ -42,7 +74,8 @@ import {reactive, ref} from "vue";
       <div slot="fixed" style="bottom: 0;width: 100%;">
         <div style="background: white;border-radius: 20px;margin: 16px;position: relative">
           <ion-text
-              style="display: block;text-align: center;font-size: 22px;color: rgba(77,77,77,0.55);font-weight: bold;padding-top: 20px;margin-bottom: 8px ">你好！
+              style="display: block;text-align: center;font-size: 22px;color: rgba(77,77,77,0.55);font-weight: bold;padding-top: 20px;margin-bottom: 8px ">
+            你好！
           </ion-text>
           <ion-text style="display: block;text-align: center;font-size: 22px;color: #4D4D4D;font-weight: bold">
             <ion-icon style="vertical-align: middle" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
