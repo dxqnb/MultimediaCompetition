@@ -108,7 +108,7 @@ const router = useIonRouter();
             <ion-card-content>
               <!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
               <ion-text style="font-size: 16px;color: #6D99FF">
-                技术前言
+                技术前沿
                 <ion-icon class="right" :icon="chevronForwardOutline" size="small"></ion-icon>
               </ion-text>
               <ion-icon class="bottom" aria-hidden="true" :icon="searchIcon" size="large"/>

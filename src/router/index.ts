@@ -49,6 +49,14 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'chat',
                 component: () => import('@/views/AI/chatPage.vue'),
             },
+            {
+                path: 'smartNotes',
+                component: () => import('@/views/AI/smartNotesPage.vue'),
+            },
+            {
+                path: 'draw',
+                component: () => import('@/views/AI/AIDrawPage.vue'),
+            },
         ]
     },
     {
@@ -145,7 +153,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/study/mySchedulePage.vue')
             },
             {
-                path: 'testReport/:item',
+                path: 'testReport/:item/:type',
                 props: true,
                 component: () => import('@/views/study/testReportPage.vue')
             },
@@ -208,6 +216,11 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import('@/views/team/submitTaskPage.vue')
             },
             {
+                path: 'teamInfo/:id',
+                props: true,
+                component: () => import('@/views/team/teamInfoPage.vue')
+            },
+            {
                 path: 'groupTeam',
                 component: () => import('@/views/team/groupTeamPage.vue')
             },
@@ -218,6 +231,10 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'shake',
                 component: () => import('@/views/team/shakePage.vue')
+            },
+            {
+                path: 'myTeam',
+                component: () => import('@/views/team/myTeamListPage.vue')
             },
         ]
     },
@@ -287,8 +304,15 @@ router.beforeEach(async (to, from, next) => {
         return;
     }
 
+    function isLogin() {
+        if (localStorage.getItem('user') == null) {
+            localStorage.setItem('isLogin', 'false')
+            return false
+        } else return localStorage.getItem('isLogin') == 'true';
+    }
+
     // 路由需要验证的
-    if (false) { // 如果token不存在的，则跳转登录login
+    if (!isLogin()) { // 如果token不存在的，则跳转登录login
         // console.log(`${from}跳转到${to},目的路由需要用户认证，Token不存在！强制跳转到login`);
 
 

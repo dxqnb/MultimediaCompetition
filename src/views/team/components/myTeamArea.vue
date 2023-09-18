@@ -152,8 +152,8 @@ onMounted(() => {
 
 <template>
   <div>
-    <ion-text @click="$router.push('/study/lessons')"
-              style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
+    <ion-text
+        style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
       <h4 style="color: #474747;font-weight: bolder;">我的学友团</h4>
       <div
           style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>

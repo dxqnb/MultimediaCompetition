@@ -54,6 +54,7 @@
     "marked": "^7.0.3",
     "monaco-editor": "^0.41.0",
     "path": "^0.12.7",
+    "replicate": "^0.18.0",
     "sass": "1.65.1",
     "socket.io-client": "4.7.2",
     "swiper": "^10.2.0",

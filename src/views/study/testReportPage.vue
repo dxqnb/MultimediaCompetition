@@ -21,7 +21,7 @@ import {
 import {ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getTestKcTiList} from "@/api/study";
+import {getTestKcTiList, getTestZyTiList} from "@/api/study";
 
 const items = reactive<any[]>([]);
 const pass = ref('pass');
@@ -29,6 +29,7 @@ const wrong = ref('wrong');
 const taoid = ref('');
 const route = useRoute()
 const error: string = route.params.item + '';
+const type: string = route.params.type + '';
 
 if (error != null && error.includes(',')) {
   for (let i = 0; i < error.split(',').length - 1; i++) {
@@ -59,19 +60,33 @@ const optionC = reactive<any[]>([]);
 const optionD = reactive<any[]>([]);
 const length = ref(0)
 const answerItem = reactive<item[]>([])
-getTestKcTiList(taoid.value).then((res) => {
-  length.value = res.data.data.length
-  for (let i = 0; i < length.value; i++) {
-    // console.log(res.data.data[i])
-    problem.push(res.data.data[i].problem)
-    optionA.push(res.data.data[i].optionA)
-    optionB.push(res.data.data[i].optionB)
-    optionC.push(res.data.data[i].optionC)
-    optionD.push(res.data.data[i].optionD)
-    answerItem.push(res.data.data[i])
-  }
-  // console.log(problem)
-})
+if (type == 'zykc') {
+  getTestZyTiList(taoid.value).then((res) => {
+    length.value = res.data.data.length
+    for (let i = 0; i < length.value; i++) {
+      // console.log(res.data.data[i])
+      problem.push(res.data.data[i].problem)
+      optionA.push(res.data.data[i].optionA)
+      optionB.push(res.data.data[i].optionB)
+      optionC.push(res.data.data[i].optionC)
+      optionD.push(res.data.data[i].optionD)
+      answerItem.push(res.data.data[i])
+    }
+  })
+} else {
+  getTestKcTiList(taoid.value).then((res) => {
+    length.value = res.data.data.length
+    for (let i = 0; i < length.value; i++) {
+      // console.log(res.data.data[i])
+      problem.push(res.data.data[i].problem)
+      optionA.push(res.data.data[i].optionA)
+      optionB.push(res.data.data[i].optionB)
+      optionC.push(res.data.data[i].optionC)
+      optionD.push(res.data.data[i].optionD)
+      answerItem.push(res.data.data[i])
+    }
+  })
+}
 
 
 function handleRefresh(event: any) {

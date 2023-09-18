@@ -100,7 +100,8 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 ion-content::part(background) {
-  background: #FFFFFF;
+  background: url("@/img/userBackground.jpg");
+  background-size: cover;
 }
 
 ion-col > img {

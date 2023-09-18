@@ -18,12 +18,13 @@ import {
   IonTextarea,
   IonChip,
   IonButton, pickerController,
-  IonText, IonSelect, IonInput, IonSelectOption
+  IonText, IonSelect, IonInput, IonSelectOption, toastController
 } from "@ionic/vue";
 import {addOutline, ellipsisHorizontal} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import {chevronForwardOutline} from 'ionicons/icons';
 import {addFridenTeam} from "@/api/team";
+import router from "@/router";
 
 const vocabulary = ref('请选择');
 const days = ref('请选择');
@@ -33,13 +34,6 @@ const maxNumber = ref('2');
 const flag = ref(false);
 const textarea = ref('');
 const attribute = ref('自定义');
-
-// function handleRefresh(event: any) {
-//   setTimeout(() => {
-//     // Any calls to load data go here
-//     event.target.complete();
-//   }, 1000);
-// }
 
 const pickerColumns = [
   {
@@ -182,9 +176,18 @@ function post() {
     mxnumber: maxNumber.value,
     attribute: attribute.value == '自定义' ? '' : attribute.value,
   }
-addFridenTeam(a).then((res)=>{
-  console.log(res.data)
-})
+  addFridenTeam(a).then(async (res) => {
+    console.log(res)
+    const toast = await toastController.create({
+      message: res.data.msg
+    })
+    await toast.present().then(() => {
+      setTimeout(() => {
+        toast.dismiss()
+      }, 1000)
+    })
+    router.back()
+  })
 
 }
 
@@ -246,25 +249,6 @@ addFridenTeam(a).then((res)=>{
               </ion-select>
             </ion-item>
             <ion-item lines="none">
-              <ion-select label="组队天数" placeholder="7"
-                          class="always-flip"
-                          :toggle-icon="chevronForwardOutline"
-                          interface="alert"
-                          value="7天">
-                <ion-select-option v-for="i in 100" :value="i+'天'"><p style="width: 100%;text-align: center">{{
-                    i
-                  }}天</p>
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label>任务要求</ion-label>
-              <ion-label style="margin: 0;" slot="end" @click="openPicker">
-                <ion-text>{{ vocabulary }} {{ days }}</ion-text>
-                <ion-icon style="color: rgb(89, 89, 89)" :icon="chevronForwardOutline"></ion-icon>
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none">
               <ion-label>设置学友属性</ion-label>
               <ion-chip slot="end" @click="flag=true">
                 <ion-icon style="margin: 0" v-if="!flag" :icon="addOutline"></ion-icon>
@@ -277,7 +261,7 @@ addFridenTeam(a).then((res)=>{
             </ion-item>
             <ion-item lines="none" style="padding: 20px 0">
               <ion-button @click="post"
-                  style="width: 100%;--background: #515EFF;color: #FFFFFF;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 1em">
+                          style="width: 100%;--background: #515EFF;color: #FFFFFF;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 1em">
                 创建队伍
               </ion-button>
             </ion-item>

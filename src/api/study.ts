@@ -82,9 +82,22 @@ export function getKcList(sid: string, userid: any) {
     });
 }
 
-export function ifAnswer(id: string, taoid: any, userid: string, uanswer: string, res: string) {
+export function ifKCAnswer(id: string, taoid: any, userid: string, uanswer: string, res: string) {
     return service({
         url: "v3/TestKc/ifAnswer",
+        method: "post",
+        params: {
+            id: id,
+            taoid: taoid,
+            userid: userid,
+            uanswer: uanswer,
+            res: res
+        }
+    });
+}
+export function ifZYAnswer(id: string, taoid: any, userid: string, uanswer: string, res: string) {
+    return service({
+        url: "v3/TestZy/ifAnswer",
         method: "post",
         params: {
             id: id,

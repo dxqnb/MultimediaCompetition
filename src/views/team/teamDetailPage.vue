@@ -41,7 +41,7 @@ import {
   delFridenTeam, delFridenUser,
   getFridenTeam,
   getFridenTeamMessageList,
-  getFridenTeamUserList
+  getFridenTeamUserList, zj
 } from "@/api/team";
 import {useRoute} from "vue-router";
 
@@ -54,12 +54,14 @@ const sentBar = ref('')
 const content = ref()
 const length = ref(0)
 
+
 interface message {
   time: string,
   text: string,
-  isMyself: boolean,
+  isMyself?: boolean,
   username: string,
-  avatar: string
+  avatar: string,
+  summary?: boolean
 }
 
 const remoteMassage = ref<message[]>([])
@@ -130,9 +132,6 @@ function sentEvent() {
       content.value.$el.scrollToBottom(300)
     })
   })
-
-  // console.log(remoteMassage.value[remoteMassage.value.length - 1].time.substring(0, 2))
-
 }
 
 //收消息开始/////////
@@ -262,6 +261,19 @@ function change(event: any) {
   contentClass.value = 'ion-padding';
 }
 
+function smartSummary() {
+  zj(userid, id).then((res) => {
+    console.log(res.data)
+    remoteMassage.value.push({
+      time: dayjs().format('HH:mm'),
+      text: marked.parse(res.data.result),
+      username: '',
+      avatar: '',
+      summary: true
+    })
+
+  })
+}
 </script>
 
 <template>
@@ -316,7 +328,7 @@ function change(event: any) {
         <div v-else>
           <div style="margin-top: 40px">
             <div v-for="(item , i) in remoteMassage" :key="i">
-              <div style="margin-top: 1em" v-if="!item.isMyself">
+              <div style="margin-top: 1em" v-if="item.isMyself==false">
                 <div class="time">
                   <ion-text
                       style="color: #9F9F9F;width: 100%;text-align: center;display: block;font-size: 14px;font-weight: 600">
@@ -333,7 +345,7 @@ function change(event: any) {
                          alt=""/>
                   </ion-avatar>
                   <div v-html="item.text"
-                       style="display: inline-block;width: 75%;border-radius: 0 20px 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-left: 1.5em;margin-top: 1em;position: relative;overflow: visible;"
+                       style="display: inline-block;width: 75%;border-radius: 0 20px 20px 20px;background:#FFFFFF;padding: 6px 1.5em;margin-left: 1.5em;margin-top: 1em;position: relative;overflow: visible;"
                        class="other">
                   </div>
                 </div>
@@ -347,7 +359,7 @@ function change(event: any) {
                 </div>
                 <div class="text">
                   <div v-html="item.text"
-                       style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
+                       style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#E9E8F2;padding: 6px 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
                        class="my">
                   </div>
                   <ion-avatar>
@@ -360,6 +372,15 @@ function change(event: any) {
                   </ion-avatar>
                 </div>
               </div>
+              <div v-if="item.summary">
+                <div v-html="item.text"
+                     style="display: inline-block;width: 90%;border-radius: 20px;background:#FFFFFF;position: relative;margin: 1em auto 0 auto;padding:10px;">
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center;margin-top: 30px;font-size: 12px">
+              <ion-text>当前消息过多</ion-text>
+              <ion-text style="color: #7B73FF" @click="smartSummary()">点击生成智能概要</ion-text>
             </div>
           </div>
           <div style="height: 110px;"></div>
@@ -397,11 +418,13 @@ function change(event: any) {
 
 <style scoped lang="scss">
 ion-content::part(background) {
-  background: #FFFFFF;
+  background: url("@/img/teamBackground.png");
+  background-size: cover;
 }
 
 ion-content.talk::part(background) {
-  background: linear-gradient(to bottom, rgba(0, 213, 255, 0.02), rgba(68, 0, 255, 0.02)) #FFFFFF;
+  background: url("@/img/chatBackground.png");
+  background-size: cover;
 }
 
 ion-content.info::part(background) {
@@ -423,6 +446,10 @@ ion-toolbar {
   position: relative;
 }
 
+.text > div {
+  box-shadow: rgba(220, 220, 220, 0.5) 4px 4px 10px;
+}
+
 .searchbar-search-icon {
   display: none;
 }
@@ -439,6 +466,7 @@ ion-toolbar {
   border-top: 0.5em solid #FFFFFF;
   border-right: 0.5em solid #FFFFFF;
   border-bottom: 0.5em solid transparent;
+
 }
 
 .my:before {
@@ -448,8 +476,8 @@ ion-toolbar {
   right: -1em;
   width: 0;
   height: 0;
-  border-left: 0.5em solid #FFFFFF;
-  border-top: 0.5em solid #FFFFFF;
+  border-left: 0.5em solid #E9E8F2;
+  border-top: 0.5em solid #E9E8F2;
   border-right: 0.5em solid transparent;
   border-bottom: 0.5em solid transparent;
 }

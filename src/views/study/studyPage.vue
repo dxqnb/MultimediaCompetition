@@ -37,11 +37,8 @@
         </swiper-slide>
       </swiper>
       <study-card></study-card>
-
       <study-area></study-area>
-      <robot></robot>
     </ion-content>
-
   </ion-page>
 </template>
 <style scoped>

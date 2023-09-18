@@ -39,7 +39,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
 </script>
 
 <template>
-  <ion-card v-if="item.number==item.mxnumber&&index=='disable'"
+  <ion-card v-if="item.number==item.mxnumber&&index=='disable'" @click="$router.push('/team/teamInfo/'+item.id)"
             :style="disable?'margin: 12px 0 ;--background: #ffffff;box-shadow: none;opacity:0.5':'margin: 12px 0 ;--background: #ffffff;box-shadow: none'">
     <ion-card-content style="padding: 10px">
       <ion-chip
@@ -67,7 +67,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       </div>
       <div style="margin: 10px 0 5px 0">
         <ion-avatar v-for="(i,b) in items"
-                    style="width: 22px;height: 22px;display: inline-block;position: relative;vertical-align: middle" :style="b==1?'z-index: '+items.length+';':'z-index: '+(items.length-b+1)+';margin-left: -6px;'">
+                    style="width: 22px;height: 22px;display: inline-block;position: relative;vertical-align: middle" :style="b==0?'z-index: '+items.length+';':'z-index: '+(items.length-b)+';margin-left: -6px;'">
           <img alt="Silhouette of a person's head" :src="i.avatar"/>
         </ion-avatar>
         <ion-text style="color: #B5B5B5;font-size: 13px;vertical-align: middle;padding-left: 10px">
@@ -77,7 +77,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       <ion-icon :icon="circle" style="position: absolute;bottom: -30px;right: -20px;font-size: 81px"></ion-icon>
     </ion-card-content>
   </ion-card>
-  <ion-card v-if="item.number<item.mxnumber&&index=='able'"
+  <ion-card v-if="item.number<item.mxnumber&&index=='able'" @click="$router.push('/team/teamInfo/'+item.id)"
             :style="disable?'margin: 12px 0 ;--background: #ffffff;box-shadow: none;opacity:0.5':'margin: 12px 0 ;--background: #ffffff;box-shadow: none'">
     <ion-card-content style="padding: 10px">
       <ion-chip
@@ -105,7 +105,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       </div>
       <div style="margin: 10px 0 5px 0">
         <ion-avatar v-for="(i,b) in items"
-            style="width: 22px;height: 22px;display: inline-block;position: relative;vertical-align: middle" :style="b==1?'z-index: '+items.length+';':'z-index: '+(items.length-b+1)+';margin-left: -6px;'">
+            style="width: 22px;height: 22px;display: inline-block;position: relative;vertical-align: middle" :style="b==0?'z-index: '+items.length+';':'z-index: '+(items.length-b)+';margin-left: -6px;'">
                           <img alt="Silhouette of a person's head" :src="i.avatar"/>
 <!--          <div style="width: 22px;height: 22px;background-color: #73C2FF;border-radius: 100%"></div>-->
         </ion-avatar>

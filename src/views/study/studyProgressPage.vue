@@ -176,7 +176,7 @@ onMounted(() => {
               <div style="border-left: solid 1px rgba(112,112,112,0.14);width: 100%;">
                 <ion-text
                     style="color: #303030;font-weight: 400;display:block;width: 100%;text-align: center;font-size: 14px;">
-                  <span style="font-size: 26px;font-weight: 900;text-shadow: 0 0 5px #00C081">{{ `66` }}</span>
+                  <span style="font-size: 26px;font-weight: 900;">{{ `66` }}</span>
                   <span style="position: relative">
                     分钟
                   <ion-icon :icon="up"
@@ -205,9 +205,9 @@ onMounted(() => {
                 已学&nbsp;
                 <ion-text
                     style="color: #444444;border-right: solid 1px #D4D4D4 ;display: inline-block;padding-right: 5px;font-weight: 600">
-                  20课
+                  20课&nbsp;
                 </ion-text>
-                <ion-text style="color: #444444;display: inline-block;padding-left: 5px;font-weight: 600">21%</ion-text>
+                <ion-text style="color: #444444;display: inline-block;padding-left: 5px;font-weight: 600">&nbsp;21%</ion-text>
               </div>
               <div style="display: inline-block;font-size:14px;text-align: right;width: 50%;color: #A9A9A9;">
                 总&nbsp;<ion-text style="color: #444444;font-weight: 600">120</ion-text>
@@ -216,7 +216,7 @@ onMounted(() => {
             <div>
               <div style="width: 50%;display: inline-block">
                 <div
-                    style="width: 16px;height: 16px;border: solid 1px #707070;background-color: #FFBFD2;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
+                    style="width: 16px;height: 16px;border: solid 1px #FFAAAA;background-color: #FFBFD2;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
                 <ion-text style="color: #A9A9A9;vertical-align: middle;font-size: 14px">视频学习时长</ion-text>
               </div>
               <div style="display: inline-block;font-size:14px;text-align: right;width: 50%;color: #A9A9A9;">
@@ -226,7 +226,7 @@ onMounted(() => {
             <div>
               <div style="width: 50%;display: inline-block">
                 <div
-                    style="width: 16px;height: 16px;border: solid 1px #707070;background-color: #E5CBFF;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
+                    style="width: 16px;height: 16px;border: solid 1px #A0C7DA;background-color: #CBF6FF;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
                 <ion-text style="color: #A9A9A9;vertical-align: middle;font-size: 14px">测试记录</ion-text>
               </div>
               <div style="display: inline-block;font-size:14px;text-align: right;width: 50%;color: #A9A9A9;">
@@ -236,7 +236,7 @@ onMounted(() => {
             <div>
               <div style="width: 50%;display: inline-block">
                 <div
-                    style="width: 16px;height: 16px;border: solid 1px #707070;background-color: #FDFFBF;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
+                    style="width: 16px;height: 16px;border: solid 1px #FFCE7C;background-color: #FDFFBF;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
                 <ion-text style="color: #A9A9A9;vertical-align: middle;font-size: 14px">实操记录</ion-text>
               </div>
               <div style="display: inline-block;font-size:14px;text-align: right;width: 50%;color: #A9A9A9;">
@@ -374,7 +374,9 @@ onMounted(() => {
 ion-content::part(background) {
   background: #FBFBFB;
 }
-
+ion-card{
+  border-radius: 14px;
+}
 
 ion-item {
   --padding-start: 0px;

@@ -106,7 +106,8 @@ const cfitems = ref<item[]>([]);
 
 <style scoped lang="scss">
 ion-content::part(background) {
-  background: #FFFFFF;
+  background: url("@/img/jiangChengBackground.jpg");
+  background-size: cover;
 }
 ion-col > img {
   box-shadow: -10px 10px 10px 10px rgba(0, 0, 0, 0.01);

@@ -39,13 +39,15 @@ onMounted(() => {
         <ion-buttons slot="start">
           <ion-back-button style="color: black" text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
-        <IonTitle>智U</IonTitle>
+        <IonTitle>智趣游戏</IonTitle>
       </IonToolbar>
     </IonHeader>
-    <ion-content :scroll-y="false" :fullscreen="true">
-<!--      <ion-button ref="button" slot="fixed">A-->
-<!--      </ion-button>-->
-      <iframe style="width: 100%;height: 100%;" src="/mario.html"></iframe>
+    <ion-content :fullscreen="true">
+      <!--      <ion-button ref="button" slot="fixed">A-->
+      <!--      </ion-button>-->
+      <iframe slot="fixed" style="width: 200%;height: 200%;transform: scale(0.8);
+top: -20%;
+left: -20%;" src="/mario.html"></iframe>
     </ion-content>
   </IonPage>
 </template>

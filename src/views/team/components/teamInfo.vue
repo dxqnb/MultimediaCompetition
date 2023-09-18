@@ -130,7 +130,7 @@ async function dismiss(event: CustomEvent) {
           </ion-text>
           <ion-avatar v-for="(i,b) in user"
                       style="width: 22px;height: 22px;display: inline-block;position: relative;vertical-align: middle"
-                      :style="b==1?'z-index: '+user.length+';':'z-index: '+(user.length-b+1)+';margin-left: -6px;'">
+                      :style="b==0?'z-index: '+user.length+';':'z-index: '+(user.length-b)+';margin-left: -6px;'">
             <img alt="Silhouette of a person's head" :src="i.avatar"/>
           </ion-avatar>
           <ion-text style="color: #B5B5B5;font-size: 13px;vertical-align: middle;padding-left: 10px">

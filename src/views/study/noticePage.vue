@@ -74,8 +74,24 @@ function isToday(date: Date) {
           <ion-card-content>
             <ion-list>
               <ion-item lines="none">
-                <ion-thumbnail style="position: relative" slot="start">
-                  <img src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
+                <ion-thumbnail style="position: relative;background: #E0EFFF" slot="start">
+                  <ion-icon v-if="item.noticetype==1"
+                            style="width: 24px;height: 24px;margin: auto;display: block;margin-top: 16px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="menu-02" transform="translate(-2 -2)" style="isolation: isolate">
+    <path id="union-1" d="M0,3V4A3,3,0,0,0,3,7H6A3,3,0,0,0,9,4V3A3,3,0,0,0,6,0H3A3,3,0,0,0,0,3ZM3,2H6A1,1,0,0,1,7,3V4A1,1,0,0,1,6,5H3A1,1,0,0,1,2,4V3A1,1,0,0,1,3,2Zm8,1V8a3,3,0,0,0,3,3h3a3,3,0,0,0,3-3V3a3,3,0,0,0-3-3H14A3,3,0,0,0,11,3Zm3-1h3a1,1,0,0,1,1,1V8a1,1,0,0,1-1,1H14a1,1,0,0,1-1-1V3A1,1,0,0,1,14,2ZM0,12v5a3,3,0,0,0,3,3H6a3,3,0,0,0,3-3V12A3,3,0,0,0,6,9H3A3,3,0,0,0,0,12Zm3-1H6a1,1,0,0,1,1,1v5a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V12A1,1,0,0,1,3,11Zm8,5v1a3,3,0,0,0,3,3h3a3,3,0,0,0,3-3V16a3,3,0,0,0-3-3H14A3,3,0,0,0,11,16Zm3-1h3a1,1,0,0,1,1,1v1a1,1,0,0,1-1,1H14a1,1,0,0,1-1-1V16A1,1,0,0,1,14,15Z" transform="translate(2 2)" fill="#4257df" style="isolation: isolate"/>
+  </g>
+</svg>'></ion-icon>
+                  <ion-icon v-if="item.noticetype==2"
+                            style="width: 24px;height: 24px;margin: auto;display: block;margin-top: 16px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20">
+  <path id="union-1" d="M1,0A1,1,0,0,0,0,1V19a1,1,0,0,0,2,0V13H15a1,1,0,0,0,.707-1.707L11.414,7l4.293-4.293A1,1,0,0,0,15,1H2A1,1,0,0,0,1,0ZM2,11V3H12.586L9.293,6.293a1,1,0,0,0,0,1.414L12.586,11Z" fill="#4257df" style="isolation: isolate"/>
+</svg>
+'></ion-icon>
+                  <ion-icon v-if="item.noticetype==3"
+                            style="width: 24px;height: 24px;margin: auto;display: block;margin-top: 16px" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20">
+  <path id="union-1" d="M0,3V17a3,3,0,0,0,3,3H13a3,3,0,0,0,3-3V3a3,3,0,0,0-3-3H3A3,3,0,0,0,0,3ZM2,17a1,1,0,0,1,1-1H13a3,3,0,0,0,1-.171V17a1,1,0,0,1-1,1H3A1,1,0,0,1,2,17Zm11-3H3a3,3,0,0,0-1,.171V3A1,1,0,0,1,3,2H4V6a1,1,0,0,0,1.447.894L7,6.118l1.553.776A1,1,0,0,0,10,6V2h3a1,1,0,0,1,1,1V13A1,1,0,0,1,13,14ZM8,2V4.382l-.553-.276a1,1,0,0,0-.894,0L6,4.382V2Z" fill="#4257df" style="isolation: isolate"/>
+</svg>
+'></ion-icon>
+
                   <ion-badge style="position: absolute;top: -10%;right: -20%;" color="danger">&nbsp;</ion-badge>
                 </ion-thumbnail>
                 <ion-label>
@@ -86,7 +102,7 @@ function isToday(date: Date) {
               </ion-item>
             </ion-list>
             <ion-label style="font-size: 12px;color: #999999;position: absolute;top: 25px;right: 20px;">
-              <span>{{ isToday(new Date(item.createtime))?item.createtime.split(' ')[1]:item.createtime }}</span>
+              <span>{{ isToday(new Date(item.createtime)) ? item.createtime.split(' ')[1] : item.createtime }}</span>
               <span style="display: block;text-align: right">{{ item.createby }}</span>
             </ion-label>
 

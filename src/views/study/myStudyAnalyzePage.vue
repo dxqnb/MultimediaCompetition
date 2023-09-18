@@ -72,17 +72,17 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
           <ion-icon style="line-height: 40px;padding: 0 10px" :icon="star"></ion-icon>
           <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">java高级编程</ion-text>
         </div>
-        <ion-card style="margin: 5px 0 20px 0;--background: #ffffff">
+        <ion-card style="margin: 10px 0 20px 0;--background: #ffffff;border-radius: 12px">
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
             <ion-grid>
               <ion-row>
                 <ion-col size="5" @click="$router.push('/study/progress')">
                   <div>
-                    <ion-icon :icon="bluePoint" style="padding-right: 5px"></ion-icon>
-                    <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C;font-size: 14px">学习进度</ion-text>
+                    <ion-icon :icon="bluePoint" style="padding-right: 5px;width: 20px;height: 20px;vertical-align: middle"></ion-icon>
+                    <ion-text style="line-height: 40px;font-weight: 700;color: #5C5C5C;font-size: 14px;">学习进度</ion-text>
                   </div>
                   <div style="margin-left: 10px">
-                    <ion-text style="font-size: 40px;font-weight: 600">
+                    <ion-text style="font-size: 40px;font-weight: 700">
                       64
                     </ion-text>
                     <ion-text style="font-weight: 600">
@@ -93,7 +93,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                 </ion-col>
                 <ion-col size="7">
                   <div>
-                    <ion-icon :icon="redPoint" style="padding-right: 5px"></ion-icon>
+                    <ion-icon :icon="redPoint" style="padding-right: 5px;width: 20px;height: 20px;vertical-align: middle"></ion-icon>
                     <ion-text style="line-height: 40px;font-weight: 600;color: #5C5C5C;font-size: 14px">最新通知</ion-text>
                   </div>
                   <div style="margin-left: 21px">

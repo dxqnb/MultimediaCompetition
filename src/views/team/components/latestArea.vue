@@ -96,7 +96,7 @@ function join(tid: any) {
               加入
             </ion-button>
           </div>
-          <ion-img style="border-radius: 10px;overflow:hidden;"
+          <ion-img style="border-radius: 10px;overflow:hidden;" @click="$router.push('/team/teamInfo/'+item.id)"
                    :src="item.bgimg"></ion-img>
         </div>
       </swiper-slide>

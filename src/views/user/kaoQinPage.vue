@@ -312,7 +312,8 @@
 
 <style scoped lang="scss">
 	ion-content::part(background) {
-		background: #FCFCFC;
+		background: url("@/img/userBackground.jpg");
+    background-size: cover;
 	}
 
 	.first {

@@ -26,27 +26,19 @@ import {
 import {reactive, ref} from "vue";
 import {TextToSpeech} from '@capacitor-community/text-to-speech';
 import {SpeechRecognition} from "@capacitor-community/speech-recognition";
+import {chats} from "@/api/main";
 
-SpeechRecognition.requestPermission();
-SpeechRecognition.start({
-  language: "zh-CN",
-  maxResults: 2,
-  prompt: "说点什么",
-  partialResults: true,
-  popup: true,
-}).then((res) => {
-  console.log(res)
-})
-
+TextToSpeech.openInstall()
+const index = ref(0)
+const flag = ref(false)
+const chatCallBack = ref('有什么可以帮助你的！')
+SpeechRecognition.requestPermissions();
+// SpeechRecognition.stop()
 
 // listen to partial results
-SpeechRecognition.addListener("partialResults", (data: any) => {
-  console.log("partialResults was fired", data.matches);
-});
-
-const speak = async () => {
+const speak = async (value: string) => {
   await TextToSpeech.speak({
-    text: '你好啊',
+    text: value,
     lang: 'zh-CN',
     rate: 1.0,
     pitch: 1.0,
@@ -54,9 +46,39 @@ const speak = async () => {
     voice: 156,
     category: 'ambient',
   });
-  const voices = await TextToSpeech.getSupportedVoices();
-  console.log(voices)
+
 };
+const dataChat = ref('')
+
+function click() {
+  if (!flag.value) {
+    SpeechRecognition.start({
+      language: "zh-CN",
+      maxResults: 1,
+      prompt: "speak",
+      partialResults: true,
+      popup: true,
+    }).then((res) => {
+      console.log(res)
+    })
+    SpeechRecognition.addListener('partialResults', (data: any) => {
+      console.log('res:', data.matches);
+      dataChat.value += data.matches[0].substring(index.value)
+      index.value = data.matches[0].length
+    })
+    flag.value = true
+  } else {
+    SpeechRecognition.removeAllListeners();
+    SpeechRecognition.stop()
+    chats(dataChat.value).then(async (res) => {
+      console.log(res.data.result)
+      dataChat.value = ''
+      chatCallBack.value = res.data.result
+      await speak(chatCallBack.value)
+    })
+    flag.value = false
+  }
+}
 </script>
 
 <template>
@@ -78,13 +100,13 @@ const speak = async () => {
             你好！
           </ion-text>
           <ion-text style="display: block;text-align: center;font-size: 22px;color: #4D4D4D;font-weight: bold">
-            <ion-icon style="vertical-align: middle" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <ion-icon style="vertical-align: middle" @click="speak(chatCallBack)" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
   <g id="Icon" transform="translate(-1 -1)" style="isolation: isolate">
     <path id="Icon-2" data-name="Icon" d="M16.5,4v8.5M12.5,7V9.5M4,0V16.5M0,6v4.5M8.25,3V13.5" transform="translate(1.75 1.75)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
-            &nbsp;有什么可以帮助你的？
+            &nbsp;{{ chatCallBack }}
           </ion-text>
           <div style="display: flex;justify-content: center;padding-bottom: 20px">
             <ion-chip mode="md"
@@ -96,14 +118,15 @@ const speak = async () => {
               <ion-text style="width: 100%;text-align: center;font-size: 13px;">生成一份演讲稿</ion-text>
             </ion-chip>
           </div>
-          <ion-icon style="position:absolute;bottom: 50px;left: 56px;width: 19px;height: 13px;" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
+          <ion-icon style="position:absolute;bottom: 50px;left: 56px;width: 19px;height: 13px;"
+                    @click="$router.push('/smartU/chat')" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
   <g id="Icon" transform="translate(0 -3)" style="isolation: isolate">
     <path id="Icon-2" data-name="Icon" d="M15.3,0a4.969,4.969,0,0,1,2.108.218,2,2,0,0,1,.874.874A4.968,4.968,0,0,1,18.5,3.2V9.3a4.968,4.968,0,0,1-.218,2.108,2,2,0,0,1-.874.874A4.968,4.968,0,0,1,15.3,12.5H3.2a4.968,4.968,0,0,1-2.108-.218,2,2,0,0,1-.874-.874A4.969,4.969,0,0,1,0,9.3V3.2A4.969,4.969,0,0,1,.218,1.092,2,2,0,0,1,1.092.218,4.969,4.969,0,0,1,3.2,0ZM6,10h6.5M3,3.5h.5M7,3.5h.5m7.5,0h.5M11,3.5h.5M3,6.5h.5M7,6.5h.5m7.5,0h.5M11,6.5h.5" transform="translate(0.75 3.75)" fill="none" stroke="#7e90ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" style="isolation: isolate"/>
   </g>
 </svg>
 '></ion-icon>
           <div style="width: 100%;text-align: center">
-            <ion-icon style="width: 96px;height: 96px;" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="94" height="94" viewBox="0 0 94 94">
+            <ion-icon style="width: 96px;height: 96px;" @click="click()" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="94" height="94" viewBox="0 0 94 94">
   <defs>
     <filter id="椭圆_115" x="0" y="0" width="94" height="94" filterUnits="userSpaceOnUse">
       <feOffset dy="5" input="SourceAlpha"/>

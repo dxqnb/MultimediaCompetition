@@ -22,7 +22,7 @@ import {
   IonButton,
   IonRadio, IonRadioGroup, IonAvatar, IonFooter, IonSearchbar
 } from "@ionic/vue";
-import {searchOutline} from 'ionicons/icons';
+import {micOutline, searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import LessonItem from "@/views/study/components/lessonItem.vue";
 import TecItem from "@/views/study/components/tecItem.vue";
@@ -116,8 +116,8 @@ function sentEvent() {
         </ion-buttons>
         <IonTitle>小U助手</IonTitle>
         <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon :icon="searchOutline"/>
+          <ion-button @click="$router.push('/smartU/chatWithAI')">
+            <ion-icon :icon="micOutline"/>
           </ion-button>
         </ion-buttons>
       </IonToolbar>

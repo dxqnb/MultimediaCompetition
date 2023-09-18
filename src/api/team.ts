@@ -240,3 +240,13 @@ export function delFridenUser(userid: any, tid: any) {
         }
     });
 }
+export function zj(userid: any, tid: any) {
+    return service({
+        url: "v3/WenXin/zj",
+        method: "post",
+        params: {
+            userid: userid,
+            tid: tid
+        }
+    });
+}

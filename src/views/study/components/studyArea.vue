@@ -81,16 +81,16 @@ async function change(event: any) {
     <div class="area">
       <ion-segment mode="ios" v-model="segmentValue" @ionChange="change">
         <ion-segment-button :value="deptid">
-          <ion-label><span style="font-weight: 900;font-size: 12px">专业课程</span></ion-label>
+          <ion-label><span style="font-weight: 600;font-size: 12px">专业课程</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="1">
-          <ion-label><span style="font-weight: 900;font-size: 12px">时事政治</span></ion-label>
+          <ion-label><span style="font-weight: 600;font-size: 12px">时事政治</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="2">
-          <ion-label><span style="font-weight: 900;font-size: 12px">专升本</span></ion-label>
+          <ion-label><span style="font-weight: 600;font-size: 12px">专升本</span></ion-label>
         </ion-segment-button>
         <ion-segment-button value="3">
-          <ion-label><span style="font-weight: 900;font-size: 12px">身心健康</span></ion-label>
+          <ion-label><span style="font-weight: 600;font-size: 12px">身心健康</span></ion-label>
         </ion-segment-button>
       </ion-segment>
       <ion-content style="height:70vh">
@@ -193,7 +193,7 @@ ion-segment-button:nth-child(1) {
 }
 
 ion-segment-button:nth-child(2) {
-  --background: #8997ef;
+  --background: #D6DBFF;
   border-radius: 0 15px 0 0;
   position: relative;
   z-index: 3;

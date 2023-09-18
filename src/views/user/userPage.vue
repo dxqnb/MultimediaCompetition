@@ -39,10 +39,10 @@
       <div class="ion-padding" style="background-color: #F5F8FF">
         <ion-card style="--background: #fff;margin: 0">
           <ion-card-content style="display: flex">
-            <div style="border-right: 1px solid rgba(112,112,112,0.14);width: 50%;">
+            <div style="border-right: 1px solid rgba(112,112,112,0.14);width: 50%;" @click="$router.push('/study/analyze')">
               <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myStudy.png"></ion-avatar>
-              <div style="display: inline-block;vertical-align: top;margin: 6px">
+              <div style="display: inline-block;vertical-align: top;margin: 6px" >
                 <div
                     style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold">
                   我的学习
@@ -52,7 +52,7 @@
                 </div>
               </div>
             </div>
-            <div style="width: 50%;padding-left: 16px">
+            <div style="width: 50%;padding-left: 16px"  @click="$router.push('/team/myTeam')">
               <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myTeam.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px">
@@ -301,8 +301,7 @@
       <path id="Vector-4" data-name="Vector" d="M5.547.042A1.519,1.519,0,0,0,4.281,1.507c-.077,1.168-.187,3.2-.2,5.45l-.158-.114c-.307-.22-.746-.522-1.279-.852a1.471,1.471,0,0,0-1.932.17A3.429,3.429,0,0,0,.041,7.44a1.185,1.185,0,0,0,.171.979,20.087,20.087,0,0,0,3.781,4.309,1.652,1.652,0,0,0,.787.335,20.667,20.667,0,0,0,6.385.085,1.585,1.585,0,0,0,1.178-.91,10.229,10.229,0,0,0,.885-4.646A2.347,2.347,0,0,0,11.62,5.471a12.041,12.041,0,0,0-2.406-.531c-.32-.038-.585-.057-.771-.066l-.095,0c-.016-.818-.12-2.337-.195-3.355A1.537,1.537,0,0,0,6.874.042,5.292,5.292,0,0,0,5.547.042Z" transform="translate(6.4 6.345)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient-2)" style="isolation: isolate"/>
     </g>
   </g>
-</svg>
-'></ion-icon>
+</svg>'></ion-icon>
               <ion-text style="display: block;text-align: center;font-size: 13px">考勤</ion-text>
             </div>
             <div style="margin: 22px 0" @click="$router.push('/user/qingJia')">
@@ -331,7 +330,6 @@
           </ion-card-content>
         </ion-card>
       </div>
-      <robot></robot>
       <div style="height: 30px"></div>
       <ion-action-sheet
           :is-open="isOpen"
@@ -403,7 +401,6 @@ import {EffectCards, Autoplay, Keyboard, Pagination, Scrollbar, Zoom} from 'swip
 import 'swiper/css/effect-cards';
 import {Swiper, SwiperSlide, useSwiper} from 'swiper/vue';
 import 'swiper/css';
-import Robot from "@/components/robot.vue";
 import {addOutline, notificationsOutline, removeOutline, settingsOutline} from "ionicons/icons";
 import * as echarts from "echarts";
 import {getBanner} from "@/api/main";
@@ -572,10 +569,10 @@ let radarOption: EChartsOption = {
 
 interface lesson {
   avatar: string,
-  content: string
-  createby: string
-  createtime: string
-  id: number
+  content: string,
+  createby: string,
+  createtime: string,
+  id: number,
   img: string,
   kcid: number,
   kclable: number,

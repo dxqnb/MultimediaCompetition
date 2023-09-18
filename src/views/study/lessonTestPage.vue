@@ -26,7 +26,7 @@ import {
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 import {useRoute} from "vue-router";
-import {getKcNoteList, getTestKcTiList, getTestZyTiList, ifAnswer} from "@/api/study";
+import {getKcNoteList, getTestKcTiList, getTestZyTiList, ifKCAnswer, ifZYAnswer} from "@/api/study";
 
 const route = useRoute()
 const router = useIonRouter()
@@ -59,7 +59,7 @@ interface item {
 }
 
 const answerItem = reactive<item[]>([])
-if (type=="zykc"){
+if (type == "zykc") {
   getTestZyTiList(taoid).then((res) => {
     length.value = res.data.data.length
     for (let i = 0; i < length.value; i++) {
@@ -72,7 +72,7 @@ if (type=="zykc"){
       answerItem.push(res.data.data[i])
     }
   })
-}else {
+} else {
   getTestKcTiList(taoid).then((res) => {
     length.value = res.data.data.length
     for (let i = 0; i < length.value; i++) {
@@ -122,36 +122,71 @@ async function submit() {
     await alert1.present()
     alert1.onDidDismiss().then(async (res) => {
       if (res.role == 'ok') {
-        for (let i = length.value; i > 0; i--) {
-          ifAnswer(i.toString(), taoid, userid, answer[i - 1], '').then((res) => {
-            if (res.data.code == 900) {
-              error.push(i)
-            }
-            if (i == 1) {
-              setTimeout(() => {
-                error.sort()
-                error.push(taoid)
-                router.push('/study/testReport/' + error.toString())
-              }, 500)
-            }
-          })
+        if (type == "zykc") {
+          for (let i = length.value; i > 0; i--) {
+            ifZYAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+              if (res.data.code == 900) {
+                error.push(i)
+              }
+              if (i == 1) {
+                setTimeout(() => {
+                  error.sort()
+                  error.push(taoid)
+                  router.push('/study/testReport/' + error.toString()+'/zykc')
+                }, 500)
+              }
+            })
+          }
+        } else {
+          for (let i = length.value; i > 0; i--) {
+            ifKCAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+              if (res.data.code == 900) {
+                error.push(i)
+              }
+              if (i == 1) {
+                setTimeout(() => {
+                  error.sort()
+                  error.push(taoid)
+                  router.push('/study/testReport/' + error.toString()+'/kc')
+                }, 500)
+              }
+            })
+          }
         }
+
       }
     })
   } else {
-    for (let i = length.value; i > 0; i--) {
-      ifAnswer(i.toString(), taoid, userid, answer[i - 1], '').then((res) => {
-        if (res.data.code == 900) {
-          error.push(i)
-        }
-        if (i == 1) {
-          setTimeout(() => {
-            error.sort()
-            error.push(taoid)
-            router.push('/study/testReport/' + error.toString())
-          }, 500)
-        }
-      })
+    if (type == "zykc") {
+      for (let i = length.value; i > 0; i--) {
+        ifZYAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+          if (res.data.code == 900) {
+            error.push(i)
+          }
+          if (i == 1) {
+            setTimeout(() => {
+              error.sort()
+              error.push(taoid)
+              router.push('/study/testReport/' + error.toString()+'/zykc')
+            }, 500)
+          }
+        })
+      }
+    } else {
+      for (let i = length.value; i > 0; i--) {
+        ifKCAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
+          if (res.data.code == 900) {
+            error.push(i)
+          }
+          if (i == 1) {
+            setTimeout(() => {
+              error.sort()
+              error.push(taoid)
+              router.push('/study/testReport/' + error.toString()+'/kc')
+            }, 500)
+          }
+        })
+      }
     }
   }
 }

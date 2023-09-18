@@ -2,7 +2,10 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'" style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
+      <robot v-if="!$route.path.includes('login')&&!$route.path.includes('smartU')"></robot>
+      <ion-tab-bar
+          v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'"
+          style="padding: 10px;--background: #fff;position:relative;" slot="bottom" ref="bar">
         <ion-tab-button tab="tab1" href="/tabs/home">
           <ion-icon class="notSelected" aria-hidden="true" :icon="home"/>
           <ion-icon class="selected" aria-hidden="true" :icon="homeSelect"/>
@@ -33,10 +36,11 @@
 
       </ion-tab-bar>
       <div
-          :style="height" v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'">
+          :style="height"
+          v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'">
         <div
             style="width: 65px;height: 65px;border-radius: 100%;background-color: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));margin-left: -50%;margin-top: 50%;">
-          <ion-icon :icon="main" style="width: 100%;height: 100%;"></ion-icon>
+          <ion-icon @click="$router.push('/smartU')" :icon="main" style="width: 100%;height: 100%;"></ion-icon>
         </div>
       </div>
     </ion-tabs>
@@ -45,6 +49,7 @@
 
 <script setup lang="ts">
 import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet} from '@ionic/vue';
+import Robot from "@/components/robot.vue";
 import {onMounted, ref} from "vue";
 import LiteTabs from "@/components/liteTabs.vue";
 
@@ -142,7 +147,7 @@ const height = ref('z-index: 9999;position:absolute;bottom: 60px;left: 50%;width
 const bar = ref();
 onMounted(() => {
   setTimeout(() => {
-    height.value = 'z-index: 9999;position:absolute;bottom: '+(bar.value.$el.offsetHeight-10)+'px;left: 50%;width: 65px;height: 65px'
+    height.value = 'z-index: 9999;position:absolute;bottom: ' + (bar.value.$el.offsetHeight - 10) + 'px;left: 50%;width: 65px;height: 65px'
   }, 100)
 })
 </script>

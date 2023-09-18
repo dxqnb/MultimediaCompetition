@@ -58,7 +58,7 @@ function openRobot() {
     rightPxNum.value = -40;
 
   } else {
-    router.navigate('/smartU')
+    router.push('/smartU/chatWithAI')
     rightPx.value = "-80px";
     rightPxNum.value = -80;
   }
@@ -68,8 +68,8 @@ function openRobot() {
 const animations = ref();
 const transition = ref("all 0.5s");
 
-let xpx = ref("28px");
-let ypx = ref(28);
+let xpx = ref("198px");
+let ypx = ref(198);
 
 onMounted(() => {
   // const animation = createAnimation()

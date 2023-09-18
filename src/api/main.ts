@@ -17,3 +17,12 @@ export function chats(msg:any) {
         }
     });
 }
+export function ctjl(username:any) {
+    return service({
+        url: "v3/WenXin/ctjl",
+        method: "post",
+        params:{
+            username:username,
+        }
+    });
+}

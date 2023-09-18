@@ -22,27 +22,25 @@ import {
 } from "@ionic/vue";
 import {searchOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
-import LessonItem from "@/views/study/components/lessonItem.vue";
 import {getKcRecords, getZyRecords} from "@/api/user";
+import MyTeamItem from "@/views/team/components/myTeamItem.vue";
+import {getMyFridenTeam} from "@/api/team";
 
-interface lesson {
-  avatar: string,
-  content: string
-  createby: string
-  createtime: string
-  id: number
-  img: string,
-  kcid: number,
-  kclable: number,
-  studentname: string,
-  studytime: number,
-  title: string,
-  userid: number,
-  xiaojie: string,
-  iszy?: string
+interface team {
+  id: number,
+  tname: string,
+  introduction: string
+  bgimg: string,
+  number: number,
+  mxnumber: number,
+  createtime: string,
+  tavatar:string,
+  userid:string,
+  attribute:string,
+  activity:number,
 }
 
-const items = reactive<lesson[]>([]);
+const items = reactive<team[]>([]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
@@ -51,26 +49,11 @@ function handleRefresh(event: any) {
   }, 1000);
 }
 
-getKcRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((res) => {
-  for (let i = 0; i < res.data.data.length; i++) {
-    items.push(res.data.data[i])
-  }
-  items.sort((a, b) => {
-    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
-  });
-
-})
-getZyRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((res) => {
-  for (let i = 0; i < res.data.data.length; i++) {
-    items.push(res.data.data[i])
-  }
-  items.sort((a, b) => {
-    return new Date(b.createtime).getTime() - new Date(a.createtime).getTime();
-  });
-})
-
-
-
+  getMyFridenTeam(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((res: any) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      items.push(res.data.data[i])
+    }
+  })
 </script>
 
 <template>
@@ -80,12 +63,7 @@ getZyRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((re
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/user"></ion-back-button>
         </ion-buttons>
-        <IonTitle>学习记录</IonTitle>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon :icon="searchOutline"/>
-          </ion-button>
-        </ion-buttons>
+        <IonTitle>我参加的学友团</IonTitle>
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
@@ -94,8 +72,8 @@ getZyRecords(Number(JSON.parse(localStorage.getItem('user') || '').id)).then((re
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
         <ion-item-group class="ion-content-scroll-host">
-          <lesson-item v-for="(item, index) in items" :type="item.iszy=='1'?'zykc':'kc'" :item="item"
-                       :index="index"></lesson-item>
+          <my-team-item v-for="(item, index) in items" :item="item"
+                        :index="index"></my-team-item>
         </ion-item-group>
       </ion-list>
       <!--      <ion-infinite-scroll>-->
@@ -110,5 +88,19 @@ ion-content::part(background) {
   background: #FFFFFF;
 }
 
+ion-segment-button::part(native) {
+  color: #474747;
+}
+
+.segment-button-checked::part(native) {
+  color: #ffffff;
+}
+
+ion-segment-button {
+  --indicator-color: #5b78ec;
+  --border-radius: 20px;
+  --color-checked: #fff;
+
+}
 
 </style>

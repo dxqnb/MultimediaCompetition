@@ -107,7 +107,7 @@ function ionInfinite() {
         <ion-buttons slot="start">
           <ion-back-button text="" default-href="/tabs/study"></ion-back-button>
         </ion-buttons>
-        <IonTitle>科技前言</IonTitle>
+        <IonTitle>科技前沿</IonTitle>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon :icon="searchOutline"/>

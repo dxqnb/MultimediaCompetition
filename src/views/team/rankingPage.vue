@@ -33,7 +33,7 @@ import {
 } from "@ionic/vue";
 import {ellipsisHorizontalOutline, chevronForwardOutline, star, starOutline} from "ionicons/icons";
 import {onMounted, reactive, ref} from "vue";
-import {getAllFridenTeam, getFridenList} from "@/api/team";
+import {getAllFridenTeam, getFridenList,getFridenTeamUserList,getMyFridenTeam} from "@/api/team";
 
 const content = ref();
 const toggle = ref();
@@ -257,6 +257,31 @@ getAllFridenTeam().then((res) => {
   mainList.value = a
 
 })
+interface item {
+  uactivity: number,
+  studentname: string
+}
+interface teamitem {
+  tname: string,
+  tavatar: string
+}
+const id = ref('')
+const items = ref<item[]>([])
+const teamitems = ref<teamitem[]>([])
+const userid = Number(JSON.parse(localStorage.getItem('user') || '').id)
+getMyFridenTeam(userid).then((res) => {
+	id.value = res.data.data[0].id;
+	teamitems.value = res.data.data
+	getFridenTeamUserList(id.value).then((response) => {
+		items.value = response.data.data
+		console.log()
+		items.value.sort((a, b) => b.uactivity - a.uactivity);
+	})
+
+})
+
+
+
 
 function change(event: any) {
   segmentValue.value = event.detail.value;
@@ -362,19 +387,19 @@ function change(event: any) {
             <div
                 style="width: 11px;height: 11px;background: rgba(255,255,255,0.57);border-radius: 100%;position: absolute;top: 22px;right: 48px"></div>
             <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px">参与度统计数据</ion-card-title>
-            <ion-card-content>
-              <ion-accordion-group>
-                <ion-accordion v-for="i in 2" :value="i+''" style="border-radius: 6px;margin: 6px 0">
+            <ion-card-content >
+              <ion-accordion-group v-for="teamitem in teamitems">
+                <ion-accordion  style="border-radius: 6px;margin: 6px 0">
                   <ion-item lines="none"
                             style="width: 100%;--background: white;position: relative;" slot="header">
                     <ion-thumbnail style="--border-radius: 8px;--size: 48px;display: inline-block;margin-right: 0;"
                                    slot="start"><img
-                        src="https://www.0030.store/test.jpg"
+                        :src="teamitem.tavatar"
                         alt=""/></ion-thumbnail>
                     <div style="display: inline-block;vertical-align: top;width: 100%;margin-left: 10px">
                       <ion-text
                           style="font-size: 12px;color: #484848;font-weight: 600;vertical-align: baseline;margin-top: 10px;display: block;">
-                        【备战英语】我们不简单队
+                        {{teamitem.tname}}
                       </ion-text>
                       <ion-range :value="50" disabled :pin="true" :pin-formatter="(value:number)=>`${value}%`"
                                  style="padding: 5px 0 12px 0;"></ion-range>
@@ -403,8 +428,8 @@ function change(event: any) {
             <ion-card-title style="text-align: center;font-size: 16px;margin-top: 18px;">活跃度统计数据
             </ion-card-title>
             <ion-card-content>
-              <ion-accordion-group>
-                <ion-accordion v-for="i in 3" :value="i+''"
+              <ion-accordion-group v-for="(item, index) in items">
+                <ion-accordion
                                style="border-radius: 6px;margin: 6px 0;background-color: #FFFFFF">
                   <ion-item lines="none"
                             style="width: 100%;--background: white;position: relative;" slot="header">
@@ -414,17 +439,17 @@ function change(event: any) {
                         活跃度
                       </ion-text>
                       <ion-text
-                          style="display:block;color: #FFA35C;font-size: 20px;text-align: center;font-weight: 900">60
+                          style="display:block;color: #FFA35C;font-size: 20px;text-align: center;font-weight: 900">{{item.uactivity}}
                       </ion-text>
                     </div>
                     <div style="display: inline-block;vertical-align: top;width: 100%;margin-left: 10px">
-                      <div
+                      <div v-if="index < 3"
                           style="font-size: 8px;color: #FFFFFF;vertical-align: baseline;margin-top: 10px;display: block;width: 30px;text-align: center;border-radius: 2px;padding: 3px 2px"
-                          :style="i==1?'background: linear-gradient(to bottom,#E59950,#FFC185);':i==2?'background: linear-gradient(to bottom,#A1AAC3,#D9E4FF);':'background: linear-gradient(to bottom,#CEA880,#FDDAB8);'">
-                        TOP.{{ i }}
+                          :style="index==1?'background: linear-gradient(to bottom,#E59950,#FFC185);':index==2?'background: linear-gradient(to bottom,#A1AAC3,#D9E4FF);':'background: linear-gradient(to bottom,#CEA880,#FDDAB8);'">
+                        TOP.{{ index+1 }}
                       </div>
                       <ion-text style="padding: 5px 0 12px 0;color:#353535;font-weight: 600;display: block;">
-                        爱学习的小鱼
+                        {{item.studentname}}
                       </ion-text>
                     </div>
                     <!--                <ion-icon style="position: absolute;top: 16px;right: 16px;transition: all 500ms;" @click="(event)=>{if(event.srcElement.style.transform=='rotate(90deg)'){ event.srcElement.style.transform='';console.log(event.srcElement.style.transform)}if(event.srcElement.style.transform=='') {event.srcElement.style.transform='rotate(90deg)';console.log(event.srcElement.style.transform)}}" :icon="chevronForwardOutline"></ion-icon>-->
@@ -460,7 +485,7 @@ function change(event: any) {
                         </ion-text>
                         <ion-text
                             style="font-size: 20px;color: #484848;display: block;text-align: center;font-weight: 900">
-                          60
+                          {{item.uactivity}}
                         </ion-text>
                       </div>
                     </div>

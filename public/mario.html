@@ -10,109 +10,107 @@
 </head>
 
 <body>
-<input id="submit" type="button" value="提交"/>
-<script>
-    setTimeout(() => {
-        console.log(document.getElementsByTagName('input')[1])
-        // document.getElementsByTagName('input')[0].addEventListener('keypress', CheerpJHandleKeyEvent())
-        fireKeyEvent(document.getElementsByTagName('input')[1], 'keypress', 39);
-    }, 7000)
-    // function CheerpJHandleKeyEvent(e) {
-    //     console.log(e)
-    //     // var modifiers = getModifiersMask(e.shiftKey, (cjMacOSPlatform && e.metaKey) || e.ctrlKey, !cjMacOSPlatform && e.metaKey, e.altKey);
-    //     var copy = {
-    //         type: e.type,
-    //         currentTarget: e.currentTarget,
-    //         keyCode: e.keyCode,
-    //         code: e.code,
-    //         charCode: e.charCode,
-    //         key: e.key,
-    //         // modifiers: modifiers
-    //     };
-    //     console.log(copy)
-    //     CheerpJToolkitQueueEvent(a1, copy);
-    //     if (e.type == "keypress")
-    //         e.target.value = "";
-    //     /* Disable default behavior of some keys */
-    //     if (e.type == "keydown" && cjPreventDefaultHandling(e)) ;
-    //         // e.preventDefault();
-    //     /* space */
-    //     else if (e.type == "keypress" && e.keyCode == 32)
-    //         e.preventDefault();
-    //     /* stop propagation of everything for good measure */
-    //     e.stopPropagation();
-    // }
-    //
-    // function CheerpJHandleCompositionEvent(e) {
-    //     var copy = {
-    //         type: e.type,
-    //         currentTarget: e.currentTarget,
-    //         data: e.data
-    //     };
-    //     CheerpJToolkitQueueEvent(a1, copy);
-    //     e.stopPropagation();
-    //     e.preventDefault();
-    //     if (e.type == "compositionend")
-    //         e.target.value = "";
-    // }
+<!--<input id="submit" type="button" value="提交"/>-->
+<!--<script>-->
+<!--    setTimeout(() => {-->
+<!--        console.log(document.getElementsByTagName('input')[1])-->
+<!--        // document.getElementsByTagName('input')[0].addEventListener('keypress', CheerpJHandleKeyEvent())-->
+<!--        fireKeyEvent(document.getElementsByTagName('input')[1], 'keypress', 39);-->
+<!--    }, 7000)-->
+<!--    // function CheerpJHandleKeyEvent(e) {-->
+<!--    //     console.log(e)-->
+<!--    //     // var modifiers = getModifiersMask(e.shiftKey, (cjMacOSPlatform && e.metaKey) || e.ctrlKey, !cjMacOSPlatform && e.metaKey, e.altKey);-->
+<!--    //     var copy = {-->
+<!--    //         type: e.type,-->
+<!--    //         currentTarget: e.currentTarget,-->
+<!--    //         keyCode: e.keyCode,-->
+<!--    //         code: e.code,-->
+<!--    //         charCode: e.charCode,-->
+<!--    //         key: e.key,-->
+<!--    //         // modifiers: modifiers-->
+<!--    //     };-->
+<!--    //     console.log(copy)-->
+<!--    //     CheerpJToolkitQueueEvent(a1, copy);-->
+<!--    //     if (e.type == "keypress")-->
+<!--    //         e.target.value = "";-->
+<!--    //     /* Disable default behavior of some keys */-->
+<!--    //     if (e.type == "keydown" && cjPreventDefaultHandling(e)) ;-->
+<!--    //         // e.preventDefault();-->
+<!--    //     /* space */-->
+<!--    //     else if (e.type == "keypress" && e.keyCode == 32)-->
+<!--    //         e.preventDefault();-->
+<!--    //     /* stop propagation of everything for good measure */-->
+<!--    //     e.stopPropagation();-->
+<!--    // }-->
+<!--    //-->
+<!--    // function CheerpJHandleCompositionEvent(e) {-->
+<!--    //     var copy = {-->
+<!--    //         type: e.type,-->
+<!--    //         currentTarget: e.currentTarget,-->
+<!--    //         data: e.data-->
+<!--    //     };-->
+<!--    //     CheerpJToolkitQueueEvent(a1, copy);-->
+<!--    //     e.stopPropagation();-->
+<!--    //     e.preventDefault();-->
+<!--    //     if (e.type == "compositionend")-->
+<!--    //         e.target.value = "";-->
+<!--    // }-->
 
 
-    // setTimeout(() => {
-    //     console.log(document.getElementsByTagName('canvas')[0])
-    //     document.getElementsByTagName('button')[0].addEventListener('click', () => {
-    //         console.log($(document.getElementsByTagName('canvas')[0])[0])
-    //         $(document.getElementsByTagName('input')[0]).val('')
-    //     })
-    // }, 10000)
-    let submit = document.getElementById("submit");
-    submit.onclick = function () {
-        console.log('aaa');
-    }
-    document.onkeydown = function (e) {
-        var theEvent = window.event || e;
-        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
-        if (code == 39) {
-            submit.onclick();
-        }
-    }
+<!--    // setTimeout(() => {-->
+<!--    //     console.log(document.getElementsByTagName('canvas')[0])-->
+<!--    //     document.getElementsByTagName('button')[0].addEventListener('click', () => {-->
+<!--    //         console.log($(document.getElementsByTagName('canvas')[0])[0])-->
+<!--    //         $(document.getElementsByTagName('input')[0]).val('')-->
+<!--    //     })-->
+<!--    // }, 10000)-->
+<!--    let submit = document.getElementById("submit");-->
+<!--    submit.onclick = function () {-->
+<!--        console.log('aaa');-->
+<!--    }-->
+<!--    document.onkeydown = function (e) {-->
+<!--        var theEvent = window.event || e;-->
+<!--        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;-->
+<!--        if (code == 39) {-->
+<!--            submit.onclick();-->
+<!--        }-->
+<!--    }-->
+<!--    function fireKeyEvent(el, evtType, keyCode) {-->
+<!--        console.log(11111)-->
+<!--        var doc = el.ownerDocument,-->
+<!--            win = doc.defaultView || doc.parentWindow,-->
+<!--            evtObj;-->
+<!--        if (doc.createEvent) {-->
+<!--            if (win.KeyEvent) {-->
+<!--                evtObj = doc.createEvent('KeyEvents');-->
+<!--                evtObj.initKeyEvent(evtType, true, true, win, false, false, false, false, keyCode, 0);-->
+<!--            } else {-->
+<!--                evtObj = doc.createEvent('UIEvents');-->
+<!--                Object.defineProperty(evtObj, 'keyCode', {-->
+<!--                    get: function () {-->
+<!--                        return this.keyCodeVal;-->
+<!--                    }-->
+<!--                });-->
+<!--                Object.defineProperty(evtObj, 'which', {-->
+<!--                    get: function () {-->
+<!--                        return this.keyCodeVal;-->
+<!--                    }-->
+<!--                });-->
+<!--                evtObj.initUIEvent(evtType, true, true, win, 1);-->
+<!--                evtObj.keyCodeVal = keyCode;-->
+<!--                if (evtObj.keyCode !== keyCode) {-->
+<!--                    console.log("keyCode " + evtObj.keyCode + " 和 (" + evtObj.which + ") 不匹配");-->
+<!--                }-->
+<!--            }-->
+<!--            el.dispatchEvent(evtObj);-->
+<!--        } else if (doc.createEventObject) {-->
+<!--            evtObj = doc.createEventObject();-->
+<!--            evtObj.keyCode = keyCode;-->
+<!--            el.fireEvent('on' + evtType, evtObj);-->
+<!--        }-->
+<!--    }-->
 
-
-    function fireKeyEvent(el, evtType, keyCode) {
-        console.log(11111)
-        var doc = el.ownerDocument,
-            win = doc.defaultView || doc.parentWindow,
-            evtObj;
-        if (doc.createEvent) {
-            if (win.KeyEvent) {
-                evtObj = doc.createEvent('KeyEvents');
-                evtObj.initKeyEvent(evtType, true, true, win, false, false, false, false, keyCode, 0);
-            } else {
-                evtObj = doc.createEvent('UIEvents');
-                Object.defineProperty(evtObj, 'keyCode', {
-                    get: function () {
-                        return this.keyCodeVal;
-                    }
-                });
-                Object.defineProperty(evtObj, 'which', {
-                    get: function () {
-                        return this.keyCodeVal;
-                    }
-                });
-                evtObj.initUIEvent(evtType, true, true, win, 1);
-                evtObj.keyCodeVal = keyCode;
-                if (evtObj.keyCode !== keyCode) {
-                    console.log("keyCode " + evtObj.keyCode + " 和 (" + evtObj.which + ") 不匹配");
-                }
-            }
-            el.dispatchEvent(evtObj);
-        } else if (doc.createEventObject) {
-            evtObj = doc.createEventObject();
-            evtObj.keyCode = keyCode;
-            el.fireEvent('on' + evtType, evtObj);
-        }
-    }
-
-</script>
+<!--</script>-->
 </body>
 <script>
     cheerpjInit({enableInputMethods: true}).then(function () {
