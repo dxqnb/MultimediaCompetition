@@ -26,6 +26,7 @@ import {
 import {reactive, ref} from "vue";
 import {closeCircleOutline} from "ionicons/icons";
 import {ctjl} from "@/api/main";
+import * as marked from "marked";
 
 const textarea = ref('')
 
@@ -33,9 +34,9 @@ async function getNotice() {
   const toast = await toastController.create({
     message: '请求成功，请耐心等待简历生成'
   })
-  toast.present()
+  await toast.present()
   ctjl(Number(JSON.parse(localStorage.getItem('user') || '').username)).then((res) => {
-    textarea.value = res.data.result
+    textarea.value = marked.parse(res.data.result)
     toast.dismiss()
   })
 }
@@ -51,7 +52,7 @@ async function getNotice() {
         <IonTitle style="color: white">智能生成简历</IonTitle>
       </IonToolbar>
     </IonHeader>
-    <ion-content :scroll-y="false" :fullscreen="true">
+    <ion-content :fullscreen="true">
       <ion-grid style="padding: 0 15px">
         <ion-row>
           <ion-col size="12">
@@ -84,11 +85,17 @@ async function getNotice() {
       <div style="padding: 16px">
         <div
             style="background-color: white;width: 100%;margin: 10px auto; border-radius: 14px;border: solid 1px #CDD4FF;padding: 10px">
-          <ion-textarea placeholder="快点击一键生成简历，生成专属于你的简历吧" :auto-grow="true" v-model="textarea"
+          <ion-textarea v-if="textarea==''" placeholder="快点击一键生成简历，生成专属于你的简历吧"
+                        :auto-grow="true"
                         style="border: none;font-size: 16px;font-weight: 400;--color: #585858;min-height: 250px">
           </ion-textarea>
+          <div v-if="textarea!=''" v-html="textarea"
+               style="border: none;font-size: 16px;font-weight: 400;--color: #585858;min-height: 250px">
+
+          </div>
         </div>
       </div>
+      <div style="height: 150px"></div>
       <div slot="fixed" style="width: 100%;bottom: 20px;">
         <ion-button expand="block" @click="getNotice()"
                     style="--background: #515EFF;--color: white;width: 90%;margin: auto;">一键生成简历

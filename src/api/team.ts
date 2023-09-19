@@ -250,3 +250,13 @@ export function zj(userid: any, tid: any) {
         }
     });
 }
+export function dbzj(userid: any, tid: any) {
+    return service({
+        url: "v3/WenXin/dbzj",
+        method: "post",
+        params: {
+            userid: userid,
+            tid: tid
+        }
+    });
+}

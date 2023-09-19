@@ -27,7 +27,7 @@
 		IonCol,
 		IonGrid,
 	} from "@ionic/vue";
-	import { ellipsisHorizontal } from 'ionicons/icons';
+  import {documentOutline, ellipsisHorizontal, folderOutline} from 'ionicons/icons';
 	import { reactive, ref } from "vue";
 	import { useRouter } from 'vue-router';
 	import { getMyGrades } from "@/api/user";
@@ -104,8 +104,7 @@
 				<ion-row>
 					<ion-col size="4" v-for="(year, index) in years" :key="index" @click="goGradeDetail(year)">
 						<div style="background-color: #F3F5FE;height: 114px;border-radius: 10px;padding-top: 14px">
-							<ion-avatar style="display: block;margin: 0 auto 8px auto;width: 35px;height: 35px;"><img
-									src="@/img/小U-02.png" alt=""></ion-avatar>
+							<ion-icon style="display: block;margin: 0 auto 8px auto;width: 35px;height: 35px;" :icon="documentOutline"></ion-icon>
 							<ion-text
 								style="text-align: center;color:#585858;font-size: 12px;display: block;margin: 5px 0">{{year}}学年</ion-text>
 							<ion-text

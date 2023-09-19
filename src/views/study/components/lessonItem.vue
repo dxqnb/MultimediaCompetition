@@ -2,30 +2,49 @@
 
 import {
   IonAvatar, IonItem, IonLabel
-  , IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonImg, IonText, toastController
+  , IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonImg, IonText, toastController, useIonRouter
 } from "@ionic/vue";
-import {addZyKc, getZyKcDetailList} from "@/api/study";
+import {addKc, addZyKc, getZyKcDetailList} from "@/api/study";
 import {useRoute} from "vue-router";
 
 const route = useRoute();
-const props = defineProps(['item', 'index','type']);
+const router = useIonRouter();
+const props = defineProps(['item', 'index', 'type', 'disable']);
 let user = localStorage.getItem('user')
 let kcid = route.path.includes('history') ? props.item.kcid : props.item.id
 
 function addLesson() {
   if (user != null) {
-    addZyKc(JSON.parse(user).username, JSON.parse(user).deptid).then(async (res) => {
-      if (res.data.code == 0) {
-        const toast = await toastController.create({
-          message: '添加成功'
-        })
-        await toast.present().then(() => {
-          setTimeout(() => {
-            toast.dismiss()
-          }, 1000)
-        })
-      }
-    })
+    if (props.type == 'zykc') {
+      addZyKc(JSON.parse(user).username, props.item.id).then(async (res) => {
+        if (res.data.code == 0) {
+          const toast = await toastController.create({
+            message: '添加成功'
+          })
+          await toast.present().then(() => {
+            setTimeout(() => {
+              toast.dismiss()
+            }, 1000)
+          })
+          router.push('/study/lesson/' + props.item.id + '/zykc')
+        }
+      })
+    } else {
+      addKc(JSON.parse(user).username, props.item.id).then(async (res) => {
+        if (res.data.code == 0) {
+          const toast = await toastController.create({
+            message: '添加成功'
+          })
+          await toast.present().then(() => {
+            setTimeout(() => {
+              toast.dismiss()
+            }, 1000)
+          })
+          router.push('/study/lesson/' + props.item.id + '/kc')
+        }
+      })
+    }
+
   }
 }
 </script>
@@ -42,11 +61,13 @@ function addLesson() {
         <p style="font-size: 10px;padding-top: 12px">{{ item.createtime }}</p>
       </ion-label>
       <div slot="end" style="display: flex;flex-direction: column">
-        <ion-button v-if="!$route.path.includes('history')"
+        <ion-button v-if="!$route.path.includes('history')&&disable==false"
                     style="--background: #FFAA1B;--background-activated: #d38d17;--color: #ffffff" @click="addLesson()">
           <ion-text>添加课程</ion-text>
         </ion-button>
-        <ion-button style="--background-activated: #4352b6;--background: #5D73FF;--color: #ffffff" @click="$router.push('/study/lesson/'+kcid+'/'+type)">
+        <ion-button style="--background-activated: #4352b6;--background: #5D73FF;--color: #ffffff"
+                    v-if="disable==true||$route.path.includes('history')"
+                    @click="$router.push('/study/lesson/'+kcid+'/'+type)">
           <ion-text>进入课程</ion-text>
         </ion-button>
       </div>
@@ -66,7 +87,7 @@ ion-avatar {
 
 ion-item {
   /*--border-radius: 10px;*/
-    --background: #ffffff;
+  --background: #ffffff;
   /*  --border-width:10px;
     --border-style: solid;
     --border-color: rgba(255, 255, 255, 0);*/

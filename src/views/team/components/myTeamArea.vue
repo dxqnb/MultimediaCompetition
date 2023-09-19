@@ -11,32 +11,33 @@ import {
   IonRange,
   IonButton, IonTabButton, useIonRouter, onIonViewDidEnter, onIonViewWillEnter
 } from "@ionic/vue";
-import {onMounted, onUpdated, reactive, ref} from "vue";
+import {onActivated, onBeforeUpdate, onMounted, onUnmounted, onUpdated, reactive, ref} from "vue";
 import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
 import animation from "@/animations/customAnimation";
 import router from "@/router";
 import {getFridenTeamTaskfinshNo, getFridenTeamTaskfinshYes, getFridenTeamTaskList, getMyFridenTeam} from "@/api/team";
 
 interface team {
-  id: number,
+  tid: number,
   tname: string
+
 }
 
 interface item {
-  id: number
-  taskid: number
-  tid: number
-  userid: number
-  studentname: string
-  avatar: string,
-  task: string
-  taskdetail: string
-  img: string
-  target: number
-  finishtime: number
-  content: string
-  isfinsh: string
-  createtime: string
+  id?: number
+  taskid?: number
+  tid?: number
+  userid?: number
+  studentname?: string
+  avatar?: string,
+  task?: string
+  taskdetail?: string
+  img?: string
+  target?: number
+  finishtime?: number
+  content?: string
+  isfinsh?: string
+  createtime?: string
 }
 
 interface final {
@@ -52,6 +53,58 @@ interface final {
   finished?: item[]
   unfinished?: item[]
 
+}
+
+function up() {
+  finalItem.splice(0, finalItem.length);
+  ffffffff.splice(0, ffffffff.length);
+  teamList.splice(0, teamList.length);
+  getMyFridenTeam(userid).then((res: any) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      teamList.push(res.data.data[i])
+    }
+    if (res.data.data.length == 0) {
+      teamList.push({tid: 0, tname: '你还没加入任何一个学友团'})
+      segment.value = res.data.data[0].tid
+      return
+    }
+    segment.value = res.data.data[0].tid
+    getFridenTeamTaskList(segment.value).then((res) => {
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i].open == '1') {
+          finalItem.push(res.data.data[i])
+        }
+      }
+      console.log(finalItem)
+      getFridenTeamTaskfinshYes(segment.value).then((res) => {
+        for (let i = 0; i < res.data.data.length; i++) {
+          for (let j = 0; j < finalItem.length; j++) {
+            if (res.data.data[i].taskid == finalItem[j].id) {
+              if (finalItem[j].finished == undefined) finalItem[j].finished = []
+              finalItem[j].finished?.push(res.data.data[i])
+            }
+          }
+        }
+        getFridenTeamTaskfinshNo(segment.value).then((res) => {
+          for (let i = 0; i < res.data.data.length; i++) {
+            for (let j = 0; j < finalItem.length; j++) {
+              if (res.data.data[i].taskid == finalItem[j].id) {
+                if (finalItem[j].unfinished == undefined) finalItem[j].unfinished = []
+                finalItem[j].unfinished?.push(res.data.data[i])
+              }
+            }
+          }
+          for (let j = 0; j < finalItem.length; j++) {
+            ffffffff.push(finalItem[j])
+          }
+          if (ffffffff.length != 0) {
+            temp1.value = ffffffff[0].finished || []
+            temp2.value = ffffffff[0].unfinished || []
+          }
+        })
+      })
+    })
+  })
 }
 
 const user = localStorage.getItem('user') || ''
@@ -103,15 +156,23 @@ const temp2 = ref<item[] | undefined>()
 //     })
 //   })
 // })
-onMounted(() => {
-  finalItem.splice(0, finalItem.length);
-  ffffffff.splice(0, ffffffff.length);
-  teamList.splice(0, teamList.length);
+
+function change() {
+
   getMyFridenTeam(userid).then((res: any) => {
+    if (res.data.data.length == 1) {
+      return
+    }
+    teamList.splice(0, teamList.length);
+    finalItem.splice(0, finalItem.length);
+    ffffffff.splice(0, ffffffff.length);
+    temp2.value = undefined
+    temp1.value = undefined
     for (let i = 0; i < res.data.data.length; i++) {
       teamList.push(res.data.data[i])
     }
-    segment.value = res.data.data[0].id
+
+    // segment.value = res.data.data[0].id
     getFridenTeamTaskList(segment.value).then((res) => {
       for (let i = 0; i < res.data.data.length; i++) {
         if (res.data.data[i].open == '1') {
@@ -140,12 +201,18 @@ onMounted(() => {
           for (let j = 0; j < finalItem.length; j++) {
             ffffffff.push(finalItem[j])
           }
-          temp1.value = ffffffff[0].finished
-          temp2.value = ffffffff[0].unfinished
+          if (ffffffff.length != 0) {
+            temp1.value = ffffffff[0].finished || []
+            temp2.value = ffffffff[0].unfinished || []
+          }
         })
       })
     })
   })
+}
+
+onMounted(() => {
+  up()
 
 })
 </script>
@@ -159,17 +226,17 @@ onMounted(() => {
           style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>
     <div class="area">
-      <ion-segment mode="ios" v-model="segment">
-        <ion-segment-button :value="i.id" v-for="i in teamList">
+      <ion-segment mode="ios" v-model="segment" @ionChange="change()">
+        <ion-segment-button :value="i.tid" v-for="i in teamList">
           <ion-label><h3 style="font-weight: 900">{{ i.tname }}</h3></ion-label>
         </ion-segment-button>
-        <ion-segment-button :value="0" v-if="teamList.length==0">
-          <ion-label><h3 style="font-weight: 900">你还没加入任何一个学友团</h3></ion-label>
-        </ion-segment-button>
+        <!--        <ion-segment-button :value="0" v-if="teamList.length==0">-->
+        <!--          <ion-label><h3 style="font-weight: 900">你还没加入任何一个学友团</h3></ion-label>-->
+        <!--        </ion-segment-button>-->
       </ion-segment>
       <div
           style="background-color: #FFFFFF;border-radius:0 0 10px 10px;padding-top: 1em;">
-        <div v-if="temp1==undefined&&temp2==undefined">
+        <div v-if="(temp1==undefined&&temp2==undefined)">
           暂无任务
         </div>
         <div style="width: 90%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in temp1">
@@ -219,7 +286,7 @@ onMounted(() => {
               <!--                    <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>-->
             </ion-radio-group>
             <ion-text>
-              <p style="display: inline-block;font-size: 12px">{{ finalItem[0].target }}/{{ finalItem[0].target }}</p>
+              <p style="display: inline-block;font-size: 12px">0/{{ finalItem[0].target }}</p>
             </ion-text>
           </div>
           <div

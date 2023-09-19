@@ -22,6 +22,7 @@ import {addFridenTeamBgimg, getFridenTeamUserList} from "@/api/team";
 import * as echarts from "echarts";
 import {Camera, CameraResultType} from "@capacitor/camera";
 import {getUserDetail, upAvatar} from "@/api/user";
+import {CameraSource} from "@capacitor/camera/dist/esm/definitions";
 
 const Props = defineProps(['team', 'user', 'duizhangID'])
 const modules = ref([Pagination, Navigation]);
@@ -77,7 +78,8 @@ async function dismiss(event: CustomEvent) {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Photos
     });
     let dataUrl = image.dataUrl == undefined ? '.' : image.dataUrl
     let temp = base64ToFile(image.dataUrl, 'tempAvatar.' + dataUrl.split('/')[1].split(';')[0])

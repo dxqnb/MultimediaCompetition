@@ -1,7 +1,8 @@
 <template>
   <ion-page class="page">
-        <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, rgb(120,147,244))" class="ion-no-border ion-padding">
-<!--    <ion-header collapse="fade" style="background: #FFFFFF" class="ion-no-border ion-padding">-->
+    <ion-header collapse="fade" style="background: linear-gradient(to bottom, #4472FB, rgb(120,147,244))"
+                class="ion-no-border ion-padding">
+      <!--    <ion-header collapse="fade" style="background: #FFFFFF" class="ion-no-border ion-padding">-->
       <ion-toolbar style="--background: transparent" class="head">
         <div style="display: flex;justify-content: space-between">
           <ion-icon icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="99.852" height="28.548" viewBox="0 0 99.852 28.548">
@@ -24,7 +25,7 @@
           effect="cards"
           :grabCursor="true"
           :modules="modules"
-          :autoplay="{ delay: 3000, disableOnInteraction: false, }"
+          :autoplay="{ delay: 2000, disableOnInteraction: false, }"
           :initialSlide="1"
           :loop="true"
           :space-between="50"
@@ -174,7 +175,10 @@
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #888888;margin: 4px 0">TOP.2
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[1].tname }}</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{
+                finalList[1].tname
+              }}
+            </ion-text>
           </div>
         </div>
         <div
@@ -185,7 +189,10 @@
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #F19700;margin: 4px 0">TOP.1
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[0].tname }}</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{
+                finalList[0].tname
+              }}
+            </ion-text>
           </div>
         </div>
         <div
@@ -196,7 +203,10 @@
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #B48445">TOP.3
             </ion-text>
-            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{ finalList[2].tname }}</ion-text>
+            <ion-text style="display: block;font-size: 12px;font-weight: 500;color: #1B1B1B">{{
+                finalList[2].tname
+              }}
+            </ion-text>
           </div>
         </div>
       </div>
@@ -328,6 +338,7 @@ getBanner('1').then(res => {
     Banner.value.push(datum)
   }
 })
+
 const searchIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"159\" height=\"159\" viewBox=\"0 0 159 159\">\n" +
     "  <defs>\n" +
     "    <filter id=\"路径_592\" x=\"24.562\" y=\"24.702\" width=\"78.746\" height=\"71.303\" filterUnits=\"userSpaceOnUse\">\n" +
@@ -412,7 +423,7 @@ const bookIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/200
 const sw = ref();
 const onSwiper = (swiper: any) => {
   sw.value = swiper;
-
+  console.log(sw.value)
   setTimeout(function () {
     swiper.slidePrev()
   }, 100);

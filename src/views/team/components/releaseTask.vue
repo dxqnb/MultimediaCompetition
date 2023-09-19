@@ -199,8 +199,8 @@ const pickerColumns = [
   },
 ];
 const vocabulary = ref('请选择');
-const days = ref('请选择');
-const selectData = ref('2023-08-20');
+// const days = ref('请选择');
+// const selectData = ref('2023-08-20');
 const pickerButtons = [
   {
     text: 'Cancel',

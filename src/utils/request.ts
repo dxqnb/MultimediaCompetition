@@ -13,7 +13,8 @@ const service = axios.create({
 	// baseURL: "http://localhost:8081/",
 	// baseURL: "http://100.99.22.97:8081/",
 	// baseURL: "http://100.94.53.1:8081/",
-	baseURL: "http://8.130.64.102:8082/",
+	// baseURL: "http://8.130.64.102:8082/",
+	baseURL: "http://100.99.22.97:8081/",
 	timeout: 100000, // 设定响应超时
 	headers: {
 		"Content-Type": "application/json;charset=UTF-8"

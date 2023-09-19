@@ -133,7 +133,7 @@ console.log(props.finalItem)
 <!--                    <ion-radio disabled value="true" mode="ios" aria-label="Custom checkbox"></ion-radio>-->
                   </ion-radio-group>
                   <ion-text>
-                    <p style="display: inline-block;font-size: 12px">{{finalItem.target}}/{{ finalItem.target }}</p>
+                    <p style="display: inline-block;font-size: 12px">0/{{ finalItem.target }}</p>
                   </ion-text>
                 </div>
                 <div

@@ -37,7 +37,7 @@ import dayjs from "dayjs";
 import ReleaseTask from "@/views/team/components/releaseTask.vue";
 import TeamInfo from "@/views/team/components/teamInfo.vue";
 import {
-  addTeamMessage,
+  addTeamMessage, dbzj,
   delFridenTeam, delFridenUser,
   getFridenTeam,
   getFridenTeamMessageList,
@@ -274,6 +274,16 @@ function smartSummary() {
 
   })
 }
+dbzj(userid,id).then(async (res)=>{
+    const alert = await alertController.create({
+      header: '智能任务检测提醒',
+      subHeader: '请注意',
+      message: res.data.result,
+      buttons: ['收到'],
+    });
+    await alert.present();
+})
+
 </script>
 
 <template>

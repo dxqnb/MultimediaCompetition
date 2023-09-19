@@ -326,7 +326,7 @@ function change(event: any) {
           </ion-segment>
           <ion-content class="second" :scroll-y="true" style="height: 92%">
             <ion-card v-for="i in mainList.length"
-                      :style="i==1?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#FFE066, #FDF4DE, #F9F9F9)`:i==2?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#C5D9E9, #F9F9F9, #F9F9F9)`:i==3?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#F1DAB7, #F4F1EA, #F9F9F9)`:`margin: 12px 0 ;box-shadow: none;--background: rgba(119,119,119,0.05)`">
+                      :style="i==1?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#FFE066, #FDF4DE, #F9F9F9,#F9F9F9)`:i==2?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#C5D9E9, #F9F9F9, #F9F9F9,#F9F9F9)`:i==3?`margin: 12px 0 ;box-shadow: none;--background: linear-gradient(to bottom,#F1DAB7, #F4F1EA, #F9F9F9,#F9F9F9)`:`margin: 12px 0 ;box-shadow: none;--background: rgba(119,119,119,0.05)`">
               <ion-card-content style="padding: 0 4px 4px 4px">
                 <div style="height: 40px;width: 100%;position: relative">
                   <ion-icon v-if="i<=3" :icon="i==1?champion:i==2?second:third"
@@ -354,7 +354,7 @@ function change(event: any) {
                         <ion-thumbnail style="--border-radius: 8px;--size: 66px"><img
                             :src="mainList[i-1].bgimg"
                             alt=""/></ion-thumbnail>
-                        <div style="margin-left: 10px">
+                        <div style="margin-left: 16px">
                           <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{
                               mainList[i-1].tname
                             }}
@@ -530,8 +530,8 @@ ion-toolbar {
 ion-toggle {
   padding: 12px;
   --track-background: #FFFFFF;
-  --track-background-checked: #90BEE2;
-  --handle-background: #90BEE2;
+  --track-background-checked: #445BFE;
+  --handle-background: #445BFE;
   --handle-background-checked: #FFFFFF;
   --handle-width: 14px;
   --handle-height: 14px;

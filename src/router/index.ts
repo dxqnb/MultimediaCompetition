@@ -36,10 +36,16 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: '',
                 component: () => import('@/views/AI/AIPage.vue'),
+                meta: {
+                    requireAuth: true
+                },
             },
             {
                 path: 'chatWithAI',
                 component: () => import('@/views/AI/chatWithAIPage.vue'),
+                meta: {
+                    requireAuth: true
+                },
             },
             {
                 path: 'mario',
@@ -48,6 +54,9 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'chat',
                 component: () => import('@/views/AI/chatPage.vue'),
+                meta: {
+                    requireAuth: true
+                },
             },
             {
                 path: 'smartNotes',
@@ -74,6 +83,9 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'study',
                 component: () => import('@/views/study/studyPage.vue'),
+                meta: {
+                    requireAuth: true
+                },
             },
             // {
             //     path: 'tab3',
@@ -82,6 +94,9 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: 'team',
                 component: () => import('@/views/team/teamPage.vue'),
+                meta: {
+                    requireAuth: true
+                },
             },
             {
                 path: 'user',
@@ -170,6 +185,10 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'learningTime/:id',
                 props: true,
                 component: () => import('@/views/study/learningTimeDetailPage.vue')
+            },
+            {
+                path: 'errors',
+                component: () => import('@/views/study/errorsPage.vue')
             },
         ]
     },
@@ -317,10 +336,10 @@ router.beforeEach(async (to, from, next) => {
 
 
         const alert = await alertController.create({
-            header: 'Alert',
-            subHeader: 'Important message',
-            message: 'This is an alert!',
-            buttons: ['OK'],
+            header: '提示',
+            subHeader: '请注意',
+            message: '你还未登录，请先登录',
+            buttons: ['好！'],
         })
         await alert.present()
         alert.onDidDismiss().then(() => {

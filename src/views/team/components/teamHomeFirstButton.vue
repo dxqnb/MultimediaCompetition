@@ -2,6 +2,7 @@
 import {IonCard, IonCardContent, IonGrid, IonRow, IonCol, IonIcon, IonButton, IonText, useIonRouter} from "@ionic/vue";
 import {chevronForwardOutline} from "ionicons/icons";
 import {ref} from "vue";
+
 const searchIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" viewBox=\"0 0 30 30\">\n" +
     "  <path id=\"路径_97\" data-name=\"路径 97\" d=\"M15,0A15,15,0,1,1,0,15,15,15,0,0,1,15,0Z\" fill=\"#fff\"/>\n" +
     "  <g id=\"streamlinehq-interface-search-visual-_flat-48-ico_Pzis8eLA07WrzaGr\" data-name=\"streamlinehq-interface-search-visual-          flat-48-ico_Pzis8eLA07WrzaGr\" transform=\"translate(3.5 4.5)\" style=\"isolation: isolate\">\n" +
@@ -20,48 +21,44 @@ const refreshIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/
     "    <path id=\"Vector-2\" data-name=\"Vector\" d=\"M1.065,15.531A8.049,8.049,0,0,0,7.258,11.54a8.061,8.061,0,0,0-.7-9.088c.307-.282.558-.525.76-.732A.851.851,0,0,0,7.54.848a.865.865,0,0,0-.7-.567A24.711,24.711,0,0,0,3.744,0,1.206,1.206,0,0,0,2.506,1.039a24.811,24.811,0,0,0-.261,3.075.871.871,0,0,0,.443.8A.862.862,0,0,0,3.6,4.839c.217-.149.47-.331.76-.551a5.2,5.2,0,0,1,.422,5.819,5.183,5.183,0,0,1-3.591,2.518,1.211,1.211,0,0,0-.979.753A3.885,3.885,0,0,0,0,14.63.932.932,0,0,0,1.065,15.531Z\" transform=\"translate(9.173 2.005)\" fill=\"#beb6ff\" style=\"isolation: isolate\"/>\n" +
     "  </g>\n" +
     "</svg>\n");
-const rankIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"62\" height=\"62\" viewBox=\"0 0 62 62\">\n" +
-    "  <g id=\"组_863\" data-name=\"组 863\" transform=\"translate(-5305 -2563)\">\n" +
-    "    <path id=\"路径_108\" data-name=\"路径 108\" d=\"M31,31,0,31A31,31,0,1,0,31,0,31,31,0,0,0,0,31Z\" transform=\"translate(5305 2563)\" fill=\"none\"/>\n" +
-    "    <path id=\"路径_109\" data-name=\"路径 109\" d=\"M231.335,422.3h8.473a2.479,2.479,0,0,1,2.414,2.54v12.051a2.479,2.479,0,0,1-2.414,2.54h-8.473Zm-15.052-4.88h-7.952a2.479,2.479,0,0,0-2.414,2.54v16.931a2.479,2.479,0,0,0,2.414,2.54h7.952Z\" transform=\"translate(5111.93 2170.447)\" fill=\"#e0b94c\" opacity=\"0.59\"/>\n" +
-    "    <path id=\"路径_110\" data-name=\"路径 110\" d=\"M368.736,256.318a3.375,3.375,0,0,1,3.436-3.311h10.657a3.375,3.375,0,0,1,3.436,3.311V284.1H368.736Z\" transform=\"translate(4958.333 2325.779)\" fill=\"#e0b94c\"/>\n" +
-    "    <path id=\"路径_111\" data-name=\"路径 111\" d=\"M429.863,488.663a.747.747,0,0,1,1.192,0l1.517,2.008a.747.747,0,0,0,.352.256l2.378.822a.747.747,0,0,1,.368,1.134l-1.441,2.063a.746.746,0,0,0-.134.414l-.047,2.516a.747.747,0,0,1-.965.7l-2.407-.733a.748.748,0,0,0-.435,0l-2.407.733a.747.747,0,0,1-.964-.7l-.047-2.516a.747.747,0,0,0-.135-.414l-1.441-2.063a.747.747,0,0,1,.368-1.134l2.378-.822a.746.746,0,0,0,.352-.256Z\" transform=\"translate(4905.469 2104.031)\" fill=\"#ffeab0\"/>\n" +
+const rankIcon = ref("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"67.072\" height=\"67.072\" viewBox=\"0 0 67.072 67.072\">\n" +
+    "  <g id=\"组_863\" data-name=\"组 863\" opacity=\"0.28\">\n" +
+    "    <path id=\"路径_108\" data-name=\"路径 108\" d=\"M33.536,33.536,0,33.536A33.536,33.536,0,1,0,33.536,0,33.536,33.536,0,0,0,0,33.536Z\" fill=\"none\"/>\n" +
+    "    <path id=\"路径_109\" data-name=\"路径 109\" d=\"M233.415,422.7h9.166a2.682,2.682,0,0,1,2.611,2.747v13.037a2.682,2.682,0,0,1-2.611,2.747h-9.166Zm-16.283-5.279h-8.6a2.682,2.682,0,0,0-2.612,2.747v18.316a2.682,2.682,0,0,0,2.612,2.747h8.6Z\" transform=\"translate(-192.019 -390.519)\" fill=\"#66b9ff\"/>\n" +
+    "    <path id=\"路径_110\" data-name=\"路径 110\" d=\"M368.736,256.589a3.651,3.651,0,0,1,3.717-3.582h11.528a3.651,3.651,0,0,1,3.717,3.582v30.055H368.736Z\" transform=\"translate(-344.862 -235.93)\" fill=\"#0080ff\"/>\n" +
+    "    <path id=\"路径_111\" data-name=\"路径 111\" d=\"M430.252,488.687a.808.808,0,0,1,1.29,0l1.641,2.172a.809.809,0,0,0,.381.277l2.573.889a.808.808,0,0,1,.4,1.227l-1.559,2.232a.808.808,0,0,0-.146.448l-.05,2.722a.808.808,0,0,1-1.044.758l-2.6-.793a.81.81,0,0,0-.471,0l-2.6.793a.808.808,0,0,1-1.043-.758l-.05-2.722a.808.808,0,0,0-.145-.448l-1.559-2.232a.808.808,0,0,1,.4-1.227l2.573-.889a.808.808,0,0,0,.381-.277Z\" transform=\"translate(-397.438 -456.565)\" fill=\"#fff\"/>\n" +
     "  </g>\n" +
     "</svg>\n");
-
-const router = useIonRouter();
 </script>
 
 <template>
   <div>
     <ion-grid style="flex-wrap: nowrap;display: flex;padding: 0">
-      <ion-col>
-        <ion-card class="inner"
-                  style="background: url('https://www.0030.store/button1.png');background-size: cover"
+      <ion-col size="4.5">
+        <ion-card class="inner first"
+                  style="background-size: cover"
                   @click="$router.push('/team/groupTeam')">
           <ion-card-content>
             <!--              <ion-text style="font-size: 16px;background: -webkit-linear-gradient(bottom,#6D99FF,#6D99FF,#6D99FF);-webkit-background-clip: text;-webkit-text-fill-color: transparent">-->
-            <ion-text style="font-size: 16px;font-weight: 900; color: #E09008">
+            <ion-text style="font-size: 14px; color: #E09008">
               发现学友团
-              <p style="font-size: 12px;color: #BE9638">
-                志同道合
-              </p>
-              <p style="font-size: 12px;color: #BE9638">
+              <p style="font-size: 10px !important;color: #BE9638;font-weight: 500;">
+                志同道合 &nbsp;
                 一起进步
               </p>
             </ion-text>
-            <ion-icon class="bottom" aria-hidden="true" :icon="searchIcon" />
+            <ion-icon class="bottom" aria-hidden="true" :icon="searchIcon"/>
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col>
-        <ion-card class="inner"
-                  style="background: url('https://www.0030.store/button2.png') ;background-size: cover"
+      <ion-col size="4.5">
+        <ion-card class="inner second"
+                  style="background-size: cover"
                   @click="$router.push('/team/shake')">
           <ion-card-content>
-            <ion-text style="font-size: 16px;font-weight: 900; color: #786BB0">
+            <ion-text style="font-size: 14px;font-weight: 900; color: #786BB0">
               摇一摇
-              <p style="font-size: 12px;color: #8074B7">
+              <p style="font-size: 10px !important;color: #8074B7;font-weight: 500;">
                 随机匹配
               </p>
             </ion-text>
@@ -69,17 +66,18 @@ const router = useIonRouter();
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col>
+      <ion-col size="3">
         <ion-card class="inner"
-                  style=""
+                  style="--background: #C7E7FF"
                   @click="$router.push('/team/ranking')">
           <ion-card-content>
-            <ion-text style="font-size: 16px;font-weight: 900;color: #EAA720">排行榜
-              <p style="font-size: 12px;color: #EAA720">
+            <ion-text style="font-size: 14px;color: #2181DD;font-weight: 900;">排行榜
+              <p style="font-size: 10px !important;color: #2099EA;font-weight: 500;">
                 数据更新
               </p>
             </ion-text>
-            <ion-icon aria-hidden="true" :icon="rankIcon" style="width: 62px; height: 62px;position: absolute;right: 0;bottom: 0;"/>
+            <ion-icon aria-hidden="true" :icon="rankIcon"
+                      style="width: 74px;height: 74px;position: absolute;right: 0;bottom: -17px;"/>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -90,6 +88,7 @@ const router = useIonRouter();
 <style scoped>
 ion-col {
   padding: 0;
+  margin: 0 1px;
 }
 
 ion-card.inner {
@@ -98,6 +97,14 @@ ion-card.inner {
   display: inline-block;
   height: 80px;
   border-radius: 13px;
+}
+
+.first {
+  background: url("@/img/teamCardBackground.png");
+}
+
+.second {
+  background: url("@/img/teamCardBackground1.png");
 }
 
 ion-card {
@@ -131,7 +138,7 @@ ion-icon.right {
 ion-icon.bottom {
   vertical-align: bottom;
   position: absolute;
-  bottom: 8px;
+  bottom: 25px;
   right: 12px;
   height: 30px;
   width: 30px;

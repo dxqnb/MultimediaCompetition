@@ -192,6 +192,7 @@ async function doLogin() {
                 }, 1000)
               })
               router.push('/')
+              window.location.reload()
             })
           } else {
             await toast.present().then(() => {

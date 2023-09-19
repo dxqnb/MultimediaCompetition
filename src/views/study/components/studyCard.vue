@@ -94,9 +94,9 @@ const router = useIonRouter();
             <ion-icon aria-hidden="true" :icon="thirdIcon" size="large"/>
             <ion-label style="display: block;font-size: 12px;margin-top: 5px">我的学习</ion-label>
           </ion-col>
-          <ion-col>
+          <ion-col @click="router.push('/study/errors/')">
             <ion-icon aria-hidden="true" :icon="fourthIcon" size="large"/>
-            <ion-label style="display: block;font-size: 12px;margin-top: 5px">队友动态</ion-label>
+            <ion-label style="display: block;font-size: 12px;margin-top: 5px">智能检测</ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>

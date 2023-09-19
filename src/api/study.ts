@@ -60,6 +60,17 @@ export function addZyKc(username: string, zykcid: string) {
     });
 }
 
+export function addKc(username: string, kcid: string) {
+    return service({
+        url: "v3/Study/addKc",
+        method: "post",
+        params: {
+            username: username,
+            kcid: kcid
+        }
+    });
+}
+
 export function getZyKcList(szyid: string, userid: any) {
     return service({
         url: "v3/Study/getZyKcList",
@@ -95,6 +106,7 @@ export function ifKCAnswer(id: string, taoid: any, userid: string, uanswer: stri
         }
     });
 }
+
 export function ifZYAnswer(id: string, taoid: any, userid: string, uanswer: string, res: string) {
     return service({
         url: "v3/TestZy/ifAnswer",
@@ -253,39 +265,43 @@ export function getMyZyKcNoteList(kcxjid: any, userid: any) {
         }
     });
 }
+
 export function delKcNote(id: any) {
     return service({
         url: "v3/StudyNote/delKcNote",
         method: "delete",
         params: {
-            id:id
+            id: id
         }
     });
 }
+
 export function delZyKcNote(id: any) {
     return service({
         url: "v3/StudyNote/delZyKcNote",
         method: "delete",
         params: {
-            id:id
+            id: id
         }
     });
 }
+
 export function getKcPjList(kcid: any) {
     return service({
         url: "v3/StudyPj/getKcPjList",
         method: "get",
         params: {
-            kcid:kcid
+            kcid: kcid
         }
     });
 }
+
 export function getZyKcPjList(kcid: any) {
     return service({
         url: "v3/StudyPj/getZyKcPjList",
         method: "get",
         params: {
-            kcid:kcid
+            kcid: kcid
         }
     });
 }
@@ -300,6 +316,7 @@ export function addKcNote(data: any) {
         },
     });
 }
+
 export function addZyKcNote(data: any) {
     return service({
         url: "v3/StudyNote/addZyKcNote",
@@ -310,6 +327,7 @@ export function addZyKcNote(data: any) {
         },
     });
 }
+
 export function addKcPj(data: any) {
     return service({
         url: "v3/StudyPj/addKcPj",
@@ -320,6 +338,7 @@ export function addKcPj(data: any) {
         },
     });
 }
+
 export function addZyKcPj(data: any) {
     return service({
         url: "v3/StudyPj/addZyKcPj",
@@ -328,5 +347,68 @@ export function addZyKcPj(data: any) {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
+    });
+}
+
+export function getMyKc(username: any) {
+    return service({
+        url: "v3/Study/getMyKc",
+        method: "get",
+        params: {
+            username: username
+        }
+    });
+}
+
+export function getMyZyKc(username: any) {
+    return service({
+        url: "v3/Study/getMyZyKc",
+        method: "get",
+        params: {
+            username: username
+        }
+    });
+}
+
+export function getMyZyWorng(userid: any) {
+    return service({
+        url: "v3/TestZy/getMyZyWorng",
+        method: "get",
+        params: {
+            userid: userid
+        }
+    });
+}
+
+export function getMyKcWorng(userid: any) {
+    return service({
+        url: "v3/TestKc/getMyKcWorng",
+        method: "get",
+        params: {
+            userid: userid
+        }
+    });
+}
+
+export function ctzyzj(userid: any, taoid: any, tiid: any) {
+    return service({
+        url: "v3/WenXin/ctzyzj",
+        method: "post",
+        params: {
+            userid: userid,
+            taoid: taoid,
+            tiid: tiid
+        }
+    });
+}
+export function ctkczj(userid: any, taoid: any, tiid: any) {
+    return service({
+        url: "v3/WenXin/ctkczj",
+        method: "post",
+        params: {
+            userid: userid,
+            taoid: taoid,
+            tiid: tiid
+        }
     });
 }

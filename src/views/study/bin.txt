@@ -103,8 +103,7 @@ function change1() {
 }
 
 async function submit() {
-  console.log(answer[9])
-  if (answer.includes('') || answer.length != answerItem.length) {
+  if (answer.includes('')) {
     const alert1 = await alertController.create({
       header: '提示',
       subHeader: '你还有题目未作答，确认提交？',
@@ -125,7 +124,7 @@ async function submit() {
       if (res.role == 'ok') {
         if (type == "zykc") {
           for (let i = length.value; i > 0; i--) {
-            ifZYAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1]||'', '').then((res) => {
+            ifZYAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
               if (res.data.code == 900) {
                 error.push(i)
               }
@@ -140,7 +139,7 @@ async function submit() {
           }
         } else {
           for (let i = length.value; i > 0; i--) {
-            ifKCAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1]||'', '').then((res) => {
+            ifKCAnswer(answerItem[i - 1].id.toString(), taoid, userid, answer[i - 1], '').then((res) => {
               if (res.data.code == 900) {
                 error.push(i)
               }
@@ -168,8 +167,7 @@ async function submit() {
             setTimeout(() => {
               error.sort()
               error.push(taoid)
-              router.replace('/study/testReport/' + error.toString() + '/zykc')
-              error.splice(0, error.length);
+              router.push('/study/testReport/' + error.toString() + '/zykc')
             }, 500)
           }
         })
@@ -184,8 +182,7 @@ async function submit() {
             setTimeout(() => {
               error.sort()
               error.push(taoid)
-              router.replace('/study/testReport/' + error.toString() + '/kc')
-              error.splice(0, error.length);
+              router.push('/study/testReport/' + error.toString() + '/kc')
             }, 500)
           }
         })
@@ -243,39 +240,40 @@ async function submit() {
         <ion-img v-if="false" src="https://www.0030.store/swiperAd/ad1.png"></ion-img>
         <div style="margin-top: 30px">
           <ion-segment @ionChange="change1()" v-model="answerOption" mode="ios"
-                       style="display: inline-block;background: #FFFFFF;width: 100px">
-            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 20px"
-                                value="A">
-              <ion-label style=""><h6>A</h6></ion-label>
-            </ion-segment-button>
-            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 20px"
-                                value="B">
-              <ion-label style=""><h6>B</h6></ion-label>
-            </ion-segment-button>
-            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 20px"
-                                value="C">
-              <ion-label style=""><h6>C</h6></ion-label>
-            </ion-segment-button>
-            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 20px"
-                                value="D">
-              <ion-label style=""><h6>D</h6></ion-label>
-            </ion-segment-button>
+                       style="display: inline-block;background: #FFFFFF">
+            <div style="position: relative;margin: 20px 10px;">
+              <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
+                                  value="A">
+                <ion-label style=""><h6>A</h6></ion-label>
+              </ion-segment-button>
+              <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
+                {{ optionA[Number(num) - 1] }}</p>
+            </div>
+            <div style="position: relative;margin: 20px 10px;">
+              <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
+                                  value="B">
+                <ion-label style=""><h6>B</h6></ion-label>
+              </ion-segment-button>
+              <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
+                {{ optionB[Number(num) - 1] }}</p>
+            </div>
+            <div style="position: relative;margin: 20px 10px;">
+              <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
+                                  value="C">
+                <ion-label style=""><h6>C</h6></ion-label>
+              </ion-segment-button>
+              <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
+                {{ optionC[Number(num) - 1] }}</p>
+            </div>
+            <div style="position: relative;margin: 20px 10px;">
+              <ion-segment-button style="width: 36px;height: 36px;min-width: auto;"
+                                  value="D">
+                <ion-label style=""><h6>D</h6></ion-label>
+              </ion-segment-button>
+              <p style="display: inline-block;position: absolute;top: 0;left: 80px;margin: 0;line-height: 38px">
+                {{ optionD[Number(num) - 1] }}</p>
+            </div>
           </ion-segment>
-          <div style="display: inline-block;vertical-align: top">
-            <div style="height: 36px;margin: 20px;line-height: 36px">
-              {{ optionA[Number(num) - 1] }}
-            </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
-              {{ optionB[Number(num) - 1] }}
-            </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
-              {{ optionC[Number(num) - 1] }}
-            </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
-              {{ optionD[Number(num) - 1] }}
-            </div>
-
-          </div>
         </div>
       </div>
     </ion-content>
