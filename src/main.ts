@@ -68,6 +68,7 @@ const app = createApp(App)
             },
         },
         mode: 'ios',
+
     })
     .use(router)
     .use(vuetify);

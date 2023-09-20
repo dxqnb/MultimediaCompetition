@@ -36,8 +36,8 @@ onMounted(() => {
 <template>
   <ion-card style="margin: 10px 0">
     <ion-card-content style="padding: 0">
-      <div :style="style+height">
-        <ion-img ref="img" style="width: 100%;" :src="imgUrl" @click="$router.push('/study/video/'+item.id)"></ion-img>
+      <div :style="style+height" @click="$router.push('/study/video/'+item.id)">
+        <ion-img ref="img" style="height: 100%;object-fit: cover;" :src="imgUrl"></ion-img>
         <!--        <ion-button style="position: absolute;bottom: 0;right: 0;" id="left-start"><ion-icon :icon="ellipsisVerticalOutline"></ion-icon></ion-button>-->
         <!--        <ion-popover trigger="left-start" side="left" alignment="start">-->
         <!--          <ion-content class="ion-padding">Hello World!</ion-content>-->

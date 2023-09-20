@@ -3,13 +3,24 @@ import {onMounted, reactive, ref} from "vue";
 import Player from "xgplayer";
 import {
   IonAvatar,
-  IonContent, IonIcon,
-  IonPage, IonText,
+  IonContent,
+  IonIcon,
+  IonPage,
+  IonText,
   IonToolbar,
   IonButtons,
   IonBackButton,
   IonHeader,
-  IonButton, IonInput, IonModal, IonItem, IonSearchbar, IonImg, IonList, IonLabel, actionSheetController
+  IonButton,
+  IonInput,
+  IonModal,
+  IonItem,
+  IonSearchbar,
+  IonImg,
+  IonList,
+  IonLabel,
+  actionSheetController,
+  IonInfiniteScroll, IonInfiniteScrollContent
 } from "@ionic/vue";
 import {
   chatboxOutline,
@@ -20,8 +31,39 @@ import {
   thumbsUpOutline
 } from "ionicons/icons";
 import {useRoute} from "vue-router";
-import {getVideoJs} from "@/api/study";
+import {addJsLike, addJsPlLike, getVideoJs, getVideoJsPl} from "@/api/study";
+import * as url from "url";
 
+interface v {
+  id?: number,
+  title?: string,
+  likecount?: string,
+  coverimg?: string,
+  link?: string,
+  avatar?: string,
+  lll?: number,
+  createBy?: string,
+  createTime?: string
+}
+
+interface test {
+  url: string
+}
+
+interface comment {
+  "id": number,
+  "userid": number,
+  "lyid": number,
+  "studentname": string,
+  "avatar": string,
+  "message": string,
+  "img": string,
+  "likecount": number,
+  "createtime": string
+}
+
+const list = reactive<v[]>([])
+const commentDetailList = reactive<comment[]>([{}])
 const id = useRoute().params.id;
 const head = ref();
 const vs = ref();
@@ -31,18 +73,17 @@ const contentHeight = ref("height: 100vh;width: 100vw;");
 const wInnerHeight = ref<number>(0.0);
 const vsp = reactive<Player[]>([]);
 const scrollEvents = ref(true);
-const flag = ref(false);
+const flag = ref([false, false, false, false, false]);
 const isOpen = ref(false);
-const video = reactive([{
-  url: 'https://www.0030.store/f8df496ca33539a37c1a3420c2e69b94.MP4',
-}, {
-  url: 'https://www.0030.store/7d90f9affa69747b7672d68635c5b5c7.MP4',
-}
-  , {
-    url: 'https://www.0030.store/7d90f9affa69747b7672d68635c5b5c7.MP4',
-  }]);
+const video = reactive<test[]>([]);
+const createByList = ref(['', '', '', '', ''])
+const titleList = ref(['', '', '', '', ''])
+const imgList = ref(['', '', '', '', ''])
+const likecountList = ref([0, 0, 0, 0, 0])
+const commentList = ref([0, 0, 0, 0, 0])
 
-
+const index = ref(Number(id))
+const openIndex = ref(0)
 const height = ref(0.0);
 onMounted(() => {
   // const vsp = new Player({
@@ -57,8 +98,16 @@ onMounted(() => {
   //   height: '100%',
   //   width: '100%',
   // })
-  getVideoJs(id, Number(id) + 5).then((res) => {
+  getVideoJs(index.value, index.value + 5).then((res) => {
     for (let i = 0; i < res.data.data.length; i++) {
+      getVideoJsPl(res.data.data[i].id).then((res) => {
+        commentList.value[i] = res.data.data.length
+      })
+      list.push(res.data.data[i])
+      createByList.value[i] = res.data.data[i].createBy
+      titleList.value[i] = res.data.data[i].title
+      imgList.value[i] = res.data.data[i].avatar
+      likecountList.value[i] = res.data.data[i].likecount
       video.push({url: res.data.data[i].link})
       vsp.push(new Player({
         el: vs.value[vsp.length],
@@ -114,10 +163,41 @@ function onScroll(event: any) {
     vsp[num.value].play();
     scrollEvents.value = true;
   }, 300)
-  if (num.value==vs.value.length-3){
+  if (num.value == vs.value.length - 3) {
     console.log('该加载更多了')
   }
   // console.log(event);
+}
+
+// function ionInfinite() {
+//   getVideoJs(index.value, index.value + 5).then((res) => {
+//     for (let i = 0; i < res.data.data.length; i++) {
+//       list.push(res.data.data[i])
+//       index.value += 5
+//       video.push({url: res.data.data[i].link})
+//       vsp.push(new Player({
+//         el: vs.value[vsp.length],
+//         url: res.data.data[i].link,
+//         // height: 'calc(93% - 83px)',
+//         height: '88%',
+//         width: '100vw',
+//         mobile: {
+//           gestureY: false,
+//         },
+//       }))
+//     }
+//   })
+// }
+function openModal(num: any) {
+  openIndex.value = num
+  commentDetailList.splice(0, commentDetailList.length);
+  getVideoJsPl(list[num].id).then((res) => {
+    for (let i = 0; i < res.data.data.length; i++) {
+      commentDetailList.push(res.data.data[i])
+    }
+  })
+
+  isOpen.value = true
 }
 
 async function canDismiss() {
@@ -144,47 +224,55 @@ const modal = ref()
     </IonHeader>
     <ion-content style="background-color: black" ref="content" :fullscreen="true" :scroll-events="scrollEvents"
                  @ionScrollEnd="onScroll">
-      <div :style="contentHeight" v-for="i in video.length+1">
+      <div :style="contentHeight" v-for="i in 5">
         <div ref="vs"></div>
         <div style="height: 12%; background-color: #0d0d0d;color: #e7e7e7 ;display: flex;position:relative;">
-          <div style="position:absolute;top: -30px;color: white;left: 0;padding-left: 20px;font-size: 12px">文案文案文案文案文案文案文案</div>
+          <div style="position:absolute;top: -30px;color: white;left: 0;padding-left: 20px;font-size: 12px">
+            {{ titleList[i - 1] }}
+          </div>
           <div style="height: 100%;line-height: 10vh;margin:0 30px;width: 50%;">
             <ion-avatar style="width: 40px;height: 40px;display:inline-block;margin-right: 8px">
-              <img src="https://www.0030.store/favicon.png" style="vertical-align: middle;" alt="">
+              <img :src="imgList[i-1]" style="vertical-align: middle;" alt="">
             </ion-avatar>
-            <ion-text style="display: inline-block;font-size: 10px">技术大牛</ion-text>
+            <ion-text style="display: inline-block;font-size: 10px">{{ createByList[i] }}</ion-text>
           </div>
           <div style="width: 50%;line-height: 11vh;text-align: right;padding-right: 20px">
             <ion-icon style="vertical-align: text-bottom;margin-right: 8px;width: 1.5em;height: 1.5em;"
-                      :icon="flag?heart:heartOutline" :style="flag?'color:red':''" @click="flag=!flag"></ion-icon>
-            <ion-text style="display: inline-block;">{{ flag ? 256 + 1 : 256 }}</ion-text>
-            <ion-icon @click="isOpen=true"
+                      :icon="flag[i-1]?heart:heartOutline" :style="flag[i-1]?'color:red':''"
+                      @click="()=>{flag[i-1]=!flag[i-1];addJsLike(list[i-1].id)}"></ion-icon>
+            <ion-text style="display: inline-block;">
+              {{ flag[i - 1] ? Number(likecountList[i - 1]) + 1 : likecountList[i - 1] }}
+            </ion-text>
+            <ion-icon @click="openModal(i-1)"
                       style="vertical-align: text-bottom;margin-right: 8px;width: 1.5em;height: 1.5em;margin-left: 10px"
                       :icon="chatboxOutline"></ion-icon>
-            <ion-text @click="isOpen=true" style="display: inline-block;">10</ion-text>
+            <ion-text @click="openModal(i-1)" style="display: inline-block;">{{ commentList[i - 1] }}</ion-text>
           </div>
         </div>
       </div>
+      <!--      <ion-infinite-scroll @ionInfinite="ionInfinite">-->
+      <!--        <ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+      <!--      </ion-infinite-scroll>-->
     </ion-content>
     <ion-modal ref="modal" :is-open="isOpen" :showBackdrop="false" :can-dismiss="canDismiss" :initial-breakpoint="0.5"
                :breakpoints="[0, 0.5]">
       <ion-content class="ion-padding vice">
         <ion-text slot="fixed"
                   style="text-align: center;display: block;font-size: 15px;color: #484848;padding-top: 10px ;margin: 0 0 10px 0;top: 0;width: 100%;background-color: #FFFFFF">
-          评论&nbsp;{{ `10` }}
+          评论&nbsp;{{ commentList[openIndex] }}
         </ion-text>
         <ion-list style="margin-top: 20px;margin-bottom: 70%">
-          <ion-item lines="full" class="vice" style="--background: white" v-for="i in 10">
+          <ion-item lines="full" class="vice" style="--background: white" v-for="(item,i) in commentDetailList">
             <ion-avatar style="margin-top: 10px" slot="start">
-              <ion-img src="https://www.0030.store/test.jpg"></ion-img>
+              <ion-img :src="item.avatar"></ion-img>
             </ion-avatar>
             <div>
               <ion-label style="margin-top: 10px">
-                <h3>爱学习的小鱼</h3>
-                <p style="font-size: 11px">2022年5月23日</p>
+                <h3>{{ item.studentname }}</h3>
+                <p style="font-size: 11px">{{ item.createtime}}</p>
               </ion-label>
               <ion-text style="display: block;font-size: 13px;color: #4A4A4A;margin: 8px 0">
-                真的很喜欢这个老师介绍的东西，都是满满的干货！！
+                {{ item.message }}
               </ion-text>
             </div>
           </ion-item>

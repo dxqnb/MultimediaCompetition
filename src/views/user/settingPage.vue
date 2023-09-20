@@ -21,12 +21,13 @@ import {
 import {
   createOutline,
   ellipsisHorizontal, helpCircleOutline, helpCircleSharp,
-  lockClosedOutline,
+  lockClosedOutline, logOutOutline,
   navigateOutline, notificationsOutline,
   phonePortraitOutline,
-  readerOutline
+  readerOutline, removeCircleOutline
 } from 'ionicons/icons';
 import {reactive, ref} from "vue";
+import {NativeBiometric} from "capacitor-native-biometric";
 
 const chevronForwardOutline = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="30" d="M184 112l144 144-144 144" class="ionicon-fill-none"></path></svg>');
 const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14.494" height="16.47" viewBox="0 0 14.494 16.47">\n' +
@@ -39,6 +40,20 @@ const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
 const username = JSON.parse(localStorage.getItem('user') || '').studentname
 const studentNumber = JSON.parse(localStorage.getItem('user') || '').username
 const router = useIonRouter()
+const isRe = localStorage.getItem('isRegister')
+
+async function closed() {
+  localStorage.setItem('isRegister', 'false')
+  await NativeBiometric.deleteCredentials({server: 'www.dxxx.live'})
+  const toast = await toastController.create({
+    message: '关闭成功'
+  })
+  await toast.present().then(() => {
+    setTimeout(() => {
+      toast.dismiss()
+    }, 1000)
+  })
+}
 
 async function logout() {
   localStorage.setItem('isLogin', 'false')
@@ -133,8 +148,13 @@ async function logout() {
         </ion-item>
       </ion-item-group>
       <ion-item-group style="border-radius: 10px">
-        <ion-item lines="none" style="--border-radius: 10px" @click="logout()">
-          <ion-icon slot="start" style="margin: 14px;width: 20px;height: 20px;" :icon="helpCircleOutline"></ion-icon>
+        <ion-item lines="none" style="--border-radius: 10px 10px 0 0" @click="closed()" v-if="isRe=='true'">
+          <ion-icon slot="start" style="margin: 14px;width: 20px;height: 20px;" :icon="removeCircleOutline"></ion-icon>
+          <ion-label style="font-weight: bold;font-size: 15px">关闭生物识别登录</ion-label>
+          <ion-icon slot="end" style="margin: 16px;width: 20px;height: 20px;" :icon="chevronForwardOutline"></ion-icon>
+        </ion-item>
+        <ion-item lines="none" style="--border-radius: 0 0 10px 10px" @click="logout()">
+          <ion-icon slot="start" style="margin: 14px;width: 20px;height: 20px;" :icon="logOutOutline"></ion-icon>
           <ion-label style="font-weight: bold;font-size: 15px">退出登录</ion-label>
           <ion-icon slot="end" style="margin: 16px;width: 20px;height: 20px;" :icon="chevronForwardOutline"></ion-icon>
         </ion-item>

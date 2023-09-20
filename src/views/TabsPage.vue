@@ -40,7 +40,9 @@
           v-if="$route.path=='/tabs/team'||$route.path=='/tabs/user'||$route.path=='/tabs/study'||$route.path=='/tabs/tab1'||$route.path=='/tabs/home'">
         <div
             style="width: 65px;height: 65px;border-radius: 100%;background-color: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));margin-left: -50%;margin-top: 50%;">
-          <ion-icon @click="$router.push('/smartU')" :icon="main" style="width: 100%;height: 100%;"></ion-icon>
+          <ion-avatar @click="$router.push('/smartU')" style="width: 100%;height: 100%;">
+            <img src="@/img/main.png">
+          </ion-avatar>
         </div>
       </div>
     </ion-tabs>
@@ -48,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet} from '@ionic/vue';
+import {IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet,IonAvatar} from '@ionic/vue';
 import Robot from "@/components/robot.vue";
 import {onMounted, ref} from "vue";
 import LiteTabs from "@/components/liteTabs.vue";
@@ -148,7 +150,7 @@ const bar = ref();
 onMounted(() => {
   setTimeout(() => {
     height.value = 'z-index: 9999;position:absolute;bottom: ' + (bar.value.$el.offsetHeight - 10) + 'px;left: 50%;width: 65px;height: 65px'
-  }, 100)
+  }, 600)
 })
 </script>
 <!--<style scoped>-->

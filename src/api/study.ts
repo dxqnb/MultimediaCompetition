@@ -224,12 +224,12 @@ export function getTestZyTiList(taoid: any) {
     });
 }
 
-export function getKcNoteList(kcxjid: any) {
+export function addJsLike(id: any) {
     return service({
-        url: "v3/StudyNote/getKcNoteList",
-        method: "get",
+        url: "v3/VideoJs/addJsLike",
+        method: "post",
         params: {
-            kcxjid: kcxjid,
+            id: id,
         }
     });
 }
@@ -409,6 +409,24 @@ export function ctkczj(userid: any, taoid: any, tiid: any) {
             userid: userid,
             taoid: taoid,
             tiid: tiid
+        }
+    });
+}
+export function addJsPlLike(id: any) {
+    return service({
+        url: "v3/VideoJs/addJsPlLike",
+        method: "post",
+        params: {
+            id: id,
+        }
+    });
+}
+export function getVideoJsPl(lyid: any) {
+    return service({
+        url: "v3/VideoJs/getVideoJsPl",
+        method: "get",
+        params: {
+            lyid: lyid,
         }
     });
 }

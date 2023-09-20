@@ -31,67 +31,68 @@ import {onMounted, onUpdated, ref} from "vue";
 import {login} from "@/api/user";
 import {client, parsers, server, utils} from "@passwordless-id/webauthn";
 import {getPlatforms} from '@ionic/vue';
+import {BiometryType, NativeBiometric} from "capacitor-native-biometric";
 
 const num = ref('2021080406');
 const pw = ref('123456');
 const radio = ref('false');
 const router = useIonRouter()
-let origin = document.location.origin
-let registration: any = {
-  username: "Arnaud",
-  challenge: utils.randomChallenge,
-  options: {
-    authenticatorType: 'auto',
-    userVerification: 'required',
-    timeout: 60000,
-    attestation: false,
-  },
-  result: '',
-  parsed: ''
-}
-let authentication: any = {
-  credentialId: null,
-  challenge: utils.randomChallenge,
-  options: {
-    authenticatorType: 'auto',
-    userVerification: 'required',
-    timeout: 60000,
-  },
-  result: '',
-  parsed: ''
-}
-let verification: any = {
-  publicKey: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWyyMt1l16_1rzDP63Ayw9EFpn1VbSt4NSJ7BOsDzqed5Z3aTfQSvzPBPHb4uYQuuckOKRbdoH9S0fEnSvNxpRg==", // null,
-  //"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzXUir6UgELFeM9il6id2vgZ1sWbZTk4C5JLIiMpg7lywwTRdp0i+lPP9rEdzcmwKwRLh5QT8DlPFQuKrUc8eXb9r+RPq/CvVOxVCqdK6A9fg0PDnvA3k7c5Ax5V5n/HcSw/uXVAzwstxQsbV5pOk0JDtys7rKiPjdO+XH5TbANNJE7PsS5j90zHLKNQaSybgF8V0v4Oz4I9u7IjVQKEz2V56E4Qfj/D7g0PCu63M5mNz5bGsmUzg5XwSRIaG3J3kDTuyTTGjPYhTnYFyWYXuMu1ZQ7JCe5FUv9m4oj3jH33VQEW3sorea7UOBjnSsLWp8MyE08M4tlY2xgyFL59obQIDAQAB",
-  algorithm: "ES256",
-  authenticatorData: "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ==", // null,
-  //"SZYN5YgOjGh0NBcPZHZgW4/krrmihjLHmVzzuoMdl2MFAAAAAQ==",
-  clientData: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMjRkMjI0ZDMtMWQwZi00MzAxLTg3NTktMzk4ODcwNTg1ZTU1Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ==", // null,
-  //"eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiWmpreE5URTBZVGN0TkRKa015MDBOMlU0TFdFME1HTXRZVFEyTkdRNVlqTmpNVGN3Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo2MzM0MiIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
-  signature: "MEYCIQDgSy1brw1UVCT4kzaZIiiihNuC7KvV2vm3gO5f1CSscQIhAM6-MihKO2jnF_BHeEJMYZ7jN-kz9TuWqYwJJzm4fOcl", //null,
-  //"E/XchoqDlSOanozr0o03DN++EEz5qVymtgiaLbepoysxgdxAz/uH/34wt7/YrUs7ESaH/3ni3/0mk71WRc9SP9GMRNYqKSeZkwAM+ZHMc7e3OEpOETWIBCO+aOKmKPflB/nVzXocNUHnhW/aw5UAOhU43qjjy1X9+5+t+60C6RyGaDXTz6Mk6rmgX3z21M8pOFw8VAAtUojX6ab+Lh48SaMN1Z2BK8Exh//pFjveMVngx4yuYRm6Tu7irRvGZVe7Wnii6GNUz56kT2Q4Fc8hR28c3+qufKWuaHLJUnsw6GILQNxemDzirlKBhXFjz7Ht7tyGaqUwFZr9q+93j/95Ag==",
-  isValid: null
-}
+// let origin = document.location.origin
+// let registration: any = {
+//   username: "Arnaud",
+//   challenge: utils.randomChallenge,
+//   options: {
+//     authenticatorType: 'auto',
+//     userVerification: 'required',
+//     timeout: 60000,
+//     attestation: false,
+//   },
+//   result: '',
+//   parsed: ''
+// }
+// let authentication: any = {
+//   credentialId: null,
+//   challenge: utils.randomChallenge,
+//   options: {
+//     authenticatorType: 'auto',
+//     userVerification: 'required',
+//     timeout: 60000,
+//   },
+//   result: '',
+//   parsed: ''
+// }
+// let verification: any = {
+//   publicKey: "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWyyMt1l16_1rzDP63Ayw9EFpn1VbSt4NSJ7BOsDzqed5Z3aTfQSvzPBPHb4uYQuuckOKRbdoH9S0fEnSvNxpRg==", // null,
+//   //"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzXUir6UgELFeM9il6id2vgZ1sWbZTk4C5JLIiMpg7lywwTRdp0i+lPP9rEdzcmwKwRLh5QT8DlPFQuKrUc8eXb9r+RPq/CvVOxVCqdK6A9fg0PDnvA3k7c5Ax5V5n/HcSw/uXVAzwstxQsbV5pOk0JDtys7rKiPjdO+XH5TbANNJE7PsS5j90zHLKNQaSybgF8V0v4Oz4I9u7IjVQKEz2V56E4Qfj/D7g0PCu63M5mNz5bGsmUzg5XwSRIaG3J3kDTuyTTGjPYhTnYFyWYXuMu1ZQ7JCe5FUv9m4oj3jH33VQEW3sorea7UOBjnSsLWp8MyE08M4tlY2xgyFL59obQIDAQAB",
+//   algorithm: "ES256",
+//   authenticatorData: "SZYN5YgOjGh0NBcPZHZgW4_krrmihjLHmVzzuoMdl2MFAAAAAQ==", // null,
+//   //"SZYN5YgOjGh0NBcPZHZgW4/krrmihjLHmVzzuoMdl2MFAAAAAQ==",
+//   clientData: "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiMjRkMjI0ZDMtMWQwZi00MzAxLTg3NTktMzk4ODcwNTg1ZTU1Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ==", // null,
+//   //"eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiWmpreE5URTBZVGN0TkRKa015MDBOMlU0TFdFME1HTXRZVFEyTkdRNVlqTmpNVGN3Iiwib3JpZ2luIjoiaHR0cDovL2xvY2FsaG9zdDo2MzM0MiIsImNyb3NzT3JpZ2luIjpmYWxzZSwib3RoZXJfa2V5c19jYW5fYmVfYWRkZWRfaGVyZSI6ImRvIG5vdCBjb21wYXJlIGNsaWVudERhdGFKU09OIGFnYWluc3QgYSB0ZW1wbGF0ZS4gU2VlIGh0dHBzOi8vZ29vLmdsL3lhYlBleCJ9",
+//   signature: "MEYCIQDgSy1brw1UVCT4kzaZIiiihNuC7KvV2vm3gO5f1CSscQIhAM6-MihKO2jnF_BHeEJMYZ7jN-kz9TuWqYwJJzm4fOcl", //null,
+//   //"E/XchoqDlSOanozr0o03DN++EEz5qVymtgiaLbepoysxgdxAz/uH/34wt7/YrUs7ESaH/3ni3/0mk71WRc9SP9GMRNYqKSeZkwAM+ZHMc7e3OEpOETWIBCO+aOKmKPflB/nVzXocNUHnhW/aw5UAOhU43qjjy1X9+5+t+60C6RyGaDXTz6Mk6rmgX3z21M8pOFw8VAAtUojX6ab+Lh48SaMN1Z2BK8Exh//pFjveMVngx4yuYRm6Tu7irRvGZVe7Wnii6GNUz56kT2Q4Fc8hR28c3+qufKWuaHLJUnsw6GILQNxemDzirlKBhXFjz7Ht7tyGaqUwFZr9q+93j/95Ag==",
+//   isValid: null
+// }
 
-async function register() {
-  try {
-    let user = localStorage.getItem('user')
-    if (user == null) return;
-    let res = await client.register(JSON.parse(user).studentname, registration.challenge, registration.options)
-    console.log(res)
-
-    registration.result = res
-    registration.parsed = await server.verifyRegistration(res, {
-      challenge: registration.challenge,
-      origin: origin,
-    })
-    authentication.credentialId = res.credential.id
-    localStorage.setItem('register', JSON.stringify(res))
-  } catch (e) {
-    console.warn(e)
-    registration.result = {}
-  }
-}
+// async function register() {
+//   try {
+//     let user = localStorage.getItem('user')
+//     if (user == null) return;
+//     let res = await client.register(JSON.parse(user).studentname, registration.challenge, registration.options)
+//     console.log(res)
+//
+//     registration.result = res
+//     registration.parsed = await server.verifyRegistration(res, {
+//       challenge: registration.challenge,
+//       origin: origin,
+//     })
+//     authentication.credentialId = res.credential.id
+//     localStorage.setItem('register', JSON.stringify(res))
+//   } catch (e) {
+//     console.warn(e)
+//     registration.result = {}
+//   }
+// }
 
 function isLogin() {
   if (localStorage.getItem('user') == null) {
@@ -114,6 +115,26 @@ function isLogin() {
 //     })
 //   }
 // })
+async function performBiometricVerificatin() {
+  const result = await NativeBiometric.isAvailable();
+
+  if (!result.isAvailable) return;
+
+  const isFaceID = result.biometryType == BiometryType.FACE_ID;
+
+  const verified = await NativeBiometric.verifyIdentity({})
+      .then(() => {
+        console.log(1111)
+      })
+      .catch(() => false);
+  if (!verified) return;
+
+  const credentials = await NativeBiometric.getCredentials({
+    server: "www.example.com",
+  });
+  console.log(credentials)
+}
+
 onIonViewDidEnter(async () => {
   if (isLogin()) {
     const alert = await alertController.create({
@@ -184,16 +205,49 @@ async function doLogin() {
         await alert1.present()
         alert1.onDidDismiss().then(async (res) => {
           if (res.role == 'ok') {
-            register().then(async () => {
+            // register().then(async () => {
+            //   localStorage.setItem('isRegister', 'true')
+            //   await toast.present().then(() => {
+            //     setTimeout(() => {
+            //       toast.dismiss()
+            //     }, 1000)
+            //   })
+            //   router.push('/')
+            //   window.location.reload()
+            // })
+
+            const verified = await NativeBiometric.verifyIdentity({
+              reason: "为了方便登录",
+              title: "提示",
+              subtitle: "生物识别注册",
+              description: "是否继续",
+            })
+                .then(() => true)
+                .catch(() => false);
+
+            if (verified) {
               localStorage.setItem('isRegister', 'true')
+              NativeBiometric.setCredentials({
+                username: num.value,
+                password: pw.value,
+                server: "www.dxxx.live",
+              }).then();
               await toast.present().then(() => {
                 setTimeout(() => {
                   toast.dismiss()
                 }, 1000)
               })
               router.push('/')
-              window.location.reload()
-            })
+            } else {
+              const alert3 = await alertController.create({
+                header: '提示',
+                message: '注册生物识别错误',
+                buttons: ['好'],
+              })
+              await alert3.present()
+            }
+
+
           } else {
             await toast.present().then(() => {
               setTimeout(() => {

@@ -337,7 +337,7 @@ async function canDismiss() {
         },
       ],
     });
-    actionSheet.present();
+    await actionSheet.present();
     const {role} = await actionSheet.onWillDismiss();
     return role === 'confirm';
   }
@@ -422,7 +422,7 @@ function change(event: any) {
                 <ion-item lines="full" v-for="i in sectionItem"
                           @click="route.path.includes('zykc')?$router.push('/study/section/'+'zykc'+i.id):$router.push('/study/section/'+'kc'+i.id)">
                   <ion-note slot="start" mode="md">视频</ion-note>
-                  <ion-label>{{ i.xiaojie }}&nbsp;{{ i.stitile }}</ion-label>
+                  <ion-label>{{ i.xiaojie }}&nbsp;{{ i.title }}</ion-label>
                   <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
                 </ion-item>
               </ion-item-group>

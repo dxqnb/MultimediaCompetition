@@ -44,7 +44,6 @@ import {useRoute} from "vue-router";
 import {
   addKcNote,
   addZyKcNote, delKcNote, delZyKcNote,
-  getKcNoteList,
   getKcXj, getMyKcNoteList,
   getMyZyKcNoteList,
   getZyKcNoteList,

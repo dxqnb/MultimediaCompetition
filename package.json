@@ -41,6 +41,7 @@
     "@vercel/analytics": "^1.0.2",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "axios": "^1.4.0",
+    "capacitor-native-biometric": "^4.2.2",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-flashlight": "^3.2.0",
     "dayjs": "1.11.9",
