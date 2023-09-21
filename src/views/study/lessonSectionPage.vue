@@ -43,7 +43,7 @@ import {onMounted, reactive, ref} from "vue";
 import {useRoute} from "vue-router";
 import {
   addKcNote,
-  addZyKcNote, delKcNote, delZyKcNote,
+  addZyKcNote, delKcNote, delZyKcNote, getKcNoteList,
   getKcXj, getMyKcNoteList,
   getMyZyKcNoteList,
   getZyKcNoteList,
@@ -410,6 +410,8 @@ function delNotice(idN: number) {
       </div>
       <div v-if="segmentValue=='myNotice'">
         <ion-card-content style="padding: 0">
+          <ion-button id="open-modal" expand="block" style="--background: #5676F1;--color: white">发表笔记</ion-button>
+
           <ion-list style="margin-bottom: 50px">
             <ion-item lines="full" class="ion-text-wrap" v-for="i in myNoticeList">
               <div class="ion-padding-top ion-margin-top">
@@ -436,7 +438,7 @@ function delNotice(idN: number) {
           </ion-list>
         </ion-card-content>
       </div>
-      <ion-button slot="fixed" id="open-modal" expand="block" style="bottom: 0;right: 0;">发表笔记</ion-button>
+
       <ion-modal ref="modal" trigger="open-modal" :can-dismiss="canDismiss" :presenting-element="presentingElement">
         <ion-header class="ion-no-border">
           <ion-toolbar style="--background: #F7F8F9">

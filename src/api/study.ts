@@ -430,3 +430,12 @@ export function getVideoJsPl(lyid: any) {
         }
     });
 }
+export function getKcNoteList(kcxjid: any) {
+    return service({
+        url: "v3/StudyNote/getKcNoteList",
+        method: "get",
+        params: {
+            kcxjid: kcxjid,
+        }
+    });
+}
