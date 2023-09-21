@@ -18,33 +18,33 @@
           <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">{{ studentname }}</ion-text>
           <ion-text style="color: rgba(255,255,255,0.65);font-size: 10px;display: block">学号：{{ userid }}</ion-text>
         </div>
-        <ion-chip
-            style="margin: 25px;font-size: 10px;border-radius: 6px;--background: #B0957D;--color: #fff;vertical-align: top;height: auto;">
-          答题LV.1
-        </ion-chip>
+<!--        <ion-chip-->
+<!--            style="margin: 25px;font-size: 10px;border-radius: 6px;&#45;&#45;background: #B0957D;&#45;&#45;color: #fff;vertical-align: top;height: auto;">-->
+<!--          答题LV.1-->
+<!--        </ion-chip>-->
       </div>
       <div class="ion-padding" style="padding-bottom: 0">
         <div style="background-color: #262A3C;width: 100%;height: 70px;border-radius: 20px 20px 0 0;position:relative;">
           <div style="display: inline-block">
-            <ion-icon style="height: 20px;width: 45px;margin: 12px" :icon="vipIcon"></ion-icon>
+            <ion-icon style="height: 20px;width: 45px;margin: 16px 0 2px 20px" :icon="vipIcon"></ion-icon>
             <ion-text style="font-size: 10px;color:#FFFFFF;display: block;margin: 0 0 0 12px">开通VIP 获取更多优质服务
             </ion-text>
           </div>
           <ion-text
-              style="font-size: 12px;color:#FFFFFF;width: 94%;position:absolute;top: 30px;left: 0;text-align: right">
+              style="font-size: 12px;color:#FFFFFF;width: 94%;position:absolute;top: 30px;left: 0;text-align: right;font-weight: 800">
             立即参与
           </ion-text>
         </div>
       </div>
       <div class="ion-padding" style="background-color: #F5F8FF">
         <ion-card style="--background: #fff;margin: 0">
-          <ion-card-content style="display: flex">
+          <ion-card-content style="display: flex;padding: 16px 20px">
             <div style="border-right: 1px solid rgba(112,112,112,0.14);width: 50%;" @click="$router.push('/study/analyze')">
-              <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
+              <ion-avatar style="width: 48px;height: 48px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myStudy.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px" >
                 <div
-                    style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold">
+                    style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold;height: 15px;line-height: 15px;margin-bottom: 4px">
                   我的学习
                 </div>
                 <div style="font-size: 11px;color: rgba(51,51,51,0.4);margin-left: 6px">
@@ -53,11 +53,11 @@
               </div>
             </div>
             <div style="width: 50%;padding-left: 16px"  @click="$router.push('/team/myTeam')">
-              <ion-avatar style="width: 44px;height: 44px;--border-radius: 0;display: inline-block"><img
+              <ion-avatar style="width: 48px;height: 48px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myTeam.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px">
                 <div
-                    style="font-size: 15px;color: #333333;border-left: 2px solid #5EBAEE;padding-left: 3px;font-weight: bold">
+                    style="font-size: 15px;color: #333333;border-left: 2px solid #5EBAEE;padding-left: 3px;font-weight: bold;height: 15px;line-height: 15px;margin-bottom: 4px">
                   学友团
                 </div>
                 <div style="font-size: 11px;color: rgba(51,51,51,0.4);margin-left: 6px">
@@ -122,7 +122,7 @@
             </ion-item>
           </div>
           <div
-              style="width: 100%;height: 120px;background: repeating-linear-gradient(to bottom,#F2F6FF,#FFFFFF,#FFFFFF);overflow: hidden;border-radius: 8px;position: absolute;top: 45px;z-index: 100;display: flex;justify-content: space-evenly">
+              style="width: 100%;height: 120px;background: repeating-linear-gradient(to bottom,#F2F6FF,#FFFFFF,#FFFFFF);overflow: hidden;border-radius: 8px;position: absolute;top: 45px;z-index: 100;display: flex;justify-content: space-around">
             <ion-icon :icon="except" style="width: 100%;position: absolute;bottom: -6.5%;"></ion-icon>
             <ion-icon style="width: 88px;height: 88px;margin-top: 12px;display: inline-block" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="88" height="88" viewBox="0 0 88 88">
   <defs>
@@ -169,29 +169,29 @@
   </g>
 </svg>
 '></ion-icon>
-            <div style="display: inline-block;vertical-align: top;margin: 20px 0 0 0">
-              <div style="color: #AFAFAF;font-size: 15px;font-weight: 500;letter-spacing: 1px">
+            <div style="display: inline-block;vertical-align: top;margin: 16px 30px 0 0">
+              <div style="color: #AFAFAF;font-size: 16px;font-weight: 700;letter-spacing: 1px;text-align: center">
                 《{{ lessonName }}》/{{ TeacherName }}
               </div>
-              <div style="display: flex;justify-content: space-around;margin-top: 6px">
+              <div style="display: flex;justify-content: space-around;margin-top: 6px;width: 200px;">
                 <div>
-                  <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">
-                    2<span style="font-size: 15px">课</span></ion-text>
-                  <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
+                  <ion-text style="color: #52566B;font-size: 22px;display: block;font-weight: 900;letter-spacing: 2px">
+                    2<span style="font-size: 16px">课</span></ion-text>
+                  <ion-text style="color: #AFAFAF;font-size: 13px;display: block;text-align: center;margin-top: 3px">
                     已学
                   </ion-text>
                 </div>
                 <div>
-                  <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">
-                    2<span style="font-size: 15px">题</span></ion-text>
-                  <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
+                  <ion-text style="color: #52566B;font-size: 22px;display: block;font-weight: 900;letter-spacing: 2px">
+                    2<span style="font-size: 16px">题</span></ion-text>
+                  <ion-text style="color: #AFAFAF;font-size: 13px;display: block;text-align: center;margin-top: 3px">
                     测试
                   </ion-text>
                 </div>
                 <div>
-                  <ion-text style="color: #52566B;font-size: 21px;display: block;font-weight: 900;letter-spacing: 2px">1<span
-                      style="font-size: 15px">题</span></ion-text>
-                  <ion-text style="color: #AFAFAF;font-size: 12px;display: block;text-align: center;margin-top: 3px">
+                  <ion-text style="color: #52566B;font-size: 22px;display: block;font-weight: 900;letter-spacing: 2px">1<span
+                      style="font-size: 16px">题</span></ion-text>
+                  <ion-text style="color: #AFAFAF;font-size: 13px;display: block;text-align: center;margin-top: 3px">
                     实操
                   </ion-text>
                 </div>
@@ -226,7 +226,7 @@
             <div style="margin: 22px 0" @click="$router.push('/user/dormitory')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
                         icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34"><defs><linearGradient id="linear-gradient" x1="1" y1="0.901" x2="0.121" y2="0.127" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#a3a0ff"/><stop offset="1" stop-color="#48afff"/></linearGradient><linearGradient id="linear-gradient-2" x1="0.082" y1="0.074" x2="0.917" y2="0.928" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d9e9ff"/></linearGradient></defs><g id="组_1102" data-name="组 1102" transform="translate(-1854.015 -13896.015)"><g id="组_1100" data-name="组 1100" transform="translate(1854 13896)"><g id="组_1093" data-name="组 1093" transform="translate(0 0)"><rect id="矩形_428" data-name="矩形 428" width="34" height="34" rx="6" transform="translate(0.015 0.015)" fill="url(#linear-gradient)"/></g><g id="组_1101" data-name="组 1101" transform="translate(6.962 6.962)" style="isolation: isolate"><rect id="streamlinehq-chat-two-bubbles-square-_flat-14-ico_Pg7AOOxU8e5ACNER" data-name="streamlinehq-chat-two-bubbles-square-flat-14-ico_Pg7AOOxU8e5ACNER" width="20.105" height="20.105" fill="none" style="isolation: isolate"/></g></g><path id="联合_12" data-name="联合 12" d="M2.124,17.342a2.12,2.12,0,0,1-1.6-.732H.405v-.145A2.108,2.108,0,0,1,0,15.218V2.124A2.127,2.127,0,0,1,2.124,0H17.419a2.127,2.127,0,0,1,2.124,2.124V15.218a2.115,2.115,0,0,1-.5,1.371v.02h-.017a2.12,2.12,0,0,1-1.6.732Zm8.27-7.768,1.286.776V1.329H8.4v8.982l1.237-.688c0-.005.015-.025.044-.042a.692.692,0,0,1,.577-.059l.008-.015ZM1.329,2.228V5.735l5.68.009V1.329H2.228A.9.9,0,0,0,1.329,2.228ZM13.067,5.735l5.147.009V2.228a.9.9,0,0,0-.9-.9H13.067Z" transform="translate(1861.292 13904.103)" stroke="rgba(0,0,0,0)" stroke-width="1" fill="url(#linear-gradient-2)"/></g></svg>'></ion-icon>
-              <ion-text style="display: block;text-align: center;font-size: 13px">我的寝室</ion-text>
+              <ion-text style="display: block;text-align: center;font-size: 13px;margin-top: 4px">我的寝室</ion-text>
             </div>
             <div style="margin: 22px 0" @click="$router.push('/user/grade')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
@@ -249,7 +249,7 @@
   </g>
 </svg>
 '></ion-icon>
-              <ion-text style="display: block;text-align: center;font-size: 13px">成绩查询</ion-text>
+              <ion-text style="display: block;text-align: center;font-size: 13px;margin-top: 4px">成绩查询</ion-text>
             </div>
             <div style="margin: 22px 0" @click="$router.push('/user/RAPInformation')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
@@ -277,7 +277,7 @@
   </g>
 </svg>
 '></ion-icon>
-              <ion-text style="display: block;text-align: center;font-size: 13px">奖惩信息</ion-text>
+              <ion-text style="display: block;text-align: center;font-size: 13px;margin-top: 4px">奖惩信息</ion-text>
             </div>
             <div style="margin: 22px 0" @click="$router.push('/user/kaoQin')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
@@ -302,7 +302,7 @@
     </g>
   </g>
 </svg>'></ion-icon>
-              <ion-text style="display: block;text-align: center;font-size: 13px">考勤</ion-text>
+              <ion-text style="display: block;text-align: center;font-size: 13px;margin-top: 4px">考勤</ion-text>
             </div>
             <div style="margin: 22px 0" @click="$router.push('/user/qingJia')">
               <ion-icon style="width: 34px;height: 34px;display: block;margin: 0 auto;"
@@ -325,7 +325,7 @@
   </g>
 </svg>
 '></ion-icon>
-              <ion-text style="display: block;text-align: center;font-size: 13px">请假信息</ion-text>
+              <ion-text style="display: block;text-align: center;font-size: 13px;margin-top: 4px">请假信息</ion-text>
             </div>
           </ion-card-content>
         </ion-card>

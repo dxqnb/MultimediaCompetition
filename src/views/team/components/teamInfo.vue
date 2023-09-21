@@ -37,7 +37,7 @@ const actionSheetButtons = [
     },
   },
   {
-    text: 'Cancel',
+      text: '取消',
     role: 'cancel',
     data: {
       action: 'cancel',
@@ -199,7 +199,7 @@ async function dismiss(event: CustomEvent) {
       <ion-card-content style="padding: 16px;">
         <div style="">
         <span
-            style="height: 16px;width: 16px;background-color: #59ADFF;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+            style="height: 16px;width: 16px;background-color: #CBF6FF;display: inline-block;border-radius: 100%;border: solid 1px #A0C7DA;vertical-align: top;"></span>
           <div style="display: inline-block;margin-left: 10px">
             <ion-text style="font-size: 12px;color: #979797;display: block;">成立时间
             </ion-text>
@@ -214,7 +214,7 @@ async function dismiss(event: CustomEvent) {
         </div>
         <div style="margin: 10px 0">
         <span
-            style="height: 16px;width: 16px;background-color: #FF7600;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+            style="height: 16px;width: 16px;background-color: #a863ff;display: inline-block;border-radius: 100%;border: solid 1px #d334ff;vertical-align: top;"></span>
           <div style="display: inline-block;margin-left: 10px">
             <ion-text style="font-size: 12px;color: #979797;display: block;">结束时间
             </ion-text>
@@ -229,7 +229,7 @@ async function dismiss(event: CustomEvent) {
         </div>
         <div style="margin: 10px 0">
         <span
-            style="height: 16px;width: 16px;background-color: #9DFF89;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+            style="height: 16px;width: 16px;background-color: #FDFFBF;display: inline-block;border-radius: 100%;border: solid 1px #FFCE7C;vertical-align: top;"></span>
           <div style="display: inline-block;margin-left: 10px">
             <ion-text style="font-size: 12px;color: #979797;display: block;">人数上限
             </ion-text>
@@ -242,7 +242,7 @@ async function dismiss(event: CustomEvent) {
         </div>
         <div style="margin: 10px 0">
         <span
-            style="height: 16px;width: 16px;background-color: #FFCC00;display: inline-block;border-radius: 100%;border: solid 1px #707070;vertical-align: top;"></span>
+            style="height: 16px;width: 16px;background-color: #FFBFD2;display: inline-block;border-radius: 100%;border: solid 1px #FFAAAA;vertical-align: top;"></span>
           <div style="display: inline-block;margin-left: 10px">
             <ion-text style="font-size: 12px;color: #979797;display: block;">队员要求
             </ion-text>

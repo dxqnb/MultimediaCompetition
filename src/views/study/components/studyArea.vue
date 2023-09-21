@@ -68,7 +68,7 @@ async function change(event: any) {
       <div style="width: 50%;">
         <ion-text
             style="display: block;margin-left: 10px;width: 100%;position:relative;">
-          <h4 style="color: #474747;font-weight: bolder;">学习专区</h4>
+          <h4 style="color: #474747;font-weight: 900;">学习专区</h4>
           <div
               style="border: 10px solid #8997ef;;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
         </ion-text>
@@ -78,7 +78,7 @@ async function change(event: any) {
         <ion-icon :icon="ellipsisHorizontalOutline" style="vertical-align: middle;width: 24px;height: 24px;"></ion-icon>
       </ion-text>
     </div>
-    <div class="area">
+    <div class="area" style="margin-top: 10px">
       <ion-segment mode="ios" v-model="segmentValue" @ionChange="change">
         <ion-segment-button :value="deptid">
           <ion-label><span style="font-weight: 600;font-size: 12px">专业课程</span></ion-label>
@@ -165,7 +165,7 @@ ion-content::part(background) {
 }
 
 ion-segment {
-  --background: var(--ion-background-color);
+  --background: #fff;
   height: 36px;
 }
 
@@ -187,7 +187,7 @@ ion-segment-button {
 }
 
 ion-segment-button:nth-child(1) {
-  --background: #999999;
+  --background: #ffe0d6;
   border-radius: 0 15px 0 0;
   z-index: 4;
 }

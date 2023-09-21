@@ -157,7 +157,7 @@ onMounted(() => {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-text style="font-weight: 900;font-size: 20px">今日进度</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">今日进度</ion-text>
       <div style="">
         <ion-card style="margin: 10px 0;--background: white">
           <ion-card-content style="display: flex;justify-content: space-between;padding: 0">
@@ -217,7 +217,7 @@ onMounted(() => {
               <div style="width: 50%;display: inline-block">
                 <div
                     style="width: 16px;height: 16px;border: solid 1px #FFAAAA;background-color: #FFBFD2;border-radius: 100%;display: inline-block;margin-right: 10px;vertical-align: middle"></div>
-                <ion-text style="color: #A9A9A9;vertical-align: middle;font-size: 14px">视频学习时长</ion-text>
+                <ion-text style="color: #A9A9A9;vertical-align: middle;font-size: 14px;">视频学习时长</ion-text>
               </div>
               <div style="display: inline-block;font-size:14px;text-align: right;width: 50%;color: #A9A9A9;">
                 <ion-text style="color: #444444;font-weight: 600">40</ion-text>&nbsp;h
@@ -246,7 +246,7 @@ onMounted(() => {
           </ion-card-content>
         </ion-card>
       </div>
-      <ion-text style="font-weight: 900;font-size: 20px">视频学习时长</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">视频学习时长</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#FCEDE9, #F9F9F9);"
                 @click="$router.push('/study/learningTime/《java编程基础》')">
         <ion-card-content style="padding: 0 14px;">
@@ -297,7 +297,7 @@ onMounted(() => {
           </div>
         </ion-card-content>
       </ion-card>
-      <ion-text style="font-weight: 900;font-size: 20px">测试记录</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">测试记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9E9FC, #F9F9F9);">
         <ion-card-content style="display: flex;padding: 10px 15px;">
           <div style="margin: 10px 0;width: 70%;" @click="$router.push('/study/testRecording/《java编程基础》')">
@@ -333,7 +333,7 @@ onMounted(() => {
       </ion-card>
 
 
-      <ion-text style="font-weight: 900;font-size: 20px">实操记录</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">实操记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9FCF2, #F9F9F9);">
         <ion-card-content style="display: flex;padding: 10px 15px;">
           <div style="margin: 10px 0;width: 70%;">

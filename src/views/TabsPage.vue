@@ -26,7 +26,7 @@
         <ion-tab-button tab="tab3" href="/tabs/team">
           <ion-icon class="notSelected" aria-hidden="true" :icon="team"/>
           <ion-icon class="selected" aria-hidden="true" :icon="teamSelect"/>
-          <ion-label>学习圈</ion-label>
+          <ion-label>学友</ion-label>
         </ion-tab-button>
         <ion-tab-button tab="tab4" href="/tabs/user">
           <ion-icon class="notSelected" aria-hidden="true" :icon="user"/>

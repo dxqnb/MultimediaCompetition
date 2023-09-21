@@ -49,18 +49,17 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       </ion-chip>
       <div>
         <div style="display: flex;">
-          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg"
-                                                                         alt=""/></ion-thumbnail>
-          <div style="margin-left: 10px">
+          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg" alt=""/></ion-thumbnail>
+          <div style="margin-left: 20px">
             <ion-chip
                 style="font-size: 12px;--color: rgba(16,9,207,0.45);--background: rgba(44,0,255,0.1);padding-top: 0;padding-bottom: 0;margin: 0;">
               {{"@"+item.studentname }}
             </ion-chip>
-            <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{ item.tname }}
+            <ion-text style="display: block;color: black;font-weight: 900;margin-top: 13px">【英语打卡】{{ item.tname }}
             </ion-text>
             <ion-text
-                style="display: block;color: rgba(0,0,0,0.32);width: 90%;font-size: 12px;text-align: left;margin-top: 5px;font-weight: bold">
-              {{ item.createtime }}
+                style="display: block;color: rgba(0,0,0,0.32);width: 90%;font-size: 12px;text-align: left;margin-top: 5px;font-weight: 500">
+              {{ item.createtime.toString().split(' ')[0] }}
             </ion-text>
           </div>
         </div>
@@ -89,16 +88,16 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
         <div style="display: flex;">
           <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg"
                                                                          alt=""/></ion-thumbnail>
-          <div style="margin-left: 10px">
+          <div style="margin-left: 20px">
             <ion-chip
                 style="font-size: 12px;--color: rgba(16,9,207,0.45);--background: rgba(44,0,255,0.1);padding-top: 0;padding-bottom: 0;margin: 0;">
               {{"@"+ item.studentname }}
             </ion-chip>
-            <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{ item.tname }}
+            <ion-text style="display: block;color: black;font-weight: 900;margin-top: 13px">【英语打卡】{{ item.tname }}
             </ion-text>
             <ion-text
-                style="display: block;color: rgba(0,0,0,0.32);width: 90%;font-size: 12px;text-align: left;margin-top: 5px;font-weight: bold">
-              {{ item.createtime }}
+                style="display: block;color: rgba(0,0,0,0.32);width: 90%;font-size: 12px;text-align: left;margin-top: 5px;font-weight: 500">
+              {{ item.createtime.toString().split(' ')[0] }}
             </ion-text>
           </div>
         </div>

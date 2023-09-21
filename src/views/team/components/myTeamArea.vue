@@ -221,7 +221,7 @@ onMounted(() => {
   <div>
     <ion-text
         style="display: block;margin-left: 10px;width: 100%;position:relative;margin-top: 36px">
-      <h4 style="color: #474747;font-weight: bolder;">我的学友团</h4>
+      <h4 style="color: #474747;font-weight: 900;">我的学友团</h4>
       <div
           style="border: 10px solid #89C0EF;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
     </ion-text>
@@ -276,7 +276,7 @@ onMounted(() => {
           <div style="width: 100px;display: inline-block;margin: 0;">
             <ion-text style="white-space: nowrap;display: flex;">
               <p style="padding-right: 0.5em;margin: 0;font-size: 12px">{{ i.studentname }}</p>
-              <p style="color: #9A9A9A;font-size: 12px;margin: 0;">{{ `` }}</p>
+              <p style="color: #9A9A9A;font-size: 10px;margin: 0;">还需努力</p>
             </ion-text>
             <ion-range disabled style="padding: 0" :value="5"></ion-range>
           </div>
@@ -297,7 +297,7 @@ onMounted(() => {
         <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;">
           <ion-button mode="md" v-if="temp1!=undefined||temp2!=undefined"
                       @click="ionRouter.navigate('/team/teamDetail/'+segment,'forward','push')"
-                      style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;">
+                      style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;margin-bottom: 16px">
             更多
           </ion-button>
           <!--          <ion-button mode="md"-->

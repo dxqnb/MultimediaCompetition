@@ -214,7 +214,7 @@ onMounted(() => {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-text style="font-weight: 900;font-size: 20px">测试记录</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">测试记录</ion-text>
       <ion-card style="margin: 20px 0;--background: linear-gradient(to bottom,#E9E9FC, #F9F9F9);">
         <ion-card-content style="padding: 0 15px;">
           <div style="display: flex;margin: 10px 0;border-bottom: 1px solid #F4E5E0;padding-bottom: 20px">

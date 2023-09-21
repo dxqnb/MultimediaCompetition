@@ -335,8 +335,8 @@ function change(event: any) {
                             style="position:absolute;top: 14px;left: 10px;font-weight: 800">TOP.{{ i }}
                   </ion-text>
                   <ion-text
-                      style="color: #4B4B4B;font-size: 14px;position: absolute;top: 16px;left: 64px;font-weight: 600">
-                    【运动打卡】云端之上
+                      style="color: #4B4B4B;font-size: 13px;position: absolute;top: 16px;left: 64px;font-weight: 600">
+                    【英语打卡】彩云之上
                   </ion-text>
                   <ion-icon :icon="arrows"
                             style="height: 36px;width: 36px;position:absolute;top: 0;right: 0;"></ion-icon>
@@ -355,7 +355,7 @@ function change(event: any) {
                             :src="mainList[i-1].bgimg"
                             alt=""/></ion-thumbnail>
                         <div style="margin-left: 16px">
-                          <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">{{
+                          <ion-text style="display: block;color: black;font-weight: bold;margin-top: 13px">【备战英语】{{
                               mainList[i-1].tname
                             }}
                           </ion-text>

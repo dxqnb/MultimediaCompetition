@@ -156,7 +156,7 @@ function sentEvent() {
             </div>
             <div class="text">
               <div v-html="item.text"
-                   style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#FFFFFF;padding-left: 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
+                   style="display: inline-block;width: 80%;border-radius: 20px 0 20px 20px;background:#5D73FF;color: white;padding-left: 1.5em;margin-right: 1.5em;margin-top: 1em;position: relative;"
                    class="my">
               </div>
               <ion-avatar>
@@ -193,7 +193,8 @@ function sentEvent() {
 
 <style scoped lang="scss">
 ion-content::part(background) {
-  background: #F7F8F9
+  background: url("@/img/chatBackground.png");
+  background-size: cover;
 }
 
 .item {
@@ -248,8 +249,8 @@ ion-toolbar {
   right: -1em;
   width: 0;
   height: 0;
-  border-left: 0.5em solid #FFFFFF;
-  border-top: 0.5em solid #FFFFFF;
+  border-left: 0.5em solid #5D73FF;
+  border-top: 0.5em solid #5D73FF;
   border-right: 0.5em solid transparent;
   border-bottom: 0.5em solid transparent;
 }

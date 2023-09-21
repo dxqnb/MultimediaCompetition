@@ -104,7 +104,7 @@
 				<ion-row>
 					<ion-col size="4" v-for="(year, index) in years" :key="index" @click="goGradeDetail(year)">
 						<div style="background-color: #F3F5FE;height: 114px;border-radius: 10px;padding-top: 14px">
-							<ion-icon style="display: block;margin: 0 auto 8px auto;width: 35px;height: 35px;" :icon="documentOutline"></ion-icon>
+							<ion-icon style="display: block;margin: 0 auto 8px auto;width: 35px;height: 35px;color: #9F9F9F" :icon="documentOutline"></ion-icon>
 							<ion-text
 								style="text-align: center;color:#585858;font-size: 12px;display: block;margin: 5px 0">{{year}}学年</ion-text>
 							<ion-text

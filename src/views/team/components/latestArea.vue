@@ -68,7 +68,7 @@ function join(tid: any) {
   <div style="position:relative">
     <ion-text @click="$router.push('/study/lessons')"
               style="display: block;width: 100%;position:relative;margin: 36px 0 30px 10px">
-      <h4 style="color: #474747;font-weight: bolder;">{{ title }}</h4>
+      <h4 style="color: #474747;font-weight: 900;">热门学友团</h4>
       <div
           style="border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"
           :style="title=='最新'?'border:10px solid rgb(137, 192, 239)':'border: 10px solid #8eabfc;'"></div>
@@ -84,7 +84,7 @@ function join(tid: any) {
           <img :src="item.bgimg">
         </ion-avatar>
         <div
-            style="width: 238px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 6px;padding-top: 10px"
+            style="width: 290px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 6px;padding-top: 10px"
             class="ion-padding">
           <div style="display: flex;justify-content: space-between;margin-bottom: 10px">
             <ion-text style="font-weight: 600;font-size: 13px;display: block;margin-top: 8px">{{
@@ -96,8 +96,12 @@ function join(tid: any) {
               加入
             </ion-button>
           </div>
-          <ion-img style="border-radius: 10px;overflow:hidden;" @click="$router.push('/team/teamInfo/'+item.id)"
-                   :src="item.bgimg"></ion-img>
+          <div style="position: relative">
+            <ion-img style="border-radius: 10px;overflow:hidden;" @click="$router.push('/team/teamInfo/'+item.id)"
+                     :src="item.bgimg">
+            </ion-img>
+            <ion-text style="position: absolute;top: 20px;font-size: 14px;color: #FFFFFF;width: 90%;display: inline-block;left: 20px">{{ item.introduction }}</ion-text>
+          </div>
         </div>
       </swiper-slide>
     </swiper>
@@ -115,7 +119,7 @@ function join(tid: any) {
 .swiper-slide {
   text-align: left;
   font-size: 18px;
-  width: 290px;
+  width: 330px;
   align-items: start;
 }
 

@@ -18,8 +18,7 @@ const modules = [EffectFade]
 <template>
   <ion-page>
     <swiper
-        :spaceBetween="30"
-        :effect="'fade'"
+        :spaceBetween="-1"
         :modules="modules"
         class="mySwiper"
     >

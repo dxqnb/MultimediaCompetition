@@ -145,7 +145,7 @@ onMounted(() => {
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <ion-text style="font-weight: 900;font-size: 20px">视频学习记录</ion-text>
+      <ion-text style="font-weight: 900;font-size: 20px;color: #474747">视频学习记录</ion-text>
       <div
           style="font-size: 13px;font-weight: 500;color: #474747;border-left: 4px solid #5676F1;padding-left: 2px;margin-top: 18px">
         {{ id }}
@@ -172,7 +172,7 @@ onMounted(() => {
               总&nbsp;<ion-text style="color: #444444;font-weight: 600">120</ion-text>
             </div>
           </div>
-          <div style="width: 100%;height: 200px;margin: 30px 0" ref="bar">
+          <div style="width: 100%;height: 200px;margin: 16px 0" ref="bar">
 
           </div>
         </ion-card-content>

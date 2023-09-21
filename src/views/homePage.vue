@@ -74,7 +74,7 @@
           </ion-card>
         </ion-col>
       </ion-grid>
-      <ion-card style="--background: white;position:relative;box-shadow: rgba(0,0,0,0.06) 0 4px 8px;margin-top: 10px"
+      <ion-card style="--background: white;position:relative;box-shadow: rgba(0,0,0,0.06) 0 4px 8px;margin-top: 6px"
                 v-if="isLogin()">
         <ion-card-content style="padding: 20px 15px;">
           <ion-icon style="width: 76px;height: 75px;position:absolute;top: -30px;z-index: -1;" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="75.674" height="64.512" viewBox="0 0 75.674 64.512">
@@ -105,7 +105,7 @@
           <ion-grid style="flex-wrap: nowrap;display: flex;padding: 0;padding-top: 10px">
             <ion-col>
               <ion-card class="inner"
-                        style="--background: linear-gradient(to right bottom,#FFEFAD,#FFF7C4);height: 70px;"
+                        style="--background: linear-gradient(135.23deg, rgba(255, 239, 173, 1) 0%, rgba(250, 249, 242, 1) 100%);height: 70px;box-shadow: none;border: 2px solid #FFECB6"
                         @click="$router.push('/study/technology')">
                 <ion-card-content style="padding: 10px">
                   <div class="text">
@@ -118,18 +118,20 @@
                   </div>
                   <ion-icon
                       style="  vertical-align: bottom;position: absolute;  bottom: 10px;right: 12px;height: 32px;width: 32px;"
-                      aria-hidden="true" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="31.664" height="31.571" viewBox="0 0 31.664 31.571">
-  <g id="组_1551" data-name="组 1551" transform="translate(-192.032 -191.79)">
-    <path id="路径_620" data-name="路径 620" d="M222.437,198.751l-12.228-6.483a5.42,5.42,0,0,0-4.45,0l-12.4,6.339a2.816,2.816,0,0,0-1.331,2.2,2.929,2.929,0,0,0,1.082,2.363l11.854,6.147a5.826,5.826,0,0,0,3.161.528,4.766,4.766,0,0,0,2.7-.624l5.906-3.073v6.675a1.35,1.35,0,0,0,1.248,1.3q.851-.038.832-1.249l.166-7.78,3.951-2.209a2.071,2.071,0,0,0,.624-.961,2.656,2.656,0,0,0-1.122-3.169m-1.289,1.777q.5.443,0,.72l-3.868,2.017-8.235-3.073a1.237,1.237,0,0,0-1.456,0,1.555,1.555,0,0,0,0,1.681l6.78,2.641-4.867,2.834a4.429,4.429,0,0,1-3.327,0l-11.48-6.051q-.649-.236-.333-.577l11.646-6a4.086,4.086,0,0,1,3.66,0l11.48,5.811m-3.2,15.8a1.428,1.428,0,0,0-1.123.721v.961a6.912,6.912,0,0,1-3.327,2.065,22.143,22.143,0,0,1-9.883.346q-.777-.146-1.555-.346a4.757,4.757,0,0,1-3.161-2.113v-9.125a1.466,1.466,0,0,0-.915-1.1,1.034,1.034,0,0,0-1.123.721v9.461a4.946,4.946,0,0,0,1.913,3.17l2.413,1.2a14.442,14.442,0,0,0,5.074.912,13.924,13.924,0,0,0,6.405-.528,9.64,9.64,0,0,0,4.2-1.729,3.513,3.513,0,0,0,2.055-2.622,2.987,2.987,0,0,0-.224-1.316A.744.744,0,0,0,217.945,216.328Z" transform="translate(0 0)" fill="#ffffff"/>
-  </g>
-</svg>
-' size="large"/>
+                      aria-hidden="true" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="31.66412353515625" height="31.5712890625" viewBox="0 0 31.66412353515625 31.5712890625"
+    fill="none">
+    <g opacity="1" transform="translate(0.0006103515625 0)  rotate(0)">
+        <path id="路径 620" fill-rule="evenodd" style="fill:#FFDD8F" opacity="1"
+            d="M13.73,0.48c1.48,-0.64 2.96,-0.64 4.45,0l12.23,6.48c1.11,0.75 1.48,1.81 1.12,3.17c-0.08,0.32 -0.29,0.64 -0.63,0.96l-3.95,2.21l-0.16,7.78c0.01,0.81 -0.27,1.22 -0.84,1.25c-0.71,-0.09 -1.13,-0.52 -1.24,-1.3v-6.67l-5.91,3.07c-0.9,0.49 -1.8,0.7 -2.7,0.62c-1.16,0.12 -2.21,-0.06 -3.16,-0.52l-11.86,-6.15c-0.69,-0.55 -1.05,-1.33 -1.08,-2.36c-0.02,-0.77 0.43,-1.5 1.33,-2.2zM2.3258,8.9261c-0.21,0.23 -0.1,0.42 0.34,0.58l11.48,6.05c1,0.43 2.11,0.43 3.32,0l4.87,-2.83l-6.78,-2.64c-0.33,-0.63 -0.33,-1.19 0,-1.68c0.49,-0.32 0.97,-0.32 1.46,0l8.23,3.07l3.87,-2.02c0.14387,-0.07848 0.225,-0.16837 0.2434,-0.26966c0.02387,-0.13103 -0.05727,-0.28114 -0.2434,-0.45034l-11.48,-5.81c-1.37,-0.57 -2.59,-0.57 -3.66,0zM24.786,25.2587c0.28,-0.44 0.66,-0.68 1.13,-0.72c0.45,0.05 0.7,0.28 0.75,0.67c0.19,0.55 0.26,0.98 0.22,1.32c-0.15,1.09 -0.83,1.97 -2.05,2.62c-1.3,0.93 -2.7,1.5 -4.2,1.73c-2.25,0.69 -4.39,0.86 -6.41,0.53c-1.69,0.01 -3.38,-0.3 -5.07,-0.91l-2.42,-1.21c-1.01,-0.74 -1.65,-1.8 -1.91,-3.17v-9.46c0.27,-0.55 0.64,-0.79 1.12,-0.72c0.42,0.12 0.72,0.49 0.92,1.11v9.12c0.57,1.02 1.62,1.72 3.16,2.12c0.52,0.13 1.04,0.24 1.55,0.34c3.34,0.63 6.63,0.52 9.89,-0.34c1.47,-0.48 2.58,-1.17 3.32,-2.07z"></path>
+    </g>
+</svg>' size="large"/>
                 </ion-card-content>
               </ion-card>
             </ion-col>
             <ion-col>
               <ion-card class="inner"
-                        style="--background: linear-gradient(to right bottom,#A3F9DF,#E8FCD9);height: 70px;"
+                        style="--background: linear-gradient(137.1deg, rgba(206, 242, 231, 1) 0%, rgba(245, 245, 245, 1) 100%);height: 70px;box-shadow: none;border: 2px solid rgba(211, 240, 233, 1);"
                         @click="$router.push('/study/technology')">
                 <ion-card-content style="padding: 10px">
                   <div class="text">
@@ -143,7 +145,7 @@
                   <ion-icon
                       style="  vertical-align: bottom;position: absolute;  bottom: 10px;right: 12px;height: 32px;width: 32px;"
                       aria-hidden="true" icon='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="27.453" height="27.453" viewBox="0 0 27.453 27.453">
-  <path id="路径_622" data-name="路径 622" d="M77.155,91.467V80.033h8.478v1.934H79.463V84.5H85.2v1.927h-5.74V89.54h6.388v1.927Zm17.174,0H92.138V87.24A6.582,6.582,0,0,0,92,85.5a1.218,1.218,0,0,0-.457-.612,1.3,1.3,0,0,0-.761-.219,1.754,1.754,0,0,0-1.021.312,1.565,1.565,0,0,0-.62.827,7.149,7.149,0,0,0-.168,1.9v3.752H86.78V83.184h2.036V84.4a3.4,3.4,0,0,1,4.055-1.143,2.22,2.22,0,0,1,.908.667,2.4,2.4,0,0,1,.429.92,6.9,6.9,0,0,1,.121,1.474ZM74.995,74a1,1,0,0,0-1,1V96.458a1,1,0,0,0,1,1H96.458a1,1,0,0,0,1-1V74.995a1,1,0,0,0-1-1Zm0-2H96.458a3,3,0,0,1,2.995,2.995V96.458a3,3,0,0,1-2.995,2.995H74.995A3,3,0,0,1,72,96.458V74.995A3,3,0,0,1,74.995,72Z" transform="translate(-72 -72)" fill="#ffffff"/>
+  <path id="路径_622" data-name="路径 622" d="M77.155,91.467V80.033h8.478v1.934H79.463V84.5H85.2v1.927h-5.74V89.54h6.388v1.927Zm17.174,0H92.138V87.24A6.582,6.582,0,0,0,92,85.5a1.218,1.218,0,0,0-.457-.612,1.3,1.3,0,0,0-.761-.219,1.754,1.754,0,0,0-1.021.312,1.565,1.565,0,0,0-.62.827,7.149,7.149,0,0,0-.168,1.9v3.752H86.78V83.184h2.036V84.4a3.4,3.4,0,0,1,4.055-1.143,2.22,2.22,0,0,1,.908.667,2.4,2.4,0,0,1,.429.92,6.9,6.9,0,0,1,.121,1.474ZM74.995,74a1,1,0,0,0-1,1V96.458a1,1,0,0,0,1,1H96.458a1,1,0,0,0,1-1V74.995a1,1,0,0,0-1-1Zm0-2H96.458a3,3,0,0,1,2.995,2.995V96.458a3,3,0,0,1-2.995,2.995H74.995A3,3,0,0,1,72,96.458V74.995A3,3,0,0,1,74.995,72Z" transform="translate(-72 -72)" fill="#ACE6D4"/>
 </svg>
 ' size="large"/>
                 </ion-card-content>
@@ -156,7 +158,7 @@
         <div style="width: 50%;">
           <ion-text
               style="display: block;margin-left: 10px;width: 100%;position:relative;">
-            <h4 style="color: #474747;font-weight: bolder;">学友团排行榜</h4>
+            <h4 style="color: #474747;font-weight: 900;">学友团排行榜</h4>
             <div
                 style="border: 10px solid #8eabfc;border-radius: 10px;height: 20px;;width:20px;position:absolute;top: -5px;left: -4px;z-index: -1;"></div>
           </ion-text>

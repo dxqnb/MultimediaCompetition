@@ -21,7 +21,10 @@ import {
 import {ellipsisHorizontal, ellipsisVertical, ellipsisVerticalOutline} from 'ionicons/icons';
 import {reactive, ref} from "vue";
 
-const items = reactive([""]);
+interface lessonName{
+  name:string
+}
+const items = reactive<lessonName[]>([]);
 
 function handleRefresh(event: any) {
   setTimeout(() => {
@@ -30,15 +33,18 @@ function handleRefresh(event: any) {
   }, 1000);
 };
 
-for (let i = 1; i < 20; i++) {
-  items.push("Item " + i);
-}
-const star = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="15.867" height="15" viewBox="0 0 15.867 15">\n' +
-    '  <g id="组_456" data-name="组 456" transform="translate(1 1)" opacity="0.93" style="isolation: isolate">\n' +
-    '    <path id="Path" d="M9.076,4.279l4.791.69L10.4,8.3l.818,4.7L6.933,10.779,2.649,13l.818-4.7L0,4.969l4.791-.69L6.933,0Z" fill="#5676f1"/>\n' +
-    '    <path id="Path_-_轮廓" data-name="Path - 轮廓" d="M6.933-1a1,1,0,0,1,.894.552L9.736,3.363l4.273.616a1,1,0,0,1,.55,1.711L11.476,8.65l.727,4.178a1,1,0,0,1-1.445,1.059L6.933,11.905,3.109,13.888a1,1,0,0,1-1.445-1.059L2.39,8.65-.693,5.69A1,1,0,0,1-.952,4.663a1,1,0,0,1,.809-.684l4.273-.616L6.039-.448A1,1,0,0,1,6.933-1ZM11.7,5.667l-2.763-.4a1,1,0,0,1-.752-.542L6.933,2.234,5.685,4.726a1,1,0,0,1-.752.542l-2.763.4,1.989,1.91a1,1,0,0,1,.293.893L3.98,11.184,6.473,9.891a1,1,0,0,1,.92,0l2.493,1.293L9.415,8.469a1,1,0,0,1,.293-.893Z" fill="#fff"/>\n' +
-    '  </g>\n' +
-    '</svg>\n');
+  items.push({name:'java编程基础'});
+  items.push({name:'基础体育'});
+  items.push({name:'移动应用开发导论'});
+  items.push({name:'数学（专升本）'});
+  items.push({name:'英语（专升本）'});
+const star = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"\n' +
+    '    width="15.869873046875" height="15" viewBox="0 0 15.869873046875 15" fill="none">\n' +
+    '    <g opacity="0.93" transform="translate(0 0)  rotate(0)">\n' +
+    '        <path id="Path - 轮廓" fill-rule="evenodd" style="fill:#FFFFFF" opacity="1"\n' +
+    '            d="M7.93,0c0.38,0 0.73,0.21 0.9,0.55l1.91,3.81l4.27,0.62c0.38,0.05 0.69,0.32 0.81,0.68c0.12,0.37 0.02,0.77 -0.26,1.03l-3.08,2.96l0.72,4.18c0.07,0.37 -0.08,0.75 -0.39,0.98c-0.31,0.22 -0.71,0.25 -1.05,0.08l-3.83,-1.98l-3.82,1.98c-0.34,0.17 -0.75,0.14 -1.05,-0.08c-0.31,-0.23 -0.46,-0.61 -0.4,-0.98l0.73,-4.18l-3.08,-2.96c-0.28,-0.26 -0.38,-0.66 -0.26,-1.03c0.11,-0.36 0.43,-0.63 0.81,-0.68l4.27,-0.62l1.91,-3.81c0.17,-0.34 0.51,-0.55 0.89,-0.55zM9.1804,5.7234l-1.25,-2.49l-1.25,2.49c-0.14,0.3 -0.42,0.5 -0.75,0.54l-2.76,0.4l1.99,1.91c0.24,0.23 0.35,0.57 0.29,0.9l-0.47,2.71l2.49,-1.29c0.29,-0.15 0.63,-0.15 0.92,0l2.5,1.29l-0.48,-2.71c-0.05,-0.33 0.06,-0.67 0.3,-0.9l1.99,-1.91l-2.77,-0.4c-0.32,-0.04 -0.6,-0.24 -0.75,-0.54z"></path>\n' +
+    '    </g>\n' +
+    '</svg>');
 const bluePoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 559" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">\n' +
     '  <circle id="椭圆_33" data-name="椭圆 33" cx="7.5" cy="7.5" r="7.5" fill="#5676f1" opacity="0.22"/>\n' +
     '  <circle id="椭圆_32" data-name="椭圆 32" cx="3.5" cy="3.5" r="3.5" transform="translate(4 4)" fill="#5676f1"/>\n' +
@@ -66,11 +72,11 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
       </IonToolbar>
     </IonHeader>
     <ion-content :fullscreen="true" class="ion-padding">
-      <div v-for="i in 10">
+      <div v-for="(item,i) in items">
         <div
             style="width: 100%;border-radius: 10px;margin: 0 auto;height: 40px;" :style="i%3==1?'background: linear-gradient(to left,rgba(111,68,230,0.51), rgba(66,92,255,0.51));':i%3==2?'background: linear-gradient(to left,rgba(230,203,68,0.51), rgba(255,110,66,0.51));':'background: linear-gradient(to left,rgba(68,230,110,0.51), rgba(66,193,255,0.51));'">
-          <ion-icon style="line-height: 40px;padding: 0 10px" :icon="star"></ion-icon>
-          <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">java高级编程</ion-text>
+          <ion-icon style="line-height: 40px;padding: 0 10px;vertical-align: text-bottom" :icon="star"></ion-icon>
+          <ion-text style="line-height: 40px;font-weight: 600;font-size: 14px" color="light">{{ item.name }}</ion-text>
         </div>
         <ion-card style="margin: 10px 0 20px 0;--background: #ffffff;border-radius: 12px">
           <ion-card-content style="padding-top: 0 ;padding-bottom: 0">
@@ -83,7 +89,7 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                   </div>
                   <div style="margin-left: 10px">
                     <ion-text style="font-size: 40px;font-weight: 700">
-                      64
+                      {{ i==1?32:i==2?21:i==3?19:i==4?69:83 }}
                     </ion-text>
                     <ion-text style="font-weight: 600">
                       次
@@ -98,15 +104,15 @@ const redPoint = ref('data:image/svg+xml;utf8,<svg id="组_559" data-name="组 5
                   </div>
                   <div style="margin-left: 21px">
                     <ion-text style="font-size: 12px;color: #9F9F9F">
-                      16:59
+                      {{ i==1?'10:00':i==2?'8:30':i==3?'12:26':i==4?'16:10':'14:23' }}
                     </ion-text>
                   </div>
                   <div style="margin-left: 21px">
                     <ion-text style="font-size: 12px;font-weight: 400;color: #B5B5B5">
-                      关于宿舍区整体网络升级改造的公，...
+                      {{ i==1?'由于今天下雨，体育课暂停':i==2?'之后课程到5#211上课，请同学们...':i==3?'今天上课请同学们带好自己的电脑...':i==4?'今天上课请同学们带好自己的电脑...':'关于宿舍区整体网络升级改造的公，...' }}
                     </ion-text>
                   </div>
-                  <div style="color: #A0A0A0;font-size: 10px;width: 100%;text-align: right">信息中心</div>
+                  <div style="color: #A0A0A0;font-size: 10px;width: 100%;text-align: right">{{ i==1?'体育部':i==2?'信息中心':i==3?'公选课部':i==4?'公选课部':'信息中心' }}</div>
                   <ion-icon style="position: absolute;top: 4px;right: -10px;width: 20px;height: 20px;color: #E0E0E0" :icon="ellipsisVertical">111</ion-icon>
                 </ion-col>
               </ion-row>
