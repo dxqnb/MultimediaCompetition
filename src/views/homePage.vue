@@ -173,7 +173,7 @@
             style="width: 30%;height: 90px;background: linear-gradient(to bottom,#C5D9E9,#EFF3F6,#F1F4F8,#F3F5F9,#F5F6FA,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img :src="finalList[1].bgimg"></ion-img>
+              <ion-img :src="finalList[1].tavatar"></ion-img>
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #888888;margin: 4px 0">TOP.2
             </ion-text>
@@ -187,7 +187,7 @@
             style="width: 30%;height: 100px;background: linear-gradient(to bottom,#FFE066,#FFF2D2,#FCF4E1,#F9F6EE,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img :src="finalList[0].bgimg"></ion-img>
+              <ion-img :src="finalList[0].tavatar"></ion-img>
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #F19700;margin: 4px 0">TOP.1
             </ion-text>
@@ -201,7 +201,7 @@
             style="width: 30%;height: 80px;background: linear-gradient(to bottom,#F1DAB7,#F1EDE2,#F3F0EA,#F4F3F2,#F6F7FB);border-radius: 10px;position:relative;">
           <div style="width: 100%;text-align: center;position:absolute;top: -5px">
             <ion-avatar style="width: 37px;height: 37px;display: inline-block">
-              <ion-img :src="finalList[2].bgimg"></ion-img>
+              <ion-img :src="finalList[2].tavatar"></ion-img>
             </ion-avatar>
             <ion-text style="display: block;font-size: 14px;font-weight: 900;color: #B48445">TOP.3
             </ion-text>

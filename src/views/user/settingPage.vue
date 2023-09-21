@@ -39,6 +39,7 @@ const icon = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg
     '</svg>\n');
 const username = JSON.parse(localStorage.getItem('user') || '').studentname
 const studentNumber = JSON.parse(localStorage.getItem('user') || '').username
+const studentAvatar = JSON.parse(localStorage.getItem('user') || '').avatar
 const router = useIonRouter()
 const isRe = localStorage.getItem('isRegister')
 
@@ -91,7 +92,7 @@ async function logout() {
         </ion-item-divider>
         <ion-item lines="none" style="--border-radius: 0">
           <ion-avatar slot="start" style="margin: 14px;width: 52px;height: 52px;"><img
-              src="https://www.0030.store/favicon.png" alt=""></ion-avatar>
+              :src="studentAvatar" alt=""></ion-avatar>
           <div>
             <ion-label style="display: block;color: #14121E;font-weight: bolder">{{ username }}</ion-label>
             <ion-label style="display: block;color: #8492A2;font-size: 12px;font-weight: bold">{{

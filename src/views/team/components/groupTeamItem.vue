@@ -49,7 +49,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       </ion-chip>
       <div>
         <div style="display: flex;">
-          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg" alt=""/></ion-thumbnail>
+          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.tavatar" alt=""/></ion-thumbnail>
           <div style="margin-left: 20px">
             <ion-chip
                 style="font-size: 12px;--color: rgba(16,9,207,0.45);--background: rgba(44,0,255,0.1);padding-top: 0;padding-bottom: 0;margin: 0;">
@@ -86,7 +86,7 @@ const circle = ref('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/s
       </ion-chip>
       <div>
         <div style="display: flex;">
-          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.bgimg"
+          <ion-thumbnail style="--border-radius: 8px;--size: 104px"><img :src="item.tavatar"
                                                                          alt=""/></ion-thumbnail>
           <div style="margin-left: 20px">
             <ion-chip

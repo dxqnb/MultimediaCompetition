@@ -81,7 +81,7 @@ function join(tid: any) {
     >
       <swiper-slide v-for="item in mainList">
         <ion-avatar style="width: 30px;height: 30px;">
-          <img :src="item.bgimg">
+          <img :src="item.tavatar">
         </ion-avatar>
         <div
             style="width: 290px;border-radius: 10px;display: inline-block;background-color: white;vertical-align: top;margin-left: 6px;padding-top: 10px"
