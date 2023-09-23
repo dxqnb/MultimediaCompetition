@@ -9,7 +9,7 @@ import {
   IonRadio,
   IonAvatar,
   IonImg,
-  IonButton, IonCardContent, IonCard, toastController
+  IonButton, IonCardContent, IonCard, toastController, useIonRouter
 } from "@ionic/vue";
 import {reactive, ref} from "vue";
 import {Swiper, SwiperSlide,} from 'swiper/vue';
@@ -37,6 +37,7 @@ interface rankItem {
   createtime: string
 }
 
+const router = useIonRouter()
 const radio = ref('true')
 const mainList = reactive<rankItem[]>([])
 getAllFridenTeam().then((res) => {
@@ -60,6 +61,9 @@ function join(tid: any) {
         toast.dismiss()
       }, 1000)
     })
+    if (res.data.code == 0) {
+      router.navigate('/team/teamDetail/' + tid, 'root', 'replace')
+    }
   })
 }
 </script>
@@ -100,7 +104,10 @@ function join(tid: any) {
             <ion-img style="border-radius: 10px;overflow:hidden;" @click="$router.push('/team/teamInfo/'+item.id)"
                      :src="item.bgimg">
             </ion-img>
-            <ion-text style="position: absolute;top: 20px;font-size: 14px;color: #FFFFFF;width: 90%;display: inline-block;left: 20px">{{ item.introduction }}</ion-text>
+            <ion-text
+                style="position: absolute;top: 20px;font-size: 14px;color: #FFFFFF;width: 90%;display: inline-block;left: 20px;font-weight: 700">
+              {{ item.introduction }}
+            </ion-text>
           </div>
         </div>
       </swiper-slide>

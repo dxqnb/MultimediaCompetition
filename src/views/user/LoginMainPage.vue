@@ -9,7 +9,7 @@ import {
   IonPage,
   IonText,
   IonToolbar,
-  IonCardContent,
+  IonAvatar,
   IonCard,
   IonChip,
   IonRange,

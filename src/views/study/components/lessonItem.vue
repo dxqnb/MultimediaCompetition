@@ -6,12 +6,13 @@ import {
 } from "@ionic/vue";
 import {addKc, addZyKc, getZyKcDetailList} from "@/api/study";
 import {useRoute} from "vue-router";
+import {ref} from "vue";
 
 const route = useRoute();
 const router = useIonRouter();
-const props = defineProps(['item', 'index', 'type', 'disable']);
+const props = defineProps(['item', 'index', 'type', 'disable', 'id']);
 let user = localStorage.getItem('user')
-let kcid = route.path.includes('history') ? props.item.kcid : props.item.id
+let kcid = route.path.includes('history') ? props.item.kcid : props.id
 
 function addLesson() {
   if (user != null) {

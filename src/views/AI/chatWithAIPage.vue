@@ -179,7 +179,6 @@ const speak = async (value: string) => {
     rate: 1.0,
     pitch: 1.0,
     volume: 1.0,
-    voice: 156,
     category: 'ambient',
   });
 
@@ -206,7 +205,7 @@ function click() {
   } else {
     SpeechRecognition.removeAllListeners();
     SpeechRecognition.stop()
-    chats(dataChat.value).then(async (res) => {
+    chats(dataChat.value+',用20个字以内描述').then(async (res) => {
       console.log(res.data.result)
       dataChat.value = ''
       chatCallBack.value = res.data.result

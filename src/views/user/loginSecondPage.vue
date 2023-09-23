@@ -33,8 +33,8 @@ import {client, parsers, server, utils} from "@passwordless-id/webauthn";
 import {getPlatforms} from '@ionic/vue';
 import {BiometryType, NativeBiometric} from "capacitor-native-biometric";
 
-const num = ref('2021080406');
-const pw = ref('123456');
+const num = ref('');
+const pw = ref('');
 const radio = ref('false');
 const router = useIonRouter()
 // let origin = document.location.origin

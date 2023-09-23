@@ -194,7 +194,7 @@ async function tackOutTeam() {
             toast.dismiss()
           }, 1000)
         })
-        router.push('/tabs/team')
+        router.navigate('/tabs/team', 'root', 'replace')
       })
     }
   })
@@ -239,7 +239,7 @@ async function delTeam() {
             toast.dismiss()
           }, 1000)
         })
-        router.push('/tabs/team')
+        router.navigate('/tabs/team', 'root', 'replace')
       })
     }
   })
@@ -274,14 +274,15 @@ function smartSummary() {
 
   })
 }
-dbzj(userid,id).then(async (res)=>{
-    const alert = await alertController.create({
-      header: '智能任务检测提醒',
-      subHeader: '请注意',
-      message: res.data.result,
-      buttons: ['收到'],
-    });
-    await alert.present();
+
+dbzj(userid, id).then(async (res) => {
+  const alert = await alertController.create({
+    header: '智能任务检测提醒',
+    subHeader: '请注意',
+    message: res.data.result,
+    buttons: ['收到'],
+  });
+  await alert.present();
 })
 
 </script>

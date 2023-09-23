@@ -16,13 +16,13 @@ let user = localStorage.getItem('user')
 <template>
   <ion-item-sliding>
     <ion-item lines="full">
-      <ion-img slot="start" :src="item.bgimg"
+      <ion-img slot="start" :src="item.tavatar"
                style="height: 87px;width: 66px;margin-top: 12px;margin-bottom: 12px;border-radius: 10px;overflow: hidden;object-fit: cover;">
       </ion-img>
       <ion-label style="margin-top: 2px;margin-bottom: 0">
         <h3 style="font-weight: 600">{{ item.tname }}</h3>
         <p style="font-size: 10px;padding: 5px 0 5px 0">{{ item.introduction }}</p>
-        <p style="font-size: 10px;padding-top: 12px">标签:{{ item.attribute }}&nbsp;&nbsp;&nbsp;活跃度:{{ item.activity }}</p>
+        <p style="font-size: 10px;padding-top: 12px">队长:{{ item.studentname }}&nbsp;&nbsp;&nbsp;创建时间:{{ item.createtime.toString().split(' ')[0] }}</p>
       </ion-label>
       <div slot="end" style="display: flex;flex-direction: column">
         <ion-button style="--background-activated: #4352b6;--background: #5D73FF;--color: #ffffff" @click="$router.push('/team/teamDetail/'+item.id)">

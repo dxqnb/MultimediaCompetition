@@ -437,64 +437,66 @@ function delNotice(idN: number) {
             </ion-item>
           </ion-list>
         </ion-card-content>
-      </div>
-
-      <ion-modal ref="modal" trigger="open-modal" :can-dismiss="canDismiss" :presenting-element="presentingElement">
-        <ion-header class="ion-no-border">
-          <ion-toolbar style="--background: #F7F8F9">
-            <ion-title>发表笔记</ion-title>
-            <ion-buttons slot="start">
-              <ion-button @click="dismiss()">
-                <ion-icon style="color: black" :icon="closeOutline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding vice">
-          <div style="border-radius: 10px;background: #FFFFFF">
-            <ion-item style="--background: white;border-radius: 10px;padding: 20px 20px 0 20px">
-              <ion-input type="text" placeholder="起个标题吧" :clear-input="true" style=""></ion-input>
-            </ion-item>
-            <ion-text style="padding-left: 20px;padding-top: 10px;--color:#858585;color: #858585;display: inline-block">
-              <ion-icon :icon="cameraOutline" style="width: 26px;height: 26px;vertical-align: bottom;"></ion-icon>
-              截图
-            </ion-text>&nbsp;
-            <ion-text style="padding-left: 10px;padding-top: 10px;--color:#858585;color: #858585">
-              <ion-icon :icon="imagesOutline" style="width: 26px;height: 26px;vertical-align: bottom;"
-                        @click="takePicture()"></ion-icon>
-              上传图片
-            </ion-text>&nbsp;
-            <ion-textarea fill="solid" style="height: 400px;padding: 10px" v-model="textarea"></ion-textarea>
-            <div style="display: flex;justify-content: left">
-              <div style="margin: 4px;width: 30%;border-radius: 10px;position: relative;margin: 4px;width: 30%;"
-                   v-for="(item,i) in imageList">
-                <ion-img style="width: 100%;border-radius: 10px;overflow:hidden;"
-                         :src="item.base64"></ion-img>
-                <ion-icon style="position:absolute; top: -8px;left: -8px;color: #7B73FF" :icon="closeCircleOutline"
-                          @click="delPic(i)"></ion-icon>
+        <ion-modal ref="modal" trigger="open-modal" :can-dismiss="canDismiss" :presenting-element="presentingElement">
+          <ion-header class="ion-no-border">
+            <ion-toolbar style="--background: #F7F8F9">
+              <ion-title>发表笔记</ion-title>
+              <ion-buttons slot="start">
+                <ion-button @click="dismiss()">
+                  <ion-icon style="color: black" :icon="closeOutline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding vice">
+            <div style="border-radius: 10px;background: #FFFFFF">
+              <ion-item style="--background: white;border-radius: 10px;padding: 20px 20px 0 20px">
+                <ion-input type="text" placeholder="起个标题吧" :clear-input="true" style=""></ion-input>
+              </ion-item>
+              <ion-text
+                  style="padding-left: 20px;padding-top: 10px;--color:#858585;color: #858585;display: inline-block">
+                <ion-icon :icon="cameraOutline" style="width: 26px;height: 26px;vertical-align: bottom;"></ion-icon>
+                截图
+              </ion-text>&nbsp;
+              <ion-text style="padding-left: 10px;padding-top: 10px;--color:#858585;color: #858585">
+                <ion-icon :icon="imagesOutline" style="width: 26px;height: 26px;vertical-align: bottom;"
+                          @click="takePicture()"></ion-icon>
+                上传图片
+              </ion-text>&nbsp;
+              <ion-textarea fill="solid" style="height: 400px;padding: 10px" v-model="textarea"></ion-textarea>
+              <div style="display: flex;justify-content: left">
+                <div style="margin: 4px;width: 30%;border-radius: 10px;position: relative;margin: 4px;width: 30%;"
+                     v-for="(item,i) in imageList">
+                  <ion-img style="width: 100%;border-radius: 10px;overflow:hidden;"
+                           :src="item.base64"></ion-img>
+                  <ion-icon style="position:absolute; top: -8px;left: -8px;color: #7B73FF" :icon="closeCircleOutline"
+                            @click="delPic(i)"></ion-icon>
+                </div>
+              </div>
+              <div style="text-align: right">
+                <ion-radio-group v-model="radio">
+                  <ion-radio value="0" style="margin-right: 10px;font-size: 14px" mode="md"
+                             aria-label="Custom checkbox" label-placement="end">
+                    不分享
+                  </ion-radio>
+                  <ion-radio value="1" style="margin-right: 10px;font-size: 14px" mode="md"
+                             aria-label="Custom checkbox that is checked" label-placement="end">
+                    分享
+                  </ion-radio>
+                </ion-radio-group>
               </div>
             </div>
-            <div style="text-align: right">
-              <ion-radio-group v-model="radio">
-                <ion-radio value="0" style="margin-right: 10px;font-size: 14px" mode="md"
-                           aria-label="Custom checkbox" label-placement="end">
-                  不分享
-                </ion-radio>
-                <ion-radio value="1" style="margin-right: 10px;font-size: 14px" mode="md"
-                           aria-label="Custom checkbox that is checked" label-placement="end">
-                  分享
-                </ion-radio>
-              </ion-radio-group>
+            <div style="width: 100%;margin-top: 30px;">
+              <ion-button @click="post"
+                          style="width: 90%;margin: auto;--color: white;--background: #5B78EC;--background-activated: #475eb9"
+                          :expand="'block'" fill="solid">发布
+              </ion-button>
             </div>
-          </div>
-          <div style="width: 100%;margin-top: 30px;">
-            <ion-button @click="post"
-                        style="width: 90%;margin: auto;--color: white;--background: #5B78EC;--background-activated: #475eb9"
-                        :expand="'block'" fill="solid">发布
-            </ion-button>
-          </div>
-        </ion-content>
-      </ion-modal>
+          </ion-content>
+        </ion-modal>
+
+      </div>
+
     </ion-content>
 
   </ion-page>

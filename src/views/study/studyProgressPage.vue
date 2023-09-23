@@ -71,9 +71,9 @@ let testRecordOption: EChartsOption = {
         show: true
       },
       data: [
-        {value: 2, name: '未完成', itemStyle: {color: '#FFFFFF', borderColor: '#FFFFFF'}},
-        {value: 2, name: '正确', itemStyle: {color: '#8056F5', borderColor: '#8056F5'}},
-        {value: 1, name: '错误', itemStyle: {color: '#FFE600', borderColor: '#FFE600'}},
+        {value: 20, name: '未完成', itemStyle: {color: '#FFFFFF', borderColor: '#FFFFFF'}},
+        {value: 75, name: '正确', itemStyle: {color: '#8056F5', borderColor: '#8056F5'}},
+        {value: 26, name: '错误', itemStyle: {color: '#FFE600', borderColor: '#FFE600'}},
       ]
     }
   ]
@@ -303,13 +303,13 @@ onMounted(() => {
           <div style="margin: 10px 0;width: 70%;" @click="$router.push('/study/testRecording/《java编程基础》')">
             <ion-text
                 style="display: inline-block;font-size: 13px;text-align: left;color: #5C5CCF;font-weight: bold;margin-bottom: 48px">
-              {{ `你已完成3道测试练习，还剩2道` }}
+              {{ `你已完成101道测试练习，还剩20道` }}
             </ion-text>
             <div style="display: inline-block;text-align: left;width: 70%;color: #8A8ADD;font-size: 14px">
               当前正确率为&nbsp;
               <ion-text
                   style="color: #5669F5;display: inline-block;padding-right: 5px;font-weight: 600">
-                55%
+                91%
               </ion-text>
               <div style="display: inline-block;text-align: left;color: #8A8ADD;font-size: 14px">
                 继续保持哦~
@@ -319,11 +319,11 @@ onMounted(() => {
                 style="display: inline-block;font-size:11px;text-align: right;width: 30%;color: #8A8ADD;vertical-align: bottom">
               <div>
                 <span
-                    style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #8056F5"></span>&nbsp;正确&nbsp;65
+                    style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #8056F5"></span>&nbsp;正确&nbsp;75
               </div>
               <div>
                 <span
-                    style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #FFE600"></span>&nbsp;错误&nbsp;65
+                    style="display: inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #FFE600"></span>&nbsp;错误&nbsp;26
               </div>
             </div>
           </div>

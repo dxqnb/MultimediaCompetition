@@ -241,10 +241,10 @@ async function submit() {
           </p>
         </ion-text>
         <ion-img v-if="false" src="https://www.0030.store/swiperAd/ad1.png"></ion-img>
-        <div style="margin-top: 30px">
+        <div style="margin-top: 30px;display: flex">
           <ion-segment @ionChange="change1()" v-model="answerOption" mode="ios"
                        style="display: inline-block;background: #FFFFFF;width: 100px">
-            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 20px"
+            <ion-segment-button style="width: 36px;height: 36px;min-width: auto;margin: 14px 20px 20px 20px"
                                 value="A">
               <ion-label style=""><h6>A</h6></ion-label>
             </ion-segment-button>
@@ -262,16 +262,16 @@ async function submit() {
             </ion-segment-button>
           </ion-segment>
           <div style="display: inline-block;vertical-align: top">
-            <div style="height: 36px;margin: 20px;line-height: 36px">
+            <div style="height: 36px;margin: 20px;vertical-align: middle">
               {{ optionA[Number(num) - 1] }}
             </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
+            <div style="height: 36px;margin: 20px;">
               {{ optionB[Number(num) - 1] }}
             </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
+            <div style="height: 36px;margin: 20px;">
               {{ optionC[Number(num) - 1] }}
             </div>
-            <div style="height: 36px;margin: 20px;line-height: 36px">
+            <div style="height: 36px;margin: 20px;">
               {{ optionD[Number(num) - 1] }}
             </div>
 

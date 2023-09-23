@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<img src="test_level.png" alt="">
 <!--<input id="submit" type="button" value="提交"/>-->
 <!--<script>-->
 <!--    setTimeout(() => {-->
@@ -114,20 +115,20 @@
 </body>
 <script>
     cheerpjInit({enableInputMethods: true}).then(function () {
-        cheerpjAddStringFile("/str/mylevel.txt", `----------------------------------------------------------xxx---------------------------------------
---------------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxx--x--------------------------------------
---------------------------------xXXXXXXXXXXXXXXXXXXXXXXXXXX---x------------SSSSSSSSSSSSSSSSSSSSSSSSS
--------------------------------xxXXXXXXXXXXXXXXXXXXXXXXXXXX----x-------------[]-------SSSSSSSSSSSSSS
-------------------------------xx-XXXXXXXXXXXXXXXXXXXXXXXXXX-----x------------[]-------SSSSSSSSSSSSSS
-------------------------------xS-XXXXXXXXXXXXXXXXXXXXXXXXXX------x-----------[]-------SSSSSSSSSSSSSS
-------------------------------x--XXXXXXXXXXXXXXXXXXXXXXXXXX-------x----------<>---------------------
--xxx-------------------------xx--XXXXXXXXXXXXXXXXXXXXXXXXXX--------x-------------------------xxx----
-xx--xx----------------------xxS--XXXXXXXXXXXXXXXXXXXXXXXXXX---------x-----------------xxxxxxxx?-xxxx
-XX--X-x----------SSQS-------x----XXXXXXXXXXXXXXXXXXXXXXXXXX----------x---------------xx-SSSSSS??SSSS
-XX--XX-x---xxxx------------xx----XXXXXXXXXXXXXXXXXXXXXXXXXX-----------x-------------xx--SSSSS---SSSS
-XX--XXX-x-xx<>-x----------xx---E-XXXXXXXXXXXXXXXXXXXXXXXXXX------------x----xxx----xx---SSSSS---SSSS
-XX--XXXX-xx-[]--xxxxxxxxxxx------XXXXXXXXXXXXXXXXXXXXXXXXXX-----------X-xxxxx--xxxxx---------oooSSSS
-XX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXXXXXXXXXX--XXXXX---XXXXXXXXXXXXX`);
+        cheerpjAddStringFile("/str/mylevel.txt", `----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------xxxx--------------------------------------------------------------------------
+--------------xxxxx--xx---x----------------------------------------------------------------------xxx
+-------------xx----xxx-----xxxxx-------------------------------------------------------xxxx----xxx--
+------------xxX-----x-------x---x---------------------QQQ---E-E-E------------S--------xx---x--xxXS--
+-----------xxXX----XX------XX----x-------------------------<><><>--------------------xx-----xxxEX---
+---xx-----xxXXXXX-----------------x------------------------[][][]-------------------xx-------xXXX---
+--xx-x---xxXXXX--------------------xxxxx-------------------QQQQQQ--------------xxxxxx--------XXXXS--
+-xx---x-xxXXXXX---------------------xXX-xSSS------------------------------Q--xxx---<>-------XXXXX---
+xx-----xxXXXXXX---------------------XXX--x---------------------------xxxx---xx<>---[]------XXXXXX---
+x------XXXXXXXX-E------------------XXXX---x------------Exxx---------xx<>-x-xx-[]---[]-----XXXXXXX---
+X------XXXXXXXX<>-----------------XXXXX----xxxxxxxxxxxxxx--xxxxxxxxxx-[]--xx--[]---[]----XXXXXXXX---
+X------XXXXXXXX[]-----------------XXXXXXXXXXXXXXXXXXXXXXX--XXXXXXXXXXXXXX-XXX-XX--XXXXX-XXXXXXXXXXXX`);
     });
     cheerpjCreateDisplay(512, 500);
     cheerpjRunJar("/app/static/mario.jar")

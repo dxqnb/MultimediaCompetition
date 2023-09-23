@@ -59,14 +59,14 @@ async function closed() {
 async function logout() {
   localStorage.setItem('isLogin', 'false')
   const toast = await toastController.create({
-    message: '修改成功'
+    message: '退出成功'
   })
   await toast.present().then(() => {
     setTimeout(() => {
       toast.dismiss()
     }, 1000)
   })
-  router.push('/')
+  router.navigate('/','root','replace')
 }
 </script>
 

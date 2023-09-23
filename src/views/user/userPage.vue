@@ -18,10 +18,10 @@
           <ion-text style="color: #FFFFFF;font-size: 20px;font-weight: bold;display: block">{{ studentname }}</ion-text>
           <ion-text style="color: rgba(255,255,255,0.65);font-size: 10px;display: block">学号：{{ userid }}</ion-text>
         </div>
-<!--        <ion-chip-->
-<!--            style="margin: 25px;font-size: 10px;border-radius: 6px;&#45;&#45;background: #B0957D;&#45;&#45;color: #fff;vertical-align: top;height: auto;">-->
-<!--          答题LV.1-->
-<!--        </ion-chip>-->
+        <!--        <ion-chip-->
+        <!--            style="margin: 25px;font-size: 10px;border-radius: 6px;&#45;&#45;background: #B0957D;&#45;&#45;color: #fff;vertical-align: top;height: auto;">-->
+        <!--          答题LV.1-->
+        <!--        </ion-chip>-->
       </div>
       <div class="ion-padding" style="padding-bottom: 0">
         <div style="background-color: #262A3C;width: 100%;height: 70px;border-radius: 20px 20px 0 0;position:relative;">
@@ -39,10 +39,11 @@
       <div class="ion-padding" style="background-color: #F5F8FF">
         <ion-card style="--background: #fff;margin: 0">
           <ion-card-content style="display: flex;padding: 16px 20px">
-            <div style="border-right: 1px solid rgba(112,112,112,0.14);width: 50%;" @click="$router.push('/study/analyze')">
+            <div style="border-right: 1px solid rgba(112,112,112,0.14);width: 50%;"
+                 @click="$router.push('/study/analyze')">
               <ion-avatar style="width: 48px;height: 48px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myStudy.png"></ion-avatar>
-              <div style="display: inline-block;vertical-align: top;margin: 6px" >
+              <div style="display: inline-block;vertical-align: top;margin: 6px">
                 <div
                     style="font-size: 15px;color: #333333;border-left: 2px solid #6266EE;padding-left: 3px;font-weight: bold;height: 15px;line-height: 15px;margin-bottom: 4px">
                   我的学习
@@ -52,7 +53,7 @@
                 </div>
               </div>
             </div>
-            <div style="width: 50%;padding-left: 16px"  @click="$router.push('/team/myTeam')">
+            <div style="width: 50%;padding-left: 16px" @click="$router.push('/team/myTeam')">
               <ion-avatar style="width: 48px;height: 48px;--border-radius: 0;display: inline-block"><img
                   src="@/img/myTeam.png"></ion-avatar>
               <div style="display: inline-block;vertical-align: top;margin: 6px">
@@ -169,7 +170,7 @@
   </g>
 </svg>
 '></ion-icon>
-            <div style="display: inline-block;vertical-align: top;margin: 16px 30px 0 0">
+            <div style="display: inline-block;vertical-align: top;margin: 16px 0px 0 0">
               <div style="color: #AFAFAF;font-size: 16px;font-weight: 700;letter-spacing: 1px;text-align: center">
                 《{{ lessonName }}》/{{ TeacherName }}
               </div>
@@ -408,6 +409,10 @@ import {getKcRecords, getUserDetail, getZyRecords, upAvatar} from "@/api/user";
 import {Camera, CameraResultType} from "@capacitor/camera";
 
 const isOpen = ref(false)
+const userid = ref('');
+const studentname = ref('');
+const deptname = ref('');
+const avatar = ref('');
 const actionSheetButtons = [
   {
     text: '修改头像',
@@ -416,7 +421,7 @@ const actionSheetButtons = [
     },
   },
   {
-    text: 'Cancel',
+    text: '取消',
     role: 'cancel',
     data: {
       action: 'cancel',
@@ -934,13 +939,14 @@ interface banner {
   "link": string
 }
 
+
 const Banner = ref<banner[]>([])
 getBanner('3').then(res => {
   for (let datum of res.data.data) {
     Banner.value.push(datum)
   }
 })
-
+updata()
 function updata() {
   let data = localStorage.getItem('user') as string | null;
   if (data) { // 检查数据是否存在
@@ -965,14 +971,11 @@ function updata() {
   }
 }
 
-const userid = ref('');
-const studentname = ref('');
-const deptname = ref('');
-const avatar = ref('');
+
 onUpdated(() => {
   // getUserDetail(JSON.parse(user).id).then((res) => {
   //   localStorage.setItem('user', JSON.stringify(res.data.data[0]))
-  updata()
+
   // })
 })
 

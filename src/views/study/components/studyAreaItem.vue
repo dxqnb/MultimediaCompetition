@@ -6,7 +6,7 @@ const props = defineProps(['item', 'index','type']);
 </script>
 
 <template>
-  <ion-item lines="none" :href="'/study/lesson/'+item.id+'/'+type">
+  <ion-item lines="none" router-direction="forward" :href="'/study/lesson/'+item.id+'/'+type">
     <ion-avatar slot="start" style="height: 44px;width: 42px;">
       <img :src="item.img" alt="avatar"/>
     </ion-avatar>

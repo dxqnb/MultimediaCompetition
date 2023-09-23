@@ -37,7 +37,7 @@ interface item {
   createtime: string
 }
 
-const items = ref<item[]>([]);
+const items = reactive<item[]>([]);
 const isJoin = ref<boolean[]>([]);
 
 function handleRefresh(event: any) {
@@ -51,12 +51,18 @@ let user = localStorage.getItem('user') || ''
 const deptid = ref('999')
 if (user != null) {
   deptid.value = JSON.parse(user).deptid
+  items.splice(0, items.length);
   getZyKcDetailList(deptid.value).then((res) => {
-    items.value = res.data.data
+    for (let i = 0; i < res.data.data.length; i++) {
+      items.push(res.data.data[i])
+    }
     getMyZyKc(JSON.parse(user).username).then((r) => {
-      a:for (let i = 0; i < items.value.length; i++) {
+      a:for (let i = 0; i < items.length; i++) {
+        if (r.data.data.length == 0) {
+          isJoin.value.push(false);
+        }
         for (let j = 0; j < r.data.data.length; j++) {
-          if (items.value[i].id == r.data.data[j].zykcid) {
+          if (items[i].id == r.data.data[j].zykcid) {
             isJoin.value.push(true);
             continue a
           } else {
@@ -72,15 +78,20 @@ if (user != null) {
 const segmentValue = ref("")
 segmentValue.value = deptid.value
 onUpdated((() => {
-  console.log(1)
   isJoin.value = []
+  items.splice(0, items.length);
   if (segmentValue.value == '1' || segmentValue.value == '2' || segmentValue.value == '3') {
     getKcDetailList(segmentValue.value).then((res) => {
-      items.value = res.data.data
+      for (let i = 0; i < res.data.data.length; i++) {
+        items.push(res.data.data[i])
+      }
       getMyKc(JSON.parse(user).username).then((r) => {
-        a:for (let i = 0; i < items.value.length; i++) {
+        if (r.data.data.length == 0) {
+          isJoin.value.push(false);
+        }
+        a:for (let i = 0; i < items.length; i++) {
           for (let j = 0; j < r.data.data.length; j++) {
-            if (items.value[i].id == r.data.data[j].kcid) {
+            if (items[i].id == r.data.data[j].kcid) {
               isJoin.value.push(true);
               continue a
             } else {
@@ -94,11 +105,16 @@ onUpdated((() => {
     })
   } else {
     getZyKcDetailList(deptid.value).then((res) => {
-      items.value = res.data.data
+      for (let i = 0; i < res.data.data.length; i++) {
+        items.push(res.data.data[i])
+      }
       getMyZyKc(JSON.parse(user).username).then((r) => {
-        a:for (let i = 0; i < items.value.length; i++) {
+        a:for (let i = 0; i < items.length; i++) {
+          if (r.data.data.length == 0) {
+            isJoin.value.push(false);
+          }
           for (let j = 0; j < r.data.data.length; j++) {
-            if (items.value[i].id == r.data.data[j].zykcid) {
+            if (items[i].id == r.data.data[j].zykcid) {
               isJoin.value.push(true);
               continue a
             } else {
@@ -116,13 +132,19 @@ onUpdated((() => {
 function change(event: any) {
   console.log(event.detail.value)
   isJoin.value = []
+  items.splice(0, items.length);
   if (event.detail.value == '1' || event.detail.value == '2' || event.detail.value == '3') {
     getKcDetailList(event.detail.value).then((res) => {
-      items.value = res.data.data
+      for (let i = 0; i < res.data.data.length; i++) {
+        items.push(res.data.data[i])
+      }
       getMyKc(JSON.parse(user).username).then((r) => {
-        a:for (let i = 0; i < items.value.length; i++) {
+        a:for (let i = 0; i < items.length; i++) {
+          if (r.data.data.length == 0) {
+            isJoin.value.push(false);
+          }
           for (let j = 0; j < r.data.data.length; j++) {
-            if (items.value[i].id == r.data.data[j].kcid) {
+            if (items[i].id == r.data.data[j].kcid) {
               isJoin.value.push(true);
               continue a
             } else {
@@ -136,11 +158,16 @@ function change(event: any) {
     })
   } else {
     getZyKcDetailList(deptid.value).then((res) => {
-      items.value = res.data.data
+      for (let i = 0; i < res.data.data.length; i++) {
+        items.push(res.data.data[i])
+      }
       getMyZyKc(JSON.parse(user).username).then((r) => {
-        a:for (let i = 0; i < items.value.length; i++) {
+        a:for (let i = 0; i < items.length; i++) {
+          if (r.data.data.length == 0) {
+            isJoin.value.push(false);
+          }
           for (let j = 0; j < r.data.data.length; j++) {
-            if (items.value[i].id == r.data.data[j].zykcid) {
+            if (items[i].id == r.data.data[j].zykcid) {
               isJoin.value.push(true);
               continue a
             } else {
@@ -204,15 +231,16 @@ function addLesson() {
         </ion-segment-button>
       </ion-segment>
       <ion-content class="vice" style="height: 85vh;--padding-start: 10px;--padding-end: 10px">
-        <ion-list style="background: #FFFFFF;height: 100%;">
+        <ion-list style="background: #FFFFFF;min-height: 100%;">
           <ion-refresher slot="fixed" @ionRefresh="handleRefresh($event)">
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
           <ion-item-group class="ion-content-scroll-host">
             <lesson-item v-for="(item, index) in items" :disable="isJoin[index]" :item="item"
-                         :type="deptid==segmentValue?'zykc':'kc'"
+                         :type="deptid==segmentValue?'zykc':'kc'" :id="item.id"
                          :index="index"></lesson-item>
           </ion-item-group>
+          <div style="height: 50px"></div>
         </ion-list>
         <!--        <ion-infinite-scroll>-->
         <!--          <ion-infinite-scroll-content></ion-infinite-scroll-content>-->

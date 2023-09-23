@@ -423,14 +423,14 @@ function change(event: any) {
                           @click="route.path.includes('zykc')?$router.push('/study/section/'+'zykc'+i.id):$router.push('/study/section/'+'kc'+i.id)">
                   <ion-note slot="start" mode="md">视频</ion-note>
                   <ion-label>{{ i.xiaojie }}&nbsp;{{ i.title }}</ion-label>
-                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>
+<!--                  <ion-icon size="small" color="primary" :icon="checkmarkOutline" slot="end"></ion-icon>-->
                 </ion-item>
               </ion-item-group>
             </ion-list>
             <ion-list v-if="segmentValue=='test'" style="margin-bottom: 120px">
               <ion-item-group>
                 <ion-item lines="full" v-for="i in testItem"
-                          @click="route.path.includes('zykc')?$router.push('/study/test/'+'zykc'+i.id+'/'+i.tname):$router.push('/study/section/'+'kc'+i.id+'/'+i.tname)">
+                          @click="route.path.includes('zykc')?$router.push('/study/test/'+'zykc'+i.id+'/'+i.tname):$router.push('/study/test/'+'kc'+i.id+'/'+i.tname)">
                   <ion-note slot="start" mode="md">测试</ion-note>
                   <ion-label>{{ i.tname }}</ion-label>
                 </ion-item>
@@ -446,6 +446,7 @@ function change(event: any) {
                         v-model="average"
                         :hover="true"
                         half-increments
+                        :disabled="true"
                     >
                       <template v-slot:item="props:any">
                         <ion-icon color="primary" size="large" :icon=" props.isFilled ? star : starOutline "
@@ -465,13 +466,13 @@ function change(event: any) {
               <ion-card class="comment">
                 <ion-card-content style="padding: 0">
                   <ion-list>
-                    <ion-item lines="none" class="ion-text-wrap" v-for="item in commentItem">
-                      <div style="width: 70px;"></div>
+                    <ion-item lines="none" class="ion-text-wrap" v-for="(item,index) in commentItem">
+                      <div :style="index!=commentItem.length-1?'width: 100px;':'width: 50px'"></div>
                       <div class="ion-padding-top ion-margin-top">
                         <ion-avatar style="position: absolute;top: 30px;left: 0;width: 40px;height: 40px;">
                           <img :src="item.avatar" alt="">
                         </ion-avatar>
-                        <ion-text><h2>{{ item.studentname }}</h2></ion-text>
+                        <ion-text ><h2>{{ item.studentname }}</h2></ion-text>
                         <ion-text color="medium" style="font-size: 10px">{{ item.createtime }}</ion-text>
                         <v-rating
                             :disabled="true"

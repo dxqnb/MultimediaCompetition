@@ -16,6 +16,7 @@ import StudyAreaItem from "@/views/study/components/studyAreaItem.vue";
 import animation from "@/animations/customAnimation";
 import router from "@/router";
 import {getFridenTeamTaskfinshNo, getFridenTeamTaskfinshYes, getFridenTeamTaskList, getMyFridenTeam} from "@/api/team";
+import {no} from "vuetify/locale";
 
 interface team {
   tid: number,
@@ -55,6 +56,8 @@ interface final {
 
 }
 
+const noTeam = ref(false)
+
 function up() {
   finalItem.splice(0, finalItem.length);
   ffffffff.splice(0, ffffffff.length);
@@ -64,6 +67,7 @@ function up() {
       teamList.push(res.data.data[i])
     }
     if (res.data.data.length == 0) {
+      noTeam.value = true
       teamList.push({tid: 0, tname: '你还没加入任何一个学友团'})
       segment.value = res.data.data[0].tid
       return
@@ -236,8 +240,18 @@ onMounted(() => {
       </ion-segment>
       <div
           style="background-color: #FFFFFF;border-radius:0 0 10px 10px;padding-top: 1em;">
-        <div v-if="(temp1==undefined&&temp2==undefined)">
-          暂无任务
+        <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 10px;"
+             v-if="(temp1==undefined&&temp2==undefined)">
+          <ion-button mode="md" v-if="!noTeam"
+                      @click="ionRouter.navigate('/team/teamDetail/'+segment,'forward','push')"
+                      style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;margin-bottom: 16px">
+            进入学友团发布第一个任务
+          </ion-button>
+          <ion-button mode="md" v-if="noTeam"
+                      @click="ionRouter.navigate('/team/teamDetail/'+segment,'forward','push')"
+                      style="height: 22px;min-height: 22px;--background: #E0E0E0;color: #989898;--padding-top: 0.8em;--padding-bottom: 0.8em;font-size: 0.8em;margin-bottom: 16px">
+            您还没有学友团，点击去创建学友团
+          </ion-button>
         </div>
         <div style="width: 90%;margin: 0 auto;white-space: nowrap;position: relative" v-for="i in temp1">
           <ion-avatar

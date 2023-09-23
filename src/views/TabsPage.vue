@@ -41,7 +41,7 @@
         <div
             style="width: 65px;height: 65px;border-radius: 100%;background-color: var(--ion-tab-bar-background, var(--ion-color-step-50, #f7f7f7));margin-left: -50%;margin-top: 50%;">
           <ion-avatar @click="$router.push('/smartU')" style="width: 100%;height: 100%;">
-            <img src="@/img/main.png">
+            <img src="@/img/main.gif" alt="">
           </ion-avatar>
         </div>
       </div>
