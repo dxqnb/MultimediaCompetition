@@ -63,7 +63,7 @@ interface comment {
 }
 
 const list = reactive<v[]>([])
-const commentDetailList = reactive<comment[]>([{}])
+const commentDetailList = reactive<comment[]>([])
 const id = useRoute().params.id;
 const head = ref();
 const vs = ref();
